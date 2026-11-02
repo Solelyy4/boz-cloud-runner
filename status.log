@@ -61,4 +61,5 @@ ERROR hermes_plugins.telegram_platform.adapter: [Telegram] Telegram polling coul
 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-mula-cubaan-2 2026-11-02T15:45:43Z
+canary tick=3 {"ok":true,"result":[]}
+canary tick=6 {"ok":true,"result":[]}
