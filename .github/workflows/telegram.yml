@@ -2,7 +2,7 @@ name: telegram-hermes
 
 on:
   schedule:
-    - cron: "7 * * * *"
+    - cron: "13 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -15,7 +15,7 @@ concurrency:
 jobs:
   jalankan:
     runs-on: ubuntu-latest
-    timeout-minutes: 355
+    timeout-minutes: 1440
     steps:
       - uses: actions/checkout@v4
 
@@ -53,11 +53,12 @@ jobs:
           sed -i 's/^ *//' home/.env
 
       - name: Jalankan gateway + lapor status
-        timeout-minutes: 330
+        timeout-minutes: 1450
         continue-on-error: true
         run: |
           export HERMES_HOME="$PWD/home"
           export HERMES_NO_UPDATE_CHECK=1
+          export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
           lapor() {
             cp gw.log status.log 2>/dev/null || true
             echo "$1 $(date -u +%FT%TZ)" >> status.log
@@ -89,7 +90,19 @@ jobs:
                 pkill -9 -f "hermes gateway" 2>/dev/null || true
                 break
               fi
-              if [ $((tick % 10)) -eq 0 ]; then lapor "denyut"; fi
+              # canary: pastikan bot benar-benar mendengar (getUpdates 409 = poller lain rebut token)
+              if [ $((tick % 3)) -eq 0 ]; then
+                set +e
+                C=$(curl -s -m 25 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?offset=-1&limit=1&timeout=0")
+                set -e
+                echo "canary tick=$tick $(echo "$C" | head -c 160)" >> gw.log
+                if echo "$C" | grep -q '"error_code":409'; then
+                  echo "KONFLIK 409 dikesan, mula semula" >> gw.log
+                  pkill -9 -f "hermes gateway" 2>/dev/null || true
+                  break
+                fi
+              fi
+              if [ $((tick % 15)) -eq 0 ]; then lapor "denyut"; fi
             done
             wait $PID 2>/dev/null || true
             lapor "gateway-berhenti-cubaan-$cubaan"
