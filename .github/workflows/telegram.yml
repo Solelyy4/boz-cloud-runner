@@ -62,6 +62,7 @@ jobs:
             cp gw.log status.log 2>/dev/null || true
             echo "$1 $(date -u +%FT%TZ)" >> status.log
             git add status.log && git -c user.email=bot@local -c user.name=bot commit -qm "status $1 $(date -u +%FT%TZ)" || true
+            git pull --rebase -q -X ours 2>/dev/null || true
             git push || true
           }
           for cubaan in 1 2 3 4 5 6 7 8; do
