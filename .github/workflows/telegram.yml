@@ -2,8 +2,11 @@ name: telegram-hermes
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "7 */6 * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 concurrency:
   group: telegram-hermes
@@ -40,13 +43,32 @@ jobs:
           EOF
           sed -i 's/^ *//' home/.env
 
-      - name: Jalankan gateway Telegram
+      - name: Jalankan gateway + lapor status
         timeout-minutes: 330
         continue-on-error: true
         run: |
           export HERMES_HOME="$PWD/home"
           export HERMES_NO_UPDATE_CHECK=1
-          hermes gateway run 2>&1 | tee -a gateway.log
+          hermes gateway run > gw.log 2>&1 &
+          PID=$!
+          for i in $(seq 1 36); do
+            sleep 5
+            if grep -qiE "telegram" gw.log; then break; fi
+            kill -0 $PID 2>/dev/null || break
+          done
+          tail -60 gw.log
+          cp gw.log status.log
+          git add status.log && git -c user.email=bot@local -c user.name=bot commit -qm "status awal" || true
+          git push || true
+          wait $PID || true
+          tail -60 gw.log
+
+      - name: Hantar log akhir ke repo
+        if: always()
+        run: |
+          cp gw.log status.log 2>/dev/null || echo "tiada gw.log" > status.log
+          git add status.log && git -c user.email=bot@local -c user.name=bot commit -qm "status akhir $(date -u +%FT%TZ)" || true
+          git push || true
 
       - name: Simpan state ke repo peribadi
         if: always()
@@ -58,7 +80,3 @@ jobs:
           git add -A
           git commit -m "state $(date -u +%FT%TZ)" || echo "tiada perubahan"
           git push origin HEAD:master || echo "push gagal"
-
-      - name: Log akhir
-        if: always()
-        run: tail -40 gateway.log || true
