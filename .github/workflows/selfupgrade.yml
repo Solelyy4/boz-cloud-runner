@@ -1,0 +1,49 @@
+name: selfupgrade
+
+# Self-upgrade mingguan: bot audit rendaman skill sendiri, tambah domain baharu ke senarai
+# autolearn, dan pastikan config/SOUL/AGENTS sihat. Push ke home repo.
+# Berjalan Ahad 03:07 UTC (11:07 WIB).
+
+on:
+  schedule:
+    - cron: "7 3 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: selfupgrade
+  cancel-in-progress: false
+
+jobs:
+  naik-taraf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Ambil home Hermes
+        run: |
+          git clone --depth 1 "https://x-access-token:${{ secrets.BOZ_PAT }}@github.com/Solelyy4/boz-hermes-home.git" home
+          cd home
+          git config user.email bot@local
+          git config user.name boz-bot
+
+      - name: Audit + naik taraf
+        run: |
+          export HERMES_HOME="$PWD/home"
+          python "$PWD/scripts_selfupgrade.py"
+
+      - name: Commit & push
+        run: |
+          cd home
+          rm -f .env
+          git add -A
+          git commit -m "selfupgrade $(date -u +%FT%TZ)" || echo "tiada perubahan"
+          git pull --rebase -X ours || true
+          git push origin HEAD:master || echo "push gagal"
