@@ -52,15 +52,6 @@ jobs:
           EOF
           sed -i 's/^ *//' home/.env
 
-      - name: Bersihkan sesi Telegram lama (elak 409)
-        continue-on-error: true
-        run: |
-          # Tutup long-poll yang tergantung pada server Telegram sebelum kita mula.
-          # Inilah yang memusnahkan run sebelum ini: sisa poller lama masih memegang getUpdates.
-          curl -s -m 20 "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/deleteWebhook?drop_pending_updates=false" || true
-          echo "--- tunggu sisa long-poll lama tamat ---"
-          sleep 45
-
       - name: Jalankan gateway (kukuh terhadap 409)
         timeout-minutes: 1450
         continue-on-error: true
@@ -68,7 +59,7 @@ jobs:
           export HERMES_HOME="$PWD/home"
           export HERMES_NO_UPDATE_CHECK=1
           export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
-          TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
+
           lapor() {
             tail -n 400 gw.log > status.log 2>/dev/null || true
             echo "$1 $(date -u +%FT%TZ)" >> status.log
@@ -76,24 +67,16 @@ jobs:
             git pull --rebase -q -X ours 2>/dev/null || true
             git push || true
           }
-          # pulihkan konflik dengan menunggu sisa poll tamat, bukan retry buta
-          bersih_poll() {
-            for i in 1 2 3 4 5 6 7 8 9 10; do
-              C=$(curl -s -m 25 "https://api.telegram.org/bot${TOKEN}/getUpdates?offset=-1&limit=1&timeout=0")
-              if echo "$C" | grep -q '"error_code":409'; then
-                echo "409 masih ada (cubaan $i) - tunggu 30s"; sleep 30
-              else
-                echo "Tiada 409 - Telegram bersih"; return 0
-              fi
-            done
-            echo "409 kekal selepas 10 cubaan - teruskan"; return 0
-          }
+
+          # PENTING: jangan sesekali panggil getUpdates dari luar.
+          # Adapter Hermes SENDIRI yang memegang long-poll; sebarang getUpdates lain
+          # (canary, probe, deleteWebhook semasa poll) akan memicu 409 dan mematikan bot.
+          # Satu-satunya proses yang dibenarkan menyentuh Telegram API ialah gateway.
+
           for cubaan in 1 2 3 4 5 6 7 8; do
             MARK=$(wc -l < gw.log 2>/dev/null || echo 0)
-            # bunuh sisa gateway lama (anak proses boleh hidup walaupun induk mati -> rebutan getUpdates)
             pkill -9 -f "hermes gateway" 2>/dev/null || true
-            sleep 5
-            bersih_poll
+            sleep 8
             hermes gateway run >> gw.log 2>&1 &
             PID=$!
             for i in $(seq 1 36); do
@@ -103,34 +86,21 @@ jobs:
             done
             tail -20 gw.log
             lapor "mula-cubaan-$cubaan"
+
             tick=0
             while kill -0 $PID 2>/dev/null; do
               sleep 60
               tick=$((tick+1))
-              # gateway boleh kekal hidup walaupun Telegram mati (fatal adapter) -> paksa mula semula
+              # fail log sahaja — tiada panggilan Telegram API dari sini
               if tail -n +$((MARK+1)) gw.log | grep -q "Fatal telegram adapter error"; then
-                echo "fatal dikesan, mula semula"
-                pkill -9 -f "hermes gateway" 2>/dev/null || true
-                break
+                echo "fatal dikesan, mula semula"; pkill -9 -f "hermes gateway" 2>/dev/null || true; break
               fi
-              # canary setiap 5 min (bukan 3) supaya tak tambah beban; rehat eksponen bila konflik
-              if [ $((tick % 5)) -eq 0 ]; then
-                set +e
-                C=$(curl -s -m 25 "https://api.telegram.org/bot${TOKEN}/getUpdates?offset=-1&limit=1&timeout=0")
-                set -e
-                echo "canary tick=$tick $(echo "$C" | head -c 140)" >> gw.log
-                if echo "$C" | grep -q '"error_code":409'; then
-                  echo "KONFLIK 409 dikesan, rehat ${cubaan}x60s" >> gw.log
-                  pkill -9 -f "hermes gateway" 2>/dev/null || true
-                  sleep $((cubaan * 60))
-                  break
-                fi
-              fi
-              if [ $((tick % 15)) -eq 0 ]; then lapor "denyut"; fi
+              if [ $((tick % 15)) -eq 0 ]; then lapor "denyut tick=$tick"; fi
             done
             wait $PID 2>/dev/null || true
             lapor "gateway-berhenti-cubaan-$cubaan"
-            sleep 30
+            # rehat eksponen antara cubaan supaya sesi lama di Telegram tamat sepenuhnya
+            sleep $((cubaan * 30))
           done
           tail -60 gw.log
 
