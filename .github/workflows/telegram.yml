@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   group: telegram-hermes
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   jalankan:
@@ -52,13 +52,23 @@ jobs:
           EOF
           sed -i 's/^ *//' home/.env
 
-      - name: Jalankan gateway + lapor status
+      - name: Bersihkan sesi Telegram lama (elak 409)
+        continue-on-error: true
+        run: |
+          # Tutup long-poll yang tergantung pada server Telegram sebelum kita mula.
+          # Inilah yang memusnahkan run sebelum ini: sisa poller lama masih memegang getUpdates.
+          curl -s -m 20 "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/deleteWebhook?drop_pending_updates=false" || true
+          echo "--- tunggu sisa long-poll lama tamat ---"
+          sleep 45
+
+      - name: Jalankan gateway (kukuh terhadap 409)
         timeout-minutes: 1450
         continue-on-error: true
         run: |
           export HERMES_HOME="$PWD/home"
           export HERMES_NO_UPDATE_CHECK=1
           export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
+          TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
           lapor() {
             tail -n 400 gw.log > status.log 2>/dev/null || true
             echo "$1 $(date -u +%FT%TZ)" >> status.log
@@ -66,11 +76,24 @@ jobs:
             git pull --rebase -q -X ours 2>/dev/null || true
             git push || true
           }
+          # pulihkan konflik dengan menunggu sisa poll tamat, bukan retry buta
+          bersih_poll() {
+            for i in 1 2 3 4 5 6 7 8 9 10; do
+              C=$(curl -s -m 25 "https://api.telegram.org/bot${TOKEN}/getUpdates?offset=-1&limit=1&timeout=0")
+              if echo "$C" | grep -q '"error_code":409'; then
+                echo "409 masih ada (cubaan $i) - tunggu 30s"; sleep 30
+              else
+                echo "Tiada 409 - Telegram bersih"; return 0
+              fi
+            done
+            echo "409 kekal selepas 10 cubaan - teruskan"; return 0
+          }
           for cubaan in 1 2 3 4 5 6 7 8; do
             MARK=$(wc -l < gw.log 2>/dev/null || echo 0)
             # bunuh sisa gateway lama (anak proses boleh hidup walaupun induk mati -> rebutan getUpdates)
             pkill -9 -f "hermes gateway" 2>/dev/null || true
             sleep 5
+            bersih_poll
             hermes gateway run >> gw.log 2>&1 &
             PID=$!
             for i in $(seq 1 36); do
@@ -90,15 +113,16 @@ jobs:
                 pkill -9 -f "hermes gateway" 2>/dev/null || true
                 break
               fi
-              # canary: pastikan bot benar-benar mendengar (getUpdates 409 = poller lain rebut token)
-              if [ $((tick % 3)) -eq 0 ]; then
+              # canary setiap 5 min (bukan 3) supaya tak tambah beban; rehat eksponen bila konflik
+              if [ $((tick % 5)) -eq 0 ]; then
                 set +e
-                C=$(curl -s -m 25 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?offset=-1&limit=1&timeout=0")
+                C=$(curl -s -m 25 "https://api.telegram.org/bot${TOKEN}/getUpdates?offset=-1&limit=1&timeout=0")
                 set -e
-                echo "canary tick=$tick $(echo "$C" | head -c 160)" >> gw.log
+                echo "canary tick=$tick $(echo "$C" | head -c 140)" >> gw.log
                 if echo "$C" | grep -q '"error_code":409'; then
-                  echo "KONFLIK 409 dikesan, mula semula" >> gw.log
+                  echo "KONFLIK 409 dikesan, rehat ${cubaan}x60s" >> gw.log
                   pkill -9 -f "hermes gateway" 2>/dev/null || true
+                  sleep $((cubaan * 60))
                   break
                 fi
               fi
