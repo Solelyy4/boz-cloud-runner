@@ -61,8 +61,12 @@ jobs:
           export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
 
           lapor() {
-            tail -n 400 gw.log > status.log 2>/dev/null || true
-            echo "$1 $(date -u +%FT%TZ)" >> status.log
+            # tulis HANYA log run semasa (gw.log kosong setiap run) — elak campur log run lama
+            {
+              echo "=== run $GITHUB_RUN_ID tick $(date -u +%FT%TZ) ==="
+              tail -n 300 gw.log 2>/dev/null || true
+              echo "$1 $(date -u +%FT%TZ)"
+            } > status.log
             # push kukuh: fetch + rebase + retry (elak kalah pada kolisi dgn workflow lain)
             for p in 1 2 3; do
               git add status.log >/dev/null 2>&1
@@ -113,7 +117,10 @@ jobs:
       - name: Hantar log akhir ke repo
         if: always()
         run: |
-          cp gw.log status.log 2>/dev/null || echo "tiada gw.log" > status.log
+          {
+            echo "=== run $GITHUB_RUN_ID AKHIR $(date -u +%FT%TZ) ==="
+            tail -n 300 gw.log 2>/dev/null || echo "tiada gw.log"
+          } > status.log
           git add status.log
           git -c user.email=bot@local -c user.name=bot commit -qm "status akhir $(date -u +%FT%TZ)" || true
           for p in 1 2 3; do
