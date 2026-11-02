@@ -60,6 +60,14 @@ jobs:
           cp gw.log status.log
           git add status.log && git -c user.email=bot@local -c user.name=bot commit -qm "status awal" || true
           git push || true
+          # denyut nadi: lapor setiap 10 minit supaya boleh diawasi dari luar
+          while kill -0 $PID 2>/dev/null; do
+            sleep 600
+            cp gw.log status.log
+            echo "denyut $(date -u +%FT%TZ)" >> status.log
+            git add status.log && git -c user.email=bot@local -c user.name=bot commit -qm "denyut $(date -u +%FT%TZ)" || true
+            git push || true
+          done
           wait $PID || true
           tail -60 gw.log
 
