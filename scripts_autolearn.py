@@ -124,8 +124,16 @@ Analisa error mentah → ≥3 alternatif struktur → jambatan laptop → lapor 
 def main():
     st = json.loads(STATE.read_text()) if STATE.exists() else {"i": 0, "done": []}
     dom_in = (os.environ.get("DOMAIN_INPUT") or "").strip()
+
+    # Keutamaan: isi domain yang BELUM ada skill dahulu; kalau semua ada, guna round-robin.
+    ada = {p.name for p in SKILLS.iterdir() if p.is_dir()}
+    belum = [d[0] for d in DOMAINS if d[0] not in ada]
     if dom_in:
         name, hint = dom_in, "fokus diminta BOZ"
+    elif belum:
+        name = belum[0]
+        hint = dict(DOMAINS)[name]
+        print(f"domain belum ada skill: {len(belum)} lagi")
     else:
         name, hint = DOMAINS[st.get("i", 0) % len(DOMAINS)]
     print(f"=== domain: {name} | hint: {hint}")
