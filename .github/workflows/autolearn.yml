@@ -51,7 +51,11 @@ jobs:
           rm -f .env
           git add -A
           git commit -m "autolearn $(date -u +%FT%TZ)" || echo "tiada perubahan"
-          git pull --rebase -X ours || true
-          git push origin HEAD:master || echo "push gagal"
+          for p in 1 2 3; do
+            git fetch origin master -q >/dev/null 2>&1 || true
+            git rebase -X ours origin/master >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1 || true
+            if git push origin HEAD:master >/dev/null 2>&1; then echo "push ok"; break; fi
+            sleep 5
+          done
           echo "=== jumlah skill ==="
           ls skills | wc -l
