@@ -47,6 +47,8 @@ jobs:
           TELEGRAM_ALLOWED_USERS=8043910371
           MISTRAL_API_KEY=${{ secrets.MISTRAL_API_KEY }}
           GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
+          BOZ_PAT=${{ secrets.BOZ_PAT }}
+          BOZ_USER=Solelyy4
           EOF
           sed -i 's/^ *//' home/.env
 
