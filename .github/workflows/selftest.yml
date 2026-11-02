@@ -37,6 +37,11 @@ jobs:
           EOF
           sed -i 's/^ *//' home/.env
 
+      - name: Uji jambatan laptop
+        run: |
+          BOZ_PAT='${{ secrets.BOZ_PAT }}' BOZ_USER=Solelyy4 python home/scripts/bridge.py "whoami & hostname & echo CLOUD-TO-LAPTOP" > bridge.log 2>&1 || true
+          cat bridge.log
+
       - name: Uji agen (hermes -z)
         run: |
           export HERMES_HOME="$PWD/home"
@@ -64,7 +69,7 @@ jobs:
       - name: Simpan log
         if: always()
         run: |
-          cp uji.log status-selftest.log 2>/dev/null || echo "tiada" > status-selftest.log
+          cp uji.log status-selftest.log 2>/dev/null; cat bridge.log >> status-selftest.log 2>/dev/null || echo "tiada" > status-selftest.log
           cat hantar.log >> status-selftest.log 2>/dev/null || true
           git add status-selftest.log && git -c user.email=bot@local -c user.name=bot commit -qm "selftest $(date -u +%FT%TZ)" || true
           git push || true
