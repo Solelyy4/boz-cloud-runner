@@ -57,6 +57,9 @@ jobs:
           }
           for cubaan in 1 2 3 4 5 6 7 8; do
             MARK=$(wc -l < gw.log 2>/dev/null || echo 0)
+            # bunuh sisa gateway lama (anak proses boleh hidup walaupun induk mati -> rebutan getUpdates)
+            pkill -9 -f "hermes gateway" 2>/dev/null || true
+            sleep 5
             hermes gateway run >> gw.log 2>&1 &
             PID=$!
             for i in $(seq 1 36); do
@@ -72,7 +75,9 @@ jobs:
               tick=$((tick+1))
               # gateway boleh kekal hidup walaupun Telegram mati (fatal adapter) -> paksa mula semula
               if tail -n +$((MARK+1)) gw.log | grep -q "Fatal telegram adapter error"; then
-                echo "fatal dikesan, mula semula"; kill -9 $PID 2>/dev/null || true; break
+                echo "fatal dikesan, mula semula"
+                pkill -9 -f "hermes gateway" 2>/dev/null || true
+                break
               fi
               if [ $((tick % 10)) -eq 0 ]; then lapor "denyut"; fi
             done
