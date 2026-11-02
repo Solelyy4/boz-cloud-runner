@@ -1,0 +1,27 @@
+name: ensure-cloud
+
+# Penjaga luaran: setiap 15 minit pastikan SENTIASA ada gateway Telegram hidup.
+# Bila run 24 jam tamat/dibatalkan, cron ini memulakan yang baharu dalam masa <=15 minit
+# (biasanya lebih cepat kerana cron GitHub sering lewat).
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  jaga:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pastikan gateway hidup
+        env:
+          GH_TOKEN: ${{ secrets.BOZ_PAT }}
+        run: |
+          chmod +x scripts/ensure_cloud.sh
+          bash scripts/ensure_cloud.sh
