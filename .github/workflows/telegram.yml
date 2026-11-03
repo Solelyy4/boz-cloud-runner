@@ -30,23 +30,24 @@ jobs:
 
       - name: Pasang Hermes
         run: |
-          python -m pip install -U pip wheel setuptools >/dev/null
-          # SUMBER PEMASANGAN — disahkan melalui ujian runner:
-          #  * PyPI: hermes-agent tersedia hanya sehingga 0.19.0.
-          #  * Git (v0.22.6, commit f0d94882e89a): sama dengan laptop BOZ yang BEKERJA, tetapi
-          #    `pip install git+...` perlu build wheel dan GAGAL di runner tanpa toolchain.
-          # Strategi: cuba git dengan --no-build-isolation (guna wheel/setuptools yang ada),
-          # kemudian jatuh ke 0.19.0, kemudian PyPI terkini. Setiap langkah disahkan dengan
-          # `hermes --version` supaya kita TIDAK meneruskan tanpa CLI yang boleh jalan.
+          # CARA RASMI: `pip install hermes-agent` dan `pip install git+...` KEDUA-DUANYA
+          # disekat oleh reka bentuk Hermes ("Building wheels or sdists for hermes-agent is
+          # not supported" — disahkan pada runner ini). PyPI pula berhenti pada 0.19.0,
+          # manakala laptop BOZ yang BEKERJA guna v0.22.6 (2026.9.24) dari git.
+          # Penyelesaian rasmi = skrip bootstrap install.sh (clone + uv + venv sendiri).
           set +e
-          pip install --quiet --no-build-isolation \
-            "git+https://github.com/NousResearch/hermes-agent.git@f0d94882e89a" playwright 2>&1 | tail -2
-          hermes --version >/dev/null 2>&1 || pip install --quiet "hermes-agent==0.19.0" playwright 2>&1 | tail -2
-          hermes --version >/dev/null 2>&1 || pip install --quiet hermes-agent playwright 2>&1 | tail -2
+          curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh -o /tmp/h-install.sh
+          if [ ! -s /tmp/h-install.sh ]; then
+            echo "cetakan gagal, cuba melalui git clone"
+            git clone --depth 1 https://github.com/NousResearch/hermes-agent.git /tmp/ha
+            cp /tmp/ha/scripts/install.sh /tmp/h-install.sh
+          fi
+          chmod +x /tmp/h-install.sh 2>/dev/null
+          HERMES_HOME="$PWD/home" HERMES_INSTALL_CHANNEL=stable bash /tmp/h-install.sh --non-interactive 2>&1 | tail -25
           set -e
+          export PATH="$HOME/.local/bin:$PATH"
           echo "--- versi dipasang ---"
           hermes --version 2>&1 | head -3 || echo "AMARAN: CLI hermes tidak dijumpai"
-          python -c "import hermes_agent; print('hermes_agent', getattr(hermes_agent,'__version__','?'))" 2>/dev/null || true
 
       - name: Pasang pelayar (Playwright Chromium)
         continue-on-error: true
