@@ -111,13 +111,18 @@ jobs:
             sleep 8
             hermes gateway run >> gw.log 2>&1 &
             PID=$!
+            TUNGGU=0
             for i in $(seq 1 36); do
               sleep 5
-              if tail -n +$((MARK+1)) gw.log | grep -qiE "telegram"; then break; fi
+              TUNGGU=$((TUNGGU+5))
+              if tail -n +$((MARK+1)) gw.log | grep -qiE "polling|connected|Bot started|listening"; then
+                echo "sambungan dikesan selepas ${TUNGGU}s"
+                break
+              fi
               kill -0 $PID 2>/dev/null || break
             done
             tail -20 gw.log
-            lapor "mula-cubaan-$cubaan"
+            lapor "mula-cubaan-$cubaan selepas-${TUNGGU}s"
 
             tick=0
             while kill -0 $PID 2>/dev/null; do
@@ -126,6 +131,19 @@ jobs:
               # fail log sahaja — tiada panggilan Telegram API dari sini
               if tail -n +$((MARK+1)) gw.log | grep -q "Fatal telegram adapter error"; then
                 echo "fatal dikesan, mula semula"; pkill -9 -f "hermes gateway" 2>/dev/null || true; break
+              fi
+              # WATCHDOG: isu Hermes #18086 — updater tergantung senyap selepas satu blip
+              # rangkaian. `Updater.running` kekal True tetapi tiada update diproses, dan
+              # tiada ralat dicatat. Kesannya: gateway "hidup" tetapi bot bisu berjam-jam.
+              # Penyelesaian: kalau tiada tanda sambungan berjaya dalam 2 minit pertama,
+              # paksa mula semula proses. Ini juga menangani attempt 1/8 yang tersangkut
+              # selama-lamanya walaupun API boleh dicapai (disahkan probe: 5/5 HTTP 200).
+              if [ "$tick" -eq 2 ]; then
+                if ! tail -n +$((MARK+1)) gw.log | grep -qiE "polling|connected|Bot started|listening|getUpdates"; then
+                  echo "watchdog: tiada sambungan selepas 2 minit — mula semula"
+                  pkill -9 -f "hermes gateway" 2>/dev/null || true
+                  break
+                fi
               fi
               if [ $((tick % 15)) -eq 0 ]; then lapor "denyut tick=$tick"; fi
             done
