@@ -1,0 +1,59 @@
+name: Diagnostik Kunci & Agen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sahkan kunci ADA (tanpa mendedahkan nilai)
+        run: |
+          for k in MISTRAL_API_KEY GROQ_API_KEY; do
+            v="${!k:-}"
+            if [ -z "$v" ]; then
+              echo "$k: KOSONG"
+            else
+              echo "$k: ADA panjang=${#v} hujung=...${v: -6}"
+            fi
+          done
+
+      - name: Uji kunci terhadap provider sebenar
+        run: |
+          echo "--- MISTRAL ---"
+          curl -s -m 25 -o /tmp/m.json -w "HTTP=%{http_code}\n" \
+            https://api.mistral.ai/v1/models -H "Authorization: Bearer $MISTRAL_API_KEY"
+          head -c 200 /tmp/m.json; echo
+          echo "--- MISTRAL chat (model utama config) ---"
+          curl -s -m 30 -w "\nHTTP=%{http_code}\n" https://api.mistral.ai/v1/chat/completions \
+            -H "Authorization: Bearer $MISTRAL_API_KEY" -H "Content-Type: application/json" \
+            -d '{"model":"ministral-14b-latest","messages":[{"role":"user","content":"Say PROBE-OK"}],"max_tokens":10}' \
+            | tail -c 300
+          echo "--- GROQ ---"
+          curl -s -m 25 -o /dev/null -w "HTTP=%{http_code}\n" \
+            https://api.groq.com/openai/v1/models -H "Authorization: Bearer $GROQ_API_KEY"
+
+      - name: Uji setiap model fallback
+        run: |
+          for m in ministral-14b-latest ministral-8b-latest open-mistral-nemo ministral-3b-latest mistral-small-latest; do
+            code=$(curl -s -m 30 -o /tmp/r.json -w "%{http_code}" https://api.mistral.ai/v1/chat/completions \
+              -H "Authorization: Bearer $MISTRAL_API_KEY" -H "Content-Type: application/json" \
+              -d "{\"model\":\"$m\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"max_tokens\":5}")
+            echo "$m -> HTTP=$code"
+          done
+
+      - name: Simpan hasil
+        run: |
+          echo "diag selesai $(date -u +%FT%TZ)" >> diag_key.log
+          git config user.email bot@local; git config user.name boz-bot
+          git add -f diag_key.log; git commit -qm "diag: ujian kunci $(date -u +%FT%TZ)" || true
+          git push origin HEAD:master || true
