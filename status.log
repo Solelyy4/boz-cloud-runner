@@ -1,4 +1,4 @@
-=== run 41646397338 tick 2026-11-03T13:58:37Z ===
+=== run 41646397338 tick 2026-11-03T14:13:38Z ===
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -11,4 +11,171 @@
 2026-11-03 13:43:19,674 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-03 13:43:19,846 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-03 13:43:30,632 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-denyut tick=15 2026-11-03T13:58:37Z
+2026-11-03 14:03:27,490 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3736, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 2497, in _with_stream_emitters
+    response = run()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3737, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3714, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3071, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/relay_llm.py", line 331, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/relay_llm.py", line 337, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3062, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 2955, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<53 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
+2026-11-03 14:03:27,515 WARNING agent.conversation_loop: API call failed (attempt 1/2, not retryable) error_type=BadRequestError thread=hermes-gateway_5:140132290115264 provider=custom base_url=https://api.mistral.ai/v1 model=ministral-14b-latest summary=HTTP 400: reasoning_effort is not enabled for this model
+2026-11-03 14:03:28,185 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3736, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 2497, in _with_stream_emitters
+    response = run()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3737, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3714, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3071, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/relay_llm.py", line 331, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/relay_llm.py", line 337, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3062, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 2955, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<53 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
+2026-11-03 14:03:28,205 WARNING agent.conversation_loop: API call failed (attempt 1/2, not retryable) error_type=BadRequestError thread=hermes-gateway_5:140132290115264 provider=mistral base_url=https://api.mistral.ai/v1/ model=ministral-8b-latest summary=HTTP 400: reasoning_effort is not enabled for this model
+2026-11-03 14:03:28,345 WARNING agent.model_metadata: Could not determine context length for model 'open-mistral-nemo' (base_url=https://api.mistral.ai/v1/) — falling back to 256,000 tokens. Set model.context_length in config.yaml to override.
+2026-11-03 14:03:28,695 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3736, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 2497, in _with_stream_emitters
+    response = run()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3737, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3714, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3071, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/relay_llm.py", line 331, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/relay_llm.py", line 337, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 3062, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/agent/chat_completion_helpers.py", line 2955, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<53 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/20fb8edebc714d1287224a56f77a1563/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
+2026-11-03 14:03:28,717 WARNING agent.conversation_loop: API call failed (attempt 1/2, not retryable) error_type=BadRequestError thread=hermes-gateway_5:140132290115264 provider=mistral base_url=https://api.mistral.ai/v1/ model=open-mistral-nemo summary=HTTP 400: reasoning_effort is not enabled for this model
+2026-11-03 14:03:28,730 WARNING agent.conversation_loop: Rebuilt-message restart limit (2) exceeded; ending turn instead of refunding the iteration budget indefinitely.
+denyut tick=30 2026-11-03T14:13:38Z
