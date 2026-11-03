@@ -134,6 +134,14 @@ jobs:
           export HERMES_HOME="$PWD/home"
           export HERMES_NO_UPDATE_CHECK=1
           export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
+          # PUNCA UTAMA bot menjawab "AI model service kept failing" + fallback habis:
+          # langkah ini DAHULUNYA hanya mengeksport TELEGRAM_BOT_TOKEN, sedangkan
+          # config.yaml merujuk api_key_env: MISTRAL_API_KEY. Tanpa kunci ini setiap
+          # panggilan model pulang 401 dan rantai fallback mati satu per satu
+          # (ministral-14b -> ministral-8b -> groq -> habis).
+          export MISTRAL_API_KEY="${{ secrets.MISTRAL_API_KEY }}"
+          export GROQ_API_KEY="${{ secrets.GROQ_API_KEY }}"
+          export BOZ_PAT="${{ secrets.BOZ_PAT }}"
           # CLI dipasang oleh install.sh ke ~/.local/bin — tanpa ini `hermes` tidak dijumpai.
           export PATH="$HOME/.local/bin:$PATH"
 
