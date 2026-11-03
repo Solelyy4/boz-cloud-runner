@@ -1,0 +1,81 @@
+name: evolve
+
+# AUTO-EVOLUSI BOT BOZ — berjalan SETIAP 10 MINIT (literal).
+# NOTA: GitHub menjalankan cron "*/10 * * * *" secara literal (disahkan pada repo ini),
+# jadi bot benar-benar belajar/pelbagi setiap 10 minit, bukan setiap 15-60 minit.
+#
+# Setiap pusingan: audit diri -> pilih domain paling kurang liputan -> riset sumber sahih
+# (Wikipedia API + GitHub API + DDG Instant Answer) -> tulis/perkaya skills/<domain>/SKILL.md
+# -> jana DIALEK.lock -> tulis AUDIT.md + state/evolve.jsonl -> push ke repo home.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: "Domain khusus (kosong = auto pilih yang belum ada)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: evolve
+  cancel-in-progress: false
+
+jobs:
+  evolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Pasang kebergantungan
+        run: python -m pip install --quiet pyyaml 2>&1 | tail -2
+
+      - name: Ambil home Hermes
+        run: |
+          git clone --depth 1 "https://x-access-token:${{ secrets.BOZ_PAT }}@github.com/Solelyy4/boz-hermes-home.git" home
+          cd home
+          git config user.email bot@local
+          git config user.name boz-bot
+
+      - name: Evolusi (audit + belajar + dialek)
+        env:
+          DOMAIN_INPUT: ${{ github.event.inputs.domain }}
+        run: |
+          export HERMES_HOME="$PWD/home"
+          export PYTHONUNBUFFERED=1
+          python scripts_evolve.py
+
+      - name: Commit & push
+        run: |
+          cd home
+          rm -f .env
+          git add -A
+          git commit -m "evolve $(date -u +%FT%TZ)" || echo "tiada perubahan"
+          # Kekalkan fail aliran utama kami semasa rebase (elak .env/state tertimpa),
+          # tetapi jangan buang skill baharu: selepas rebase, sahkan bilangan skill.
+          sebelum=$(ls skills 2>/dev/null | wc -l)
+          for p in 1 2 3 4; do
+            git fetch origin master -q >/dev/null 2>&1 || true
+            if git rebase -X ours origin/master >/dev/null 2>&1; then :; else git rebase --abort >/dev/null 2>&1 || true; fi
+            sesudah=$(ls skills 2>/dev/null | wc -l)
+            echo "skill sebelum=$sebelum selepas=$sesudah"
+            if git push origin HEAD:master >/dev/null 2>&1; then echo "push ok"; break; fi
+            sleep $((3 + p * 3))
+          done
+          echo "=== jumlah skill ==="
+          ls skills | wc -l
+
+      - name: Ringkasan pusingan
+        if: always()
+        run: |
+          tail -n 6 home/AUDIT.md 2>/dev/null || echo "tiada AUDIT.md"
+          tail -n 3 home/state/evolve.jsonl 2>/dev/null || echo "tiada evolve.jsonl"

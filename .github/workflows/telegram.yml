@@ -78,22 +78,28 @@ jobs:
           export HERMES_NO_UPDATE_CHECK=1
           export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
 
+          # Keluarkan token dari URL git supaya jejak tak kekal dalam .git/config
+          git remote set-url origin "$(git remote get-url origin | sed -E 's#https://x-access-token:[^@]*@#https://github.com/#')" 2>/dev/null || true
+
           lapor() {
-            # tulis HANYA log run semasa (gw.log kosong setiap run) — elak campur log run lama
-            {
-              echo "=== run $GITHUB_RUN_ID tick $(date -u +%FT%TZ) ==="
-              tail -n 300 gw.log 2>/dev/null || true
-              echo "$1 $(date -u +%FT%TZ)"
-            } > status.log
-            # push kukuh: fetch + rebase + retry (elak kalah pada kolisi dgn workflow lain)
-            for p in 1 2 3; do
-              git add status.log >/dev/null 2>&1
-              git -c user.email=bot@local -c user.name=bot commit -qm "status $1 $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+            # PENTING: batch sediakan kunci push SEBELUM mengunci — supaya semasa bot hidup
+            # (yang memang kerap push) status.log tidak tertinggal berjam-jam menyebabkan
+            # operator menyangka bot mati. Retry ditambah + jitter.
+            for p in 1 2 3 4 5 6; do
               git fetch origin master -q >/dev/null 2>&1 || true
-              git rebase -X ours origin/master >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1 || true
-              if git push origin HEAD:master >/dev/null 2>&1; then break; fi
-              sleep 5
+              git rebase --abort >/dev/null 2>&1 || true
+              git checkout -q -B status-tmp origin/master >/dev/null 2>&1 || true
+              {
+                echo "=== run $GITHUB_RUN_ID tick $(date -u +%FT%TZ) ==="
+                tail -n 300 gw.log 2>/dev/null || true
+                echo "$1 $(date -u +%FT%TZ)"
+              } > status.log
+              git add -f status.log >/dev/null 2>&1
+              git -c user.email=bot@local -c user.name=bot commit -qm "status $1 $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+              if git push origin HEAD:master >/dev/null 2>&1; then return 0; fi
+              sleep $((3 + p * 2))
             done
+            return 0
           }
 
           # PENTING: jangan sesekali panggil getUpdates dari luar.
@@ -111,13 +117,18 @@ jobs:
             sleep 8
             hermes gateway run >> gw.log 2>&1 &
             PID=$!
+            TUNGGU=0
             for i in $(seq 1 36); do
               sleep 5
-              if tail -n +$((MARK+1)) gw.log | grep -qiE "telegram"; then break; fi
+              TUNGGU=$((TUNGGU+5))
+              if tail -n +$((MARK+1)) gw.log | grep -qiE "polling|connected|Bot started|listening"; then
+                echo "sambungan dikesan selepas ${TUNGGU}s"
+                break
+              fi
               kill -0 $PID 2>/dev/null || break
             done
             tail -20 gw.log
-            lapor "mula-cubaan-$cubaan"
+            lapor "mula-cubaan-$cubaan selepas-${TUNGGU}s"
 
             tick=0
             while kill -0 $PID 2>/dev/null; do
@@ -126,6 +137,19 @@ jobs:
               # fail log sahaja — tiada panggilan Telegram API dari sini
               if tail -n +$((MARK+1)) gw.log | grep -q "Fatal telegram adapter error"; then
                 echo "fatal dikesan, mula semula"; pkill -9 -f "hermes gateway" 2>/dev/null || true; break
+              fi
+              # WATCHDOG: isu Hermes #18086 — updater tergantung senyap selepas satu blip
+              # rangkaian. `Updater.running` kekal True tetapi tiada update diproses, dan
+              # tiada ralat dicatat. Kesannya: gateway "hidup" tetapi bot bisu berjam-jam.
+              # Penyelesaian: kalau tiada tanda sambungan berjaya dalam 2 minit pertama,
+              # paksa mula semula proses. Ini juga menangani attempt 1/8 yang tersangkut
+              # selama-lamanya walaupun API boleh dicapai (disahkan probe: 5/5 HTTP 200).
+              if [ "$tick" -eq 2 ]; then
+                if ! tail -n +$((MARK+1)) gw.log | grep -qiE "polling|connected|Bot started|listening|getUpdates"; then
+                  echo "watchdog: tiada sambungan selepas 2 minit — mula semula"
+                  pkill -9 -f "hermes gateway" 2>/dev/null || true
+                  break
+                fi
               fi
               if [ $((tick % 15)) -eq 0 ]; then lapor "denyut tick=$tick"; fi
             done
@@ -141,15 +165,16 @@ jobs:
       - name: Hantar log akhir ke repo
         if: always()
         run: |
-          {
-            echo "=== run $GITHUB_RUN_ID AKHIR $(date -u +%FT%TZ) ==="
-            tail -n 300 gw.log 2>/dev/null || echo "tiada gw.log"
-          } > status.log
-          git add status.log
-          git -c user.email=bot@local -c user.name=bot commit -qm "status akhir $(date -u +%FT%TZ)" || true
           for p in 1 2 3; do
             git fetch origin master -q >/dev/null 2>&1 || true
-            git rebase -X ours origin/master >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1 || true
+            git rebase --abort >/dev/null 2>&1 || true
+            git checkout -q -B status-tmp origin/master >/dev/null 2>&1 || true
+            {
+              echo "=== run $GITHUB_RUN_ID AKHIR $(date -u +%FT%TZ) ==="
+              tail -n 300 gw.log 2>/dev/null || echo "tiada gw.log"
+            } > status.log
+            git add -f status.log
+            git -c user.email=bot@local -c user.name=bot commit -qm "status akhir $(date -u +%FT%TZ)" || true
             if git push origin HEAD:master >/dev/null 2>&1; then echo "push ok"; break; fi
             sleep 5
           done
@@ -164,8 +189,7 @@ jobs:
           git add -A
           git commit -m "state $(date -u +%FT%TZ)" || echo "tiada perubahan"
           for p in 1 2 3; do
-            git fetch origin master -q >/dev/null 2>&1 || true
-            git rebase -X ours origin/master >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1 || true
+            git pull --rebase --autostash -q >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1 || true
             if git push origin HEAD:master >/dev/null 2>&1; then echo "state push ok"; break; fi
             sleep 5
           done

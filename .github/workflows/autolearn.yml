@@ -1,11 +1,12 @@
 name: autolearn
 
-# Auto-evolusi bot BOZ: setiap jam, bot cari ilmu, tulis skill baharu, push ke repo.
+# Auto-evolusi bot BOZ: SETIAP 10 MINIT (literal */10), bot cari ilmu, tulis/perkaya
+# skill, jana DIALEK.lock, tulis AUDIT.md, push ke repo home.
 # Deterministik (tiada agent agentic yang boleh habis iterasi).
 
 on:
   schedule:
-    - cron: "7,22,37,52 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
     inputs:
       domain:
@@ -31,6 +32,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Pasang kebergantungan
+        run: python -m pip install --quiet pyyaml 2>&1 | tail -2
+
       - name: Ambil home Hermes
         run: |
           git clone --depth 1 "https://x-access-token:${{ secrets.BOZ_PAT }}@github.com/Solelyy4/boz-hermes-home.git" home
@@ -38,12 +42,12 @@ jobs:
           git config user.email bot@local
           git config user.name boz-bot
 
-      - name: Riset + tulis skill (deterministik)
+      - name: Riset + tulis/perkaya skill (deterministik)
         env:
           DOMAIN_INPUT: ${{ github.event.inputs.domain }}
         run: |
           export HERMES_HOME="$PWD/home"
-          python scripts_autolearn.py
+          python scripts_evolve.py
 
       - name: Commit & push
         run: |
@@ -51,11 +55,11 @@ jobs:
           rm -f .env
           git add -A
           git commit -m "autolearn $(date -u +%FT%TZ)" || echo "tiada perubahan"
-          for p in 1 2 3; do
+          for p in 1 2 3 4; do
             git fetch origin master -q >/dev/null 2>&1 || true
             git rebase -X ours origin/master >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1 || true
             if git push origin HEAD:master >/dev/null 2>&1; then echo "push ok"; break; fi
-            sleep 5
+            sleep $((3 + p * 3))
           done
           echo "=== jumlah skill ==="
           ls skills | wc -l

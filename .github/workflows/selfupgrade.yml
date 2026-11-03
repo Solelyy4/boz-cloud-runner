@@ -1,12 +1,12 @@
 name: selfupgrade
 
-# Self-upgrade mingguan: bot audit rendaman skill sendiri, tambah domain baharu ke senarai
+# Self-upgrade setiap 10 minit (literal */10): bot audit rendaman skill sendiri, tambah domain baharu ke senarai
 # autolearn, dan pastikan config/SOUL/AGENTS sihat. Push ke home repo.
-# Berjalan Ahad 03:07 UTC (11:07 WIB).
+# Berjalan setiap 10 minit — audit diri + perkaya skill, sama enjin dengan evolve.yml.
 
 on:
   schedule:
-    - cron: "7 3 * * 0"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -40,7 +40,7 @@ jobs:
       - name: Audit + naik taraf
         run: |
           export HERMES_HOME="$PWD/home"
-          python "$PWD/scripts_selfupgrade.py"
+          python "$PWD/scripts_evolve.py"
 
       - name: Commit & push
         run: |
@@ -48,9 +48,9 @@ jobs:
           rm -f .env
           git add -A
           git commit -m "selfupgrade $(date -u +%FT%TZ)" || echo "tiada perubahan"
-          for p in 1 2 3; do
+          for p in 1 2 3 4; do
             git fetch origin master -q >/dev/null 2>&1 || true
             git rebase -X ours origin/master >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1 || true
             if git push origin HEAD:master >/dev/null 2>&1; then echo "push ok"; break; fi
-            sleep 5
+            sleep $((3 + p * 3))
           done
