@@ -1,0 +1,37 @@
+name: tgdiag
+
+# Diagnosa mengapa app.initialize() Telegram tersangkut pada runner ini.
+# Berasingan daripada workflow bot supaya tidak menjejaskan bot yang sedang hidup.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Pasang Hermes (sama seperti workflow bot)
+        run: |
+          python -m pip install -U pip wheel setuptools >/dev/null
+          set +e
+          pip install --quiet --no-build-isolation \
+            "git+https://github.com/NousResearch/hermes-agent.git@f0d94882e89a" 2>&1 | tail -2
+          hermes --version >/dev/null 2>&1 || pip install --quiet "hermes-agent==0.19.0" 2>&1 | tail -2
+          set -e
+          hermes --version 2>&1 | head -3 || true
+
+      - name: Diagnosa lapisan
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          HERMES_TELEGRAM_INIT_TIMEOUT: "10"
+        run: python scripts/diag_telegram.py
