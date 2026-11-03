@@ -31,8 +31,15 @@ jobs:
       - name: Pasang Hermes
         run: |
           python -m pip install -U pip wheel >/dev/null
-          pip install --quiet hermes-agent playwright 2>&1 | tail -3
-          which hermes || python -m hermes_cli --version || true
+          # PIN versi: laptop BOZ yang TERBUKTI BEKERJA ialah v0.22.6 (git f0d94882e89a).
+          # Versi PyPI terkini boleh membawa regresi connect (gejala: tersangkut pada
+          # "attempt 1/8" tanpa log "Connected to Telegram"). Pin dahulu; naik taraf
+          # hanya selepas versi baharu disahkan hidup pada runner ini.
+          VERSI="${HERMES_PIN:-0.22.6}"
+          pip install --quiet "hermes-agent==${VERSI}" playwright 2>&1 | tail -3 || \
+            pip install --quiet hermes-agent playwright 2>&1 | tail -3
+          hermes --version 2>&1 | head -2 || python -m hermes_cli --version || true
+          python -c "import hermes_agent; print('hermes_agent', getattr(hermes_agent,'__version__','?'))" 2>/dev/null || true
 
       - name: Pasang pelayar (Playwright Chromium)
         continue-on-error: true
