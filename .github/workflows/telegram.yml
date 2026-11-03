@@ -54,11 +54,13 @@ jobs:
           echo "--- versi dipasang ---"
           hermes --version 2>&1 | head -3 || echo "AMARAN: CLI hermes tidak dijumpai"
 
-      - name: Pasang pelayar (Playwright Chromium)
-        continue-on-error: true
+      - name: Sahkan pelayar (Playwright Chromium)
+        # install.sh Hermes sudah memasang chromium + venv sendiri (disahkan: "✓ chromium").
+        # Jangan jalankan `python -m playwright install` — ia guna Python sistem yang tidak
+        # ada playwright, lalu gagal dan (dengan `bash -e`) membunuh seluruh run.
         run: |
-          python -m playwright install --with-deps chromium 2>&1 | tail -3
-          python -c "from playwright.sync_api import sync_playwright; print('playwright ok')"
+          hermes --version | head -1
+          echo "pelayar diuruskan oleh venv Hermes (install.sh)"
 
       - name: Tulis .env
         run: |
@@ -88,7 +90,11 @@ jobs:
           fi
           echo "=== jumlah skill dalam home ==="
           ls home/skills | wc -l
-          python - <<'PY'
+          # Guna python dari venv Hermes (rujukan `hermes python`), bukan python sistem:
+          # python sistem tiada pyyaml (disahkan: "config.yaml tidak sah: No module named 'yaml'").
+          PY="$(hermes python --path 2>/dev/null || true)"
+          [ -x "$PY" ] || PY="$(command -v python3)"
+          "$PY" - <<'PY'
           import yaml, sys, pathlib
           cfg = yaml.safe_load(open("home/config.yaml", encoding="utf-8"))
           net = cfg.get("network", {})
