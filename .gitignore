@@ -1,4 +1,7 @@
+# Perangkap penting: '*.log' menjaring status.log juga -> bot nampak "mati" kepada operator.
+# Senaraikan hanya log sebenar, dan JANGAN masukkan status.log dalam senarai ini.
 gw.log
-*.log
+bot.log
+evolve.log
 __pycache__/
 *.pyc
