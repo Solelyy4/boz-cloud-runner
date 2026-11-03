@@ -1,0 +1,27 @@
+name: tgprobe
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Uji Bot API dari IP GitHub
+        run: |
+          TOK="${{ secrets.TELEGRAM_BOT_TOKEN }}"
+          echo "token len=${#TOK} id=${TOK%%:*}"
+          for i in 1 2 3 4 5; do
+            printf "cubaan %d: " "$i"
+            curl -s -o /tmp/r.json -m 20 -w "HTTP=%{http_code} t=%{time_total}s" \
+              "https://api.telegram.org/bot${TOK}/getMe" || true
+            echo " body=$(head -c 100 /tmp/r.json 2>/dev/null)"
+            sleep 5
+          done
+          echo "--- IPv4 paksa ---"
+          curl -4 -s -o /dev/null -m 20 -w "ipv4: HTTP=%{http_code} t=%{time_total}s\n" \
+            "https://api.telegram.org/bot${TOK}/getMe" || true
+          echo "--- ip publik runner ---"
+          curl -s -m 15 https://api.ipify.org || echo "ip gagal"
+          echo
