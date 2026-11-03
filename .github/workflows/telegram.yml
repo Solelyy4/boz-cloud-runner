@@ -30,18 +30,22 @@ jobs:
 
       - name: Pasang Hermes
         run: |
-          python -m pip install -U pip wheel >/dev/null
-          # PENTING — SUMBER PEMASANGAN: laptop BOZ yang TERBUKTI BEKERJA guna Hermes dari
-          # GIT (v0.22.6, commit f0d94882e89a). PyPI hanya ada sehingga 0.19.0, jadi
-          # `pip install hermes-agent` memasang versi LAMA dan gateway tersangkut pada
-          # "Connecting to Telegram (attempt 1/8)" tanpa pernah log "Connected".
-          # Pasang dari sumber yang sama dengan laptop; pin commit supaya boleh diulang.
-          HERMES_GIT="${HERMES_GIT:-git+https://github.com/NousResearch/hermes-agent.git@f0d94882e89a}"
-          pip install --quiet "$HERMES_GIT" playwright 2>&1 | tail -3 || \
-            pip install --quiet git+https://github.com/NousResearch/hermes-agent.git playwright 2>&1 | tail -3 || \
-            pip install --quiet hermes-agent playwright 2>&1 | tail -3
+          python -m pip install -U pip wheel setuptools >/dev/null
+          # SUMBER PEMASANGAN — disahkan melalui ujian runner:
+          #  * PyPI: hermes-agent tersedia hanya sehingga 0.19.0.
+          #  * Git (v0.22.6, commit f0d94882e89a): sama dengan laptop BOZ yang BEKERJA, tetapi
+          #    `pip install git+...` perlu build wheel dan GAGAL di runner tanpa toolchain.
+          # Strategi: cuba git dengan --no-build-isolation (guna wheel/setuptools yang ada),
+          # kemudian jatuh ke 0.19.0, kemudian PyPI terkini. Setiap langkah disahkan dengan
+          # `hermes --version` supaya kita TIDAK meneruskan tanpa CLI yang boleh jalan.
+          set +e
+          pip install --quiet --no-build-isolation \
+            "git+https://github.com/NousResearch/hermes-agent.git@f0d94882e89a" playwright 2>&1 | tail -2
+          hermes --version >/dev/null 2>&1 || pip install --quiet "hermes-agent==0.19.0" playwright 2>&1 | tail -2
+          hermes --version >/dev/null 2>&1 || pip install --quiet hermes-agent playwright 2>&1 | tail -2
+          set -e
           echo "--- versi dipasang ---"
-          hermes --version 2>&1 | head -3 || python -m hermes_cli --version || true
+          hermes --version 2>&1 | head -3 || echo "AMARAN: CLI hermes tidak dijumpai"
           python -c "import hermes_agent; print('hermes_agent', getattr(hermes_agent,'__version__','?'))" 2>/dev/null || true
 
       - name: Pasang pelayar (Playwright Chromium)
