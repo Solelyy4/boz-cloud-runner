@@ -1,0 +1,49 @@
+name: tgbuild
+
+# Uji pemasangan Hermes dari git secara VERBOSE di runner ini.
+# Tujuan: dapatkan mesej ralat sebenar + cari versi yang boleh dipasang, supaya
+# runner boleh guna versi yang SAMA dengan laptop BOZ (v0.22.6, yang terbukti bekerja).
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Senarai tag/versi di GitHub
+        run: |
+          git ls-remote --tags https://github.com/NousResearch/hermes-agent.git 2>/dev/null | tail -15 || true
+          echo "--- cabang ---"
+          git ls-remote --heads https://github.com/NousResearch/hermes-agent.git 2>/dev/null | tail -8 || true
+
+      - name: Senarai versi di PyPI
+        run: |
+          python - <<'PY'
+          import json, urllib.request
+          try:
+              d = json.load(urllib.request.urlopen(
+                  "https://pypi.org/pypi/hermes-agent/json", timeout=25))
+              v = sorted(d["releases"].keys())
+              print("PyPI:", v)
+          except Exception as e:
+              print("PyPI gagal:", e)
+          PY
+
+      - name: Cuba git install VERBOSE
+        run: |
+          python -m pip install -U pip wheel setuptools >/dev/null
+          echo "=== percubaan 1: git tanpa pen pin, verbose ==="
+          pip install --no-build-isolation --progress-bar off \
+            "git+https://github.com/NousResearch/hermes-agent.git" 2>&1 | tail -40 || true
+          echo
+          echo "=== hermes tersedia? ==="
+          hermes --version 2>&1 | head -3 || echo "TIADA"
