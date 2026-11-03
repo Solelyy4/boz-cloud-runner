@@ -46,6 +46,11 @@ jobs:
           HERMES_HOME="$PWD/home" HERMES_INSTALL_CHANNEL=stable bash /tmp/h-install.sh --non-interactive 2>&1 | tail -25
           set -e
           export PATH="$HOME/.local/bin:$PATH"
+          # install.sh menamatkan dengan mesej "no dependency environment is committed for this
+          # install; run `hermes pm repair`" — venv belum dipautkan. Jalankan pembaikan itu,
+          # kalau tidak semua langkah berikutnya gagal dengan 'hermes: command not found'.
+          hermes pm repair 2>&1 | tail -8 || true
+          hermes pm install 2>&1 | tail -8 || true
           echo "--- versi dipasang ---"
           hermes --version 2>&1 | head -3 || echo "AMARAN: CLI hermes tidak dijumpai"
 
@@ -108,6 +113,8 @@ jobs:
           export HERMES_HOME="$PWD/home"
           export HERMES_NO_UPDATE_CHECK=1
           export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
+          # CLI dipasang oleh install.sh ke ~/.local/bin — tanpa ini `hermes` tidak dijumpai.
+          export PATH="$HOME/.local/bin:$PATH"
 
           # PENALA SAMBUNGAN. Lalai Hermes: 30s x 8 cubaan + 120s = 360s sebelum menyerah.
           # 30s terlalu panjang untuk runner: telegram-init yang hang memakan masa sepenuhnya
