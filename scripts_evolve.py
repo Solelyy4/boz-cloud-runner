@@ -172,10 +172,18 @@ def riset_api(domain: str) -> list[str]:
         print("wiki-search gagal:", exc)
 
     # 2. GitHub repos (bintang tertinggi = tool sebenar, bukan artikel pemasaran)
+    #    Token: tanpa auth, API GitHub memberi 10 req/min -> mudah kena 403 pada cron 10 min.
+    #    Guna BOZ_PAT (env dari workflow) untuk kuota 30 req/min + harga yang jauh lebih tinggi.
     try:
-        data = json.loads(fetch(
-            "https://api.github.com/search/repositories?sort=stars&order=desc&per_page=6&q="
-            + urllib.parse.quote(terma)))
+        tok = os.environ.get("BOZ_PAT") or os.environ.get("GITHUB_TOKEN") or ""
+        url = ("https://api.github.com/search/repositories?sort=stars&order=desc&per_page=6&q="
+               + urllib.parse.quote(terma))
+        req = urllib.request.Request(url, headers={
+            "User-Agent": "boz-evolve/1.0",
+            "Accept": "application/vnd.github+json",
+            **({"Authorization": f"Bearer {tok}"} if tok else {}),
+        })
+        data = json.loads(urllib.request.urlopen(req, timeout=25).read().decode("utf-8", "ignore"))
         for r in data.get("items", [])[:6]:
             out.append(f"- {r.get('full_name')} ({r.get('stargazers_count')}*) "
                        f"{(r.get('description') or '')[:130]} -> {r.get('html_url')}")

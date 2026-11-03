@@ -49,6 +49,7 @@ jobs:
       - name: Evolusi (audit + belajar + dialek)
         env:
           DOMAIN_INPUT: ${{ github.event.inputs.domain }}
+          BOZ_PAT: ${{ secrets.BOZ_PAT }}
         run: |
           export HERMES_HOME="$PWD/home"
           export PYTHONUNBUFFERED=1

@@ -45,6 +45,7 @@ jobs:
       - name: Riset + tulis/perkaya skill (deterministik)
         env:
           DOMAIN_INPUT: ${{ github.event.inputs.domain }}
+          BOZ_PAT: ${{ secrets.BOZ_PAT }}
         run: |
           export HERMES_HOME="$PWD/home"
           python scripts_evolve.py
