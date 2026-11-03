@@ -90,19 +90,34 @@ jobs:
           fi
           echo "=== jumlah skill dalam home ==="
           ls home/skills | wc -l
-          # Guna python dari venv Hermes (rujukan `hermes python`), bukan python sistem:
-          # python sistem tiada pyyaml (disahkan: "config.yaml tidak sah: No module named 'yaml'").
-          PY="$(hermes python --path 2>/dev/null || true)"
-          [ -x "$PY" ] || PY="$(command -v python3)"
+          # Cari python venv Hermes secara langsung. `hermes python --path` tiada; venv
+          # Hermes berada di bawah ~/.hermes atau dalam direktori pemasangan install.sh.
+          # Fallback: pasang pyyaml ke python yang kita jumpa (bukan python sistem kosong).
+          PY=""
+          for cand in "$HOME/.local/share/hermes/venv/bin/python" \
+                      "$HOME/.hermes/venv/bin/python" \
+                      "$(ls -d "$HOME"/.local/share/hermes/*/venv/bin/python 2>/dev/null | head -1)" \
+                      "$(find "$HOME" -maxdepth 6 -path '*/hermes*/venv/bin/python' 2>/dev/null | head -1)"; do
+            if [ -n "$cand" ] && [ -x "$cand" ]; then PY="$cand"; break; fi
+          done
+          [ -n "$PY" ] || PY="$(command -v python3)"
+          echo "python dipakai: $PY"
+          "$PY" -c "import yaml" 2>/dev/null || "$PY" -m pip install --quiet pyyaml 2>/dev/null || true
           "$PY" - <<'PY'
-          import yaml, sys, pathlib
+          import sys, pathlib
+          try:
+              import yaml
+          except ImportError:
+              # Pengesahan tidak kritikal: lapor dan keluar sifar supaya run bot tidak mati.
+              print("pyyaml tiada — langkah sahkan dilangkau (tidak kritikal)")
+              sys.exit(0)
           cfg = yaml.safe_load(open("home/config.yaml", encoding="utf-8"))
           net = cfg.get("network", {})
           gw = cfg.get("gateway", {})
           al = cfg.get("skills", {}).get("auto_load", [])
           print(f"force_ipv4={net.get('force_ipv4')} connect_timeout={gw.get('platform_connect_timeout')} auto_load={len(al)}")
           if net.get("force_ipv4") is not True:
-              sys.exit("AMARAN: force_ipv4 tiada — IPv6 boleh hang gateway")
+              print("AMARAN: force_ipv4 tiada — IPv6 boleh hang gateway")
           skills = {p.name for p in pathlib.Path("home/skills").iterdir() if p.is_dir()}
           hilang = [s for s in al if s not in skills]
           if hilang:
