@@ -52,6 +52,24 @@ jobs:
           EOF
           sed -i 's/^ *//' home/.env
 
+      - name: Sahkan config terpakai
+        run: |
+          echo "=== network / gateway dari home repo ==="
+          grep -A3 '^network:' home/config.yaml || echo "TIADA network:"
+          grep -A2 '^gateway:' home/config.yaml || true
+          echo "=== auto_load ==="
+          grep -c '^  - ' home/config.yaml || true
+          python - <<'PY'
+          import yaml, sys
+          cfg = yaml.safe_load(open("home/config.yaml", encoding="utf-8"))
+          net = cfg.get("network", {})
+          gw = cfg.get("gateway", {})
+          al = cfg.get("skills", {}).get("auto_load", [])
+          print(f"force_ipv4={net.get('force_ipv4')} connect_timeout={gw.get('platform_connect_timeout')} auto_load={len(al)}")
+          if net.get("force_ipv4") is not True:
+              sys.exit("AMARAN: force_ipv4 tiada — IPv6 boleh hang gateway")
+          PY
+
       - name: Jalankan gateway (kukuh terhadap 409)
         timeout-minutes: 1450
         continue-on-error: true
