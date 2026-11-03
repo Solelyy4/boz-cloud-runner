@@ -22,6 +22,7 @@ jobs:
       - name: Pastikan gateway hidup
         env:
           GH_TOKEN: ${{ secrets.BOZ_PAT }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: |
           chmod +x scripts/ensure_cloud.sh
           bash scripts/ensure_cloud.sh

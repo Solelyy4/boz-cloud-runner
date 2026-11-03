@@ -7,6 +7,19 @@ set -euo pipefail
 REPO="Solelyy4/boz-cloud-runner"
 WF="telegram-hermes"
 
+# --- Ujian kesihatan Bot API: rekod keadaan supaya kita tahu bila Telegram pulih ---
+STATE="telegram_api_health.log"
+TOK="${TELEGRAM_BOT_TOKEN:-}"
+if [ -n "$TOK" ]; then
+  CODE=$(curl -s -o /dev/null -m 20 -w "%{http_code}" "https://api.telegram.org/bot${TOK}/getMe" || echo "000")
+  echo "$(date -u +%FT%TZ) health HTTP=$CODE" >> "$STATE"
+  tail -n 200 "$STATE" > "${STATE}.tmp" && mv "${STATE}.tmp" "$STATE"
+  echo "Bot API health: HTTP $CODE"
+  git add "$STATE" >/dev/null 2>&1 || true
+  git -c user.email=bot@local -c user.name=bot commit -qm "health $CODE $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+  git push origin HEAD:master >/dev/null 2>&1 || true
+fi
+
 aktif=$(gh run list --repo "$REPO" --workflow "$WF" --limit 10 \
         --json status --jq '[.[] | select(.status=="in_progress" or .status=="queued" or .status=="waiting")] | length')
 
