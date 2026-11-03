@@ -1,6 +1,4 @@
-=== run 41581836543 tick 2026-11-03T05:17:30Z ===
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 5032, in delete_webhook
-    return await self._post(
+=== run 41581836543 tick 2026-11-03T05:18:15Z ===
            ^^^^^^^^^^^^^^^^^
   File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 703, in _post
     return await self._do_post(
@@ -299,4 +297,6 @@ telegram.error.NetworkError: Bad Gateway
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Telegram polling reconnect failed: Bad Gateway
 ERROR hermes_plugins.telegram_platform.adapter: [Telegram] Telegram polling could not reconnect after 10 network error retries. Restarting gateway. Last error: Bad Gateway
 ERROR gateway.run: Fatal telegram adapter error (telegram_network_error): Telegram polling could not reconnect after 10 network error retries. Restarting gateway.
-gateway-berhenti-cubaan-1 2026-11-03T05:17:30Z
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+mula-cubaan-2 2026-11-03T05:18:15Z
