@@ -94,6 +94,15 @@ jobs:
           export HERMES_NO_UPDATE_CHECK=1
           export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
 
+          # PENALA SAMBUNGAN. Lalai Hermes: 30s x 8 cubaan + 120s = 360s sebelum menyerah.
+          # 30s terlalu panjang untuk runner: telegram-init yang hang memakan masa sepenuhnya
+          # dan menghalang cubaan berikut, sedangkan getMe dari IP runner pulang dalam 0.27s
+          # (jadi hang 30s = bug dalam proses, bukan rangkaian perlahan). 10s x 3 = 30s
+          # memberi 3 peluang pantas dan gagal cepat supaya gelung luar boleh mula semula.
+          export HERMES_TELEGRAM_INIT_TIMEOUT=10
+          export HERMES_TELEGRAM_HTTP_CONNECT_TIMEOUT=8
+          export HERMES_TELEGRAM_HTTP_READ_TIMEOUT=15
+
           # Keluarkan token dari URL git supaya jejak tak kekal dalam .git/config
           git remote set-url origin "$(git remote get-url origin | sed -E 's#https://x-access-token:[^@]*@#https://github.com/#')" 2>/dev/null || true
 
