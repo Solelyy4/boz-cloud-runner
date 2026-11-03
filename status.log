@@ -1,4 +1,4 @@
-=== run 41633686968 tick 2026-11-03T12:14:29Z ===
+=== run 41633686968 tick 2026-11-03T12:29:31Z ===
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -190,4 +190,9 @@ Bytecode compiled 5030 files in 2.74s
 2026-11-03 12:14:15,077 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-03 12:14:15,266 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-03 12:14:26,393 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-mula-cubaan-1 selepas-25s 2026-11-03T12:14:29Z
+2026-11-03 12:16:51,165 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-03 12:16:51,166 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
+2026-11-03 12:17:30,366 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
+2026-11-03 12:17:30,366 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectTimeout(''))
+2026-11-03 12:17:40,766 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+denyut tick=15 2026-11-03T12:29:31Z
