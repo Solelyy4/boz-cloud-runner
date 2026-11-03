@@ -253,6 +253,14 @@ jobs:
                 break
               fi
               if [ $((tick % 15)) -eq 0 ]; then lapor "denyut tick=$tick"; fi
+              # PENGESAN KEMATIAN PROSES — punca bot bisu berjam-jam walaupun run "in_progress".
+              # Tanpa ini, loop terus mengira tick selamanya sementara gateway sudah mati
+              # (heartbeat beku, active_sessions kosong, mesej Telegram tidak diambil).
+              # `kill -0` menguji kewujudan proses TANPA menghantarnya isyarat.
+              if ! kill -0 "$PID" 2>/dev/null; then
+                echo "PENGESAN: proses gateway (pid=$PID) sudah MATI pada tick=$tick"
+                break
+              fi
             done
             wait $PID 2>/dev/null || true
             lapor "gateway-berhenti-cubaan-$cubaan (first_seen=${first_seen:-tiada})"
