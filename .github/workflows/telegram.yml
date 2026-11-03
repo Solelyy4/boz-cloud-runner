@@ -59,8 +59,17 @@ jobs:
           grep -A2 '^gateway:' home/config.yaml || true
           echo "=== auto_load ==="
           grep -c '^  - ' home/config.yaml || true
+          # PENTING: .skills_prompt_snapshot.json ialah CACHE senarai skill. Kalau ia kekal
+          # dalam repo home, skill yang ditambah oleh workflow `evolve` TIDAK dimuat kerana
+          # snapshot lama dianggap sah. Buang setiap kali run bermula -> skill baharu kelihatan.
+          if [ -f home/.skills_prompt_snapshot.json ]; then
+            rm -f home/.skills_prompt_snapshot.json
+            echo "cache skill dibuang (snapshot akan dijana semula dengan skill evolusi terkini)"
+          fi
+          echo "=== jumlah skill dalam home ==="
+          ls home/skills | wc -l
           python - <<'PY'
-          import yaml, sys
+          import yaml, sys, pathlib
           cfg = yaml.safe_load(open("home/config.yaml", encoding="utf-8"))
           net = cfg.get("network", {})
           gw = cfg.get("gateway", {})
@@ -68,6 +77,13 @@ jobs:
           print(f"force_ipv4={net.get('force_ipv4')} connect_timeout={gw.get('platform_connect_timeout')} auto_load={len(al)}")
           if net.get("force_ipv4") is not True:
               sys.exit("AMARAN: force_ipv4 tiada — IPv6 boleh hang gateway")
+          skills = {p.name for p in pathlib.Path("home/skills").iterdir() if p.is_dir()}
+          hilang = [s for s in al if s not in skills]
+          if hilang:
+              print("AMARAN: auto_load menyenaraikan skill yang TIADA:", hilang)
+          else:
+              print("auto_load: semua skill dipetik ADA")
+          print("jumlah skill:", len(skills))
           PY
 
       - name: Jalankan gateway (kukuh terhadap 409)
