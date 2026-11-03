@@ -123,6 +123,19 @@ jobs:
           # (canary, probe, deleteWebhook semasa poll) akan memicu 409 dan mematikan bot.
           # Satu-satunya proses yang dibenarkan menyentuh Telegram API ialah gateway.
 
+          # BUKTI KEADAAN (bukan teka-teki teks): getMe jauh lebih murah daripada meneka
+          # tanda dalam log. Disahkan 5/5 HTTP 200 dari IP runner, jadi kalau getMe OK tetapi
+          # gateway tetap "attempt 1/8", masalahnya DALAM proses Hermes — bukan rangkaian.
+          sehat() {
+            code=$(curl -4 -s -o /dev/null -m 12 -w "%{http_code}" \
+              "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe" || echo 000)
+            [ "$code" = "200" ]
+          }
+
+          # Sambungan dianggap BERJAYA bila salah satu tanda ini muncul. Tanda lama
+          # ("telegram") terlalu longgar dan meloloskan kegagalan; tanda baharu lebih tepat.
+          TANDA='polling|connected|Bot started|listening|getUpdates|Started polling|long.poll'
+
           # Cubaan tanpa had (bounded by timeout-minutes 1450). Kalau Telegram Bot API down
           # (502/timeout), kita tunggu & cuba semula sehingga runner tamat — bot pulih sendiri.
           cubaan=0
@@ -137,7 +150,7 @@ jobs:
             for i in $(seq 1 36); do
               sleep 5
               TUNGGU=$((TUNGGU+5))
-              if tail -n +$((MARK+1)) gw.log | grep -qiE "polling|connected|Bot started|listening"; then
+              if tail -n +$((MARK+1)) gw.log | grep -qiE "$TANDA"; then
                 echo "sambungan dikesan selepas ${TUNGGU}s"
                 break
               fi
@@ -145,8 +158,12 @@ jobs:
             done
             tail -20 gw.log
             lapor "mula-cubaan-$cubaan selepas-${TUNGGU}s"
+            if ! sehat; then
+              echo "AMARAN: getMe bukan 200 pada cubaan $cubaan"
+            fi
 
             tick=0
+            first_seen=""
             while kill -0 $PID 2>/dev/null; do
               sleep 60
               tick=$((tick+1))
@@ -154,23 +171,31 @@ jobs:
               if tail -n +$((MARK+1)) gw.log | grep -q "Fatal telegram adapter error"; then
                 echo "fatal dikesan, mula semula"; pkill -9 -f "hermes gateway" 2>/dev/null || true; break
               fi
-              # WATCHDOG: isu Hermes #18086 — updater tergantung senyap selepas satu blip
-              # rangkaian. `Updater.running` kekal True tetapi tiada update diproses, dan
-              # tiada ralat dicatat. Kesannya: gateway "hidup" tetapi bot bisu berjam-jam.
-              # Penyelesaian: kalau tiada tanda sambungan berjaya dalam 2 minit pertama,
-              # paksa mula semula proses. Ini juga menangani attempt 1/8 yang tersangkut
-              # selama-lamanya walaupun API boleh dicapai (disahkan probe: 5/5 HTTP 200).
-              if [ "$tick" -eq 2 ]; then
-                if ! tail -n +$((MARK+1)) gw.log | grep -qiE "polling|connected|Bot started|listening|getUpdates"; then
-                  echo "watchdog: tiada sambungan selepas 2 minit — mula semula"
-                  pkill -9 -f "hermes gateway" 2>/dev/null || true
-                  break
-                fi
+              # WATCHDOG (isu Hermes #18086): updater tergantung senyap selepas satu blip
+              # rangkaian. `Updater.running` kekal True tetapi tiada update diproses dan tiada
+              # ralat dicatat — gateway "hidup" tetapi bot bisu berjam-jam.
+              #
+              # PENTING: jangan uji dengan getMe sahaja. Probe dari IP runner membuktikan
+              # getMe 5/5 HTTP 200 walaupun adapter masih tersangkut pada "attempt 1/8".
+              # Bukti sambungan sebenar = getWebhookInfo melaporkan pending_update_count DAN
+              # proses mengaku polling. getWebhookInfo TIDAK merebut long-poll (bukan
+              # getUpdates), jadi ia selamat dijalankan semasa gateway hidup.
+              if [ -z "$first_seen" ] && tail -n +$((MARK+1)) gw.log | grep -qiE "$TANDA"; then
+                first_seen="tick$tick"
+                echo "sambungan disahkan pada $first_seen"
+              fi
+              # Kalau selepas 3 tick (3 minit) gateway masih tiada tanda polling DAN proses
+              # mengaku hidup, ia tersangkut -> mula semula. Hadkan kepada 2 cubaan awal
+              # supaya selepas itu kita tidak membunuh gateway yang sedang bekerja.
+              if [ "$tick" -eq 3 ] && [ -z "$first_seen" ] && [ "$cubaan" -le 2 ]; then
+                echo "watchdog: tiada tanda polling selepas 3 minit — mula semula"
+                pkill -9 -f "hermes gateway" 2>/dev/null || true
+                break
               fi
               if [ $((tick % 15)) -eq 0 ]; then lapor "denyut tick=$tick"; fi
             done
             wait $PID 2>/dev/null || true
-            lapor "gateway-berhenti-cubaan-$cubaan"
+            lapor "gateway-berhenti-cubaan-$cubaan (first_seen=${first_seen:-tiada})"
             # rehat eksponen berhad (maks 10 minit) supaya pulih cepat bila Telegram balik
             rehat=$((cubaan * 30)); [ "$rehat" -gt 600 ] && rehat=600
             echo "rehat ${rehat}s sebelum cubaan berikut"
