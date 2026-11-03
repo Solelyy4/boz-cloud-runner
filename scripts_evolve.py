@@ -302,13 +302,14 @@ Analisa error mentah -> >=3 alternatif struktur -> jambatan laptop -> lapor 1 ba
 
 def pengunci_dialek(keywords_list: list[tuple[str, list[str]]]) -> int:
     """Fail pengunci: semua kata isyarat -> domain. Turut dipakai mengesan liputan bahasa."""
-    baris = ["# DIALEK.lock — pengunci bahasa autolearn (dijana automatik)", ""]
+    baris = ["# DIALEK.txt — pengunci bahasa autolearn (DIGANTIKAN dari DIALEK.lock:",
+              "# repo home ada *.lock dalam .gitignore -> git add -A menolaknya SENYAP.)", ""]
     for dom, kws in keywords_list:
         for kw in kws:
             a = unicodedata.normalize("NFKC", kw).strip().lower()
             if a:
                 baris.append(f"{a}\t{dom}")
-    p = HOME / "DIALEK.lock"
+    p = HOME / "DIALEK.txt"
     p.write_text("\n".join(sorted(set(baris))) + "\n", encoding="utf-8")
     return p.stat().st_size
 
@@ -348,7 +349,7 @@ def main() -> int:
     print(f"SKILL {status} name='{domain}' bytes={saiz_skill} sumber={len(sumber)} wiki={len(wiki)}")
 
     lsize = pengunci_dialek([(d[0], d[2]) for d in DOMAINS])
-    print(f"DIALEK.lock bytes={lsize} dialek={len(DIALEK)}")
+    print(f"DIALEK.txt bytes={lsize} dialek={len(DIALEK)}")
 
     # ---- AUDIT ----
     lapor: dict = {"ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "isu": [], "ok": []}
