@@ -1,7 +1,4 @@
-=== run 41581836543 tick 2026-11-03T05:48:17Z ===
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/httpcore/_async/http11.py", line 136, in handle_async_request
-    raise exc
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/httpcore/_async/http11.py", line 106, in handle_async_request
+=== run 41581836543 tick 2026-11-03T06:03:19Z ===
     ) = await self._receive_response_headers(**kwargs)
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/httpcore/_async/http11.py", line 177, in _receive_response_headers
@@ -90,7 +87,7 @@ WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Teleg
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 2/8 failed: Timed out — retrying in 2s
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 3/8)…
 WARNING gateway.run: Reconnect telegram error: telegram connect timed out after 60s, next retry in 300s
-WARNING gateway.run: Gateway swallowed transient network error from Task-72: TimedOut: Timed out
+WARNING gateway.run: Gateway swallowed transient network error from Task-90: TimedOut: Timed out
 Traceback (most recent call last):
   File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
     yield
@@ -196,7 +193,7 @@ WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Teleg
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 2/8 failed: Timed out — retrying in 2s
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 3/8)…
 WARNING gateway.run: Reconnect telegram error: telegram connect timed out after 60s, next retry in 300s
-WARNING gateway.run: Gateway swallowed transient network error from Task-81: TimedOut: Timed out
+WARNING gateway.run: Gateway swallowed transient network error from Task-99: TimedOut: Timed out
 Traceback (most recent call last):
   File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
     yield
@@ -299,4 +296,7 @@ WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Discovering Telegra
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 1/8 failed: Timed out — retrying in 1s
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 2/8)…
-denyut tick=30 2026-11-03T05:48:17Z
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 2/8 failed: Timed out — retrying in 2s
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 3/8)…
+WARNING gateway.run: Reconnect telegram error: telegram connect timed out after 60s, next retry in 300s
+denyut tick=45 2026-11-03T06:03:19Z
