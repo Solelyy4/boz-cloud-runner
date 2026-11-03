@@ -1,4 +1,4 @@
-=== run 41646397338 tick 2026-11-03T14:13:38Z ===
+=== run 41646397338 tick 2026-11-03T14:28:41Z ===
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -178,4 +178,4 @@ Traceback (most recent call last):
 openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
 2026-11-03 14:03:28,717 WARNING agent.conversation_loop: API call failed (attempt 1/2, not retryable) error_type=BadRequestError thread=hermes-gateway_5:140132290115264 provider=mistral base_url=https://api.mistral.ai/v1/ model=open-mistral-nemo summary=HTTP 400: reasoning_effort is not enabled for this model
 2026-11-03 14:03:28,730 WARNING agent.conversation_loop: Rebuilt-message restart limit (2) exceeded; ending turn instead of refunding the iteration budget indefinitely.
-denyut tick=30 2026-11-03T14:13:38Z
+denyut tick=45 2026-11-03T14:28:41Z
