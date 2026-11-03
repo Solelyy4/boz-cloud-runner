@@ -1,4 +1,4 @@
-=== run 41573074878 tick 2026-11-03T03:50:56Z ===
+=== run 41573074878 tick 2026-11-03T04:05:58Z ===
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 1/8 failed: Bad Gateway — retrying in 1s
@@ -162,4 +162,115 @@ WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Teleg
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 3/8 failed: Bad Gateway — retrying in 4s
 WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 4/8)…
 WARNING gateway.run: Reconnect telegram error: telegram connect timed out after 60s, next retry in 300s
-denyut tick=15 2026-11-03T03:50:56Z
+WARNING gateway.run: Gateway swallowed transient network error from Task-60: NetworkError: Bad Gateway
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_application.py", line 489, in initialize
+    await self.bot.initialize()
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_extbot.py", line 315, in initialize
+    await super().initialize()
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 856, in initialize
+    await self.get_me()
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_extbot.py", line 2007, in get_me
+    return await super().get_me(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 989, in get_me
+    result = await self._post(
+             ^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_extbot.py", line 369, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.NetworkError: Bad Gateway
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 1/8 failed: Bad Gateway — retrying in 1s
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 2/8)…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 2/8 failed: Bad Gateway — retrying in 2s
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 3/8)…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 3/8 failed: Bad Gateway — retrying in 4s
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 4/8)…
+WARNING gateway.run: Reconnect telegram error: telegram connect timed out after 60s, next retry in 300s
+WARNING gateway.run: Gateway swallowed transient network error from Task-70: NetworkError: Bad Gateway
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_application.py", line 489, in initialize
+    await self.bot.initialize()
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_extbot.py", line 315, in initialize
+    await super().initialize()
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 856, in initialize
+    await self.get_me()
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_extbot.py", line 2007, in get_me
+    return await super().get_me(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 989, in get_me
+    result = await self._post(
+             ^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_extbot.py", line 369, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.NetworkError: Bad Gateway
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 1/8 failed: Bad Gateway — retrying in 1s
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 2/8)…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 2/8 failed: Bad Gateway — retrying in 2s
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 3/8)…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 3/8 failed: Bad Gateway — retrying in 4s
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 4/8)…
+WARNING gateway.run: Reconnect telegram error: telegram connect timed out after 60s, next retry in 300s
+WARNING gateway.run: Gateway swallowed transient network error from Task-80: NetworkError: Bad Gateway
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_application.py", line 489, in initialize
+    await self.bot.initialize()
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_extbot.py", line 315, in initialize
+    await super().initialize()
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 856, in initialize
+    await self.get_me()
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_extbot.py", line 2007, in get_me
+    return await super().get_me(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 989, in get_me
+    result = await self._post(
+             ^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/ext/_extbot.py", line 369, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.NetworkError: Bad Gateway
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 1/8 failed: Bad Gateway — retrying in 1s
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 2/8)…
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connect attempt 2/8 failed: Bad Gateway — retrying in 2s
+WARNING hermes_plugins.telegram_platform.adapter: [Telegram] Connecting to Telegram (attempt 3/8)…
+denyut tick=30 2026-11-03T04:05:58Z
