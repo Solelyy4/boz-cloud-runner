@@ -1,0 +1,64 @@
+name: Auto-Heal Bot
+
+# BOZ AUTO-HEALER — membaiki bot Telegram secara automatik tanpa perlu buka Hermes.
+# Berjalan setiap 15 minit + boleh dicetuskan manual.
+# Kos: hanya semakan ringan; tiada model dipanggil melainkan perlu.
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: autoheal
+  cancel-in-progress: false
+
+jobs:
+  heal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout runner repo
+        uses: actions/checkout@v4
+
+      - name: Ambil home Hermes
+        continue-on-error: true
+        run: |
+          git clone --depth 1 "https://x-access-token:${{ secrets.BOZ_PAT }}@github.com/Solelyy4/boz-hermes-home.git" home 2>/dev/null || echo "home clone gagal"
+          ls home/config.yaml 2>/dev/null && echo "home OK" || echo "home TIADA"
+
+      - name: Jalankan auto-heal
+        env:
+          BOZ_PAT: ${{ secrets.BOZ_PAT }}
+          BOZ_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ROUTER9_API_KEY: ${{ secrets.ROUTER9_API_KEY }}
+          GH_REPO: Solelyy4/boz-hermes-home
+          HERMES_HOME: ${{ github.workspace }}/home
+        run: |
+          chmod +x scripts/autoheal.sh
+          bash scripts/autoheal.sh 2>&1 | tee autoheal_run.log
+
+      - name: Lapor hasil ke repo home
+        continue-on-error: true
+        env:
+          BOZ_PAT: ${{ secrets.BOZ_PAT }}
+        run: |
+          STATE=$(cat autoheal_state.json 2>/dev/null || echo '{"heals":0}')
+          HEALS=$(printf '%s' "$STATE" | sed -n 's/.*"heals":\([0-9]*\).*/\1/p')
+          [ -n "$HEALS" ] || HEALS=0
+          if [ "$HEALS" -eq 0 ]; then
+            echo "Tiada pembaikan diperlukan"
+            exit 0
+          fi
+          BODY=$(printf '{"message":"autoheal %s: %s pembaikan","content":"%s","branch":"master"}' \
+            "$(date -u +%FT%TZ)" "$HEALS" "$(printf '%s' "$STATE" | base64 -w0)")
+          SHA=$(curl -sf -m 15 -H "Authorization: Bearer ${BOZ_PAT}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/Solelyy4/boz-hermes-home/contents/state/autoheal.json" \
+            | sed -n 's/.*"sha": *"\([a-f0-9]\{40\}\)".*/\1/p' | head -1)
+          [ -n "$SHA" ] && BODY=$(printf '%s' "$BODY" | sed "s|}$|,\"sha\":\"$SHA\"}|")
+          curl -sf -m 20 -X PUT -H "Authorization: Bearer ${BOZ_PAT}" \
+            -H "Accept: application/vnd.github+json" \
+            -d "$BODY" \
+            "https://api.github.com/repos/Solelyy4/boz-hermes-home/contents/state/autoheal.json" >/dev/null 2>&1 \
+            && echo "status autoheal dilaporkan" || echo "laporan gagal (tidak kritikal)"
