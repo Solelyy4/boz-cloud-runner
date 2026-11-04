@@ -1,4 +1,4 @@
-=== run 41783443329 tick 2026-11-04T07:40:09Z ===
+=== run 41783443329 tick 2026-11-04T07:55:11Z ===
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -191,4 +191,5 @@ Bytecode compiled 5057 files in 2.75s
 2026-11-04 06:09:44,284 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-04 06:09:44,476 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-04 06:09:55,590 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-denyut tick=90 2026-11-04T07:40:09Z
+2026-11-04 07:49:40,691 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+denyut tick=105 2026-11-04T07:55:11Z
