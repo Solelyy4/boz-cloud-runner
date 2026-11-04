@@ -278,6 +278,10 @@ jobs:
               {
                 echo "=== run $GITHUB_RUN_ID tick $(date -u +%FT%TZ) ==="
                 tail -n 300 gw.log 2>/dev/null || true
+                if grep -qiE 'error|traceback|exception|failed|refus' gw.log 2>/dev/null; then
+                  echo '--- ERROR LINES ---'
+                  grep -iE -A6 'error|traceback|exception|failed|refus' gw.log 2>/dev/null | tail -n 120 || true
+                fi
                 echo "$1 $(date -u +%FT%TZ)"
               } > status.log
               git add -f status.log >/dev/null 2>&1
