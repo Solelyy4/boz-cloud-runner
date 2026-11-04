@@ -141,7 +141,7 @@ jobs:
           # (ministral-14b -> ministral-8b -> groq -> habis).
           export MISTRAL_API_KEY="${{ secrets.MISTRAL_API_KEY }}"
           export GROQ_API_KEY="${{ secrets.GROQ_API_KEY }}"
-          export 9ROUTER_API_KEY="${{ secrets.ROUTER9_API_KEY }}"
+          export ROUTER9_API_KEY="${{ secrets.ROUTER9_API_KEY }}"
           export BOZ_PAT="${{ secrets.BOZ_PAT }}"
           # CLI dipasang oleh install.sh ke ~/.local/bin — tanpa ini `hermes` tidak dijumpai.
           export PATH="$HOME/.local/bin:$PATH"
