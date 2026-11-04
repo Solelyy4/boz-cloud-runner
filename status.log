@@ -1,4 +1,4 @@
-=== run 41842407452 AKHIR 2026-11-04T14:05:19Z ===
+=== run 41843999830 tick 2026-11-04T14:08:57Z ===
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -6,13 +6,13 @@
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-04 13:57:31,473 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
-2026-11-04 13:57:31,473 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
-2026-11-04 13:57:31,941 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3448, started_at=2026-11-04T13:49:32.974105+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-04T13:54:51.514591+00:00 last_mem={'rss_kib': 252512, 'mem_total_kib': 16367524, 'mem_available_kib': 15122636, 'swap_used_kib': 0} suspected_oom=False
+2026-11-04 14:08:35,089 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
+2026-11-04 14:08:35,089 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
+2026-11-04 14:08:35,461 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3419, started_at=2026-11-04T13:57:31.942872+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-04T14:05:20.429763+00:00 last_mem={'rss_kib': 254876, 'mem_total_kib': 16366508, 'mem_available_kib': 15130680, 'swap_used_kib': 0} suspected_oom=False
 Using CPython 3.14.9 interpreter at: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+20261021-linux-x64/bin/python3
 Creating virtual environment at: venv
 Activate with: venv/bin/activate
-   Building hermes-agent @ file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/19e75e64d5a54e0b994b13c71cb89abd/workspace
+   Building hermes-agent @ file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/d305c1a5ddef4348ae7886883a2a4bc1/workspace
 DEBUG Resolving build requirements
 DEBUG Creating PEP 517 build environment
 DEBUG Calling `setuptools.build_meta.get_requires_for_build_editable()`
@@ -28,32 +28,32 @@ DEBUG reading manifest file 'hermes_agent.egg-info/SOURCES.txt'
 DEBUG adding license file 'LICENSE'
 DEBUG writing manifest file 'hermes_agent.egg-info/SOURCES.txt'
 DEBUG Locking the source tree for setuptools
-DEBUG Calling `setuptools.build_meta.build_editable(__import__("os").fsdecode(b"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE"), {}, None)`
+DEBUG Calling `setuptools.build_meta.build_editable(__import__("os").fsdecode(b"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb"), {}, None)`
 DEBUG running editable_wheel
-DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent.egg-info
-DEBUG writing /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent.egg-info/PKG-INFO
-DEBUG writing dependency_links to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent.egg-info/dependency_links.txt
-DEBUG writing entry points to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent.egg-info/entry_points.txt
-DEBUG writing requirements to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent.egg-info/requires.txt
-DEBUG writing top-level names to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent.egg-info/top_level.txt
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent.egg-info/SOURCES.txt'
-DEBUG reading manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent.egg-info/SOURCES.txt'
+DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent.egg-info
+DEBUG writing /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent.egg-info/PKG-INFO
+DEBUG writing dependency_links to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent.egg-info/dependency_links.txt
+DEBUG writing entry points to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent.egg-info/entry_points.txt
+DEBUG writing requirements to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent.egg-info/requires.txt
+DEBUG writing top-level names to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent.egg-info/top_level.txt
+DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent.egg-info/SOURCES.txt'
+DEBUG reading manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent.egg-info/SOURCES.txt'
 DEBUG adding license file 'LICENSE'
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent.egg-info/SOURCES.txt'
-DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent-0.0.0.dist-info'
-DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent-0.0.0.dist-info/WHEEL
+DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent.egg-info/SOURCES.txt'
+DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent-0.0.0.dist-info'
+DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent-0.0.0.dist-info/WHEEL
 DEBUG running build_py
 DEBUG running egg_info
-DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmptimse139.build-temp/hermes_agent.egg-info
-DEBUG writing /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmptimse139.build-temp/hermes_agent.egg-info/PKG-INFO
-DEBUG writing dependency_links to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmptimse139.build-temp/hermes_agent.egg-info/dependency_links.txt
-DEBUG writing entry points to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmptimse139.build-temp/hermes_agent.egg-info/entry_points.txt
-DEBUG writing requirements to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmptimse139.build-temp/hermes_agent.egg-info/requires.txt
-DEBUG writing top-level names to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmptimse139.build-temp/hermes_agent.egg-info/top_level.txt
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmptimse139.build-temp/hermes_agent.egg-info/SOURCES.txt'
-DEBUG reading manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmptimse139.build-temp/hermes_agent.egg-info/SOURCES.txt'
+DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp_kk8_90u.build-temp/hermes_agent.egg-info
+DEBUG writing /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp_kk8_90u.build-temp/hermes_agent.egg-info/PKG-INFO
+DEBUG writing dependency_links to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp_kk8_90u.build-temp/hermes_agent.egg-info/dependency_links.txt
+DEBUG writing entry points to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp_kk8_90u.build-temp/hermes_agent.egg-info/entry_points.txt
+DEBUG writing requirements to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp_kk8_90u.build-temp/hermes_agent.egg-info/requires.txt
+DEBUG writing top-level names to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp_kk8_90u.build-temp/hermes_agent.egg-info/top_level.txt
+DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp_kk8_90u.build-temp/hermes_agent.egg-info/SOURCES.txt'
+DEBUG reading manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp_kk8_90u.build-temp/hermes_agent.egg-info/SOURCES.txt'
 DEBUG adding license file 'LICENSE'
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmptimse139.build-temp/hermes_agent.egg-info/SOURCES.txt'
+DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp_kk8_90u.build-temp/hermes_agent.egg-info/SOURCES.txt'
 DEBUG Editable install will be performed using a meta path finder.
 DEBUG 
 DEBUG Options like `package-data`, `include/exclude-package-data` or
@@ -61,14 +61,14 @@ DEBUG `packages.find.exclude/include` may have no effect.
 DEBUG 
 DEBUG adding '__editable___hermes_agent_0_0_0_finder.py'
 DEBUG adding '__editable__.hermes_agent-0.0.0.pth'
-DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp6wFxVE/.tmp-08okcfxi/hermes_agent-0.0.0-0.editable-py3-none-any.whl' and adding '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpfu5y3sh4hermes_agent-0.0.0-0.editable-py3-none-any.whl' to it
+DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpSAJPLb/.tmp-a8dz5xn5/hermes_agent-0.0.0-0.editable-py3-none-any.whl' and adding '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp1tkk29gbhermes_agent-0.0.0-0.editable-py3-none-any.whl' to it
 DEBUG adding 'hermes_agent-0.0.0.dist-info/licenses/LICENSE'
 DEBUG adding 'hermes_agent-0.0.0.dist-info/METADATA'
 DEBUG adding 'hermes_agent-0.0.0.dist-info/WHEEL'
 DEBUG adding 'hermes_agent-0.0.0.dist-info/entry_points.txt'
 DEBUG adding 'hermes_agent-0.0.0.dist-info/top_level.txt'
 DEBUG adding 'hermes_agent-0.0.0.dist-info/RECORD'
-DEBUG /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpBXM6Vs/lib/python3.14/site-packages/setuptools/command/editable_wheel.py:352: InformationOnly: Editable installation.
+DEBUG /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmp0AwYzu/lib/python3.14/site-packages/setuptools/command/editable_wheel.py:352: InformationOnly: Editable installation.
 DEBUG !!
 DEBUG 
 DEBUG         ********************************************************************************
@@ -78,10 +78,10 @@ DEBUG         ******************************************************************
 DEBUG 
 DEBUG !!
 DEBUG   with strategy, WheelFile(wheel_path, "w") as wheel_obj:
-      Built hermes-agent @ file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/19e75e64d5a54e0b994b13c71cb89abd/workspace
-Prepared 3 packages in 1.84s
-Installed 106 packages in 63ms
-Bytecode compiled 5057 files in 3.23s
+      Built hermes-agent @ file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/d305c1a5ddef4348ae7886883a2a4bc1/workspace
+Prepared 3 packages in 2.08s
+Installed 106 packages in 42ms
+Bytecode compiled 5057 files in 2.09s
  + agent-client-protocol==0.9.0
  + aiohappyeyeballs==2.7.1
  + aiohttp==3.14.5
@@ -112,7 +112,7 @@ Bytecode compiled 5057 files in 3.23s
  + google-auth-oauthlib==1.5.0
  + googleapis-common-protos==1.75.5
  + h11==0.16.0
- + hermes-agent==0.0.0 (from file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/19e75e64d5a54e0b994b13c71cb89abd/workspace)
+ + hermes-agent==0.0.0 (from file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/d305c1a5ddef4348ae7886883a2a4bc1/workspace)
  + httpcore==1.0.9
  + httpcore2==2.15.1
  + httplib2==0.32.0
@@ -188,9 +188,8 @@ Bytecode compiled 5057 files in 3.23s
  + websockets==15.0.1
  + yarl==1.25.1
  + youtube-transcript-api==1.2.4
-2026-11-04 13:57:38,566 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-04 13:57:38,620 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-04 13:57:38,861 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-04 13:57:50,067 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-04 13:59:20,602 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-04 13:59:20,603 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-11-04 14:08:42,247 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-04 14:08:42,288 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-04 14:08:42,457 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-04 14:08:53,315 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+mula-cubaan-1 selepas-25s 2026-11-04T14:08:57Z
