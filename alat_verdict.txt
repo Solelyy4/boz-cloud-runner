@@ -1,10 +1,11 @@
-=== 2026-11-04T14:27:26Z ===
-python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/b40e55795c5f4372ab5f827defef4ca4/venv/bin/python
+=== 2026-11-04T14:31:37Z ===
+python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/cc87957d1cd343069f6fdb16d0be85a3/venv/bin/python
 --- 1. GATE: check_web_api_key() + registry ---
+web_search backend 'ddgs' failed (ddgs package is not installed — run `pip install ddgs`); one-shot keyless rescue
 check_web_api_key(): True
-_configured_backend(): 
-_get_search_backend(): parallel
-_keyless_backend(): parallel
+_configured_backend(): ddgs
+_get_search_backend(): ddgs
+_keyless_backend(): keenable
 semak registry GAGAL: ModuleNotFoundError No module named 'agent.tool_registry'
 web_search_tool OK, hasil: 0
 --- 2. plugin ddgs terus ---
