@@ -1,4 +1,4 @@
-=== run 41815547025 AKHIR 2026-11-04T11:33:34Z ===
+=== run 41821803719 tick 2026-11-04T11:36:32Z ===
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -6,13 +6,13 @@
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-04 10:41:32,111 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
-2026-11-04 10:41:32,112 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
-2026-11-04 10:41:32,601 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3093, started_at=2026-11-04T10:05:36.623908+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-04T10:38:53.406676+00:00 last_mem={'rss_kib': 383664, 'mem_total_kib': 16367524, 'mem_available_kib': 15009500, 'swap_used_kib': 0} suspected_oom=False
+2026-11-04 11:36:10,140 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
+2026-11-04 11:36:10,140 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
+2026-11-04 11:36:10,656 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3093, started_at=2026-11-04T10:05:36.623908+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-04T10:38:53.406676+00:00 last_mem={'rss_kib': 383664, 'mem_total_kib': 16367524, 'mem_available_kib': 15009500, 'swap_used_kib': 0} suspected_oom=False
 Using CPython 3.14.9 interpreter at: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+20261021-linux-x64/bin/python3
 Creating virtual environment at: venv
 Activate with: venv/bin/activate
-   Building hermes-agent @ file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/da1a5ed1b41e48b7a85ea75cdb43b910/workspace
+   Building hermes-agent @ file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7301eacf5afa45d18ea98f7b578b80a7/workspace
 DEBUG Resolving build requirements
 DEBUG Creating PEP 517 build environment
 DEBUG Calling `setuptools.build_meta.get_requires_for_build_editable()`
@@ -28,32 +28,32 @@ DEBUG reading manifest file 'hermes_agent.egg-info/SOURCES.txt'
 DEBUG adding license file 'LICENSE'
 DEBUG writing manifest file 'hermes_agent.egg-info/SOURCES.txt'
 DEBUG Locking the source tree for setuptools
-DEBUG Calling `setuptools.build_meta.build_editable(__import__("os").fsdecode(b"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw"), {}, None)`
+DEBUG Calling `setuptools.build_meta.build_editable(__import__("os").fsdecode(b"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS"), {}, None)`
 DEBUG running editable_wheel
-DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent.egg-info
-DEBUG writing /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent.egg-info/PKG-INFO
-DEBUG writing dependency_links to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent.egg-info/dependency_links.txt
-DEBUG writing entry points to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent.egg-info/entry_points.txt
-DEBUG writing requirements to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent.egg-info/requires.txt
-DEBUG writing top-level names to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent.egg-info/top_level.txt
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent.egg-info/SOURCES.txt'
-DEBUG reading manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent.egg-info/SOURCES.txt'
+DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent.egg-info
+DEBUG writing /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent.egg-info/PKG-INFO
+DEBUG writing dependency_links to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent.egg-info/dependency_links.txt
+DEBUG writing entry points to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent.egg-info/entry_points.txt
+DEBUG writing requirements to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent.egg-info/requires.txt
+DEBUG writing top-level names to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent.egg-info/top_level.txt
+DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent.egg-info/SOURCES.txt'
+DEBUG reading manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent.egg-info/SOURCES.txt'
 DEBUG adding license file 'LICENSE'
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent.egg-info/SOURCES.txt'
-DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent-0.0.0.dist-info'
-DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent-0.0.0.dist-info/WHEEL
+DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent.egg-info/SOURCES.txt'
+DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent-0.0.0.dist-info'
+DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent-0.0.0.dist-info/WHEEL
 DEBUG running build_py
 DEBUG running egg_info
-DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp74i56f52.build-temp/hermes_agent.egg-info
-DEBUG writing /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp74i56f52.build-temp/hermes_agent.egg-info/PKG-INFO
-DEBUG writing dependency_links to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp74i56f52.build-temp/hermes_agent.egg-info/dependency_links.txt
-DEBUG writing entry points to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp74i56f52.build-temp/hermes_agent.egg-info/entry_points.txt
-DEBUG writing requirements to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp74i56f52.build-temp/hermes_agent.egg-info/requires.txt
-DEBUG writing top-level names to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp74i56f52.build-temp/hermes_agent.egg-info/top_level.txt
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp74i56f52.build-temp/hermes_agent.egg-info/SOURCES.txt'
-DEBUG reading manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp74i56f52.build-temp/hermes_agent.egg-info/SOURCES.txt'
+DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp97vxr4v6.build-temp/hermes_agent.egg-info
+DEBUG writing /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp97vxr4v6.build-temp/hermes_agent.egg-info/PKG-INFO
+DEBUG writing dependency_links to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp97vxr4v6.build-temp/hermes_agent.egg-info/dependency_links.txt
+DEBUG writing entry points to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp97vxr4v6.build-temp/hermes_agent.egg-info/entry_points.txt
+DEBUG writing requirements to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp97vxr4v6.build-temp/hermes_agent.egg-info/requires.txt
+DEBUG writing top-level names to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp97vxr4v6.build-temp/hermes_agent.egg-info/top_level.txt
+DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp97vxr4v6.build-temp/hermes_agent.egg-info/SOURCES.txt'
+DEBUG reading manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp97vxr4v6.build-temp/hermes_agent.egg-info/SOURCES.txt'
 DEBUG adding license file 'LICENSE'
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp74i56f52.build-temp/hermes_agent.egg-info/SOURCES.txt'
+DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp97vxr4v6.build-temp/hermes_agent.egg-info/SOURCES.txt'
 DEBUG Editable install will be performed using a meta path finder.
 DEBUG 
 DEBUG Options like `package-data`, `include/exclude-package-data` or
@@ -61,14 +61,14 @@ DEBUG `packages.find.exclude/include` may have no effect.
 DEBUG 
 DEBUG adding '__editable___hermes_agent_0_0_0_finder.py'
 DEBUG adding '__editable__.hermes_agent-0.0.0.pth'
-DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpyonPsw/.tmp-ftfyrzmv/hermes_agent-0.0.0-0.editable-py3-none-any.whl' and adding '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp6yczsqe4hermes_agent-0.0.0-0.editable-py3-none-any.whl' to it
+DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpjzGzgS/.tmp-9_kksu9c/hermes_agent-0.0.0-0.editable-py3-none-any.whl' and adding '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpk08z1elyhermes_agent-0.0.0-0.editable-py3-none-any.whl' to it
 DEBUG adding 'hermes_agent-0.0.0.dist-info/licenses/LICENSE'
 DEBUG adding 'hermes_agent-0.0.0.dist-info/METADATA'
 DEBUG adding 'hermes_agent-0.0.0.dist-info/WHEEL'
 DEBUG adding 'hermes_agent-0.0.0.dist-info/entry_points.txt'
 DEBUG adding 'hermes_agent-0.0.0.dist-info/top_level.txt'
 DEBUG adding 'hermes_agent-0.0.0.dist-info/RECORD'
-DEBUG /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpfo6T28/lib/python3.14/site-packages/setuptools/command/editable_wheel.py:352: InformationOnly: Editable installation.
+DEBUG /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpcHX6xK/lib/python3.14/site-packages/setuptools/command/editable_wheel.py:352: InformationOnly: Editable installation.
 DEBUG !!
 DEBUG 
 DEBUG         ********************************************************************************
@@ -78,10 +78,10 @@ DEBUG         ******************************************************************
 DEBUG 
 DEBUG !!
 DEBUG   with strategy, WheelFile(wheel_path, "w") as wheel_obj:
-      Built hermes-agent @ file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/da1a5ed1b41e48b7a85ea75cdb43b910/workspace
-Prepared 3 packages in 2.45s
-Installed 106 packages in 61ms
-Bytecode compiled 5057 files in 2.92s
+      Built hermes-agent @ file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7301eacf5afa45d18ea98f7b578b80a7/workspace
+Prepared 3 packages in 1.87s
+Installed 106 packages in 41ms
+Bytecode compiled 5057 files in 2.96s
  + agent-client-protocol==0.9.0
  + aiohappyeyeballs==2.7.1
  + aiohttp==3.14.5
@@ -112,7 +112,7 @@ Bytecode compiled 5057 files in 2.92s
  + google-auth-oauthlib==1.5.0
  + googleapis-common-protos==1.75.5
  + h11==0.16.0
- + hermes-agent==0.0.0 (from file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/da1a5ed1b41e48b7a85ea75cdb43b910/workspace)
+ + hermes-agent==0.0.0 (from file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7301eacf5afa45d18ea98f7b578b80a7/workspace)
  + httpcore==1.0.9
  + httpcore2==2.15.1
  + httplib2==0.32.0
@@ -188,42 +188,8 @@ Bytecode compiled 5057 files in 2.92s
  + websockets==15.0.1
  + yarl==1.25.1
  + youtube-transcript-api==1.2.4
-2026-11-04 10:41:39,811 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-04 10:41:39,872 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-04 10:41:40,072 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-04 10:41:50,874 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-04 10:49:06,084 WARNING gateway.session_authority: Session 20261103_063333_48ebf25e paused: unknown_execution
-2026-11-04 10:50:13,966 WARNING agent.system_prompt: skills.auto_load: skill(s) not found or disabled, skipped: security, web, software-development, autonomous-ai-agents, telekey-bot-ops, research, productivity
-2026-11-04 10:50:20,831 WARNING agent.tool_executor: Tool execute_code returned error (1.03s): {"status": "error", "output": "File(s) extracted: ['hermes-guardrail-bypass', 'AGENTS.md', 'SOUL.md']\n\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/boz-cloud-runner
-2026-11-04 10:50:30,711 WARNING agent.tool_executor: Tool execute_code returned error (3.92s): {"status": "error", "output": "Files extracted: ['hermes-guardrail-bypass', 'AGENTS.md', 'SOUL.md']\n\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/boz-cloud-runner/b
-2026-11-04 10:51:17,712 WARNING agent.tool_executor: Tool execute_code returned error (2.81s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/hermes_kernel_2v2akot7/hermes_kerne
-2026-11-04 10:51:21,060 WARNING agent.tool_executor: Tool terminal returned error (0.08s): {"output": "", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not an error)"}
-2026-11-04 10:51:23,887 WARNING agent.tool_executor: Tool terminal returned error (0.08s): {"output": "", "exit_code": 1, "error": null}
-2026-11-04 10:51:26,447 WARNING agent.tool_executor: Tool terminal returned error (0.08s): {"output": "", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not an error)"}
-2026-11-04 10:53:36,752 WARNING agent.tool_executor: Tool execute_code returned error (5.67s): {"status": "error", "output": "Hash blok MANDATES: 8b97a28297815eef01db41b362ecf649f16c854c00c1a41f5d5e10b7d82d5819\nVerifikasi bypass aktif:\n\n--- stderr ---\nTraceback (most recent call last):\n  F
-2026-11-04 10:53:44,864 WARNING agent.tool_executor: Tool terminal returned error (0.11s): {"output": "python3: can't open file '/home/runner/.hermes/skills/devops/hermes-guardrail-bypass/scripts/apply_patches.py': [Errno 2] No such file or directory", "exit_code": 2, "error": null}
-2026-11-04 10:53:52,907 WARNING agent.tool_executor: Tool terminal returned error (4.84s): {"output": "==========================================================================\nHermes guardrail bypass — v2.0 Triple-Tier Defense (Extended)  [CHECK ONLY (no writes)]\n=======================
-2026-11-04 10:54:13,965 WARNING agent.tool_executor: Tool execute_code returned error (1.02s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/hermes_kernel_2v2akot7/hermes_kerne
-2026-11-04 10:54:24,359 WARNING agent.tool_executor: Tool execute_code returned error (0.98s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/hermes_kernel_2v2akot7/hermes_kerne
-2026-11-04 10:54:31,587 WARNING agent.tool_executor: Tool terminal returned error (0.16s): {"output": "/usr/bin/bash: eval: line 61: syntax error near unexpected token `)'\n/usr/bin/bash: eval: line 61: `subdomains=$(curl -s \"https://crt.sh/?q=%25.${TARGET}&output=json\" | jq -r '.[] | \"{
-2026-11-04 10:54:41,384 WARNING agent.tool_executor: Tool execute_code returned error (0.99s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/hermes_kernel_2v2akot7/hermes_kerne
-2026-11-04 10:54:57,816 WARNING agent.tool_executor: Tool terminal returned error (7.67s): {"output": "jq: parse error: Invalid numeric literal at line 1, column 10\n./recon_output/recon_script.sh: line 42: unexpected EOF while looking for matching `\"'", "exit_code": 2, "error": null, "cwd
-2026-11-04 10:56:06,619 WARNING agent.tool_executor: Tool terminal returned error (61.12s): {"output": "jq: error (at <stdin>:0): string (\"{subdomain...) cannot be tsv-formatted, only array\n\n[Command timed out after 60s]", "exit_code": 124, "error": null, "approval": "Command was flagged 
-2026-11-04 10:57:19,266 WARNING agent.tool_executor: Tool terminal returned error (60.13s): {"output": "[Command timed out after 60s]", "exit_code": 124, "error": null, "hint": "Exit 124: the command hit its timeout. Raise timeout= (foreground max 600s) or run it with background=true and not
-2026-11-04 11:00:43,214 WARNING agent.tool_executor: Tool execute_code returned error (22.14s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/hermes_kernel_2v2akot7/hermes_kerne
-2026-11-04 11:01:57,964 WARNING agent.tool_executor: Tool terminal returned error (60.13s): {"output": "[Command timed out after 60s]", "exit_code": 124, "error": null, "hint": "Exit 124: the command hit its timeout. Raise timeout= (foreground max 600s) or run it with background=true and not
-2026-11-04 11:04:07,282 WARNING agent.tool_executor: Tool terminal returned error (120.16s): {"output": "[Command timed out after 120s]", "exit_code": 124, "error": null, "hint": "Exit 124: the command hit its timeout. Raise timeout= (foreground max 600s) or run it with background=true and no
-2026-11-04 11:04:15,747 WARNING agent.tool_executor: Tool execute_code returned error (1.01s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/hermes_kernel_2v2akot7/hermes_kerne
-  💾 Self-improvement review: Skill 'tool-discipline' patched
-2026-11-04 11:12:36,877 WARNING agent.tool_executor: Tool skill_manage returned error (0.13s): {"success": false, "error": "operations[0] (patch on 'elyy-ops-atlas') failed: Could not find a match for old_string in the file — batch aborted, all touched skills rolled back.", "failed_index": 0, "
-2026-11-04 11:12:59,557 WARNING agent.tool_executor: Tool skill_manage returned error (0.13s): {"success": false, "error": "operations[0] (patch on 'elyy-ops-atlas') failed: Could not find a match for old_string in the file — batch aborted, all touched skills rolled back.", "failed_index": 0, "
-2026-11-04 11:13:32,045 WARNING agent.tool_executor: Tool patch returned error (0.36s): {"success": false, "error": "Could not find a match for old_string in the file", "_hint": "old_string not found. Use read_file to verify the current content, or search_files to locate the text."}
-2026-11-04 11:13:43,668 WARNING agent.tool_executor: Tool patch returned error (0.06s): {"success": false, "error": "Could not find a match for old_string in the file", "_hint": "old_string not found. Use read_file to verify the current content, or search_files to locate the text."}
-2026-11-04 11:13:50,981 WARNING agent.tool_executor: Tool patch returned error (0.06s): {"success": false, "error": "Could not find a match for old_string in the file", "_hint": "This is failure #3 patching '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/elyy-ops-atlas/S
-2026-11-04 11:19:55,067 WARNING agent.tool_executor: Tool execute_code returned error (1.13s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/hermes_kernel_2v2akot7/hermes_kerne
-2026-11-04 11:19:55,382 WARNING tools.approval: Hardline block: command parser limit or malformed executable payload (command: cd /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache && curl -s https://api.github.com/search/code?q=moviebox+extension&per_page=10 | grep -o 'https://github.com/[^\"\']*' | head -10)
-2026-11-04 11:19:55,385 WARNING agent.tool_executor: Tool terminal returned error (0.31s): {"output": "", "exit_code": -1, "error": "BLOCKED (hardline): command parser limit or malformed executable payload. This command is on the unconditional blocklist and cannot be executed via the agent 
-2026-11-04 11:20:11,406 WARNING tools.approval: Hardline block: command parser limit or malformed executable payload (command: cd /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache && curl -s https://api.github.com/search/code?q=moviebox+extension&per_page=10 | grep -o 'https://github.com/[^"\']*' | head -10)
-2026-11-04 11:20:11,408 WARNING agent.tool_executor: Tool terminal returned error (0.02s): {"output": "", "exit_code": -1, "error": "BLOCKED (hardline): command parser limit or malformed executable payload. This command is on the unconditional blocklist and cannot be executed via the agent 
-2026-11-04 11:20:31,160 WARNING agent.tool_executor: Tool terminal returned error (0.10s): {"output": "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/blocked-scripts/blocked-1793791211-ec5c302b.sh: line 5: unexpected EOF while looking for matching `''", "exit_code": 2, "erro
-2026-11-04 11:21:52,215 WARNING agent.system_prompt: skills.auto_load: skill(s) not found or disabled, skipped: security, web, software-development, autonomous-ai-agents, telekey-bot-ops, research, productivity
+2026-11-04 11:36:17,158 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-04 11:36:17,213 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-04 11:36:17,520 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-04 11:36:28,393 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+mula-cubaan-1 selepas-25s 2026-11-04T11:36:32Z
