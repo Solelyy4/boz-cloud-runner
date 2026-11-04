@@ -126,6 +126,7 @@ jobs:
             [ -x "$cand" ] && "$cand" -c "import hermes_cli" 2>/dev/null && { PY="$cand"; break; }
           done
           [ -n "$PY" ] || { echo "::warning::venv tidak dijumpai"; exit 0; }
+          export ROUTER9_API_KEY="${{ secrets.ROUTER9_API_KEY }}"
           echo "python: $PY"
 
           echo "=== curl keluar ==="
@@ -150,6 +151,24 @@ jobs:
           except Exception as e:
               print("panggilan gagal:", type(e).__name__, str(e)[:200])
           PYEOF
+          echo "=== ujian tool-calling 9Router ==="
+          curl -s -m 60 -X POST http://129.221.178.149:20128/v1/chat/completions \
+            -H "Authorization: Bearer $ROUTER9_API_KEY" -H "Content-Type: application/json" \
+            -d '{"model":"mistral-code","max_tokens":150,"tools":[{"type":"function","function":{"name":"web_search","description":"Cari internet","parameters":{"type":"object","properties":{"query":{"type":"string"}},"required":["query"]}}}],"messages":[{"role":"user","content":"Cari berita AI. Guna alat."}]}' \
+            | head -c 400 || echo "tool-calling gagal"
+
+          echo "=== ujian web_search dalam venv ==="
+          "$PY" - <<'PYEOF' || echo "web_search gagal (tidak kritikal)"
+          import asyncio
+          try:
+              from hermes_cli.plugins.web.ddgs.provider import DDGSWebSearchProvider
+              p = DDGSWebSearchProvider()
+              res = p.search("python asyncio", 3)
+              print("ddgs hasil:", len(res))
+          except Exception as e:
+              print("ddgs GAGAL:", type(e).__name__, str(e)[:180])
+          PYEOF
+
 
       - name: Tulis .env
         run: |
