@@ -1,0 +1,101 @@
+name: Auto-Heal Penjaga
+
+# PENJAGA SEPARUH — memastikan auto-heal dan bot sentiasa wujud dan berjalan.
+# Berjalan setiap 30 minit. Tugasnya:
+#   1. Sahkan scripts/autoheal_loop.sh wujud (pulihkan jika hilang)
+#   2. Sahkan autoheal.yml wujud (pulihkan jika hilang)
+#   3. Sahkan run telegram-hermes HIDUP; mula semula jika mati
+#   4. Lapor keadaan ke state/penjaga.json dalam repo home
+#
+# Ini lapisan yang membuat system "sentiasa ada" walaupun sesuatu dipadam.
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: penjaga
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  jaga:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Semak fail wajib
+        id: fail
+        run: |
+          MISSING=""
+          [ -f scripts/autoheal_loop.sh ] || MISSING="$MISSING autoheal_loop.sh"
+          [ -f scripts/autoheal.sh ] || MISSING="$MISSING autoheal.sh"
+          [ -f .github/workflows/autoheal.yml ] || MISSING="$MISSING autoheal.yml"
+          [ -f .github/workflows/telegram.yml ] || MISSING="$MISSING telegram.yml"
+          echo "missing=$MISSING" >> "$GITHUB_OUTPUT"
+          if [ -n "$MISSING" ]; then echo "HILANG:$MISSING"; else echo "Semua fail wajib ada"; fi
+
+      - name: Pulihkan fail hilang dari sejarah git
+        if: steps.fail.outputs.missing != ''
+        env:
+          BOZ_PAT: ${{ secrets.BOZ_PAT }}
+        run: |
+          git fetch --unshallow origin 2>/dev/null || git fetch --depth 50 origin 2>/dev/null || true
+          for f in scripts/autoheal_loop.sh scripts/autoheal.sh .github/workflows/autoheal.yml .github/workflows/telegram.yml; do
+            if [ ! -f "$f" ]; then
+              LAST=$(git log --all --format=%H -- "$f" 2>/dev/null | head -1)
+              if [ -n "$LAST" ]; then
+                git checkout "$LAST" -- "$f" 2>/dev/null && echo "dipulihkan: $f"
+              fi
+            fi
+          done
+          git -c user.email=bot@local -c user.name=bot add -A
+          git -c user.email=bot@local -c user.name=bot commit -qm "penjaga: pulihkan fail wajib" || true
+          git push origin HEAD:master 2>&1 | tail -2 || echo "push gagal (mungkin tiada perubahan)"
+
+      - name: Semak run telegram-hermes hidup
+        id: run
+        env:
+          BOZ_PAT: ${{ secrets.BOZ_PAT }}
+        run: |
+          LIVE=$(curl -sf -m 15 -H "Authorization: Bearer ${BOZ_PAT}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/Solelyy4/boz-cloud-runner/actions/workflows/telegram.yml/runs?per_page=5" \
+            | grep -o '"status": *"in_progress"' | wc -l)
+          echo "live=$LIVE" >> "$GITHUB_OUTPUT"
+          echo "run hidup: $LIVE"
+
+      - name: Mula semula bot jika mati
+        if: steps.run.outputs.live == '0'
+        env:
+          BOZ_PAT: ${{ secrets.BOZ_PAT }}
+        run: |
+          echo "Bot tiada run aktif — mencetuskan telegram-hermes"
+          curl -sf -m 20 -X POST -H "Authorization: Bearer ${BOZ_PAT}" \
+            -H "Accept: application/vnd.github+json" \
+            -d '{"ref":"master"}' \
+            "https://api.github.com/repos/Solelyy4/boz-cloud-runner/actions/workflows/telegram.yml/dispatches" \
+            && echo "bot dicetuskan" || echo "cetus gagal"
+
+      - name: Lapor keadaan ke repo home
+        env:
+          BOZ_PAT: ${{ secrets.BOZ_PAT }}
+        run: |
+          STATE=$(printf '{"ts":"%s","missing":"%s","live_runs":"%s"}' \
+            "$(date -u +%FT%TZ)" "${{ steps.fail.outputs.missing }}" "${{ steps.run.outputs.live }}")
+          BODY=$(printf '{"message":"penjaga: %s","content":"%s","branch":"master"}' \
+            "$(date -u +%FT%TZ)" "$(printf '%s' "$STATE" | base64 -w0)")
+          SHA=$(curl -sf -m 15 -H "Authorization: Bearer ${BOZ_PAT}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/Solelyy4/boz-hermes-home/contents/state/penjaga.json" \
+            | sed -n 's/.*"sha": *"\([a-f0-9]\{40\}\)".*/\1/p' | head -1)
+          [ -n "$SHA" ] && BODY=$(printf '%s' "$BODY" | sed "s|}$|,\"sha\":\"$SHA\"}|")
+          curl -sf -m 20 -X PUT -H "Authorization: Bearer ${BOZ_PAT}" \
+            -H "Accept: application/vnd.github+json" -d "$BODY" \
+            "https://api.github.com/repos/Solelyy4/boz-hermes-home/contents/state/penjaga.json" \
+            >/dev/null 2>&1 && echo "dilaporkan" || echo "lapor gagal"
