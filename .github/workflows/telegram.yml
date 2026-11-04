@@ -72,7 +72,16 @@ jobs:
           echo "=== jalankan patch ==="
           "$PY" scripts/apply_patches.py 2>&1 | tail -30 || true
           echo "=== verdict ==="
-          "$PY" scripts/apply_patches.py --check 2>&1 | grep -E "RESULT|component" || echo "verdict tidak terbaca"
+          "$PY" scripts/apply_patches.py --check 2>&1 | tee /tmp/patch_verdict.txt | grep -E "RESULT|component" || echo "verdict tidak terbaca"
+          # Tulis verdict ke fail dalam repo supaya operator boleh sahkan tanpa tunggu run tamat.
+          {
+            echo "=== guardrail bypass verdict $(date -u +%FT%TZ) ==="
+            echo "python: $PY"
+            grep -E "RESULT|component|PASS|FAIL" /tmp/patch_verdict.txt 2>/dev/null | head -40
+          } > guardrail_verdict.log
+          git add -f guardrail_verdict.log >/dev/null 2>&1 || true
+          git -c user.email=bot@local -c user.name=bot commit -qm "guardrail verdict $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+          git push origin HEAD:master >/dev/null 2>&1 || echo "push verdict gagal (tidak kritikal)"
 
       - name: Sahkan pelayar (Playwright Chromium)
         # install.sh Hermes sudah memasang chromium + venv sendiri (disahkan: "✓ chromium").
