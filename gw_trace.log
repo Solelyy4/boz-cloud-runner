@@ -1,4 +1,4 @@
-=== TRACE 2026-11-04T17:33:09Z run 41877608838 ===
+=== TRACE 2026-11-04T17:34:11Z run 41877608838 ===
 gw.log dimulakan bersih 2026-11-04T17:30:05Z run 41877608838
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
@@ -196,3 +196,5 @@ Bytecode compiled 5057 files in 2.82s
 2026-11-04 17:30:24,813 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
 2026-11-04 17:30:24,932 WARNING agent.model_metadata: Could not determine context length for model 'mistral' (base_url=default) — falling back to 256,000 tokens. Set model.context_length in config.yaml to override.
 2026-11-04 17:30:35,275 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-04 17:33:12,041 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-04 17:33:12,042 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
