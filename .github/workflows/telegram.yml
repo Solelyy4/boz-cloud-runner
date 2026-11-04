@@ -288,6 +288,30 @@ jobs:
           curl -s -o /dev/null -w "example.com HTTP %{http_code}\n" -m 20 https://example.com >> $OUT 2>&1 || echo "curl gagal" >> $OUT
           curl -s -o /dev/null -w "duckduckgo HTTP %{http_code}\n" -m 20 "https://html.duckduckgo.com/html/?q=test" >> $OUT 2>&1 || echo "ddg gagal" >> $OUT
 
+          echo "--- 4. kadar kejayaan ddgs (5 cubaan) ---" >> $OUT
+          timeout 200 "$PY" - >> $OUT 2>&1 <<'PYEOF' || echo "EXIT=$?" >> $OUT
+          import time
+          from tools.web_tools import _ensure_web_plugins_loaded, _get_search_backend, _memoized_search
+          from agent.web_search_registry import get_provider, get_active_search_provider
+          _ensure_web_plugins_loaded()
+          b = _get_search_backend()
+          ok = 0
+          for i in range(5):
+              q = "test query %d %d" % (i, int(time.time()) % 100000)
+              try:
+                  p = get_provider(b) or get_active_search_provider()
+                  res = _memoized_search(p, q, 3)
+                  n = len((res.get("data") or {}).get("web") or [])
+              except Exception as e:
+                  n = 0
+                  print("  cubaan %d: EXC %s" % (i + 1, str(e)[:80]))
+              print("  cubaan %d: hasil=%d success=%s" % (i + 1, n, res.get("success") if 'res' in dir() else '?'))
+              if n > 0:
+                  ok += 1
+              time.sleep(2)
+          print("KADAR: %d/5" % ok)
+          PYEOF
+
           echo "=== SELESAI ===" >> $OUT
           cat $OUT
 
