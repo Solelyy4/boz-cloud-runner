@@ -201,6 +201,12 @@ jobs:
           echo "=== $(date -u +%FT%TZ) ===" > $OUT
           echo "python: $PY" >> $OUT
 
+          echo "--- 0. pasang pakej ddgs ke python ini ---" >> $OUT
+          timeout 120 "$PY" -m pip install --quiet --disable-pip-version-check ddgs >> $OUT 2>&1 || \
+            timeout 120 "$PY" -m ensurepip --upgrade >> $OUT 2>&1 && \
+            timeout 120 "$PY" -m pip install --quiet ddgs >> $OUT 2>&1 || true
+          "$PY" -c "import ddgs; print('ddgs ADA versi', getattr(ddgs,'__version__','?'))" >> $OUT 2>&1 || echo "ddgs MASIH TIADA" >> $OUT
+
           echo "--- 1. GATE: check_web_api_key() + registry ---" >> $OUT
           timeout 90 "$PY" - >> $OUT 2>&1 <<'PYEOF' || echo "EXIT=$?" >> $OUT
           import sys, traceback
