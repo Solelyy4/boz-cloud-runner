@@ -1,0 +1,13 @@
+=== 2026-11-04T13:49:18Z ===
+python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/013a30e445604636a0ef586b8503f6e7/venv/bin/python
+--- 1. import & panggil web_search (timeout 60s) ---
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+ModuleNotFoundError: No module named 'hermes_cli.tools'
+import GAGAL: ModuleNotFoundError No module named 'hermes_cli.tools'
+--- 2. plugin ddgs terus ---
+ddgs GAGAL: ModuleNotFoundError No module named 'hermes_cli.plugins.web'; 'hermes_cli.plugins' is not a package
+--- 3. curl keluar ---
+example.com HTTP 200
+duckduckgo HTTP 202
+=== SELESAI ===
