@@ -10,7 +10,11 @@ permissions:
 
 concurrency:
   group: telegram-hermes
-  cancel-in-progress: true
+  # JANGAN tukar ke true. `true` bermakna setiap run/dispatch baharu MEMBUNUH bot yang
+  # sedang hidup. Sejarah: 10 run berturut-turut `cancelled` dalam satu sesi kerana
+  # operator mengulang dispatch untuk "restart" — bot tidak pernah sempat membalas.
+  # Dengan `false`, run baharu MENUNGGU giliran; bot kekal hidup sepanjang hari.
+  cancel-in-progress: false
 
 jobs:
   jalankan:
