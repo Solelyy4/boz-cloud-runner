@@ -1,20 +1,20 @@
-=== 2026-11-04T17:07:03Z ===
-python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/81743eb0b2cb47ddbcfed4a07f3cbe3e/venv/bin/python
+=== 2026-11-04T17:29:23Z ===
+python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/53b9feed692e47c5af7bc1f8f0ad2870/venv/bin/python
 --- 0. pasang pakej ddgs ke python ini ---
-/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/81743eb0b2cb47ddbcfed4a07f3cbe3e/venv/bin/python: No module named pip
-Looking in links: /tmp/tmp608pmgx6
-Processing /tmp/tmp608pmgx6/pip-26.2.2-py3-none-any.whl
+/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/53b9feed692e47c5af7bc1f8f0ad2870/venv/bin/python: No module named pip
+Looking in links: /tmp/tmpnhratuf8
+Processing /tmp/tmpnhratuf8/pip-26.2.2-py3-none-any.whl
 Installing collected packages: pip
 Successfully installed pip-26.2.2
 
 [notice] A new release of pip is available: 26.2.2 -> 26.3
-[notice] To update, run: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/81743eb0b2cb47ddbcfed4a07f3cbe3e/venv/bin/python -m pip install --upgrade pip
+[notice] To update, run: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/53b9feed692e47c5af7bc1f8f0ad2870/venv/bin/python -m pip install --upgrade pip
 ddgs ADA versi 9.16.1
 --- 1. GATE: check_web_api_key() + registry ---
 check_web_api_key(): True
-_configured_backend(): ddgs
+_configured_backend(): 
 _get_search_backend(): ddgs
-_keyless_backend(): exa
+_keyless_backend(): keenable
 semak registry GAGAL: ModuleNotFoundError No module named 'agent.tool_registry'
 web_search_tool OK, hasil: 0
 --- 1b. dalaman web_search_tool ---
@@ -31,6 +31,8 @@ ddgs OK, hasil: 2
 example.com HTTP 200
 duckduckgo HTTP 202
 --- 4. kadar kejayaan ddgs (5 cubaan) ---
+DDGS search error: DDGSException: No results found.
+web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
 DDGS search error: DDGSException: No results found.
 web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
 DDGS search error: DDGSException: No results found.
