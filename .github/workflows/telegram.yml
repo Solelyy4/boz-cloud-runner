@@ -397,6 +397,7 @@ jobs:
         run: |
           export HERMES_HOME="$PWD/home"
           export HERMES_NO_UPDATE_CHECK=1
+          export HERMES_LOG_LEVEL=DEBUG
           export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
           # PUNCA UTAMA bot menjawab "AI model service kept failing" + fallback habis:
           # langkah ini DAHULUNYA hanya mengeksport TELEGRAM_BOT_TOKEN, sedangkan
@@ -464,6 +465,23 @@ jobs:
           # Sambungan dianggap BERJAYA bila salah satu tanda ini muncul. Tanda lama
           # ("telegram") terlalu longgar dan meloloskan kegagalan; tanda baharu lebih tepat.
           TANDA='polling|connected|Bot started|listening|getUpdates|Started polling|long.poll'
+
+          # PENJEJAK: push gw.log setiap 60s supaya operator boleh lihat mesej diproses atau tidak.
+          # Tanpa ini kita buta — log hanya di-push bila lapor() dipanggil (setiap ~10 min).
+          (
+            while true; do
+              sleep 60
+              if [ -s gw.log ]; then
+                git fetch origin master -q >/dev/null 2>&1 || true
+                git checkout -q -B trace-tmp origin/master >/dev/null 2>&1 || true
+                { echo "=== TRACE $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="; tail -n 400 gw.log 2>/dev/null; } > gw_trace.log
+                git add -f gw_trace.log >/dev/null 2>&1
+                git -c user.email=bot@local -c user.name=bot commit -qm "trace $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+                git push origin HEAD:master >/dev/null 2>&1 || true
+              fi
+            done
+          ) &
+          TRACE_PID=$!
 
           # Cubaan tanpa had (bounded by timeout-minutes 1450). Kalau Telegram Bot API down
           # (502/timeout), kita tunggu & cuba semula sehingga runner tamat — bot pulih sendiri.
