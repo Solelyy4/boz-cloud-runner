@@ -1,10 +1,12 @@
-=== 2026-11-04T13:57:16Z ===
-python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/6701d44077ae41448c77e11e26fdfdf4/venv/bin/python
---- 1. import & panggil web_search (timeout 60s) ---
-Traceback (most recent call last):
-  File "<stdin>", line 3, in <module>
-ImportError: cannot import name 'web_search' from 'tools.web_tools' (/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/6701d44077ae41448c77e11e26fdfdf4/workspace/tools/web_tools.py)
-import GAGAL: ImportError cannot import name 'web_search' from 'tools.web_tools' (/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/6701d44077ae41448c77e11e26fdfdf4/workspace/tools/web_tools.py)
+=== 2026-11-04T14:08:19Z ===
+python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/78b412bf64bd44b68ca950c75d8e568a/venv/bin/python
+--- 1. GATE: check_web_api_key() + registry ---
+check_web_api_key(): True
+_configured_backend(): 
+_get_search_backend(): keenable
+_keyless_backend(): keenable
+semak registry GAGAL: ModuleNotFoundError No module named 'agent.tool_registry'
+web_search_tool OK, hasil: 0
 --- 2. plugin ddgs terus ---
 ddgs OK, hasil: 2
 --- 3. curl keluar ---
