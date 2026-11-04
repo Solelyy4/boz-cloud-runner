@@ -1,4 +1,4 @@
-=== run 41807764248 tick 2026-11-04T09:45:31Z ===
+=== run 41807764248 tick 2026-11-04T10:00:56Z ===
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -192,4 +192,4 @@ Bytecode compiled 5057 files in 1.89s
 2026-11-04 09:30:11,828 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-04 09:30:12,015 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-04 09:30:22,827 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-denyut tick=15 2026-11-04T09:45:31Z
+denyut tick=30 2026-11-04T10:00:56Z
