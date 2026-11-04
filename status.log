@@ -1,4 +1,4 @@
-=== run 41826301414 tick 2026-11-04T12:23:54Z ===
+=== run 41826301414 tick 2026-11-04T12:38:57Z ===
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -194,4 +194,6 @@ Bytecode compiled 5057 files in 2.09s
 2026-11-04 12:08:48,015 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-04 12:17:00,466 WARNING gateway.session_authority: Session 20261103_063333_48ebf25e paused: unknown_execution
 2026-11-04 12:18:39,767 WARNING agent.system_prompt: skills.auto_load: skill(s) not found or disabled, skipped: security, web, software-development, autonomous-ai-agents, telekey-bot-ops, research, productivity
-denyut tick=15 2026-11-04T12:23:54Z
+2026-11-04 12:24:54,752 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-04 12:24:54,752 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+denyut tick=30 2026-11-04T12:38:57Z
