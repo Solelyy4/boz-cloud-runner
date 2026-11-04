@@ -488,25 +488,6 @@ jobs:
           ) &
           TRACE_PID=$!
 
-          # UJIAN HIDUP: sahkan gateway BENAR-BENAR memproses mesej, bukan sekadar menyambung.
-          # Adapter boleh melaporkan "Connected (polling mode)" lalu tergantung (isu Hermes
-          # #18086). Satu-satunya bukti sahih = baris log BAHARU selepas satu mesej dihantar.
-          uji_hidup() {
-            local before after
-            before=$(wc -l < gw.log 2>/dev/null || echo 0)
-            curl -4 -s -m 20 -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-              -H "Content-Type: application/json" \
-              -d '{"chat_id":"8043910371","text":"[autoheal self-test] ping"}' >/dev/null 2>&1
-            sleep 45
-            after=$(wc -l < gw.log 2>/dev/null || echo 0)
-            if [ "$after" -gt "$before" ]; then
-              echo "UJIAN HIDUP: LULUS (log +$((after-before)) baris selepas mesej)"
-              return 0
-            fi
-            echo "UJIAN HIDUP: GAGAL — tiada log baharu selepas mesej (adapter tergantung)"
-            return 1
-          }
-
           # Cubaan tanpa had (bounded by timeout-minutes 1450). Kalau Telegram Bot API down
           # (502/timeout), kita tunggu & cuba semula sehingga runner tamat — bot pulih sendiri.
           # BUG LAMA: gw.log diwarisi daripada run terdahulu. MARK = baris lama, jadi
@@ -542,7 +523,9 @@ jobs:
             if ! sehat; then
               echo "AMARAN: getMe bukan 200 pada cubaan $cubaan"
             fi
-            uji_hidup || { echo "adapter tergantung — mula semula"; pkill -9 -f "hermes gateway" 2>/dev/null || true; break; }
+            # uji_hidup DIBUANG: `break` di sini menamatkan gelung utama dan
+            # membunuh gateway yang sihat. Biarkan watchdog SILENT yang mengendalikan
+            # kes tergantung (12 minit, bukan 45s) supaya bot sempat memproses mesej.
 
             tick=0
             first_seen=""
