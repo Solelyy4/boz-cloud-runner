@@ -5,8 +5,13 @@ name: Auto-Heal Bot
 # Kos: hanya semakan ringan; tiada model dipanggil melainkan perlu.
 
 on:
-  schedule:
-    - cron: "*/15 * * * *"
+  # DILUMPUHKAN: autoheal v1 memusnahkan config.yaml (sed salah -> 45 bait).
+  #
+  # Punca: fix_refusal() menulis semula config daripada pembolehubah yang hanya
+  # mengandungi satu baris, membuang providers/skills/platforms/fallback.
+  #
+  # logic/sentiasa Improfessional: JANGAN hidupan semula tanpa ujian pada salinan.
+  # Ganti dengan scripts/autoheal_loop.sh (v2) yang berjalan dalam run gateway.
   workflow_dispatch:
 
 concurrency:
