@@ -397,7 +397,6 @@ jobs:
         run: |
           export HERMES_HOME="$PWD/home"
           export HERMES_NO_UPDATE_CHECK=1
-          export HERMES_LOG_LEVEL=DEBUG
           export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
           # PUNCA UTAMA bot menjawab "AI model service kept failing" + fallback habis:
           # langkah ini DAHULUNYA hanya mengeksport TELEGRAM_BOT_TOKEN, sedangkan
@@ -518,12 +517,27 @@ jobs:
 
             tick=0
             first_seen=""
+            LAST_LINES=$(wc -l < gw.log 2>/dev/null || echo 0)
+            SILENT=0
             while kill -0 $PID 2>/dev/null; do
               sleep 60
               tick=$((tick+1))
               # fail log sahaja — tiada panggilan Telegram API dari sini
               if tail -n +$((MARK+1)) gw.log | grep -q "Fatal telegram adapter error"; then
                 echo "fatal dikesan, mula semula"; pkill -9 -f "hermes gateway" 2>/dev/null || true; break
+              fi
+              NOW_LINES=$(wc -l < gw.log 2>/dev/null || echo 0)
+              if [ "$NOW_LINES" -eq "$LAST_LINES" ]; then SILENT=$((SILENT+1)); else SILENT=0; LAST_LINES=$NOW_LINES; fi
+              if [ "$SILENT" -ge 12 ]; then
+                PENDING=$(curl -4 -s -m 12 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getWebhookInfo" \
+                  | sed -n 's/.*"pending_update_count":\([0-9]*\).*/\1/p')
+                echo "BISU dikesan: ${SILENT}min tanpa log baharu, pending=${PENDING:-?}"
+                if [ -z "$PENDING" ] || [ "$PENDING" -gt 0 ]; then
+                  pkill -9 -f "hermes gateway" 2>/dev/null || true
+                  SILENT=0
+                  break
+                fi
+                SILENT=0
               fi
               # WATCHDOG (isu Hermes #18086): updater tergantung senyap selepas satu blip
               # rangkaian. `Updater.running` kekal True tetapi tiada update diproses dan tiada
