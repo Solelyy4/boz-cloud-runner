@@ -1,4 +1,4 @@
-=== run 41783443329 tick 2026-11-04T08:40:16Z ===
+=== run 41783443329 tick 2026-11-04T08:55:18Z ===
 DEBUG adding '__editable__.hermes_agent-0.0.0.pth'
 DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpaveYTX/.tmp-7uojo8ks/hermes_agent-0.0.0-0.editable-py3-none-any.whl' and adding '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmp_lphwuenhermes_agent-0.0.0-0.editable-py3-none-any.whl' to it
 DEBUG adding 'hermes_agent-0.0.0.dist-info/licenses/LICENSE'
@@ -299,4 +299,4 @@ Traceback (most recent call last):
 openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
 2026-11-04 08:33:02,819 WARNING agent.conversation_loop: API call failed (attempt 1/2, not retryable) error_type=BadRequestError thread=hermes-gateway_9:140229320079040 provider=mistral base_url=https://api.mistral.ai/v1/ model=open-mistral-nemo summary=HTTP 400: reasoning_effort is not enabled for this model
 2026-11-04 08:33:02,831 WARNING agent.conversation_loop: Rebuilt-message restart limit (2) exceeded; ending turn instead of refunding the iteration budget indefinitely.
-denyut tick=150 2026-11-04T08:40:16Z
+denyut tick=165 2026-11-04T08:55:18Z
