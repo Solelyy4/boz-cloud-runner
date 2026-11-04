@@ -485,6 +485,13 @@ jobs:
 
           # Cubaan tanpa had (bounded by timeout-minutes 1450). Kalau Telegram Bot API down
           # (502/timeout), kita tunggu & cuba semula sehingga runner tamat — bot pulih sendiri.
+          # BUG LAMA: gw.log diwarisi daripada run terdahulu. MARK = baris lama, jadi
+          # `tail -n +MARK` terus memadankan "Connected" milik sesi mati dan workflow
+          # melaporkan sambungan yang tidak wujud — bot tidak pernah mula, tetapi kita
+          # fikir ia mula. Mula dengan log BERSIH setiap kali.
+          : > gw.log
+          echo "gw.log dimulakan bersih $(date -u +%FT%TZ) run $GITHUB_RUN_ID" >> gw.log
+
           cubaan=0
           while true; do
             cubaan=$((cubaan+1))
