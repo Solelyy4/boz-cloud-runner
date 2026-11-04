@@ -482,26 +482,6 @@ jobs:
           ) &
           TRACE_PID=$!
 
-          # AUTO-HEAL v2: pengawas berjalan SELARI dengan gateway, di dalam run yang sama.
-          # Berbeza daripada workflow cron berasingan (buta): ini berkongsi venv, HERMES_HOME
-          # dan gw.log dengan gateway, jadi ia boleh terap bypass, pasang ddgs, dan restart
-          # gateway lalu SAHKAN ia pulih. Setiap kitaran ~25s; tidur 5 minit antara kitaran.
-          (
-            while true; do
-              sleep 300
-              if [ -f scripts/autoheal_loop.sh ]; then
-                AUTOHEAL_LOG=gw.log \
-                MODEL_BASE="http://129.221.178.149:20128/v1" \
-                MODEL_KEY="${ROUTER9_API_KEY:-}" \
-                MODEL_NAME="mistral-code" \
-                BOZ_BOT_TOKEN="${TELEGRAM_BOT_TOKEN:-}" \
-                  bash scripts/autoheal_loop.sh >> gw.log 2>&1 || true
-              fi
-            done
-          ) &
-          AUTOHEAL_PID=$!
-          echo "autoheal pengawas bermula (pid $AUTOHEAL_PID)" >> gw.log
-
           # Cubaan tanpa had (bounded by timeout-minutes 1450). Kalau Telegram Bot API down
           # (502/timeout), kita tunggu & cuba semula sehingga runner tamat — bot pulih sendiri.
           # BUG LAMA: gw.log diwarisi daripada run terdahulu. MARK = baris lama, jadi
