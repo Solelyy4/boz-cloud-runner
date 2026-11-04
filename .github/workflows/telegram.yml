@@ -185,22 +185,47 @@ jobs:
           echo "=== $(date -u +%FT%TZ) ===" > $OUT
           echo "python: $PY" >> $OUT
 
-          echo "--- 1. import & panggil web_search (timeout 60s) ---" >> $OUT
-          timeout 60 "$PY" - >> $OUT 2>&1 <<'PYEOF' || echo "EXIT=$? (timeout atau gagal)" >> $OUT
+          echo "--- 1. GATE: check_web_api_key() + registry ---" >> $OUT
+          timeout 90 "$PY" - >> $OUT 2>&1 <<'PYEOF' || echo "EXIT=$?" >> $OUT
           import sys, traceback
           try:
-              from tools.web_tools import web_search
-              print("import web_search: OK")
+              from tools.web_tools import check_web_api_key, _get_search_backend, _configured_backend, _keyless_backend
+              print("check_web_api_key():", check_web_api_key())
+              print("_configured_backend():", _configured_backend())
+              print("_get_search_backend():", _get_search_backend())
+              print("_keyless_backend():", _keyless_backend())
           except Exception as e:
-              print("import GAGAL:", type(e).__name__, str(e)[:300]); traceback.print_exc(); sys.exit(0)
+              print("GATE GAGAL:", type(e).__name__, str(e)[:300]); traceback.print_exc()
+
+          # adakah tool benar-benar didaftar?
           try:
-              r = web_search("python asyncio tutorial", 3)
-              web = (r.get("data") or {}).get("web") or []
-              print("PANGGIL OK, hasil:", len(web))
-              for x in web[:2]:
-                  print("  -", str(x.get("title",""))[:60], "|", str(x.get("url",""))[:60])
+              import tools.web_tools as wt
+              import agent.tool_registry as tr
+              reg = getattr(tr, "registry", None) or getattr(wt, "registry", None)
+              names = []
+              if reg is not None:
+                  for attr in ("list_tools", "tools", "_tools"):
+                      v = getattr(reg, attr, None)
+                      if callable(v):
+                          try: names = [t if isinstance(t, str) else getattr(t, "name", "") for t in v()]; break
+                          except Exception: pass
+                      elif isinstance(v, dict):
+                          names = list(v.keys()); break
+              print("web tools didaftar:", sorted(n for n in names if "web" in str(n)))
           except Exception as e:
-              print("PANGGIL GAGAL:", type(e).__name__, str(e)[:300]); traceback.print_exc()
+              print("semak registry GAGAL:", type(e).__name__, str(e)[:200])
+
+          # panggil handler sebenar seperti agent
+          try:
+              from tools.web_tools import web_search_tool
+              r = web_search_tool("python asyncio", limit=3)
+              d = r if isinstance(r, dict) else {}
+              web = (d.get("data") or {}).get("web") or []
+              print("web_search_tool OK, hasil:", len(web))
+              for x in web[:2]:
+                  print("  -", str(x.get("title",""))[:55], "|", str(x.get("url",""))[:55])
+          except Exception as e:
+              print("web_search_tool GAGAL:", type(e).__name__, str(e)[:300]); traceback.print_exc()
           PYEOF
 
           echo "--- 2. plugin ddgs terus ---" >> $OUT
