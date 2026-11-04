@@ -170,6 +170,22 @@ jobs:
           PYEOF
 
 
+      - name: Pasang pakej web (ddgs) ke venv Hermes
+        continue-on-error: true
+        run: |
+          export HERMES_HOME="$PWD/home"
+          PY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] && "$cand" -c "import hermes_cli" 2>/dev/null && { PY="$cand"; break; }
+          done
+          [ -n "$PY" ] || { echo "::warning::venv tiada"; exit 0; }
+          echo "python: $PY"
+          # Backend web_search 'ddgs' memerlukan pakej PyPI `ddgs` — tanpa ia gating
+          # melaporkan "ddgs package is not installed" dan carian pulang 0 hasil.
+          "$PY" -m pip install --quiet --disable-pip-version-check ddgs 2>&1 | tail -5 || \
+            "$PY" -m ensurepip --upgrade >/dev/null 2>&1 && "$PY" -m pip install --quiet ddgs 2>&1 | tail -3
+          "$PY" -c "import ddgs; print('ddgs versi:', getattr(ddgs, '__version__', 'ADA'))" || echo "ddgs masih tiada"
+
       - name: Uji alat web dalam venv (tulis hasil ke repo)
         continue-on-error: true
         run: |
