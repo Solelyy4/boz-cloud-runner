@@ -1,12 +1,12 @@
-=== 2026-11-04T13:49:18Z ===
-python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/013a30e445604636a0ef586b8503f6e7/venv/bin/python
+=== 2026-11-04T13:57:16Z ===
+python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/6701d44077ae41448c77e11e26fdfdf4/venv/bin/python
 --- 1. import & panggil web_search (timeout 60s) ---
 Traceback (most recent call last):
   File "<stdin>", line 3, in <module>
-ModuleNotFoundError: No module named 'hermes_cli.tools'
-import GAGAL: ModuleNotFoundError No module named 'hermes_cli.tools'
+ImportError: cannot import name 'web_search' from 'tools.web_tools' (/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/6701d44077ae41448c77e11e26fdfdf4/workspace/tools/web_tools.py)
+import GAGAL: ImportError cannot import name 'web_search' from 'tools.web_tools' (/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/6701d44077ae41448c77e11e26fdfdf4/workspace/tools/web_tools.py)
 --- 2. plugin ddgs terus ---
-ddgs GAGAL: ModuleNotFoundError No module named 'hermes_cli.plugins.web'; 'hermes_cli.plugins' is not a package
+ddgs OK, hasil: 2
 --- 3. curl keluar ---
 example.com HTTP 200
 duckduckgo HTTP 202
