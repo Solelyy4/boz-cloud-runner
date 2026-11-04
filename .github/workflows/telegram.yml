@@ -114,6 +114,34 @@ jobs:
           hermes --version | head -1
           echo "pelayar diuruskan oleh venv Hermes (install.sh)"
 
+      - name: Sahkan akses luar (web_search, web_extract, curl)
+        run: |
+          export HERMES_HOME="$PWD/home"
+          export PATH="$HOME/.local/bin:$PATH"
+          PY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] && "$cand" -c "import hermes_cli" 2>/dev/null && { PY="$cand"; break; }
+          done
+          [ -n "$PY" ] || { echo "::error::venv tidak dijumpai"; exit 1; }
+
+          echo "=== curl keluar ==="
+          curl -s -o /dev/null -w "example.com HTTP %{http_code}\n" -m 20 https://example.com || echo "curl gagal"
+
+          echo "=== web_search ==="
+          "$PY" - <<'PYEOF'
+          import json, urllib.request, sys
+          from plugins.web.ddgs.provider import DDGSWebSearchProvider
+          try:
+              p = DDGSWebSearchProvider()
+              res = p.search("python asyncio tutorial", 3)
+              print("hasil:", len(res))
+              for x in res[:2]:
+                  print("  -", (x.title or "")[:60], "|", (x.url or "")[:60])
+          except Exception as e:
+              print("GAGAL:", type(e).__name__, str(e)[:200])
+              sys.exit(1)
+          PYEOF
+
       - name: Tulis .env
         run: |
           cat > home/.env <<'EOF'
