@@ -1,4 +1,4 @@
-=== TRACE 2026-11-05T15:18:31Z run 42045540746 ===
+=== TRACE 2026-11-05T15:19:33Z run 42045540746 ===
 gw.log dimulakan bersih 2026-11-05T15:00:03Z run 42045540746
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/31797ca181dc4a9a932dcd737fdf34c6/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
@@ -32,3 +32,5 @@ ddgs OK
 2026-11-05 15:09:20,385 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
 2026-11-05 15:09:20,385 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
 2026-11-05 15:09:30,842 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-11-05 15:18:55,959 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-05 15:18:55,959 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
