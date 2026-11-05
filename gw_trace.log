@@ -1,4 +1,4 @@
-=== TRACE 2026-11-05T07:44:39Z run 41954687270 ===
+=== TRACE 2026-11-05T07:45:40Z run 41954687270 ===
 gw.log dimulakan bersih 2026-11-05T06:28:55Z run 41954687270
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
@@ -193,3 +193,4 @@ Bytecode compiled 5057 files in 1.94s
 2026-11-05 06:29:12,240 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-05 06:29:12,389 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-05 06:29:23,302 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-05 07:45:21,430 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
