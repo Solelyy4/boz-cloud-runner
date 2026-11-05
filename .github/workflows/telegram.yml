@@ -587,6 +587,21 @@ jobs:
             echo "DNS $u -> ${ip:-GAGAL}" | tee -a gw.log
           done
 
+          # ===== PEMULIHAN KEBOCORAN FAIL DESCRIPTOR (bukti 2026-11-05) =====
+          # Bot tersangkut 1j45m dengan 20x "ConnectError('')" KOSONG sementara ujian
+          # rangkaian dari runner SAMA membuktikan IP Telegram BUKA + getMe HTTP 200
+          # dalam 0.38s. Kod Hermes sendiri mengamarkan punca ini (telegram_network.py
+          # baris 117-121, isu #63311): setiap kegagalan long-poll mengekalkan satu socket
+          # CLOSE_WAIT dalam kolam -> satu fd bocor setiap retry -> proses kehabisan fd
+          # -> SEMUA sambungan baharu gagal dengan ralat kosong walaupun rangkaian sihat.
+          # Ubat: pantau bilangan fd gateway; bersara proses bila menghampiri had.
+          fd_gateway() {
+            local pid="$1"
+            [ -d "/proc/$pid/fd" ] || { echo 0; return; }
+            ls /proc/$pid/fd 2>/dev/null | wc -l
+          }
+          had_fd() { ulimit -n 2>/dev/null || echo 1024; }
+
           cubaan=0
           while true; do
             cubaan=$((cubaan+1))
@@ -672,7 +687,17 @@ jobs:
                 pkill -9 -f "hermes gateway" 2>/dev/null || true
                 break
               fi
-              if [ $((tick % 15)) -eq 0 ]; then lapor "denyut tick=$tick"; fi
+              # KEBOCORAN FD (bukti 2026-11-05): 20x ConnectError('') sementara rangkaian
+              # terbukti sihat = proses kehabisan fail descriptor. Bila fd melebihi 80% had,
+              # bersara proses SEKARANG — proses segar pulih serta-merta, manakala proses
+              # bocor akan gagal selama-lamanya dengan ralat kosong.
+              FD=$(fd_gateway "$PID"); FDMAX=$(had_fd)
+              if [ "$FD" -gt 0 ] && [ "$FD" -gt $((FDMAX * 8 / 10)) ]; then
+                echo "KEBOCORAN FD: $FD/$FDMAX — proses bersara untuk pulih"
+                pkill -9 -f "hermes gateway" 2>/dev/null || true
+                break
+              fi
+              if [ $((tick % 15)) -eq 0 ]; then lapor "denyut tick=$tick fd=$FD/$FDMAX"; fi
               # PENGESAN KEMATIAN PROSES — punca bot bisu berjam-jam walaupun run "in_progress".
               # Tanpa ini, loop terus mengira tick selamanya sementara gateway sudah mati
               # (heartbeat beku, active_sessions kosong, mesej Telegram tidak diambil).
