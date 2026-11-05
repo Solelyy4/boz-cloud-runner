@@ -1,20 +1,20 @@
-=== 2026-11-05T11:46:22Z ===
-python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e1df973a94fc44be99242d6e8f212a2c/venv/bin/python
+=== 2026-11-05T11:55:27Z ===
+python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/426974a247ca4f728eb6a38cf6af7990/venv/bin/python
 --- 0. pasang pakej ddgs ke python ini ---
-/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e1df973a94fc44be99242d6e8f212a2c/venv/bin/python: No module named pip
-Looking in links: /tmp/tmpy4a_vhb5
-Processing /tmp/tmpy4a_vhb5/pip-26.2.2-py3-none-any.whl
+/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/426974a247ca4f728eb6a38cf6af7990/venv/bin/python: No module named pip
+Looking in links: /tmp/tmptbb2jlg5
+Processing /tmp/tmptbb2jlg5/pip-26.2.2-py3-none-any.whl
 Installing collected packages: pip
 Successfully installed pip-26.2.2
 
 [notice] A new release of pip is available: 26.2.2 -> 26.3
-[notice] To update, run: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e1df973a94fc44be99242d6e8f212a2c/venv/bin/python -m pip install --upgrade pip
+[notice] To update, run: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/426974a247ca4f728eb6a38cf6af7990/venv/bin/python -m pip install --upgrade pip
 ddgs ADA versi 9.16.1
 --- 1. GATE: check_web_api_key() + registry ---
 check_web_api_key(): True
 _configured_backend(): ddgs
 _get_search_backend(): ddgs
-_keyless_backend(): parallel
+_keyless_backend(): firecrawl
 semak registry GAGAL: ModuleNotFoundError No module named 'agent.tool_registry'
 web_search_tool OK, hasil: 0
 --- 1b. dalaman web_search_tool ---
@@ -24,7 +24,6 @@ supports_search: True
 active provider: DDGSWebSearchProvider | name: ddgs
 _memoized_search hasil: 3 | success: True | error: None
 --- 2. plugin ddgs terus ---
-DDGS search error: DDGSException: No results found.
 ddgs OK, hasil: 2
 --- 3. curl keluar ---
 example.com HTTP 200
