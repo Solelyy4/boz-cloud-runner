@@ -1,139 +1,4 @@
-=== run 41914476045 tick 2026-11-05T00:59:00Z ===
-gw.log dimulakan bersih 2026-11-05T00:28:28Z run 41914476045
-┌─────────────────────────────────────────────────────────┐
-│           ☤ Hermes Gateway Starting...                 │
-├─────────────────────────────────────────────────────────┤
-│  Messaging platforms + cron scheduler                    │
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
-
-2026-11-05 00:28:39,102 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
-2026-11-05 00:28:39,102 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
-2026-11-05 00:28:39,460 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3419, started_at=2026-11-04T18:28:25.589018+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-05T00:25:19.430761+00:00 last_mem={'rss_kib': 255692, 'mem_total_kib': 16367520, 'mem_available_kib': 15093072, 'swap_used_kib': 0} suspected_oom=False
-Using CPython 3.14.9 interpreter at: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+20261021-linux-x64/bin/python3
-Creating virtual environment at: venv
-Activate with: venv/bin/activate
-   Building hermes-agent @ file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/workspace
-DEBUG Resolving build requirements
-DEBUG Creating PEP 517 build environment
-DEBUG Calling `setuptools.build_meta.get_requires_for_build_editable()`
-DEBUG running egg_info
-DEBUG creating hermes_agent.egg-info
-DEBUG writing hermes_agent.egg-info/PKG-INFO
-DEBUG writing dependency_links to hermes_agent.egg-info/dependency_links.txt
-DEBUG writing entry points to hermes_agent.egg-info/entry_points.txt
-DEBUG writing requirements to hermes_agent.egg-info/requires.txt
-DEBUG writing top-level names to hermes_agent.egg-info/top_level.txt
-DEBUG writing manifest file 'hermes_agent.egg-info/SOURCES.txt'
-DEBUG reading manifest file 'hermes_agent.egg-info/SOURCES.txt'
-DEBUG adding license file 'LICENSE'
-DEBUG writing manifest file 'hermes_agent.egg-info/SOURCES.txt'
-DEBUG Locking the source tree for setuptools
-DEBUG Calling `setuptools.build_meta.build_editable(__import__("os").fsdecode(b"/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL"), {}, None)`
-DEBUG running editable_wheel
-DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent.egg-info
-DEBUG writing /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent.egg-info/PKG-INFO
-DEBUG writing dependency_links to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent.egg-info/dependency_links.txt
-DEBUG writing entry points to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent.egg-info/entry_points.txt
-DEBUG writing requirements to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent.egg-info/requires.txt
-DEBUG writing top-level names to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent.egg-info/top_level.txt
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent.egg-info/SOURCES.txt'
-DEBUG reading manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent.egg-info/SOURCES.txt'
-DEBUG adding license file 'LICENSE'
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent.egg-info/SOURCES.txt'
-DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent-0.0.0.dist-info'
-DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent-0.0.0.dist-info/WHEEL
-DEBUG running build_py
-DEBUG running egg_info
-DEBUG creating /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpkw7ld902.build-temp/hermes_agent.egg-info
-DEBUG writing /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpkw7ld902.build-temp/hermes_agent.egg-info/PKG-INFO
-DEBUG writing dependency_links to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpkw7ld902.build-temp/hermes_agent.egg-info/dependency_links.txt
-DEBUG writing entry points to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpkw7ld902.build-temp/hermes_agent.egg-info/entry_points.txt
-DEBUG writing requirements to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpkw7ld902.build-temp/hermes_agent.egg-info/requires.txt
-DEBUG writing top-level names to /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpkw7ld902.build-temp/hermes_agent.egg-info/top_level.txt
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpkw7ld902.build-temp/hermes_agent.egg-info/SOURCES.txt'
-DEBUG reading manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpkw7ld902.build-temp/hermes_agent.egg-info/SOURCES.txt'
-DEBUG adding license file 'LICENSE'
-DEBUG writing manifest file '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpkw7ld902.build-temp/hermes_agent.egg-info/SOURCES.txt'
-DEBUG Editable install will be performed using a meta path finder.
-DEBUG 
-DEBUG Options like `package-data`, `include/exclude-package-data` or
-DEBUG `packages.find.exclude/include` may have no effect.
-DEBUG 
-DEBUG adding '__editable___hermes_agent_0_0_0_finder.py'
-DEBUG adding '__editable__.hermes_agent-0.0.0.pth'
-DEBUG creating '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpPlqrEL/.tmp-aoyy20ou/hermes_agent-0.0.0-0.editable-py3-none-any.whl' and adding '/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/scratch/tmpthnf65z2hermes_agent-0.0.0-0.editable-py3-none-any.whl' to it
-DEBUG adding 'hermes_agent-0.0.0.dist-info/licenses/LICENSE'
-DEBUG adding 'hermes_agent-0.0.0.dist-info/METADATA'
-DEBUG adding 'hermes_agent-0.0.0.dist-info/WHEEL'
-DEBUG adding 'hermes_agent-0.0.0.dist-info/entry_points.txt'
-DEBUG adding 'hermes_agent-0.0.0.dist-info/top_level.txt'
-DEBUG adding 'hermes_agent-0.0.0.dist-info/RECORD'
-DEBUG /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/cache/uv/builds-v0/.tmpbpd22q/lib/python3.14/site-packages/setuptools/command/editable_wheel.py:352: InformationOnly: Editable installation.
-DEBUG !!
-DEBUG 
-DEBUG         ********************************************************************************
-DEBUG         Please be careful with folders in your working directory with the same
-DEBUG         name as your package as they may take precedence during imports.
-DEBUG         ********************************************************************************
-DEBUG 
-DEBUG !!
-DEBUG   with strategy, WheelFile(wheel_path, "w") as wheel_obj:
-      Built hermes-agent @ file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/workspace
-Prepared 3 packages in 1.30s
-Installed 106 packages in 25ms
-Bytecode compiled 5057 files in 1.85s
- + agent-client-protocol==0.9.0
- + aiohappyeyeballs==2.7.1
- + aiohttp==3.14.5
- + aiosignal==1.4.0
- + annotated-doc==0.0.5
- + annotated-types==0.8.0
- + anyio==4.15.1
- + attrs==26.1.0
- + browser-harness==0.1.13
- + cdp-use==1.4.5
- + certifi==2026.10.19
- + cffi==2.1.1
- + charset-normalizer==3.5.2
- + click==8.5.0
- + croniter==6.2.4
- + cryptography==50.0.2
- + defusedxml==0.7.1
- + distro==1.9.0
- + fastapi==0.133.1
- + fetch-use==0.4.0
- + fire==0.7.1
- + firecrawl-anydoc==0.2.4
- + frozenlist==1.8.0
- + google-api-core==2.42.0
- + google-api-python-client==2.201.0
- + google-auth==2.62.0
- + google-auth-httplib2==0.4.4
- + google-auth-oauthlib==1.5.0
- + googleapis-common-protos==1.75.5
- + h11==0.16.0
- + hermes-agent==0.0.0 (from file:///home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/workspace)
- + httpcore==1.0.9
- + httpcore2==2.15.1
- + httplib2==0.32.0
- + httptools==0.8.0
- + httpx==0.28.1
- + httpx2==2.15.1
- + idna==3.20
- + jinja2==3.1.6
- + jiter==0.17.0
- + jsonschema==4.26.0
- + jsonschema-specifications==2025.9.1
- + markdown==3.11.2
- + markdown-it-py==4.2.0
- + markupsafe==3.0.4
- + mcp==2.3.0
- + mcp-types==2.3.0
- + mdurl==0.1.2
- + multidict==6.9.1
- + nemo-relay==0.11.0
- + oauthlib==4.0.0
+=== run 41914476045 tick 2026-11-05T01:14:02Z ===
  + openai==2.54.0
  + opentelemetry-api==1.45.1
  + packaging==26.3
@@ -195,7 +60,323 @@ Bytecode compiled 5057 files in 1.85s
 2026-11-05 00:28:56,069 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-05 00:52:32,671 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-11-05 00:52:32,671 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-11-05 01:13:13,745 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error, scheduling reconnect: Bad Gateway
+2026-11-05 01:13:13,746 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 1/10), reconnecting in 5s. Error: Bad Gateway
+2026-11-05 01:13:19,512 ERROR telegram.ext.Updater: Error while calling `get_updates` one more time to mark all fetched updates. Suppressing error to ensure graceful shutdown. When polling for updates is restarted, updates may be fetched again. Please adjust timeouts via `ApplicationBuilder` or the parameter `get_updates_request` of `Bot`.
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_updater.py", line 400, in _get_updates_cleanup
+    await self.bot.get_updates(
+    ...<4 lines>...
+    )
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 680, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/_bot.py", line 4767, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/_bot.py", line 712, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 378, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/_bot.py", line 741, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.NetworkError: Bad Gateway
+2026-11-05 01:13:19,885 ERROR telegram.ext: Network Retry Loop (Bootstrap delete Webhook): Failed run number 0 of 0. Aborting.
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 161, in network_retry_loop
+    await do_action()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 136, in do_action
+    await action_cb()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_updater.py", line 686, in bootstrap_del_webhook
+    await self.bot.delete_webhook(drop_pending_updates=drop_pending_updates)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 1520, in delete_webhook
+    return await super().delete_webhook(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/_bot.py", line 4934, in delete_webhook
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/_bot.py", line 712, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 378, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/_bot.py", line 741, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.NetworkError: Bad Gateway
+2026-11-05 01:13:19,890 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: Bad Gateway
+2026-11-05 01:13:19,890 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 2/10), reconnecting in 10s. Error: Bad Gateway
+2026-11-05 01:13:45,118 ERROR telegram.ext: Network Retry Loop (Bootstrap delete Webhook): Timed out: Timed out. Failed run number 0 of 0. Aborting.
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        pool_request.request
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_async/connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_async/http11.py", line 136, in handle_async_request
+    raise exc
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_async/http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_async/http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_async/http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.READ_NUM_BYTES, timeout=timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_backends/anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+202****1021-linux-x64/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/request/_httpxrequest.py", line 279, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/telegram_network.py", line 151, in handle_async_request
+    response = await transport.handle_async_request(candidate)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+202****1021-linux-x64/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 161, in network_retry_loop
+    await do_action()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 136, in do_action
+    await action_cb()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_updater.py", line 686, in bootstrap_del_webhook
+    await self.bot.delete_webhook(drop_pending_updates=drop_pending_updates)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 1520, in delete_webhook
+    return await super().delete_webhook(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/_bot.py", line 4934, in delete_webhook
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/_bot.py", line 712, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 378, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/_bot.py", line 741, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 305, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/request/_httpxrequest.py", line 296, in do_request
+    raise TimedOut from err
+telegram.error.TimedOut: Timed out
+2026-11-05 01:13:45,128 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: Timed out
+2026-11-05 01:13:45,128 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 3/10), reconnecting in 20s. Error: Timed out
 --- ERROR LINES ---
 2026-11-05 00:52:32,671 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-11-05 00:52:32,671 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-denyut tick=30 2026-11-05T00:59:00Z
+2026-11-05 01:13:13,745 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error, scheduling reconnect: Bad Gateway
+2026-11-05 01:13:13,746 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 1/10), reconnecting in 5s. Error: Bad Gateway
+2026-11-05 01:13:19,512 ERROR telegram.ext.Updater: Error while calling `get_updates` one more time to mark all fetched updates. Suppressing error to ensure graceful shutdown. When polling for updates is restarted, updates may be fetched again. Please adjust timeouts via `ApplicationBuilder` or the parameter `get_updates_request` of `Bot`.
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_updater.py", line 400, in _get_updates_cleanup
+    await self.bot.get_updates(
+    ...<4 lines>...
+    )
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 680, in get_updates
+    updates = await super().get_updates(
+--
+    raise exception
+telegram.error.NetworkError: Bad Gateway
+2026-11-05 01:13:19,885 ERROR telegram.ext: Network Retry Loop (Bootstrap delete Webhook): Failed run number 0 of 0. Aborting.
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 161, in network_retry_loop
+    await do_action()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 136, in do_action
+    await action_cb()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_updater.py", line 686, in bootstrap_del_webhook
+    await self.bot.delete_webhook(drop_pending_updates=drop_pending_updates)
+--
+    raise exception
+telegram.error.NetworkError: Bad Gateway
+2026-11-05 01:13:19,890 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: Bad Gateway
+2026-11-05 01:13:19,890 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 2/10), reconnecting in 10s. Error: Bad Gateway
+2026-11-05 01:13:45,118 ERROR telegram.ext: Network Retry Loop (Bootstrap delete Webhook): Timed out: Timed out. Failed run number 0 of 0. Aborting.
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+--
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+202****1021-linux-x64/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/request/_httpxrequest.py", line 279, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+--
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+202****1021-linux-x64/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a211edb71a844e2a80ab0bce9860aa4a/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 161, in network_retry_loop
+    await do_action()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 136, in do_action
+    await action_cb()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/57be12335b1b4427a4833fc88f900852/venv/lib/python3.14/site-packages/telegram/ext/_updater.py", line 686, in bootstrap_del_webhook
+    await self.bot.delete_webhook(drop_pending_updates=drop_pending_updates)
+--
+telegram.error.TimedOut: Timed out
+2026-11-05 01:13:45,128 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: Timed out
+2026-11-05 01:13:45,128 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 3/10), reconnecting in 20s. Error: Timed out
+denyut tick=45 2026-11-05T01:14:02Z
