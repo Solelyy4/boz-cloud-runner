@@ -560,6 +560,33 @@ jobs:
           "$GWPY" -c "import ddgs; print('ddgs OK')" | tee -a gw.log \
             || echo "AMARAN: ddgs tiada — web_search mungkin pulang 0" | tee -a gw.log
 
+          # ===== PEMULIHAN RANGKAIAN RUNNER (bukti 2026-11-05) =====
+          # Runner GitHub kadang HILANG akses ke api.telegram.org sepenuhnya selama
+          # berjam-jam: SEMUA laluan gagal (hostname, IPv4 literal 149.154.166.110,
+          # dual-stack) dengan httpx.ConnectError kosong. Daripada laptop, Telegram
+          # pulang HTTP 302 dalam 1.2s pada masa yang sama -> isu khusus rangkaian
+          # runner, bukan Telegram. Ubat: nyahsekat resolver + paksa IPv4 + Naikkan
+          # TIMEOUT sambungan (8s terlalu ketat untuk laluan tersekat).
+          #
+          # set_ipv4_only: elak cubaan IPv6 yang sentiasa gagal di runner.
+          export HERMES_TELEGRAM_FORCE_IPV4=1
+          export CURL_IPRESOLVE=4
+          # getent/curl mesti guna resolver yang sama seperti adapter (glibc), bukan
+          # DoH dalaman Hermes — kalau tidak kita betulkan satu laluan sahaja.
+          if [ -w /etc/resolv.conf ]; then
+            grep -q '^nameserver 1.1.1.1' /etc/resolv.conf 2>/dev/null || {
+              cp /etc/resolv.conf /tmp/resolv.bak 2>/dev/null || true
+              printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\noptions timeout:2 attempts:2\n' \
+                | sudo tee /etc/resolv.conf >/dev/null 2>&1 || true
+              echo "resolv.conf: resolver awam ditulis" | tee -a gw.log
+            }
+          fi
+          # Sahkan sekali sebelum gelung utama: kalau DNS rosak, betulkan lebih awal.
+          for u in api.telegram.org core.telegram.org; do
+            ip=$(getent ahostsv4 "$u" 2>/dev/null | awk 'NR==1{print $1}')
+            echo "DNS $u -> ${ip:-GAGAL}" | tee -a gw.log
+          done
+
           cubaan=0
           while true; do
             cubaan=$((cubaan+1))
@@ -660,6 +687,17 @@ jobs:
             # rehat eksponen berhad (maks 10 minit) supaya pulih cepat bila Telegram balik
             rehat=$((cubaan * 30)); [ "$rehat" -gt 600 ] && rehat=600
             echo "rehat ${rehat}s sebelum cubaan berikut"
+            # JIKA CUBAAN BERTERUSAN GAGAL (rangkaian runner buta), BOZ mesti DIBERITAHU.
+            # Kalau tidak BOZ menghantar mesej ke dalam kekosongan dan menyangka bot mati.
+            # Bukti 2026-11-05: semua laluan Telegram gagal 16+ minit dari runner, sementara
+            # laptop pulang 302 dalam 1.2s. Bot perlu jujur, bukan senyap.
+            if [ "$cubaan" -ge 3 ]; then
+              curl -4 -s -m 20 -X POST \
+                "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+                -d "chat_id=8043910371" \
+                --data-urlencode "text=⚠️ Bot awan tidak dapat menghubungi Telegram dari runner GitHub (cubaan ${cubaan}). Rangkaian runner yang bermasalah, bukan bot BOZ. Laptop BOZ sihat — jambatan (bridge) boleh jalan. Bot akan pulih sendiri bila rangkaian pulih." \
+                >/dev/null 2>&1 || true
+            fi
             sleep "$rehat"
           done
           tail -60 gw.log
