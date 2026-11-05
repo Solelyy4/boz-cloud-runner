@@ -1,6 +1,6 @@
-=== TRACE 2026-11-05T12:04:11Z run 42022499044 ===
-gw.log dimulakan bersih 2026-11-05T11:56:00Z run 42022499044
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/426974a247ca4f728eb6a38cf6af7990/venv/bin/python
+=== TRACE 2026-11-05T12:08:33Z run 42024063371 ===
+gw.log dimulakan bersih 2026-11-05T12:07:33Z run 42024063371
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0a66f09fd234475fb8c2b9356a5e49fa/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
 ddgs OK
@@ -11,30 +11,10 @@ ddgs OK
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-05 11:56:12,842 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
-2026-11-05 11:56:12,843 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
-2026-11-05 11:56:13,176 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3431, started_at=2026-11-05T11:47:08.093050+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-05T11:53:13.685916+00:00 last_mem={'rss_kib': 234996, 'mem_total_kib': 16367524, 'mem_available_kib': 15149748, 'swap_used_kib': 0} suspected_oom=False
-2026-11-05 11:56:13,334 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-05 11:56:13,365 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-05 11:56:13,558 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-05 11:56:24,564 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-05 12:00:47,809 WARNING gateway.session_authority: Session 20261103_063333_48ebf25e paused: unknown_execution
-2026-11-05 12:00:54,046 WARNING agent.system_prompt: skills.auto_load: skill(s) not found or disabled, skipped: security, web, software-development, autonomous-ai-agents, telekey-bot-ops, research, productivity
-2026-11-05 12:01:04,205 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
-2026-11-05 12:01:04,211 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
-2026-11-05 12:01:04,888 WARNING agent.tool_executor: Tool execute_code returned error (4.42s): {"status": "error", "output": "Hasil pencarian berita AI terkini:\n\nJudul: Berita dan Informasi Ai Terkini dan Terbaru Hari ini  - detikcom\nURL: https://www.detik.com/tag/ai\nDeskripsi: Berita dan I
-2026-11-05 12:01:11,754 WARNING agent.chat_completion_helpers: Clean EOF, no finish_reason: server ended the stream (no transport exception) after delivering text with no tool calls. The server or a proxy closed the stream cleanly.
-2026-11-05 12:01:18,315 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
-2026-11-05 12:01:18,316 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
-2026-11-05 12:01:25,375 WARNING agent.tool_executor: Tool web_extract returned error (0.02s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-2026-11-05 12:01:29,936 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-2026-11-05 12:01:34,034 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-2026-11-05 12:01:36,794 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-
-[Tool loop warning: same_tool_failure_warning; count=4; web_extract has failed 4 times this turn. This looks like a loop. Do not 
-2026-11-05 12:02:41,141 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 1/5): [Errno 111] Connect call failed ('127.0.0.1', 34435)
-2026-11-05 12:02:42,143 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 2/5): [Errno 111] Connect call failed ('127.0.0.1', 34435)
-2026-11-05 12:02:44,146 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 3/5): [Errno 111] Connect call failed ('127.0.0.1', 34435)
-2026-11-05 12:02:48,151 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 4/5): [Errno 111] Connect call failed ('127.0.0.1', 34435)
-2026-11-05 12:02:56,159 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: stopped after 5 failed reconnect attempts: [Errno 111] Connect call failed ('127.0.0.1', 34435)
-display.review.summary_cli
+2026-11-05 12:07:46,440 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
+2026-11-05 12:07:46,440 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
+2026-11-05 12:07:46,798 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3508, started_at=2026-11-05T11:56:13.176223+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-05T12:04:54.771051+00:00 last_mem={'rss_kib': 386872, 'mem_total_kib': 16367524, 'mem_available_kib': 14975764, 'swap_used_kib': 0} suspected_oom=False
+2026-11-05 12:07:46,984 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-05 12:07:47,019 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-05 12:07:47,161 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-05 12:07:58,045 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
