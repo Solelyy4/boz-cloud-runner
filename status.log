@@ -1,4 +1,4 @@
-=== run 41914476045 tick 2026-11-05T02:29:12Z ===
+=== run 41914476045 tick 2026-11-05T02:44:14Z ===
     ...<6 lines>...
     )
     ^
@@ -420,4 +420,4 @@ Traceback (most recent call last):
 telegram.error.TimedOut: Timed out
 2026-11-05 01:14:20,363 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: Timed out
 2026-11-05 01:14:20,363 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 4/10), reconnecting in 40s. Error: Timed out
-denyut tick=120 2026-11-05T02:29:12Z
+denyut tick=135 2026-11-05T02:44:14Z
