@@ -1,4 +1,4 @@
-=== TRACE 2026-11-05T12:02:08Z run 42022499044 ===
+=== TRACE 2026-11-05T12:03:10Z run 42022499044 ===
 gw.log dimulakan bersih 2026-11-05T11:56:00Z run 42022499044
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/426974a247ca4f728eb6a38cf6af7990/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
@@ -32,3 +32,9 @@ ddgs OK
 2026-11-05 12:01:36,794 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
 
 [Tool loop warning: same_tool_failure_warning; count=4; web_extract has failed 4 times this turn. This looks like a loop. Do not 
+2026-11-05 12:02:41,141 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 1/5): [Errno 111] Connect call failed ('127.0.0.1', 34435)
+2026-11-05 12:02:42,143 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 2/5): [Errno 111] Connect call failed ('127.0.0.1', 34435)
+2026-11-05 12:02:44,146 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 3/5): [Errno 111] Connect call failed ('127.0.0.1', 34435)
+2026-11-05 12:02:48,151 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 4/5): [Errno 111] Connect call failed ('127.0.0.1', 34435)
+2026-11-05 12:02:56,159 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: stopped after 5 failed reconnect attempts: [Errno 111] Connect call failed ('127.0.0.1', 34435)
+display.review.summary_cli
