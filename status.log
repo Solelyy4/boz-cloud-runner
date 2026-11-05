@@ -1,9 +1,11 @@
-=== run 42045540746 AKHIR 2026-11-05T16:25:02Z ===
-gw.log dimulakan bersih 2026-11-05T15:00:03Z run 42045540746
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/31797ca181dc4a9a932dcd737fdf34c6/venv/bin/python
+=== run 42064162523 tick 2026-11-05T16:28:12Z ===
+gw.log dimulakan bersih 2026-11-05T16:27:45Z run 42064162523
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/525c0ec027044b5189eabd01a3c851ea/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
 ddgs OK
+DNS api.telegram.org -> 149.154.166.110
+DNS core.telegram.org -> 149.154.167.99
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -11,50 +13,11 @@ ddgs OK
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-05 15:00:18,651 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
-2026-11-05 15:00:18,651 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
-2026-11-05 15:00:19,240 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3497, started_at=2026-11-05T12:18:09.709217+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-05T14:56:51.740931+00:00 last_mem={'rss_kib': 390488, 'mem_total_kib': 16078424, 'mem_available_kib': 14689140, 'swap_used_kib': 0} suspected_oom=False
-2026-11-05 15:00:19,535 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-05 15:00:19,595 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-05 15:00:19,813 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-05 15:00:30,910 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-05 15:06:16,935 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:06:16,935 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-05 15:06:49,743 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:06:49,743 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
-2026-11-05 15:07:00,166 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
-2026-11-05 15:07:43,143 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:07:43,143 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-05 15:07:44,585 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
-2026-11-05 15:07:44,586 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error, scheduling reconnect: httpx.ConnectError: 
-2026-11-05 15:07:44,586 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 1/10), reconnecting in 5s. Error: httpx.ConnectError: 
-2026-11-05 15:07:49,999 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-05 15:09:20,385 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:09:20,385 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
-2026-11-05 15:09:30,842 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
-2026-11-05 15:18:55,959 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:18:55,959 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-05 15:24:58,287 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:24:58,288 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
-2026-11-05 15:25:08,601 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
-2026-11-05 15:25:16,603 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:25:16,604 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
-2026-11-05 15:26:36,652 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:26:36,653 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectTimeout(''))
-2026-11-05 15:26:46,963 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
-2026-11-05 15:27:14,178 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:27:14,178 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
-2026-11-05 15:27:22,179 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectTimeout(''))
-2026-11-05 15:27:26,785 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-05 15:27:43,592 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:27:43,592 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-05 15:28:29,392 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
-2026-11-05 15:28:29,392 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectTimeout(''))
-2026-11-05 15:28:39,714 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
-2026-11-05 16:02:03,196 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-05 16:02:03,196 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-05 16:04:31,132 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
-2026-11-05 16:04:31,133 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
-2026-11-05 16:04:41,507 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
-2026-11-05 16:08:42,247 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-05 16:08:42,247 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-11-05 16:27:59,763 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
+2026-11-05 16:27:59,763 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
+2026-11-05 16:28:00,273 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3749, started_at=2026-11-05T15:00:19.241154+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-05T16:25:01.598674+00:00 last_mem={'rss_kib': 261056, 'mem_total_kib': 16367524, 'mem_available_kib': 15108776, 'swap_used_kib': 0} suspected_oom=False
+2026-11-05 16:28:00,516 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-05 16:28:00,569 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-05 16:28:00,776 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-05 16:28:11,633 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+mula-cubaan-1 selepas-15s 2026-11-05T16:28:12Z
