@@ -1,4 +1,4 @@
-=== run 42021420741 tick 2026-11-05T11:50:05Z ===
+=== run 42021420741 AKHIR 2026-11-05T11:53:29Z ===
 gw.log dimulakan bersih 2026-11-05T11:46:57Z run 42021420741
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e1df973a94fc44be99242d6e8f212a2c/venv/bin/python
 ┌─────────────────────────────────────────────────────────┐
@@ -168,8 +168,3 @@ Bytecode compiled 4016 files in 1.45s
 2026-11-05 11:47:13,491 ERROR gateway.run: Platform 'telegram' is registered but adapter creation failed (check dependencies and config)
 2026-11-05 11:47:13,491 WARNING gateway.run: No adapter available for telegram
 2026-11-05 11:47:13,497 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
---- ERROR LINES ---
-2026-11-05 11:47:13,491 ERROR gateway.run: Platform 'telegram' is registered but adapter creation failed (check dependencies and config)
-2026-11-05 11:47:13,491 WARNING gateway.run: No adapter available for telegram
-2026-11-05 11:47:13,497 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
-mula-cubaan-1 selepas-180s 2026-11-05T11:50:05Z
