@@ -1,6 +1,6 @@
-=== run 42024063371 AKHIR 2026-11-05T12:15:26Z ===
-gw.log dimulakan bersih 2026-11-05T12:07:33Z run 42024063371
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0a66f09fd234475fb8c2b9356a5e49fa/venv/bin/python
+=== run 42025611020 tick 2026-11-05T12:18:22Z ===
+gw.log dimulakan bersih 2026-11-05T12:17:55Z run 42025611020
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a66fe707809d48a7b2e09000ec6f2fa2/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
 ddgs OK
@@ -11,14 +11,11 @@ ddgs OK
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-05 12:07:46,440 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
-2026-11-05 12:07:46,440 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
-2026-11-05 12:07:46,798 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3508, started_at=2026-11-05T11:56:13.176223+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-05T12:04:54.771051+00:00 last_mem={'rss_kib': 386872, 'mem_total_kib': 16367524, 'mem_available_kib': 14975764, 'swap_used_kib': 0} suspected_oom=False
-2026-11-05 12:07:46,984 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-05 12:07:47,019 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-05 12:07:47,161 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-05 12:07:58,045 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-05 12:10:59,915 WARNING gateway.session_authority: Session 20261103_063333_48ebf25e paused: unknown_execution
-2026-11-05 12:11:16,379 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-2026-11-05 12:11:18,733 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-2026-11-05 12:11:22,048 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 12:18:09,335 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
+2026-11-05 12:18:09,335 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
+2026-11-05 12:18:09,709 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3470, started_at=2026-11-05T12:07:46.798410+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-05T12:14:58.243115+00:00 last_mem={'rss_kib': 376100, 'mem_total_kib': 16367524, 'mem_available_kib': 15050308, 'swap_used_kib': 0} suspected_oom=False
+2026-11-05 12:18:09,886 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-05 12:18:09,921 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-05 12:18:10,102 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-05 12:18:20,842 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+mula-cubaan-1 selepas-15s 2026-11-05T12:18:22Z
