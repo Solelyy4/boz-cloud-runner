@@ -1,0 +1,52 @@
+name: Daftar Servis Jambatan
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 13 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bridge-register
+  cancel-in-progress: false
+
+jobs:
+  daftar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Hantar arahan daftar servis ke laptop
+        env:
+          GH_TOKEN: ${{ secrets.BOZ_PAT }}
+        run: |
+          set -e
+          ID="svcdaftar-$(date -u +%Y%m%d%H%M%S)"
+          bash scripts/bina_job_daftar.sh "$ID" > job.json
+          ENC=$(base64 -w0 job.json)
+          printf '{"message":"daftar servis jambatan","content":"%s"}' "$ENC" > body.json
+          curl -s -X PUT \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/Solelyy4/boz-bridge/contents/jobs/$ID.json" \
+            --data @body.json > daftar.json
+          if grep -q '"commit"' daftar.json; then
+            echo "arahan dihantar: $ID"
+          else
+            echo "GAGAL hantar arahan"
+            cat daftar.json
+            exit 1
+          fi
+          for i in $(seq 1 30); do
+            sleep 10
+            curl -s -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/repos/Solelyy4/boz-bridge/contents/out/$ID.json" -o hasil.json
+            if grep -q '"content"' hasil.json; then
+              bash scripts/baca_hasil.sh hasil.json
+              exit 0
+            fi
+          done
+          echo "TAMAT MASA menunggu laptop (mungkin tidur)"
