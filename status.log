@@ -1,4 +1,4 @@
-=== run 42025611020 tick 2026-11-05T12:18:22Z ===
+=== run 42025611020 tick 2026-11-05T12:33:24Z ===
 gw.log dimulakan bersih 2026-11-05T12:17:55Z run 42025611020
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a66fe707809d48a7b2e09000ec6f2fa2/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
@@ -18,4 +18,20 @@ ddgs OK
 2026-11-05 12:18:09,921 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-05 12:18:10,102 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-05 12:18:20,842 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-mula-cubaan-1 selepas-15s 2026-11-05T12:18:22Z
+2026-11-05 12:20:44,670 WARNING gateway.session_authority: Session 20261103_063333_48ebf25e paused: unknown_execution
+2026-11-05 12:20:53,679 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
+2026-11-05 12:20:53,682 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
+2026-11-05 12:21:01,325 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
+2026-11-05 12:21:01,326 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
+2026-11-05 12:21:06,195 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 12:21:09,763 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 12:21:14,160 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+--- ERROR LINES ---
+2026-11-05 12:20:53,679 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
+2026-11-05 12:20:53,682 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
+2026-11-05 12:21:01,325 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
+2026-11-05 12:21:01,326 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
+2026-11-05 12:21:06,195 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 12:21:09,763 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 12:21:14,160 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+denyut tick=15 2026-11-05T12:33:24Z
