@@ -1,0 +1,65 @@
+name: uji-rangkaian
+
+# Ujian pembuktian: bolehkah runner GitHub mencapai Telegram?
+# Dijalankan berasingan daripada bot supaya tidak mengganggu long-poll.
+# Hasil ditulis ke uji-rangkaian.log dalam repo untuk dibaca operator.
+on:
+  workflow_dispatch:
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Uji capaian rangkaian runner
+        run: |
+          set +e
+          OUT=uji-rangkaian.log
+          {
+            echo "=== UJIAN RANGKAIAN $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
+            echo "--- resolv.conf asal ---"
+            cat /etc/resolv.conf 2>/dev/null | head -5
+            echo "--- DNS ---"
+            for h in api.telegram.org core.telegram.org; do
+              ip=$(getent ahostsv4 "$h" 2>/dev/null | awk 'NR==1{print $1}')
+              echo "getent $h -> ${ip:-GAGAL}"
+            done
+            echo "--- curl setiap host (10s) ---"
+            for h in api.telegram.org core.telegram.org example.com github.com google.com; do
+              r=$(curl -4 -s -o /dev/null -m 10 -w "%{http_code} %{time_total}s ip=%{remote_ip}" "https://$h/" 2>&1)
+              echo "curl -4 $h -> $r"
+            done
+            echo "--- curl IPv6 ---"
+            r=$(curl -6 -s -o /dev/null -m 8 -w "%{http_code} %{time_total}s" "https://api.telegram.org/" 2>&1)
+            echo "curl -6 api.telegram.org -> $r"
+            echo "--- TCP terus ke IP Telegram :443 ---"
+            for ip in 149.154.167.220 149.154.166.110 149.154.167.99; do
+              if timeout 6 bash -c "cat < /dev/null > /dev/tcp/$ip/443" 2>/dev/null; then
+                echo "TCP $ip:443 BUKA"
+              else
+                echo "TCP $ip:443 GAGAL/timeout"
+              fi
+            done
+            echo "--- getMe dengan token (jika ada) ---"
+            if [ -n "${{ secrets.TELEGRAM_BOT_TOKEN }}" ]; then
+              echo "getMe -> $(curl -4 -s -o /dev/null -m 12 -w '%{http_code}' "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/getMe")"
+            else
+              echo "tiada token"
+            fi
+            echo "=== TAMAT ==="
+          } > "$OUT" 2>&1
+          cat "$OUT"
+
+      - name: Tulis hasil ke repo
+        if: always()
+        run: |
+          for p in 1 2 3 4 5; do
+            git fetch origin master -q >/dev/null 2>&1 || true
+            git checkout -q -B uji-tmp origin/master >/dev/null 2>&1 || true
+            git add -f uji-rangkaian.log >/dev/null 2>&1 || true
+            git -c user.email=bot@local -c user.name=bot commit -qm "uji rangkaian $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+            if git push origin HEAD:master >/dev/null 2>&1; then echo "push ok"; break; fi
+            sleep 5
+          done
