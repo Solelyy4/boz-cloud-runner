@@ -1,4 +1,4 @@
-=== TRACE 2026-11-05T12:10:36Z run 42024063371 ===
+=== TRACE 2026-11-05T12:11:38Z run 42024063371 ===
 gw.log dimulakan bersih 2026-11-05T12:07:33Z run 42024063371
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0a66f09fd234475fb8c2b9356a5e49fa/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
@@ -18,3 +18,7 @@ ddgs OK
 2026-11-05 12:07:47,019 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-05 12:07:47,161 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-05 12:07:58,045 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-05 12:10:59,915 WARNING gateway.session_authority: Session 20261103_063333_48ebf25e paused: unknown_execution
+2026-11-05 12:11:16,379 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 12:11:18,733 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 12:11:22,048 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
