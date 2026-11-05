@@ -513,6 +513,25 @@ jobs:
           fi
           echo "gateway python: $GWPY" | tee -a gw.log
 
+          # WAJIB: adapter Telegram gagal tanpa python-telegram-bot dalam venv INI.
+          # Bukti sebenar: gw.log berbunyi "Platform 'Telegram' requirements not met
+          # (platform.telegram.install_hint)" + "No adapter available for telegram".
+          # Lazy-installer Hermes (pm.ensure_import) tidak berjaya di runner (tiada
+          # akses tulis/pip yang dikonfigurasi), jadi pasang terus di sini.
+          echo "=== pasang dependency platform (python-telegram-bot) ===" | tee -a gw.log
+          "$GWPY" -c "import telegram; print('telegram ADA', telegram.__version__)" 2>/dev/null \
+            || { "$GWPY" -m ensurepip --upgrade >/dev/null 2>&1 || true
+                 "$GWPY" -m pip install --quiet --disable-pip-version-check \
+                   "python-telegram-bot[socks,http2]>=21" 2>&1 | tail -5 || true; }
+          "$GWPY" -c "import telegram, telegram.ext; print('telegram OK', telegram.__version__)" \
+            | tee -a gw.log || { echo "::error::python-telegram-bot tidak dapat dipasang"; exit 1; }
+
+          # ddgs: backend web_search keyless. Tanpa ia, web_search pulang 0 hasil
+          # dan bot tidak boleh ambil apa-apa dari internet (tugasan utama BOZ).
+          "$GWPY" -m pip install --quiet --disable-pip-version-check ddgs 2>&1 | tail -3 || true
+          "$GWPY" -c "import ddgs; print('ddgs OK')" | tee -a gw.log \
+            || echo "AMARAN: ddgs tiada — web_search mungkin pulang 0" | tee -a gw.log
+
           cubaan=0
           while true; do
             cubaan=$((cubaan+1))
