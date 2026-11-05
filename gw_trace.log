@@ -1,4 +1,4 @@
-=== TRACE 2026-11-05T12:01:06Z run 42022499044 ===
+=== TRACE 2026-11-05T12:02:08Z run 42022499044 ===
 gw.log dimulakan bersih 2026-11-05T11:56:00Z run 42022499044
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/426974a247ca4f728eb6a38cf6af7990/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
@@ -23,3 +23,12 @@ ddgs OK
 2026-11-05 12:01:04,205 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
 2026-11-05 12:01:04,211 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
 2026-11-05 12:01:04,888 WARNING agent.tool_executor: Tool execute_code returned error (4.42s): {"status": "error", "output": "Hasil pencarian berita AI terkini:\n\nJudul: Berita dan Informasi Ai Terkini dan Terbaru Hari ini  - detikcom\nURL: https://www.detik.com/tag/ai\nDeskripsi: Berita dan I
+2026-11-05 12:01:11,754 WARNING agent.chat_completion_helpers: Clean EOF, no finish_reason: server ended the stream (no transport exception) after delivering text with no tool calls. The server or a proxy closed the stream cleanly.
+2026-11-05 12:01:18,315 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
+2026-11-05 12:01:18,316 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
+2026-11-05 12:01:25,375 WARNING agent.tool_executor: Tool web_extract returned error (0.02s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 12:01:29,936 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 12:01:34,034 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 12:01:36,794 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+
+[Tool loop warning: same_tool_failure_warning; count=4; web_extract has failed 4 times this turn. This looks like a loop. Do not 
