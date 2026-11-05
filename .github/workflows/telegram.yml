@@ -506,7 +506,11 @@ jobs:
             # PENTING: python di-buffer secara blok dalam runner bukan-TTY. Tanpa
             # PYTHONUNBUFFERED, gw.log kelihatan "berhenti selepas Connected" walaupun
             # gateway sebenarnya memproses mesej — kita buta, bukan bot bisu.
-            PYTHONUNBUFFERED=1 HERMES_DEBUG=1 hermes gateway run >> gw.log 2>&1 &
+            # Tangkap exit code + sebab keluar. Gateway yang keluar senyap (SIGTERM/exit 0)
+            # adalah punca bot "bisu": ia sambung, kemudian mati tanpa traceback.
+            PYTHONUNBUFFERED=1 HERMES_DEBUG=1 python -X faulthandler -c \
+              "import sys,signal; signal.signal(signal.SIGTERM, lambda *a: (print('GATEWAY SIGTERM', flush=True), sys.exit(143))); from hermes_cli.main import main; sys.argv=['hermes','gateway','run']; main()" \
+              >> gw.log 2>&1 &
             PID=$!
             TUNGGU=0
             for i in $(seq 1 36); do
@@ -531,6 +535,12 @@ jobs:
             first_seen=""
             LAST_LINES=$(wc -l < gw.log 2>/dev/null || echo 0)
             SILENT=0
+            # Jejak kematian: bila proses mati, catat kod keluar dan 40 baris terakhir.
+            ( wait $PID 2>/dev/null; RC=$?
+              echo "=== GATEWAY MATI rc=$RC pada $(date -u +%FT%TZ) ===" >> gw.log
+              tail -40 gw.log >> gw.log 2>/dev/null
+            ) &
+
             while kill -0 $PID 2>/dev/null; do
               sleep 60
               tick=$((tick+1))
