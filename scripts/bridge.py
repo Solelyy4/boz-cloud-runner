@@ -135,6 +135,83 @@ def cmd_files(args) -> int:
     return 0 if ok else 1
 
 
+def cmd_brain(args) -> int:
+    """Sisi bot: hantar masalah kepada PERKHIDMATAN JAMBATAN (Hermes penuh di laptop).
+
+    Berbeza daripada `run` (shell mentah): perkhidmatan ini berfikir dengan Hermes penuh
+    -- jadi ia bukan sekadar menjalankan arahan, ia menyelesaikan masalah yang bot awan
+    tidak dapat selesaikan, dan memulangkan jawapan + bukti.
+    """
+    import urllib.error
+    import urllib.request
+
+    repo = "Solelyy4/boz-bridge"
+    branch = "master"
+    base = f"https://api.github.com/repos/{repo}/contents"
+    tok = (os.environ.get("BOZ_PAT") or os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN") or "").strip()
+    if not tok:
+        print("GAGAL: tiada PAT (BOZ_PAT) untuk jambatan", file=sys.stderr)
+        return 1
+    job_id = "tg-" + datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S") + "-" + uuid.uuid4().hex[:6]
+    job = {"id": job_id, "ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+           "kind": args.kind, "from": "telegram-bot", "problem": args.problem}
+    if args.context:
+        try:
+            job["context"] = json.loads(args.context)
+        except json.JSONDecodeError:
+            job["context"] = {"nota": args.context}
+
+    def call(path: str, method: str = "GET", payload: dict | None = None):
+        data = json.dumps(payload).encode() if payload is not None else None
+        req = urllib.request.Request(f"{base}/{path}?ref={branch}", data=data, method=method)
+        req.add_header("Authorization", "Bearer " + tok)
+        req.add_header("Accept", "application/vnd.github+json")
+        req.add_header("User-Agent", "boz-bridge-bot")
+        if data:
+            req.add_header("Content-Type", "application/json")
+        try:
+            with urllib.request.urlopen(req, timeout=45) as resp:
+                body = resp.read().decode("utf-8", "replace")
+                return resp.status, (json.loads(body) if body else None)
+        except urllib.error.HTTPError as exc:
+            return exc.code, None
+        except Exception:
+            return 0, None
+
+    path = f"bridge/in/{job_id}.json"
+    code, data = call(path)
+    sha = data.get("sha") if code == 200 and isinstance(data, dict) else None
+    payload = {"message": f"tanya jambatan {job_id}", "branch": branch,
+               "content": base64.b64encode(json.dumps(job, ensure_ascii=False, indent=1).encode()).decode()}
+    if sha:
+        payload["sha"] = sha
+    code, _ = call(path, "PUT", payload)
+    if code not in (200, 201):
+        print(f"GAGAL hantar job jambatan (HTTP {code})", file=sys.stderr)
+        return 1
+    print(f"job jambatan {job_id} dihantar -> menunggu Hermes laptop (maks {args.wait}s)")
+    deadline = time.time() + args.wait
+    while time.time() < deadline:
+        time.sleep(5)
+        code, data = call(f"bridge/out/{job_id}.json")
+        if code == 200 and isinstance(data, dict):
+            text = base64.b64decode(data.get("content") or "").decode("utf-8", "replace")
+            try:
+                res = json.loads(text)
+            except json.JSONDecodeError:
+                continue
+            print("\n=== JAWAPAN JAMBATAN ===")
+            print(f"status={res.get('status')} secs={res.get('secs')}")
+            print((res.get("answer") or "").rstrip())
+            ev = (res.get("evidence") or "").strip()
+            if ev:
+                print("--- bukti ---")
+                print(ev[:1200])
+            return 0 if res.get("status") == "ok" else 2
+    print(f"TAMAT MASA: laptop tidak menjawab dalam {args.wait}s", file=sys.stderr)
+    return 3
+
+
 def cmd_queue(args) -> int:
     r = api("contents/jobs")
     if not isinstance(r, list):
@@ -165,6 +242,13 @@ def main() -> int:
 
     p = sub.add_parser("queue", help="senarai job menunggu")
     p.set_defaults(func=cmd_queue)
+
+    p = sub.add_parser("brain", help="tanya Hermes PENUH di laptop (perkhidmatan jambatan)")
+    p.add_argument("problem", help="masalah/tugasan yang bot tidak dapat selesaikan")
+    p.add_argument("--context", default="", help="JSON konteks (ralat, output alat, dsb.)")
+    p.add_argument("--kind", default="help", choices=["help", "probe"])
+    p.add_argument("--wait", type=int, default=600)
+    p.set_defaults(func=cmd_brain)
 
     args = ap.parse_args()
     return args.func(args)
