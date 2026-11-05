@@ -497,6 +497,22 @@ jobs:
           : > gw.log
           echo "gw.log dimulakan bersih $(date -u +%FT%TZ) run $GITHUB_RUN_ID" >> gw.log
 
+          # PENTING: `python` mentah dalam runner BUKAN venv Hermes — ia sistem python
+          # yang tiada modul hermes_cli. Bukti sebenar: gw.log penuh dengan
+          # "ModuleNotFoundError: No module named 'hermes_cli'" 3 kali berturut-turut →
+          # bot tidak pernah mula langsung. Cari venv Hermes SEKALI sebelum gelung.
+          GWPY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] || continue
+            if "$cand" -c "import hermes_cli" 2>/dev/null; then GWPY="$cand"; break; fi
+          done
+          if [ -z "$GWPY" ]; then
+            echo "::error::venv Hermes tidak dijumpai — gateway tidak boleh mula"
+            echo "venv tidak dijumpai — gateway tidak boleh mula" >> gw.log
+            exit 1
+          fi
+          echo "gateway python: $GWPY" | tee -a gw.log
+
           cubaan=0
           while true; do
             cubaan=$((cubaan+1))
@@ -508,7 +524,7 @@ jobs:
             # gateway sebenarnya memproses mesej — kita buta, bukan bot bisu.
             # Tangkap exit code + sebab keluar. Gateway yang keluar senyap (SIGTERM/exit 0)
             # adalah punca bot "bisu": ia sambung, kemudian mati tanpa traceback.
-            PYTHONUNBUFFERED=1 HERMES_DEBUG=1 python -X faulthandler -c \
+            PYTHONUNBUFFERED=1 HERMES_DEBUG=1 "$GWPY" -X faulthandler -c \
               "import sys,signal; signal.signal(signal.SIGTERM, lambda *a: (print('GATEWAY SIGTERM', flush=True), sys.exit(143))); from hermes_cli.main import main; sys.argv=['hermes','gateway','run']; main()" \
               >> gw.log 2>&1 &
             PID=$!
