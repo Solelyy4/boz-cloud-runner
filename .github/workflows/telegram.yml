@@ -395,6 +395,26 @@ jobs:
           print("jumlah skill:", len(skills))
           PY
 
+      - name: Kesihatan jambatan laptop (bukti hidup)
+        # Tidak kritikal: kalau laptop tidur, bot mesti tetap hidup. Hasil ditulis ke
+        # bridge_health.log supaya operator boleh lihat kesihatan otak sekunder.
+        continue-on-error: true
+        run: |
+          export BOZ_PAT="${{ secrets.BOZ_PAT }}"
+          PY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] && "$cand" -c "import hermes_cli" 2>/dev/null && { PY="$cand"; break; }
+          done
+          if [ -z "$PY" ]; then echo "venv tiada - probe dilangkau" > bridge_health.log; exit 0; fi
+          timeout 240 "$PY" scripts/bridge.py brain "probe kesihatan laptop" --kind probe --wait 150             > bridge_health.log 2>&1 || echo "probe gagal (laptop mungkin tidur)" >> bridge_health.log
+          cat bridge_health.log
+          git fetch origin master -q >/dev/null 2>&1 || true
+          git checkout -q -B health-tmp origin/master 2>/dev/null || true
+          git add -f bridge_health.log >/dev/null 2>&1
+          git -c user.email=bot@local -c user.name=bot commit -qm "kesihatan jambatan $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+          for p in 1 2 3; do git push origin HEAD:master >/dev/null 2>&1 && break; sleep 4; done || true
+          git checkout -q -
+
       - name: Jalankan gateway (kukuh terhadap 409)
         timeout-minutes: 1450
         continue-on-error: true
@@ -452,6 +472,14 @@ jobs:
             done
             return 0
           }
+
+          # ===== JAMBATAN KE HERMES PENUH (laptop BOZ) =====
+          # Bila bot TIDAK BOLEH menyelesaikan tugasan dengan toolset nipisnya, ia TIDAK
+          # menyerah: ia tanya otak kedua di laptop BOZ (Hermes penuh + 9Router + shell) dan
+          # memulangkan jawapannya ke Telegram. Ini menjawab "bot kena boleh buat semua".
+          #   python scripts/bridge.py brain "<masalah>" --context '<json>' --wait 600
+          # Laptop tidur/mati -> jambatan tamat masa; bot mesti beritahu BOZ dengan jujur.
+          echo "jambatan: guna 'python scripts/bridge.py brain ...' bila alat gagal atau soalan di luar toolset"
 
           # PENTING: jangan sesekali panggil getUpdates dari luar.
           # Adapter Hermes SENDIRI yang memegang long-poll; sebarang getUpdates lain
