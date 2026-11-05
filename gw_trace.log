@@ -1,4 +1,4 @@
-=== TRACE 2026-11-05T00:52:03Z run 41914476045 ===
+=== TRACE 2026-11-05T00:53:04Z run 41914476045 ===
 gw.log dimulakan bersih 2026-11-05T00:28:28Z run 41914476045
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
@@ -193,3 +193,5 @@ Bytecode compiled 5057 files in 1.85s
 2026-11-05 00:28:44,890 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-05 00:28:45,119 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-05 00:28:56,069 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-05 00:52:32,671 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-05 00:52:32,671 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
