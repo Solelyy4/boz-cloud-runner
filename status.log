@@ -1,6 +1,6 @@
-=== run 42025611020 AKHIR 2026-11-05T14:57:04Z ===
-gw.log dimulakan bersih 2026-11-05T12:17:55Z run 42025611020
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a66fe707809d48a7b2e09000ec6f2fa2/venv/bin/python
+=== run 42045540746 tick 2026-11-05T15:00:35Z ===
+gw.log dimulakan bersih 2026-11-05T15:00:03Z run 42045540746
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/31797ca181dc4a9a932dcd737fdf34c6/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
 ddgs OK
@@ -11,28 +11,11 @@ ddgs OK
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-05 12:18:09,335 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
-2026-11-05 12:18:09,335 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
-2026-11-05 12:18:09,709 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3470, started_at=2026-11-05T12:07:46.798410+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-05T12:14:58.243115+00:00 last_mem={'rss_kib': 376100, 'mem_total_kib': 16367524, 'mem_available_kib': 15050308, 'swap_used_kib': 0} suspected_oom=False
-2026-11-05 12:18:09,886 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-05 12:18:09,921 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-05 12:18:10,102 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-05 12:18:20,842 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-05 12:20:44,670 WARNING gateway.session_authority: Session 20261103_063333_48ebf25e paused: unknown_execution
-2026-11-05 12:20:53,679 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
-2026-11-05 12:20:53,682 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
-2026-11-05 12:21:01,325 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
-2026-11-05 12:21:01,326 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
-2026-11-05 12:21:06,195 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-2026-11-05 12:21:09,763 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-2026-11-05 12:21:14,160 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-2026-11-05 13:05:47,497 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-05 13:05:47,497 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-05 14:04:14,446 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
-2026-11-05 14:04:14,447 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
-2026-11-05 14:04:24,689 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
-2026-11-05 14:05:56,189 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-05 14:05:56,190 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
-2026-11-05 14:53:23,701 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-2026-11-05 14:53:30,247 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
-2026-11-05 14:53:33,713 WARNING agent.tool_executor: Tool web_extract returned error (0.00s): {"error": "Error extracting content: 'bool' object can't be awaited"}
+2026-11-05 15:00:18,651 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
+2026-11-05 15:00:18,651 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
+2026-11-05 15:00:19,240 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3497, started_at=2026-11-05T12:18:09.709217+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-05T14:56:51.740931+00:00 last_mem={'rss_kib': 390488, 'mem_total_kib': 16078424, 'mem_available_kib': 14689140, 'swap_used_kib': 0} suspected_oom=False
+2026-11-05 15:00:19,535 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-05 15:00:19,595 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-05 15:00:19,813 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-05 15:00:30,910 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+mula-cubaan-1 selepas-20s 2026-11-05T15:00:35Z
