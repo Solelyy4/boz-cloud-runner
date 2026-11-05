@@ -1,4 +1,4 @@
-=== run 41954687270 tick 2026-11-05T08:59:43Z ===
+=== run 41954687270 tick 2026-11-05T09:14:45Z ===
 gw.log dimulakan bersih 2026-11-05T06:28:55Z run 41954687270
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
@@ -194,6 +194,10 @@ Bytecode compiled 5057 files in 1.94s
 2026-11-05 06:29:12,389 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-05 06:29:23,302 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-05 07:45:21,430 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-05 09:12:18,420 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-05 09:12:18,421 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
 --- ERROR LINES ---
 2026-11-05 07:45:21,430 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-denyut tick=150 2026-11-05T08:59:43Z
+2026-11-05 09:12:18,420 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-05 09:12:18,421 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+denyut tick=165 2026-11-05T09:14:45Z
