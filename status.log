@@ -1,4 +1,4 @@
-=== run 42226559688 tick 2026-11-06T13:39:33Z ===
+=== run 42226559688 AKHIR 2026-11-06T13:52:27Z ===
 gw.log dimulakan bersih 2026-11-06T13:39:01Z run 42226559688
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/77545225499341878e18c58c877e50ce/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
@@ -18,4 +18,3 @@ DNS core.telegram.org -> 149.154.167.99
 2026-11-06 13:39:17,172 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-06 13:39:17,390 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-06 13:39:28,443 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-mula-cubaan-1 selepas-20s 2026-11-06T13:39:33Z
