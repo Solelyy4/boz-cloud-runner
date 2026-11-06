@@ -131,6 +131,8 @@ jobs:
           done
           [ -n "$PY" ] || { echo "::warning::venv tidak dijumpai"; exit 0; }
           export ROUTER9_API_KEY="${{ secrets.ROUTER9_API_KEY }}"
+          # Untuk ujian tool-calling di bawah (guna API awam, bukan IP awam laptop).
+          export MISTRAL_API_KEY="${{ secrets.MISTRAL_API_KEY }}"
           echo "python: $PY"
 
           echo "=== curl keluar ==="
@@ -155,10 +157,13 @@ jobs:
           except Exception as e:
               print("panggilan gagal:", type(e).__name__, str(e)[:200])
           PYEOF
-          echo "=== ujian tool-calling 9Router ==="
-          curl -s -m 60 -X POST http://129.221.178.149:20128/v1/chat/completions \
-            -H "Authorization: Bearer $ROUTER9_API_KEY" -H "Content-Type: application/json" \
-            -d '{"model":"mistral-code","max_tokens":150,"tools":[{"type":"function","function":{"name":"web_search","description":"Cari internet","parameters":{"type":"object","properties":{"query":{"type":"string"}},"required":["query"]}}}],"messages":[{"role":"user","content":"Cari berita AI. Guna alat."}]}' \
+          # Ujian tool-calling: guna API AWAM (Mistral), bukan IP awam laptop.
+          # IP awam laptop (129.221.178.149:20128) rapuh — laptop tidur/IP berubah/port
+          # tertutup menjadikan ujian ini gagal palsu dan menyembunyikan keadaan sebenar.
+          echo "=== ujian tool-calling (Mistral awam) ==="
+          curl -s -m 60 -X POST https://api.mistral.ai/v1/chat/completions \
+            -H "Authorization: Bearer $MISTRAL_API_KEY" -H "Content-Type: application/json" \
+            -d '{"model":"ministral-8b-latest","max_tokens":150,"tools":[{"type":"function","function":{"name":"web_search","description":"Cari internet","parameters":{"type":"object","properties":{"query":{"type":"string"}},"required":["query"]}}}],"messages":[{"role":"user","content":"Cari berita AI. Guna alat."}]}' \
             | head -c 400 || echo "tool-calling gagal"
 
           echo "=== ujian web_search dalam venv ==="
