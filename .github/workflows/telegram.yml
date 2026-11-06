@@ -349,6 +349,25 @@ jobs:
 
       - name: Sahkan config terpakai
         run: |
+          echo "=== KUNCI API (gagal KETARA, bukan senyap) ==="
+          # Bukti keperluan: trace 2026-11-06 tunjuk bot mati dengan
+          # 'named custom provider groq has no resolvable api_key' + 14x HTTP 400
+          # 'reasoning_effort is not enabled'. Kunci kosong = bot MUSTAHIL berfungsi,
+          # tetapi ia gagal SENYAP (bot nampak hidup, mesej BOZ tidak dijawab).
+          # Sahkan panjang kunci di sini supaya kegagalan kelihatan dalam log run.
+          for K in MISTRAL_API_KEY GROQ_API_KEY TELEGRAM_BOT_TOKEN; do
+            V=$(grep -m1 "^$K=" home/.env 2>/dev/null | cut -d= -f2-)
+            if [ -z "$V" ]; then echo "::error::$K KOSONG dalam home/.env — bot akan gagal"; exit 1; fi
+            if [ "${#V}" -lt 20 ]; then echo "::error::$K terlalu pendek (${#V} aksara) — mungkin rosak"; exit 1; fi
+            echo "  $K ada (${#V} aksara, mula ${V:0:6}...)"
+          done
+          # reasoning_effort pada model kecil = 14x HTTP 400 -> giliran mati.
+          if grep -q 'reasoning_effort' home/config.yaml; then
+            echo "::warning::reasoning_effort MASIH ADA dalam config — ministral-8b tidak menyokong, akan 400"
+          else
+            echo "  reasoning_effort tiada (betul — elak HTTP 400)"
+          fi
+
           echo "=== network / gateway dari home repo ==="
           grep -A3 '^network:' home/config.yaml || echo "TIADA network:"
           grep -A2 '^gateway:' home/config.yaml || true
