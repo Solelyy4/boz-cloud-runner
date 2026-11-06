@@ -1,20 +1,20 @@
-=== 2026-11-06T12:14:16Z ===
-python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/2f861e7dd0c74e6eb578f99edf5e8ef1/venv/bin/python
+=== 2026-11-06T12:17:10Z ===
+python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e5f5511351a545838baeac15efb09be9/venv/bin/python
 --- 0. pasang pakej ddgs ke python ini ---
-/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/2f861e7dd0c74e6eb578f99edf5e8ef1/venv/bin/python: No module named pip
-Looking in links: /tmp/tmpxr32j4zi
-Processing /tmp/tmpxr32j4zi/pip-26.2.2-py3-none-any.whl
+/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e5f5511351a545838baeac15efb09be9/venv/bin/python: No module named pip
+Looking in links: /tmp/tmpa5u9emjp
+Processing /tmp/tmpa5u9emjp/pip-26.2.2-py3-none-any.whl
 Installing collected packages: pip
 Successfully installed pip-26.2.2
 
 [notice] A new release of pip is available: 26.2.2 -> 26.3
-[notice] To update, run: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/2f861e7dd0c74e6eb578f99edf5e8ef1/venv/bin/python -m pip install --upgrade pip
+[notice] To update, run: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e5f5511351a545838baeac15efb09be9/venv/bin/python -m pip install --upgrade pip
 ddgs ADA versi 9.16.1
 --- 1. GATE: check_web_api_key() + registry ---
 check_web_api_key(): True
 _configured_backend(): ddgs
 _get_search_backend(): ddgs
-_keyless_backend(): parallel
+_keyless_backend(): exa
 semak registry GAGAL: ModuleNotFoundError No module named 'agent.tool_registry'
 web_search_tool OK, hasil: 0
 --- 1b. dalaman web_search_tool ---
