@@ -1,45 +1,34 @@
-=== 2026-11-06T13:27:20Z ===
-python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/64e2201f3332468f8da64aa62e005165/venv/bin/python
+=== 2026-11-06T13:36:43Z ===
+python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/77545225499341878e18c58c877e50ce/venv/bin/python
 --- 0. pasang pakej ddgs ke python ini ---
-/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/64e2201f3332468f8da64aa62e005165/venv/bin/python: No module named pip
-Looking in links: /tmp/tmp4he5d2ub
-Processing /tmp/tmp4he5d2ub/pip-26.2.2-py3-none-any.whl
+/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/77545225499341878e18c58c877e50ce/venv/bin/python: No module named pip
+Looking in links: /tmp/tmpzs18aixx
+Processing /tmp/tmpzs18aixx/pip-26.2.2-py3-none-any.whl
 Installing collected packages: pip
 Successfully installed pip-26.2.2
 
 [notice] A new release of pip is available: 26.2.2 -> 26.3
-[notice] To update, run: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/64e2201f3332468f8da64aa62e005165/venv/bin/python -m pip install --upgrade pip
+[notice] To update, run: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/77545225499341878e18c58c877e50ce/venv/bin/python -m pip install --upgrade pip
 ddgs ADA versi 9.16.1
 --- 1. GATE: check_web_api_key() + registry ---
 check_web_api_key(): True
 _configured_backend(): ddgs
 _get_search_backend(): ddgs
-_keyless_backend(): parallel
+_keyless_backend(): keenable
 semak registry GAGAL: ModuleNotFoundError No module named 'agent.tool_registry'
 web_search_tool OK, hasil: 0
 --- 1b. dalaman web_search_tool ---
-DDGS search error: DDGSException: No results found.
-web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
 backend: ddgs
 get_provider('ddgs'): DDGSWebSearchProvider
 supports_search: True
 active provider: DDGSWebSearchProvider | name: ddgs
 _memoized_search hasil: 3 | success: True | error: None
 --- 2. plugin ddgs terus ---
-DDGS search error: DDGSException: No results found.
 ddgs OK, hasil: 2
 --- 3. curl keluar ---
 example.com HTTP 200
 duckduckgo HTTP 202
 --- 4. kadar kejayaan ddgs (5 cubaan) ---
-DDGS search error: DDGSException: No results found.
-web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
-DDGS search error: DDGSException: No results found.
-web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
-DDGS search error: DDGSException: No results found.
-web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
-DDGS search error: DDGSException: No results found.
-web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
 DDGS search error: DDGSException: No results found.
 web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
   cubaan 1: hasil=3 success=True
