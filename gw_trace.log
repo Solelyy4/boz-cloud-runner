@@ -1,14 +1,4 @@
-=== TRACE 2026-11-06T02:27:37Z run 42086721258 ===
-├─────────────────────────────────────────────────────────┤
-│  Messaging platforms + cron scheduler                    │
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
-
-2026-11-05 21:19:14,485 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
-2026-11-05 21:19:14,485 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
-2026-11-05 21:19:15,009 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3749, started_at=2026-11-05T15:00:19.241154+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-05T16:25:01.598674+00:00 last_mem={'rss_kib': 261056, 'mem_total_kib': 16367524, 'mem_available_kib': 15108776, 'swap_used_kib': 0} suspected_oom=False
-2026-11-05 21:19:15,258 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-05 21:19:15,319 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+=== TRACE 2026-11-06T02:28:38Z run 42086721258 ===
 2026-11-05 21:19:15,504 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-05 21:19:26,290 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-06 01:13:01,575 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error, scheduling reconnect: Bad Gateway
@@ -399,3 +389,13 @@ telegram.error.TimedOut: Timed out
 2026-11-06 02:27:27,569 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-11-06 02:27:27,569 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
 2026-11-06 02:27:35,570 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectTimeout(''))
+2026-11-06 02:27:43,573 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
+2026-11-06 02:27:51,575 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectTimeout(''))
+2026-11-06 02:27:59,577 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
+2026-11-06 02:28:07,579 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectTimeout(''))
+2026-11-06 02:28:15,581 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
+2026-11-06 02:28:18,875 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-06 02:28:18,875 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
+2026-11-06 02:28:23,582 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectTimeout(''))
+2026-11-06 02:28:25,875 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling degraded (heartbeat probe); gateway stays alive and will retry. Error: <TimeoutError>
+2026-11-06 02:28:25,875 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 1/10), reconnecting in 5s. Error: <TimeoutError>
