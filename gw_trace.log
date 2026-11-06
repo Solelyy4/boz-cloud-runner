@@ -1,6 +1,6 @@
-=== TRACE 2026-11-06T06:28:31Z run 42134786083 ===
-gw.log dimulakan bersih 2026-11-06T03:19:51Z run 42134786083
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/b373b98c01b5439795c5c287b2dcbdde/venv/bin/python
+=== TRACE 2026-11-06T06:32:28Z run 42174494001 ===
+gw.log dimulakan bersih 2026-11-06T06:31:27Z run 42174494001
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/4bcaa96c9ac74e2aa7c4269ce00a6a17/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
 ddgs OK
@@ -13,13 +13,8 @@ DNS core.telegram.org -> 149.154.167.99
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-06 03:20:05,744 WARNING hermes_cli.config: providers.mistral: unknown config keys ignored: context_window, max_tokens
-2026-11-06 03:20:05,745 WARNING hermes_cli.config: providers.9router: unknown config keys ignored: context_window, max_tokens
-2026-11-06 03:20:06,252 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3773, started_at=2026-11-05T21:19:15.010243+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-06T03:16:58.481186+00:00 last_mem={'rss_kib': 385000, 'mem_total_kib': 16367524, 'mem_available_kib': 14977608, 'swap_used_kib': 0} suspected_oom=False
-2026-11-06 03:20:06,492 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-06 03:20:06,540 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-06 03:20:06,789 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-06 03:20:17,837 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-06 03:26:13,649 WARNING agent.tool_executor: Tool memory returned error (0.01s): {"success": false, "error": "Memory at 1,210/1,375 chars; adding this entry (212 chars) would exceed the limit by 50 chars. Retry as ONE 'operations' batch that removes or shortens (patch) stale entri
-2026-11-06 03:26:13,652 WARNING agent.tool_executor: Tool memory returned error (0.00s): {"success": false, "error": "Memory at 1,210/1,375 chars; adding this entry (230 chars) would exceed the limit by 68 chars. Retry as ONE 'operations' batch that removes or shortens (patch) stale entri
-2026-11-06 03:26:20,529 WARNING run_agent: Pre-call sanitizer: repairing tool_call with invalid function.name '{"success": false, "error": "Memory at 1,210/1,375 chars; adding this entry (223' -> 'success_false_error_Memory_at_1_210_1_375_chars_adding_this_entr' (id=qr8VmLcIT)
+2026-11-06 06:31:43,001 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3826, started_at=2026-11-06T03:20:06.252567+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-06T06:28:18.970966+00:00 last_mem={'rss_kib': 384344, 'mem_total_kib': 16367524, 'mem_available_kib': 15005372, 'swap_used_kib': 0} suspected_oom=False
+2026-11-06 06:31:43,233 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-06 06:31:43,282 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-06 06:31:43,471 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-06 06:31:54,717 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
