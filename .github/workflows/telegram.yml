@@ -466,8 +466,15 @@ jobs:
           # (jadi hang 30s = bug dalam proses, bukan rangkaian perlahan). 10s x 3 = 30s
           # memberi 3 peluang pantas dan gagal cepat supaya gelung luar boleh mula semula.
           export HERMES_TELEGRAM_INIT_TIMEOUT=10
-          export HERMES_TELEGRAM_HTTP_CONNECT_TIMEOUT=8
-          export HERMES_TELEGRAM_HTTP_READ_TIMEOUT=15
+          # ConnectError('') KOSONG = sambungan tergantung, bukan rangkaian mati.
+          # Bukti: 8s terlalu singkat pada laluan runner yang tersekat — ujian curl
+          # dari runner SAMA pulang 302 dalam 0.38s, tetapi adapter json-stream
+          # tergantung >8s lalu gagal dengan ralat KOSONG. Naikkan ke 20s.
+          export HERMES_TELEGRAM_HTTP_CONNECT_TIMEOUT=20
+          export HERMES_TELEGRAM_HTTP_READ_TIMEOUT=30
+          # IPv6 gagal di runner (curl -6 -> 000). Paksa IPv4 sahaja supaya
+          # Happy Eyeballs tidak menunggu AAAA yang sentiasa mati.
+          export HERMES_TELEGRAM_FORCE_IPV4=1
 
           # Keluarkan token dari URL git supaya jejak tak kekal dalam .git/config
           git remote set-url origin "$(git remote get-url origin | sed -E 's#https://x-access-token:[^@]*@#https://github.com/#')" 2>/dev/null || true
