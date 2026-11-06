@@ -1,8 +1,21 @@
-=== run 42215040838 AKHIR 2026-11-06T12:15:04Z ===
-gw.log dimulakan bersih 2026-11-06T12:14:51Z run 42215040838
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/2f861e7dd0c74e6eb578f99edf5e8ef1/venv/bin/python
+=== run 42216193192 tick 2026-11-06T12:18:19Z ===
+gw.log dimulakan bersih 2026-11-06T12:17:47Z run 42216193192
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e5f5511351a545838baeac15efb09be9/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
 ddgs OK
 DNS api.telegram.org -> 149.154.166.110
 DNS core.telegram.org -> 149.154.167.99
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-06 12:18:03,164 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3826, started_at=2026-11-06T03:20:06.252567+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-06T06:28:18.970966+00:00 last_mem={'rss_kib': 384344, 'mem_total_kib': 16367524, 'mem_available_kib': 15005372, 'swap_used_kib': 0} suspected_oom=False
+2026-11-06 12:18:03,404 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-06 12:18:03,457 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-06 12:18:03,640 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-06 12:18:14,764 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+mula-cubaan-1 selepas-20s 2026-11-06T12:18:19Z
