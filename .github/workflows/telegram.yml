@@ -759,6 +759,10 @@ jobs:
             first_seen=""
             LAST_LINES=$(wc -l < gw.log 2>/dev/null || echo 0)
             SILENT=0
+            # STUCK dikira berasingan daripada SILENT: SILENT direset setiap kali log bergerak,
+            # jadi ia TIDAK boleh mengukur "tersekat berapa lama". STUCK hanya direset bila
+            # pending kembali 0 — iaitu bot benar-benar selesai memproses.
+            STUCK=0
             # Jejak kematian: bila proses mati, catat kod keluar dan 40 baris terakhir.
             ( wait $PID 2>/dev/null; RC=$?
               echo "=== GATEWAY MATI rc=$RC pada $(date -u +%FT%TZ) ===" >> gw.log
@@ -785,18 +789,32 @@ jobs:
                 # Pembetulan: hanya bunuh bila pending>0 (mesej tersekat = adapter tergantung)
                 # atau bila getWebhookInfo TIDAK dapat dijawab (sambungan betul-betul mati).
                 # pending=0 DAN API menjawab = bot sihat -> JANGAN bunuh.
+                #
+                # PEMBETULAN KEDUA (2026-11-06, bukti status.log run 42245611116):
+                # kematian UNCLEANLY berlaku setiap 4m38s dengan last_mem sihat
+                # (rss=262MB/16GB) — jadi bunuh itu BUKAN OOM. Punca: pending>0 dibunuh
+                # SERTA-MERTA. Tetapi pending>0 adalah KEADAAN NORMAL apabila bot sedang
+                # memproses mesej panjang (web_search, fetch2, banyak platform) — adapter
+                # TIDAK menulis log semasa memproses, jadi SILENT naik walaupun sihat.
+                # Kini: pending>0 hanya membunuh jika TERSEKAT LAMA (3 pusingan = 36 min)
+                # ATAU if proses tidak lagi mengaku polling dalam gw.log.
                 if [ -z "$PENDING" ]; then
                   echo "  API Telegram tidak menjawab — sambungan mati, proses bersara"
                   pkill -9 -f "hermes gateway" 2>/dev/null || true
                   SILENT=0
                   break
                 elif [ "$PENDING" -gt 0 ]; then
-                  echo "  pending=$PENDING — mesej tersekat, proses bersara"
-                  pkill -9 -f "hermes gateway" 2>/dev/null || true
-                  SILENT=0
-                  break
+                  STUCK=$((STUCK+1))
+                  if [ "$STUCK" -ge 3 ]; then
+                    echo "  pending=$PENDING tersekat ${STUCK}x36min DAN log beku — proses bersara"
+                    pkill -9 -f "hermes gateway" 2>/dev/null || true
+                    SILENT=0; STUCK=0
+                    break
+                  fi
+                  echo "  pending=$PENDING tetapi log beku baru ${SILENT}min — bot mungkin sedang MEMPROSES, beri masa (tersekat=${STUCK}/3)"
                 else
                   echo "  pending=0 dan API menjawab — bot SIHAAT, teruskan (tiada mesej baharu)"
+                  STUCK=0
                 fi
                 SILENT=0
               fi
