@@ -1,4 +1,4 @@
-=== run 42217932292 tick 2026-11-06T13:02:38Z ===
+=== run 42217932292 AKHIR 2026-11-06T13:09:34Z ===
 gw.log dimulakan bersih 2026-11-06T12:32:00Z run 42217932292
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
@@ -84,26 +84,5 @@ openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reason
 2026-11-06 12:37:47,976 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 4/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
 2026-11-06 12:37:55,985 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: stopped after 5 failed reconnect attempts: [Errno 111] Connect call failed ('127.0.0.1', 35077)
 2026-11-06 12:38:39,053 WARNING agent.tool_executor: Tool skill_manage returned error (0.42s): {"success": false, "error": "operations[0] (patch on 'android-tv-app-sideloading') failed: Could not find a match for old_string in the file\n\nDid you mean one of these sections?\n  40|   Kalau app a
---- ERROR LINES ---
-2026-11-06 12:35:37,433 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
-Traceback (most recent call last):
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/chat_completion_helpers.py", line 3736, in _call
-    self.result["response"] = _with_stream_emitters(
-                              ~~~~~~~~~~~~~~~~~~~~~^
-        self.agent, lambda: self._call_wire(stream_attempt_id))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/chat_completion_helpers.py", line 2497, in _with_stream_emitters
---
-    raise self._make_status_error_from_response(err.response) from None
-openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
-2026-11-06 12:35:37,442 WARNING agent.conversation_loop: API call failed (attempt 1/4, not retryable) error_type=BadRequestError thread=hermes-gateway_1:140613907371712 provider=custom base_url=https://api.mistral.ai/v1 model=ministral-8b-latest summary=HTTP 400: reasoning_effort is not enabled for this model
-2026-11-06 12:37:06,480 WARNING agent.tool_executor: Tool terminal returned error (0.13s): {"output": "", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not an error)"}
-2026-11-06 12:37:09,351 WARNING agent.tool_executor: Tool terminal returned error (0.13s): {"output": "", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not an error)"}
-⚠️ Model fallback: ministral-8b-latest via custom unavailable (request format rejected); using ministral-8b-latest via mistral.
-2026-11-06 12:37:40,967 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 1/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
-2026-11-06 12:37:41,969 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 2/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
-2026-11-06 12:37:43,971 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 3/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
-2026-11-06 12:37:47,976 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 4/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
-2026-11-06 12:37:55,985 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: stopped after 5 failed reconnect attempts: [Errno 111] Connect call failed ('127.0.0.1', 35077)
-2026-11-06 12:38:39,053 WARNING agent.tool_executor: Tool skill_manage returned error (0.42s): {"success": false, "error": "operations[0] (patch on 'android-tv-app-sideloading') failed: Could not find a match for old_string in the file\n\nDid you mean one of these sections?\n  40|   Kalau app a
-denyut tick=30 fd=45/65536 2026-11-06T13:02:38Z
+2026-11-06 13:08:43,785 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-06 13:08:43,785 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
