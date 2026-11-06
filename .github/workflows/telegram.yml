@@ -585,9 +585,10 @@ jobs:
             while true; do
               sleep 60
               if [ -s gw.log ]; then
+                cp gw.log /tmp/gw_trace_akhir.log 2>/dev/null || echo "" > /tmp/gw_trace_akhir.log
                 git fetch origin master -q >/dev/null 2>&1 || true
                 git checkout -q -B trace-tmp origin/master >/dev/null 2>&1 || true
-                { echo "=== TRACE $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="; tail -n 400 gw.log 2>/dev/null; } > gw_trace.log
+                { echo "=== TRACE $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="; tail -n 400 /tmp/gw_trace_akhir.log 2>/dev/null; } > gw_trace.log
                 git add -f gw_trace.log >/dev/null 2>&1
                 git -c user.email=bot@local -c user.name=bot commit -qm "trace $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
                 git push origin HEAD:master >/dev/null 2>&1 || true
@@ -825,13 +826,29 @@ jobs:
       - name: Hantar log akhir ke repo
         if: always()
         run: |
+          # PEPIJAT LAMA (2026-11-06): `git checkout -B status-tmp origin/master`
+          # MEMUSNAHKAN gw.log (fail tidak dijejak) SEBELUM `tail gw.log` dijalankan.
+          # Akibatnya status.log sentiasa kosong (hanya baris pengepala), jadi
+          # mustahil untuk lihat sama ada bot benar-benar memproses mesej BOZ.
+          # PEMBETULAN: SELAMATKAN log ke fail sementara DI LUAR repo dahulu.
+          cp gw.log /tmp/gw_akhir.log 2>/dev/null || echo "tiada gw.log" > /tmp/gw_akhir.log
+          cp uji-bot.log /tmp/uji_akhir.log 2>/dev/null || true
+          cp diagnosa_bot.json /tmp/diagnosa_akhir.json 2>/dev/null || true
+          echo "log diselamatkan: $(wc -l < /tmp/gw_akhir.log) baris gw.log"
           for p in 1 2 3; do
             git fetch origin master -q >/dev/null 2>&1 || true
             git rebase --abort >/dev/null 2>&1 || true
             git checkout -q -B status-tmp origin/master >/dev/null 2>&1 || true
             {
               echo "=== run $GITHUB_RUN_ID AKHIR $(date -u +%FT%TZ) ==="
-              tail -n 300 gw.log 2>/dev/null || echo "tiada gw.log"
+              echo "=== gw.log (300 baris terakhir) ==="
+              tail -n 300 /tmp/gw_akhir.log 2>/dev/null || echo "tiada"
+              echo
+              echo "=== uji-bot.log (jika ada) ==="
+              tail -n 60 /tmp/uji_akhir.log 2>/dev/null || echo "tiada"
+              echo
+              echo "=== diagnosa_bot.json (jika ada) ==="
+              cat /tmp/diagnosa_akhir.json 2>/dev/null || echo "tiada"
             } > status.log
             git add -f status.log
             git -c user.email=bot@local -c user.name=bot commit -qm "status akhir $(date -u +%FT%TZ)" || true
