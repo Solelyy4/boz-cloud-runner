@@ -1,4 +1,4 @@
-=== TRACE 2026-11-06T09:28:48Z run 42174494001 ===
+=== TRACE 2026-11-06T09:29:50Z run 42174494001 ===
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/4bcaa96c9ac74e2aa7c4269ce00a6a17/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
     return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
                            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
