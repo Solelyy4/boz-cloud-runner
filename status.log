@@ -1,6 +1,6 @@
-=== run 42223298434 AKHIR 2026-11-06T13:25:22Z ===
-gw.log dimulakan bersih 2026-11-06T13:13:34Z run 42223298434
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/d7f6386a937f42ec8bcc2cb76027318b/venv/bin/python
+=== run 42225363306 tick 2026-11-06T13:30:16Z ===
+gw.log dimulakan bersih 2026-11-06T13:29:49Z run 42225363306
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/64e2201f3332468f8da64aa62e005165/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
 ddgs OK
@@ -13,11 +13,9 @@ DNS core.telegram.org -> 149.154.167.99
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-06 13:13:50,006 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3530, started_at=2026-11-06T12:32:16.680476+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-06T13:09:29.408048+00:00 last_mem={'rss_kib': 399776, 'mem_total_kib': 16367528, 'mem_available_kib': 14949640, 'swap_used_kib': 0} suspected_oom=False
-2026-11-06 13:13:50,255 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-06 13:13:50,307 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-06 13:13:50,713 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-06 13:13:52,029 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-06 13:14:03,246 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-06 13:15:50,161 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-06 13:15:50,161 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-11-06 13:30:03,993 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3890, started_at=2026-11-06T13:13:50.006471+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-06T13:25:03.563960+00:00 last_mem={'rss_kib': 260472, 'mem_total_kib': 16367520, 'mem_available_kib': 15111312, 'swap_used_kib': 0} suspected_oom=False
+2026-11-06 13:30:04,160 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-06 13:30:04,195 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-06 13:30:04,366 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-06 13:30:15,470 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+mula-cubaan-1 selepas-15s 2026-11-06T13:30:16Z
