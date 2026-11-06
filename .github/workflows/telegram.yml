@@ -739,10 +739,25 @@ jobs:
                 PENDING=$(curl -4 -s -m 12 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getWebhookInfo" \
                   | sed -n 's/.*"pending_update_count":\([0-9]*\).*/\1/p')
                 echo "BISU dikesan: ${SILENT}min tanpa log baharu, pending=${PENDING:-?}"
-                if [ -z "$PENDING" ] || [ "$PENDING" -gt 0 ]; then
+                # PEPIJAT LAMA (dibetulkan 2026-11-06): kod asal membunuh gateway bila
+                # pending=0. Tetapi pending=0 adalah NORMAL — bot bisu kerana TIADA MESEJ
+                # daripada BOZ, bukan kerana rosak. Bot BOZ dibunuh setiap ~12 minit
+                # walaupun sihat, dan setiap bunuh = satu kematian 'UNCLEANLY' dalam trace.
+                # Pembetulan: hanya bunuh bila pending>0 (mesej tersekat = adapter tergantung)
+                # atau bila getWebhookInfo TIDAK dapat dijawab (sambungan betul-betul mati).
+                # pending=0 DAN API menjawab = bot sihat -> JANGAN bunuh.
+                if [ -z "$PENDING" ]; then
+                  echo "  API Telegram tidak menjawab — sambungan mati, proses bersara"
                   pkill -9 -f "hermes gateway" 2>/dev/null || true
                   SILENT=0
                   break
+                elif [ "$PENDING" -gt 0 ]; then
+                  echo "  pending=$PENDING — mesej tersekat, proses bersara"
+                  pkill -9 -f "hermes gateway" 2>/dev/null || true
+                  SILENT=0
+                  break
+                else
+                  echo "  pending=0 dan API menjawab — bot SIHAAT, teruskan (tiada mesej baharu)"
                 fi
                 SILENT=0
               fi
