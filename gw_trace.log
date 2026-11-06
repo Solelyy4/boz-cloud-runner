@@ -1,10 +1,4 @@
-=== TRACE 2026-11-06T02:26:36Z run 42086721258 ===
-telegram OK 22.8
-ddgs OK
-DNS api.telegram.org -> 149.154.166.110
-DNS core.telegram.org -> 149.154.167.99
-┌─────────────────────────────────────────────────────────┐
-│           ☤ Hermes Gateway Starting...                 │
+=== TRACE 2026-11-06T02:27:37Z run 42086721258 ===
 ├─────────────────────────────────────────────────────────┤
 │  Messaging platforms + cron scheduler                    │
 │  Press Ctrl+C to stop                                   │
@@ -399,3 +393,9 @@ Traceback (most recent call last):
 telegram.error.TimedOut: Timed out
 2026-11-06 01:14:10,752 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: Timed out
 2026-11-06 01:14:10,752 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 4/10), reconnecting in 40s. Error: Timed out
+2026-11-06 02:27:01,296 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-06 02:27:01,297 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
+2026-11-06 02:27:09,299 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectTimeout(''))
+2026-11-06 02:27:27,569 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-06 02:27:27,569 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectTimeout('')
+2026-11-06 02:27:35,570 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectTimeout(''))
