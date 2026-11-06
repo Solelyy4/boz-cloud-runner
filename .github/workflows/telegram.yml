@@ -436,14 +436,24 @@ jobs:
             if [ -n "$cand" ] && [ -x "$cand" ]; then PY="$cand"; break; fi
           done
           [ -n "$PY" ] || PY="$(command -v python3)"
-          # Cari lokasi pemasangan Hermes sebenar dalam runner.
+          # Cari pokok sumber Hermes sebenar. Bukti 2026-11-06 (status.log run 42241684499):
+          # gateway python = home/installs/<hash>/environments/<hash>/venv/bin/python —
+          # jadi pokej sumber (berisi plugins/platforms/telegram/adapter.py) MESTI berada
+          # dalam pepohon `home/installs`, bukan $HOME (carian $HOME lambat & tersasar).
           HS=""
-          for cand in "$HOME/.local/share/hermes" "$PWD/home/installs" "$HOME"; do
-            if [ -d "$cand" ]; then HS="$cand"; break; fi
+          for cand in "$PWD/home" "$PWD/home/installs" "$HOME/.local/share/hermes" "$HOME"; do
+            [ -d "$cand" ] || continue
+            if find "$cand" -path '*plugins/platforms/telegram/adapter.py' -print -quit 2>/dev/null | grep -q adapter; then
+              HS="$cand"; break
+            fi
           done
           echo "HERMES_SRC=$HS"
-          HERMES_SRC="$HS" "$PY" scripts/jejak_bot.py 2>&1 | tee -a gw.log || \
-            echo "::warning::jejak gagal — bot tetap berfungsi (skrip undur sendiri)"
+          if [ -z "$HS" ]; then
+            echo "::warning::perakam tak jumpa adapter.py — bot tetap berfungsi, cuma tiada jejak"
+          else
+            HERMES_SRC="$HS" "$PY" scripts/jejak_bot.py 2>&1 | tee -a gw.log || \
+              echo "::warning::jejak gagal — bot tetap berfungsi (skrip undur sendiri)"
+          fi
 
           echo "=== network / gateway dari home repo ==="
           grep -A3 '^network:' home/config.yaml || echo "TIADA network:"
