@@ -1,4 +1,5 @@
-=== run 42233774433 tick 2026-11-06T14:45:18Z ===
+=== run 42233774433 AKHIR 2026-11-06T14:50:51Z ===
+=== gw.log (300 baris terakhir) ===
 gw.log dimulakan bersih 2026-11-06T14:29:44Z run 42233774433
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/d1cc7a6bc3114923b70dddcf27b3bb92/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
@@ -18,4 +19,75 @@ DNS core.telegram.org -> 149.154.167.99
 2026-11-06 14:30:00,957 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-06 14:30:01,157 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-06 14:30:12,368 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-denyut tick=15 fd=30/65536 2026-11-06T14:45:18Z
+
+=== uji-bot.log (jika ada) ===
+tiada
+
+=== diagnosa_bot.json (jika ada) ===
+[
+ {
+  "uji": "DNS api.telegram.org",
+  "ok": true,
+  "bukti": "['149.154.166.110'] dalam 0.06s"
+ },
+ {
+  "uji": "DNS api.mistral.ai",
+  "ok": true,
+  "bukti": "['162.159.142.207', '172.66.2.203'] dalam 0.00s"
+ },
+ {
+  "uji": "DNS api.groq.com",
+  "ok": true,
+  "bukti": "['104.18.38.236', '172.64.149.20'] dalam 0.02s"
+ },
+ {
+  "uji": "TCP api.telegram.org:443",
+  "ok": true,
+  "bukti": "sambung dalam 0.10s"
+ },
+ {
+  "uji": "TCP api.mistral.ai:443",
+  "ok": true,
+  "bukti": "sambung dalam 0.01s"
+ },
+ {
+  "uji": "HTTPS api.telegram.org",
+  "ok": true,
+  "bukti": "HTTP 200 dalam 0.66s (25026 aksara)"
+ },
+ {
+  "uji": "HTTPS api.mistral.ai",
+  "ok": false,
+  "bukti": "HTTP 401 dalam 0.17s (29 aksara)"
+ },
+ {
+  "uji": "Telegram getMe",
+  "ok": true,
+  "bukti": "bot=hermes_personal_sole_bot HTTP 200"
+ },
+ {
+  "uji": "config.yaml",
+  "ok": true,
+  "bukti": "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/config.yaml"
+ },
+ {
+  "uji": "model mistral/ministral-8b-latest (utama)",
+  "ok": true,
+  "bukti": "HTTP 200 -> 'Haha, got it! 😄 **\"'"
+ },
+ {
+  "uji": "model mistral/ministral-8b-latest (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> \"It looks like you're starting \""
+ },
+ {
+  "uji": "model mistral/open-mistral-nemo (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> \"It looks like you're starting \""
+ },
+ {
+  "uji": "model groq/openai/gpt-oss-120b (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> ''"
+ }
+]
