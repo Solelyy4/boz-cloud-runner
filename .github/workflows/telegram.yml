@@ -422,6 +422,29 @@ jobs:
               echo "  [$P] gagal kali ini (rate-limit?) — bukan ralat maut"
           done
 
+      - name: Pasang jejak mesej bot (bukti bot MEMPROSES, bukan sekadar sambung)
+        run: |
+          echo "=== JEJAK MESEJ MASUK (bukti pemprosesan) ==="
+          # Bukti keperluan: status.log run 42233774433 menunjukkan bot HIDUP SIHAT
+          # ('denyut tick=15 fd=30/65536') tetapi gw.log TIADA jejak pemprosesan mesej,
+          # kerana adapter mencatat mesej pada aras `debug` manakala gateway guna WARNING.
+          # Tanpa langkah ini kita buta: mustahil membezakan "bot sihat" daripada
+          # "bot sihat tetapi tidak memproses". Patch ini menulis [JEJAK] pada WARNING.
+          PY=""
+          for cand in "$HOME/.local/share/hermes/venv/bin/python" \
+                      "$(find "$HOME" -maxdepth 6 -path '*/hermes*/venv/bin/python' 2>/dev/null | head -1)"; do
+            if [ -n "$cand" ] && [ -x "$cand" ]; then PY="$cand"; break; fi
+          done
+          [ -n "$PY" ] || PY="$(command -v python3)"
+          # Cari lokasi pemasangan Hermes sebenar dalam runner.
+          HS=""
+          for cand in "$HOME/.local/share/hermes" "$PWD/home/installs" "$HOME"; do
+            if [ -d "$cand" ]; then HS="$cand"; break; fi
+          done
+          echo "HERMES_SRC=$HS"
+          HERMES_SRC="$HS" "$PY" scripts/jejak_bot.py 2>&1 | tee -a gw.log || \
+            echo "::warning::jejak gagal — bot tetap berfungsi (skrip undur sendiri)"
+
           echo "=== network / gateway dari home repo ==="
           grep -A3 '^network:' home/config.yaml || echo "TIADA network:"
           grep -A2 '^gateway:' home/config.yaml || true
