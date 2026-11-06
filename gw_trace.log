@@ -1,6 +1,4 @@
-=== TRACE 2026-11-06T09:52:24Z run 42174494001 ===
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/4bcaa96c9ac74e2aa7c4269ce00a6a17/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+=== TRACE 2026-11-06T09:53:25Z run 42174494001 ===
                            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/4bcaa96c9ac74e2aa7c4269ce00a6a17/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
     raise self._make_status_error_from_response(err.response) from None
@@ -399,3 +397,5 @@ Traceback (most recent call last):
 openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
 2026-11-06 07:39:41,149 WARNING agent.conversation_loop: API call failed (attempt 1/2, not retryable) error_type=AuthenticationError thread=hermes-gateway_5:140540341376704 provider=groq base_url=https://api.groq.com/openai/v1/ model=openai/gpt-oss-120b summary=HTTP 401: Invalid API Key
 2026-11-06 07:39:41,364 WARNING agent.conversation_loop: Rebuilt-message restart limit (2) exceeded; ending turn instead of refunding the iteration budget indefinitely.
+2026-11-06 09:53:04,426 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-06 09:53:04,427 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
