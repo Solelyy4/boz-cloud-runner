@@ -1,4 +1,4 @@
-=== TRACE 2026-11-06T10:59:02Z run 42174494001 ===
+=== TRACE 2026-11-06T11:00:03Z run 42174494001 ===
 openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
 2026-11-06 07:02:22,029 WARNING agent.conversation_loop: API call failed (attempt 1/2, not retryable) error_type=BadRequestError thread=hermes-gateway_2:140541127816896 provider=mistral base_url=https://api.mistral.ai/v1/ model=ministral-8b-latest summary=HTTP 400: reasoning_effort is not enabled for this model
 2026-11-06 07:02:22,037 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'groq' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
