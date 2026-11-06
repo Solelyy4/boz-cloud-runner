@@ -1,4 +1,4 @@
-=== TRACE 2026-11-06T12:37:07Z run 42217932292 ===
+=== TRACE 2026-11-06T12:38:09Z run 42217932292 ===
 gw.log dimulakan bersih 2026-11-06T12:32:00Z run 42217932292
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
@@ -76,3 +76,10 @@ Traceback (most recent call last):
 openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
 2026-11-06 12:35:37,442 WARNING agent.conversation_loop: API call failed (attempt 1/4, not retryable) error_type=BadRequestError thread=hermes-gateway_1:140613907371712 provider=custom base_url=https://api.mistral.ai/v1 model=ministral-8b-latest summary=HTTP 400: reasoning_effort is not enabled for this model
 2026-11-06 12:37:06,480 WARNING agent.tool_executor: Tool terminal returned error (0.13s): {"output": "", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not an error)"}
+2026-11-06 12:37:09,351 WARNING agent.tool_executor: Tool terminal returned error (0.13s): {"output": "", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not an error)"}
+⚠️ Model fallback: ministral-8b-latest via custom unavailable (request format rejected); using ministral-8b-latest via mistral.
+2026-11-06 12:37:40,967 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 1/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
+2026-11-06 12:37:41,969 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 2/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
+2026-11-06 12:37:43,971 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 3/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
+2026-11-06 12:37:47,976 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 4/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
+2026-11-06 12:37:55,985 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: stopped after 5 failed reconnect attempts: [Errno 111] Connect call failed ('127.0.0.1', 35077)
