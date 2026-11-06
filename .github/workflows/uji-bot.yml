@@ -1,0 +1,38 @@
+name: uji-bot
+
+# Ujian autonomi bot Telegram: hantar soalan sebenar ke bot, tunggu jawapan, sahkan.
+# Bot DELEGASI: kerja sihat, jadi ujian terbaik ialah BERTANYA bot sendiri.
+# Guna API awam sahaja (TELEGRAM_BOT_TOKEN dari secrets) - tiada kebergantungan laptop.
+on:
+  workflow_dispatch:
+    inputs:
+      mesej:
+        description: Soalan ujian untuk bot
+        required: false
+        default: Apa itu komputer kuantum? Cari dan jelaskan ringkas.
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Hantar mesej ujian dan tunggu jawapan bot
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: "8043910371"
+          MESEJ: ${{ inputs.mesej }}
+        run: bash scripts/uji_bot.sh
+
+      - name: Tulis hasil ke repo
+        if: always()
+        run: |
+          for p in 1 2 3 4 5; do
+            git fetch origin master -q >/dev/null 2>&1 || true
+            git checkout -q -B uji-bot-tmp origin/master >/dev/null 2>&1 || true
+            git add -f uji-bot.log >/dev/null 2>&1 || true
+            git -c user.email=bot@local -c user.name=bot commit -qm "uji bot $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+            if git push origin HEAD:master >/dev/null 2>&1; then echo "push ok"; break; fi
+            sleep 5
+          done
