@@ -393,9 +393,14 @@ jobs:
           "$PY" -m pip install --quiet httpx pyyaml 2>/dev/null || true
           set -a; . home/.env 2>/dev/null || true; set +a
           export HERMES_CONFIG="$PWD/home/config.yaml"
-          export DIAGNOSA_OUT="diagnosa_bot.json"
+          # Tulis JSON ke LUAR repo: `git checkout -B` dalam langkah lain memusnahkan
+          # fail tidak dijejak, jadi JSON dalam repo HILANG sebelum sempat disalin.
+          export DIAGNOSA_OUT="/tmp/diagnosa_bot.json"
           "$PY" scripts/diagnosa_bot.py 2>&1 | tee -a gw.log || \
             echo "::warning::diagnosa ada kegagalan — lihat baris GAGAL di atas"
+          # Simpan salinan dalam repo juga (untuk langkah hantar log) dan di /tmp.
+          cp /tmp/diagnosa_bot.json diagnosa_bot.json 2>/dev/null || true
+          cp /tmp/diagnosa_bot.json /tmp/diagnosa_akhir.json 2>/dev/null || true
 
       - name: Sahkan toolkit cari (fetch2.py) berfungsi
         run: |
