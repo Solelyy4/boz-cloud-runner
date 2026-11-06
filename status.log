@@ -1,6 +1,6 @@
-=== run 42226559688 AKHIR 2026-11-06T13:52:27Z ===
-gw.log dimulakan bersih 2026-11-06T13:39:01Z run 42226559688
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/77545225499341878e18c58c877e50ce/venv/bin/python
+=== run 42229043957 tick 2026-11-06T13:57:32Z ===
+gw.log dimulakan bersih 2026-11-06T13:57:00Z run 42229043957
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/b6bf4873b85444509449c5f171bd87fa/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
 ddgs OK
@@ -13,8 +13,9 @@ DNS core.telegram.org -> 149.154.167.99
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-06 13:39:16,868 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3583, started_at=2026-11-06T13:30:03.993757+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-06T13:34:15.997938+00:00 last_mem={'rss_kib': 257148, 'mem_total_kib': 16367524, 'mem_available_kib': 15138756, 'swap_used_kib': 0} suspected_oom=False
-2026-11-06 13:39:17,111 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-06 13:39:17,172 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-06 13:39:17,390 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-06 13:39:28,443 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-06 13:57:15,055 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3917, started_at=2026-11-06T13:39:16.869089+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-06T13:51:58.747418+00:00 last_mem={'rss_kib': 257944, 'mem_total_kib': 16367520, 'mem_available_kib': 15114280, 'swap_used_kib': 0} suspected_oom=False
+2026-11-06 13:57:15,293 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-06 13:57:15,345 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-06 13:57:15,534 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-06 13:57:26,760 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+mula-cubaan-1 selepas-20s 2026-11-06T13:57:32Z
