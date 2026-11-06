@@ -587,18 +587,24 @@ jobs:
           # PENTING — lokasi patch MESTI dalam langkah ini, BUKAN langkah berasingan:
           # `GWPY`/`HERMES_HOME` hanya ditakrifkan di sini. Carian dari $PWD/home GAGAL
           # senyap kerana adapter hidup di dalam VENV (home/installs/*/environments/*/venv).
-          HS=$("$GWPY" -c "import hermes_plugins,os;print(os.path.dirname(os.path.dirname(hermes_plugins.__file__)))" 2>/dev/null)
+          #
+          # PENTING 2 — setiap $(...) mesti ada `|| true`. Bukti run 42250213661: langkah
+          # mati dengan exit code 1 tepat selepas "gateway python: ..." kerana skrip ini
+          # berjalan dengan `set -e`, dan `HS=$(...)` pulang bukan-sifar apabila import
+          # hermes_plugins gagal — jadi shell keluar sebelum bot sempat mula.
+          HS=$("$GWPY" -c "import hermes_plugins,os;print(os.path.dirname(os.path.dirname(hermes_plugins.__file__)))" 2>/dev/null || true)
           echo "HERMES_SRC=$HS" | tee -a gw.log
           if [ -z "$HS" ] || [ ! -d "$HS" ]; then
             echo "::warning::perakam tak jumpa pokok hermes_plugins — bot tetap berfungsi"
           else
-            ADFILE=$(find "$HS" -path '*plugins/platforms/telegram/adapter.py' -print -quit 2>/dev/null)
+            ADFILE=$(find "$HS" -path '*plugins/platforms/telegram/adapter.py' -print -quit 2>/dev/null || true)
             echo "adapter dijumpai: ${ADFILE:-TIADA}" | tee -a gw.log
             if [ -n "$ADFILE" ]; then
               HERMES_SRC="$HS" "$GWPY" scripts/jejak_bot.py 2>&1 | tee -a gw.log || \
                 echo "::warning::jejak gagal — bot tetap berfungsi (skrip undur sendiri)"
               # Sahkan patch benar-benar masuk ke fail yang akan DIMUAT gateway.
-              echo "jejak dalam adapter: $(grep -c 'JEJAK-BOT-BOZ' "$ADFILE" 2>/dev/null || echo 0)" | tee -a gw.log
+              N_JEJAK=$(grep -c 'JEJAK-BOT-BOZ' "$ADFILE" 2>/dev/null || true)
+              echo "jejak dalam adapter: ${N_JEJAK:-0}" | tee -a gw.log
             fi
           fi
 
