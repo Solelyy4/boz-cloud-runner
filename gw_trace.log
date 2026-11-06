@@ -1,4 +1,4 @@
-=== TRACE 2026-11-06T12:36:05Z run 42217932292 ===
+=== TRACE 2026-11-06T12:37:07Z run 42217932292 ===
 gw.log dimulakan bersih 2026-11-06T12:32:00Z run 42217932292
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
@@ -75,3 +75,4 @@ Traceback (most recent call last):
     raise self._make_status_error_from_response(err.response) from None
 openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
 2026-11-06 12:35:37,442 WARNING agent.conversation_loop: API call failed (attempt 1/4, not retryable) error_type=BadRequestError thread=hermes-gateway_1:140613907371712 provider=custom base_url=https://api.mistral.ai/v1 model=ministral-8b-latest summary=HTTP 400: reasoning_effort is not enabled for this model
+2026-11-06 12:37:06,480 WARNING agent.tool_executor: Tool terminal returned error (0.13s): {"output": "", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not an error)"}
