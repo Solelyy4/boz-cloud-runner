@@ -1,4 +1,4 @@
-=== run 42253933227 tick 2026-11-06T18:41:36Z ===
+=== run 42253933227 tick 2026-11-06T18:56:38Z ===
 gw.log dimulakan bersih 2026-11-06T16:40:47Z run 42253933227
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/8c0173540e7a42c1a3e1473e9531ca73/venv/bin/python
 HERMES_SRC=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home
@@ -39,4 +39,4 @@ DNS core.telegram.org -> 149.154.167.99
 2026-11-06 17:13:41,815 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
 2026-11-06 18:02:44,226 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-11-06 18:02:44,226 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-denyut tick=120 fd=32/65536 2026-11-06T18:41:36Z
+denyut tick=135 fd=32/65536 2026-11-06T18:56:38Z
