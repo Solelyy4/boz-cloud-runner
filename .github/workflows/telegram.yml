@@ -362,11 +362,60 @@ jobs:
             echo "  $K ada (${#V} aksara, mula ${V:0:6}...)"
           done
           # reasoning_effort pada model kecil = 14x HTTP 400 -> giliran mati.
-          if grep -q 'reasoning_effort' home/config.yaml; then
-            echo "::warning::reasoning_effort MASIH ADA dalam config — ministral-8b tidak menyokong, akan 400"
+          # NILAI YANG BETUL ialah `reasoning_effort: false`, BUKAN membuang kunci:
+          # Hermes baca nilai ini untuk TAHU ini bukan model reasoning, jadi ia tidak
+          # menghantar parameter itu ke API. Membuang kunci sahaja meninggalkan None,
+          # yang Hermes anggap "tidak dinyatakan" dan ia hantar nilai lalai -> 400.
+          if grep -qE 'reasoning_effort:\s*(false|no|none)\s*$' home/config.yaml; then
+            echo "  reasoning_effort=false (BETUL — Hermes tidak hantar parameter, elak HTTP 400)"
+          elif grep -q 'reasoning_effort' home/config.yaml; then
+            echo "::warning::reasoning_effort ADA tetapi bukan false — ministral-8b akan pulang HTTP 400"
           else
-            echo "  reasoning_effort tiada (betul — elak HTTP 400)"
+            echo "::warning::reasoning_effort TIADA dalam config — tetapkan false supaya Hermes tahu bukan model reasoning"
           fi
+
+      - name: Diagnosa rantaian bot (model + rangkaian)
+        run: |
+          echo "=== DIAGNOSA RANTAIAN BOT ==="
+          # Bukti keperluan: bot pernah mati dengan 'rebuilt_restart_limit_exceeded'
+          # kerana rantaian model gagal (400 reasoning_effort, 401 kunci) dan Hermes
+          # mengulang fallback sampai had. Langkah ini membuktikan SETIAP pautan
+          # (DNS, TCP, API Telegram, setiap model) hidup SEBELUM gateway mula, jadi
+          # kegagalan kelihatan di sini, bukan sebagai mesej pelik kepada BOZ.
+          PY=""
+          for cand in "$HOME/.local/share/hermes/venv/bin/python" \
+                      "$HOME/.hermes/venv/bin/python" \
+                      "$(ls -d "$HOME"/.local/share/hermes/*/venv/bin/python 2>/dev/null | head -1)" \
+                      "$(find "$HOME" -maxdepth 6 -path '*/hermes*/venv/bin/python' 2>/dev/null | head -1)"; do
+            if [ -n "$cand" ] && [ -x "$cand" ]; then PY="$cand"; break; fi
+          done
+          [ -n "$PY" ] || PY="$(command -v python3)"
+          "$PY" -m pip install --quiet httpx pyyaml 2>/dev/null || true
+          set -a; . home/.env 2>/dev/null || true; set +a
+          export HERMES_CONFIG="$PWD/home/config.yaml"
+          export DIAGNOSA_OUT="diagnosa_bot.json"
+          "$PY" scripts/diagnosa_bot.py 2>&1 | tee -a gw.log || \
+            echo "::warning::diagnosa ada kegagalan — lihat baris GAGAL di atas"
+
+      - name: Sahkan toolkit cari (fetch2.py) berfungsi
+        run: |
+          echo "=== TOOLKIT PENGAMBIL DATA (BOZ minta: YouTube/TikTok/Threads/IG/Google) ==="
+          # Bukti: BOZ minta bot boleh ambil apa sahaja dari semua platform. Langkah ini
+          # membuktikan toolkit itu BENAR-BENAR ada dan jalan dalam run, bukan sekadar
+          # ditulis. Kegagalan di sini = bot akan mengaku "tidak boleh akses" kepada BOZ.
+          PY=""
+          for cand in "$HOME/.local/share/hermes/venv/bin/python" \
+                      "$(find "$HOME" -maxdepth 6 -path '*/hermes*/venv/bin/python' 2>/dev/null | head -1)"; do
+            if [ -n "$cand" ] && [ -x "$cand" ]; then PY="$cand"; break; fi
+          done
+          [ -n "$PY" ] || PY="$(command -v python3)"
+          ls -la scripts/fetch2.py
+          "$PY" scripts/fetch2.py --platform list
+          for P in youtube bing ddg reddit; do
+            echo "--- uji $P ---"
+            timeout 120 "$PY" scripts/fetch2.py --platform "$P" "malaysia" --kira 2 2>&1 | head -3 || \
+              echo "  [$P] gagal kali ini (rate-limit?) — bukan ralat maut"
+          done
 
           echo "=== network / gateway dari home repo ==="
           grep -A3 '^network:' home/config.yaml || echo "TIADA network:"
