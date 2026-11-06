@@ -1,6 +1,6 @@
-=== TRACE 2026-11-06T13:08:54Z run 42217932292 ===
-gw.log dimulakan bersih 2026-11-06T12:32:00Z run 42217932292
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/venv/bin/python
+=== TRACE 2026-11-06T13:14:34Z run 42223298434 ===
+gw.log dimulakan bersih 2026-11-06T13:13:34Z run 42223298434
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/d7f6386a937f42ec8bcc2cb76027318b/venv/bin/python
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
 ddgs OK
@@ -13,76 +13,9 @@ DNS core.telegram.org -> 149.154.167.99
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-06 12:32:16,680 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3876, started_at=2026-11-06T12:18:03.164879+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-06T12:28:45.055346+00:00 last_mem={'rss_kib': 257832, 'mem_total_kib': 16367524, 'mem_available_kib': 15118076, 'swap_used_kib': 0} suspected_oom=False
-2026-11-06 12:32:16,953 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-06 12:32:16,993 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-06 12:32:17,146 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-06 12:32:28,473 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-06 12:35:26,736 WARNING gateway.session_authority: Session 20261103_063333_48ebf25e paused: unknown_execution
-2026-11-06 12:35:34,456 WARNING agent.system_prompt: skills.auto_load: skill(s) not found or disabled, skipped: telekey-bot-ops, windows-bash-ops
-2026-11-06 12:35:37,433 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
-Traceback (most recent call last):
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/chat_completion_helpers.py", line 3736, in _call
-    self.result["response"] = _with_stream_emitters(
-                              ~~~~~~~~~~~~~~~~~~~~~^
-        self.agent, lambda: self._call_wire(stream_attempt_id))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/chat_completion_helpers.py", line 2497, in _with_stream_emitters
-    response = run()
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/chat_completion_helpers.py", line 3737, in <lambda>
-    self.agent, lambda: self._call_wire(stream_attempt_id))
-                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/chat_completion_helpers.py", line 3714, in _call_wire
-    return self._call_chat_completions(stream_attempt_id)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/chat_completion_helpers.py", line 3071, in _call_chat_completions
-    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
-                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<2 lines>...
-        completed_response_predicate=lambda value: hasattr(value, "choices"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/relay_llm.py", line 331, in __init__
-    self._start_unmanaged(request)
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/relay_llm.py", line 337, in _start_unmanaged
-    raw_stream = self._stream_factory(request)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/chat_completion_helpers.py", line 3062, in _open_stream
-    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
-           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/workspace/agent/chat_completion_helpers.py", line 2955, in _open_chat_stream
-    return request_client.chat.completions.create(**stream_kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
-    return func(*args, **kwargs)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
-    return self._post(
-           ~~~~~~~~~~^
-        "/chat/completions",
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<53 lines>...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c32bfe774a3f47a8abb5a860240bb67f/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.BadRequestError: Error code: 400 - {'object': 'error', 'message': 'reasoning_effort is not enabled for this model', 'type': 'invalid_request_invalid_args', 'param': None, 'code': '3051', 'raw_status_code': 400}
-2026-11-06 12:35:37,442 WARNING agent.conversation_loop: API call failed (attempt 1/4, not retryable) error_type=BadRequestError thread=hermes-gateway_1:140613907371712 provider=custom base_url=https://api.mistral.ai/v1 model=ministral-8b-latest summary=HTTP 400: reasoning_effort is not enabled for this model
-2026-11-06 12:37:06,480 WARNING agent.tool_executor: Tool terminal returned error (0.13s): {"output": "", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not an error)"}
-2026-11-06 12:37:09,351 WARNING agent.tool_executor: Tool terminal returned error (0.13s): {"output": "", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not an error)"}
-⚠️ Model fallback: ministral-8b-latest via custom unavailable (request format rejected); using ministral-8b-latest via mistral.
-2026-11-06 12:37:40,967 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 1/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
-2026-11-06 12:37:41,969 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 2/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
-2026-11-06 12:37:43,971 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 3/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
-2026-11-06 12:37:47,976 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 4/5): [Errno 111] Connect call failed ('127.0.0.1', 35077)
-2026-11-06 12:37:55,985 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: stopped after 5 failed reconnect attempts: [Errno 111] Connect call failed ('127.0.0.1', 35077)
-2026-11-06 12:38:39,053 WARNING agent.tool_executor: Tool skill_manage returned error (0.42s): {"success": false, "error": "operations[0] (patch on 'android-tv-app-sideloading') failed: Could not find a match for old_string in the file\n\nDid you mean one of these sections?\n  40|   Kalau app a
-2026-11-06 13:08:43,785 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-06 13:08:43,785 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-11-06 13:13:50,006 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3530, started_at=2026-11-06T12:32:16.680476+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-06T13:09:29.408048+00:00 last_mem={'rss_kib': 399776, 'mem_total_kib': 16367528, 'mem_available_kib': 14949640, 'swap_used_kib': 0} suspected_oom=False
+2026-11-06 13:13:50,255 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-06 13:13:50,307 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-06 13:13:50,713 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-06 13:13:52,029 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-11-06 13:14:03,246 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
