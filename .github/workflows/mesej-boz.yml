@@ -1,0 +1,53 @@
+name: mesej-boz
+
+# Hantar mesej terus ke Telegram BOZ (chat 8043910371).
+# Dua kegunaan:
+#   1. BOZ/agen cetuskan secara manual dengan input 'teks'.
+#   2. Workflow lain boleh memanggilnya (workflow_call) untuk melaporkan status.
+on:
+  workflow_dispatch:
+    inputs:
+      teks:
+        description: Teks untuk BOZ
+        required: true
+        default: "Ujian mesej dari BOZ-AGENT"
+      tajuk:
+        description: Tajuk (pilihan)
+        required: false
+        default: ""
+  workflow_call:
+    inputs:
+      teks:
+        required: true
+        type: string
+      tajuk:
+        required: false
+        type: string
+
+jobs:
+  hantar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Hantar ke Telegram BOZ
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: "8043910371"
+          TEKS: ${{ inputs.teks }}
+          TAJUK: ${{ inputs.tajuk }}
+        run: |
+          set +e
+          # Bina teks penuh (tajuk + badan). Had Telegram 4096 aksara — pangkas.
+          if [ -n "$TAJUK" ]; then
+            PENUH=$(printf '%s\n\n%s' "$TAJUK" "$TEKS")
+          else
+            PENUH="$TEKS"
+          fi
+          PENUH=$(printf '%s' "$PENUH" | head -c 3900)
+          echo "menghantar $(( ${#PENUH} )) aksara ke chat $CHAT"
+          R=$(curl -4 -s -m 30 -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
+            -d "chat_id=$CHAT" -d "disable_web_page_preview=true" \
+            --data-urlencode "text=$PENUH")
+          echo "$R" | head -c 400
+          echo
+          printf '%s' "$R" | grep -q '"ok":true' && echo "TERHANTAR: ya" || echo "TERHANTAR: tidak"
