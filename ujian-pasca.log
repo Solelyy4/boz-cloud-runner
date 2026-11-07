@@ -1,66 +1,66 @@
-=== UJIAN PASCA-SAMBUNG 2026-11-07T18:59:21Z run 42402364333 ===
+=== UJIAN PASCA-SAMBUNG 2026-11-07T19:32:54Z run 42405149663 ===
 --- mesej diambil bot ---
 {
- "ts": "2026-11-07T18:58:56+00:00",
+ "ts": "2026-11-07T19:32:13+00:00",
  "rekod": [
   {
-   "ts": "2026-11-07T18:58:01+00:00",
+   "ts": "2026-11-07T19:31:19+00:00",
    "mesej": "Hello",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 561,
+   "message_id": 574,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T18:58:10+00:00",
+   "ts": "2026-11-07T19:31:28+00:00",
    "mesej": "apa itu API? jelaskan ringkas",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 562,
+   "message_id": 575,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T18:58:19+00:00",
+   "ts": "2026-11-07T19:31:37+00:00",
    "mesej": "cari di google: telegram bot tanpa VPS 2026",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 563,
+   "message_id": 576,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T18:58:28+00:00",
+   "ts": "2026-11-07T19:31:46+00:00",
    "mesej": "tulis fail /tmp/uji-boz.txt dengan kandungan 'HALO BOZ' dan hantar kepada aku",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 564,
+   "message_id": 577,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T18:58:38+00:00",
+   "ts": "2026-11-07T19:31:55+00:00",
    "mesej": "jam berapa sekarang di Malaysia?",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 565,
+   "message_id": 578,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T18:58:47+00:00",
+   "ts": "2026-11-07T19:32:04+00:00",
    "mesej": "siapa kau?",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 566,
+   "message_id": 579,
    "bot_ambil": true,
    "saat_ambil": 5
   }
  ]
 }
 --- [JEJAK] mesej masuk ke adapter (BUKTI BOT MEMPROSES) ---
-tiada JEJAK
+59:BUKTI KERAS: token UJI17940798783269 DITEMUI dalam [JEJAK] — bot memproses mesej
 
 --- bukti balasan dihantar oleh bot ---
 tiada
