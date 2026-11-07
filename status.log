@@ -1,18 +1,20 @@
-=== run 42405149663 tick 2026-11-07T19:30:47Z ===
-gw.log dimulakan bersih 2026-11-07T19:30:20Z run 42405149663
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f1226bea36af4d1a922c88bd644d3eec/venv/bin/python
+=== run 42407381003 tick 2026-11-07T19:58:38Z ===
+gw.log dimulakan bersih 2026-11-07T19:58:10Z run 42407381003
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/766e3ea564fd43c0b35ac681f9f8462d/venv/bin/python
 HERMES_SRC=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home
 adapter dijumpai: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
 JEJAK: 2 salinan adapter.py dijumpai
-  [1] PATCH OK (3): _handle_text_message, _handle_command, _handle_media_message -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
-  [2] PATCH OK (3): _handle_text_message, _handle_command, _handle_media_message -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f1226bea36af4d1a922c88bd644d3eec/workspace/plugins/platforms/telegram/adapter.py
+  [1] PATCH OK (5): _handle_text_message, _handle_command, _handle_media_message, _handle_sticker, _handle_location_message -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
+  [2] PATCH OK (5): _handle_text_message, _handle_command, _handle_media_message, _handle_sticker, _handle_location_message -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/766e3ea564fd43c0b35ac681f9f8462d/workspace/plugins/platforms/telegram/adapter.py
 JEJAK: 2/2 salinan sedia untuk dimuat gateway
-jejak dalam adapter: 3
+jejak dalam adapter: 5
 JEJAK: 2 salinan adapter.py dijumpai
   [1] sudah ditampal (idempoten) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
-  [2] sudah ditampal (idempoten) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f1226bea36af4d1a922c88bd644d3eec/workspace/plugins/platforms/telegram/adapter.py
+  [2] sudah ditampal (idempoten) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/766e3ea564fd43c0b35ac681f9f8462d/workspace/plugins/platforms/telegram/adapter.py
 JEJAK: 2/2 salinan sedia untuk dimuat gateway
 jejak: salinan workspace ada=(1)
+  SAH: penanda=5 saiz=446201 /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
+  SAH: penanda=5 saiz=446201 /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/766e3ea564fd43c0b35ac681f9f8462d/workspace/plugins/platforms/telegram/adapter.py
 jejak: pemanjat latar dipasang (10 minit)
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
@@ -27,10 +29,10 @@ ulimit -n = 65536
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-07 19:30:35,378 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=4095, started_at=2026-11-07T18:57:17.387140+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-07T19:08:29.142186+00:00 last_mem={'rss_kib': 258856, 'mem_total_kib': 16366504, 'mem_available_kib': 15044080, 'swap_used_kib': 0} suspected_oom=False
-2026-11-07 19:30:35,580 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-07 19:30:35,619 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-07 19:30:35,883 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-07 19:58:26,450 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=4026, started_at=2026-11-07T19:30:35.378650+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-07T19:36:16.998848+00:00 last_mem={'rss_kib': 260360, 'mem_total_kib': 16367528, 'mem_available_kib': 15112884, 'swap_used_kib': 0} suspected_oom=False
 jejak-pemanjat t=1: JEJAK: 2/2 salinan sedia untuk dimuat gateway
-2026-11-07 19:30:46,774 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-mula-cubaan-1 selepas-15s 2026-11-07T19:30:47Z
+2026-11-07 19:58:26,694 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-07 19:58:26,745 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-07 19:58:26,926 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-07 19:58:37,682 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+mula-cubaan-1 selepas-15s 2026-11-07T19:58:38Z
