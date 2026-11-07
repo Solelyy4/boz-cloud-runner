@@ -189,6 +189,45 @@ else
   fi
 fi
 
+# ==== JEJAK KE SALINAN WORKSPACE (yang gateway SEBENARNYA import) ====
+# BUKTI (gw_trace.log run 42396007028, baris 24-26):
+#   logger guna nama modul `hermes_plugins.platforms__telegram.adapter`.
+#   Nama itu dibina daripada manifest_key "plugins/platforms/telegram"
+#   (plugins_loader.py: slug = manifest_key.replace("/", "__").replace("-", "_")).
+# Hermes menyalin pokok plugin ke installs/<id>/environments/<env>/workspace/plugins
+# dan mengimport dari SALINAN itu. Saiz berbeza membuktikannya (laptop 7 Nov 2026):
+#   hermes-agent/plugins/platforms/telegram/adapter.py            441,748 bait
+#   installs/.../workspace/plugins/platforms/telegram/adapter.py  442,334 bait
+# Jadi patch ke hermes-agent/ sahaja TIDAK PERNAH DIMUAT -> tiada [JEJAK] selama ini.
+#
+# Salinan workspace/ dicipta SEMASA boot, jadi kita tidak boleh menampal awal.
+# jejak_bot.py kini mencari SEMUA salinan (rglob dari $HERMES_HOME), jadi kita:
+#   (a) tampal sekali sekarang (menangkap salinan yang sudah ada), dan
+#   (b) pasang pemanjat latar yang tampal semula apabila salinan baharu muncul.
+ADA_WS=0
+for d in "$HERMES_HOME"/installs/*/environments/*/workspace; do
+  [ -f "$d/plugins/platforms/telegram/adapter.py" ] && ADA_WS=1
+done
+HERMES_HOME="$HERMES_HOME" "$GWPY" scripts/jejak_bot.py 2>&1 | grep -E '^JEJAK|^  \[' | \
+  tee -a gw.log || true
+echo "jejak: salinan workspace ada=($ADA_WS)" | tee -a gw.log
+(
+  # Pemanjat: 40 x 15s = 10 minit, cukup untuk Hermes boot + salin pokok plugin.
+  for t in $(seq 1 40); do
+    sleep 15
+    ada=0
+    for d in "$HERMES_HOME"/installs/*/environments/*/workspace; do
+      [ -f "$d/plugins/platforms/telegram/adapter.py" ] && ada=1
+    done
+    [ "$ada" = "1" ] || continue
+    HASIL=$(HERMES_HOME="$HERMES_HOME" "$GWPY" scripts/jejak_bot.py 2>&1 | grep -E 'sedia untuk dimuat')
+    echo "jejak-pemanjat t=$t: ${HASIL:-tiada}" 
+    echo "jejak-pemanjat t=$t: ${HASIL:-tiada}" >> gw.log
+    break
+  done
+) &
+echo "jejak: pemanjat latar dipasang (10 minit)" | tee -a gw.log
+
 # WAJIB: adapter Telegram gagal tanpa python-telegram-bot dalam venv INI.
 # Bukti sebenar: gw.log berbunyi "Platform 'Telegram' requirements not met
 # (platform.telegram.install_hint)" + "No adapter available for telegram".
