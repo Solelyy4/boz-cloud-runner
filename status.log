@@ -1,4 +1,5 @@
-=== run 42393990154 tick 2026-11-07T17:17:24Z ===
+=== run 42393990154 AKHIR 2026-11-07T17:17:57Z ===
+=== gw.log (300 baris terakhir) ===
 gw.log dimulakan bersih 2026-11-07T17:16:51Z run 42393990154
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/8f0860fb9fb54103bf5bb73f11c95f65/venv/bin/python
 HERMES_SRC=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home
@@ -25,4 +26,85 @@ ulimit -n = 65536
 2026-11-07 17:17:08,161 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-07 17:17:08,381 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-07 17:17:19,707 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-mula-cubaan-1 selepas-20s 2026-11-07T17:17:24Z
+
+=== uji-bot.log (jika ada) ===
+tiada
+
+=== diagnosa_bot.json (jika ada) ===
+[
+ {
+  "uji": "DNS api.telegram.org",
+  "ok": true,
+  "bukti": "['149.154.166.110'] dalam 0.00s"
+ },
+ {
+  "uji": "DNS api.mistral.ai",
+  "ok": true,
+  "bukti": "['162.159.142.207', '172.66.2.203'] dalam 0.00s"
+ },
+ {
+  "uji": "DNS api.groq.com",
+  "ok": true,
+  "bukti": "['104.18.38.236', '172.64.149.20'] dalam 0.03s"
+ },
+ {
+  "uji": "TCP api.telegram.org:443",
+  "ok": true,
+  "bukti": "sambung dalam 0.21s"
+ },
+ {
+  "uji": "TCP api.mistral.ai:443",
+  "ok": true,
+  "bukti": "sambung dalam 0.01s"
+ },
+ {
+  "uji": "HTTPS api.telegram.org",
+  "ok": true,
+  "bukti": "HTTP 200 dalam 1.14s (25026 aksara)"
+ },
+ {
+  "uji": "HTTPS api.mistral.ai",
+  "ok": false,
+  "bukti": "HTTP 401 dalam 0.25s (29 aksara)"
+ },
+ {
+  "uji": "Telegram getMe",
+  "ok": true,
+  "bukti": "bot=hermes_personal_sole_bot HTTP 200"
+ },
+ {
+  "uji": "config.yaml",
+  "ok": true,
+  "bukti": "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/config.yaml"
+ },
+ {
+  "uji": "model mistral/mistral-large-4 (utama)",
+  "ok": true,
+  "bukti": "HTTP 200 -> [{'type': 'thinking', 'thinking': [{'type': 'text', 'text': 'The user wrote \"balas: OK\".'}], 'closed': True}]"
+ },
+ {
+  "uji": "model mistral/mistral-medium-latest (fallback)",
+  "ok": false,
+  "bukti": "HTTP 429: {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code"
+ },
+ {
+  "uji": "model mistral/ministral-14b-latest (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> '**Balas:** 😊\\n\\n*Ap'"
+ },
+ {
+  "uji": "model mistral/ministral-8b-latest (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> \"It looks like you're starting \""
+ },
+ {
+  "uji": "model groq/openai/gpt-oss-120b (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> ''"
+ },
+ {
+  "uji": "model groq/qwen/qwen3.8-27b (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> 'Siap! Ada yang bisa saya bantu'"
+ }
+]
