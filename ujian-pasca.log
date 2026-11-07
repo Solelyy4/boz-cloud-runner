@@ -1,66 +1,66 @@
-=== UJIAN PASCA-SAMBUNG 2026-11-07T22:00:23Z run 42416974187 ===
+=== UJIAN PASCA-SAMBUNG 2026-11-07T22:27:49Z run 42419122082 ===
 --- mesej diambil bot ---
 {
- "ts": "2026-11-07T21:59:42+00:00",
+ "ts": "2026-11-07T22:27:08+00:00",
  "rekod": [
   {
-   "ts": "2026-11-07T21:58:48+00:00",
+   "ts": "2026-11-07T22:26:11+00:00",
    "mesej": "Hello",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 639,
+   "message_id": 652,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T21:58:57+00:00",
+   "ts": "2026-11-07T22:26:21+00:00",
    "mesej": "apa itu API? jelaskan ringkas",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 640,
+   "message_id": 653,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T21:59:06+00:00",
+   "ts": "2026-11-07T22:26:30+00:00",
    "mesej": "cari di google: telegram bot tanpa VPS 2026",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 641,
+   "message_id": 654,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T21:59:15+00:00",
+   "ts": "2026-11-07T22:26:39+00:00",
    "mesej": "tulis fail /tmp/uji-boz.txt dengan kandungan 'HALO BOZ' dan hantar kepada aku",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 642,
+   "message_id": 655,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T21:59:24+00:00",
+   "ts": "2026-11-07T22:26:49+00:00",
    "mesej": "jam berapa sekarang di Malaysia?",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 643,
+   "message_id": 656,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T21:59:33+00:00",
+   "ts": "2026-11-07T22:26:58+00:00",
    "mesej": "siapa kau?",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 644,
+   "message_id": 657,
    "bot_ambil": true,
    "saat_ambil": 5
   }
  ]
 }
 --- [JEJAK] mesej masuk ke adapter (BUKTI BOT MEMPROSES) ---
-65:AMARAN: TIADA [JEJAK] MESEJ daripada adapter — mesej tidak sampai ke handler
+66:AMARAN: TIADA [JEJAK] MESEJ daripada adapter — mesej tidak sampai ke handler
 
 --- bukti balasan dihantar oleh bot ---
 tiada
