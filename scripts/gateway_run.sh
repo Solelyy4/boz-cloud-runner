@@ -386,11 +386,27 @@ while true; do
         echo "uji pasca gagal dilancarkan" >> gw.log
       sleep 40   # beri bot masa menjawab (model + hantar balasan)
       # Adakah token ujian muncul dalam [JEJAK]? Itu bukti keras.
-      if grep -q "$TOK" gw.log 2>/dev/null; then
-        echo "BUKTI KERAS: token $TOK DITEMUI dalam [JEJAK] — bot memproses mesej" >> gw.log
+      # PENTING: cari baris [JEJAK] SEBENAR daripada adapter, bukan baris echo ini.
+      if grep -q "\[JEJAK\] MESEJ" gw.log 2>/dev/null; then
+        CT=$(grep -c "\[JEJAK\] MESEJ" gw.log 2>/dev/null)
+        echo "BUKTI KERAS: $CT baris [JEJAK] MESEJ daripada adapter — bot MEMPROSES" >> gw.log
+        grep "\[JEJAK\] MESEJ" gw.log | head -8 >> gw.log
       else
-        echo "AMARAN: token $TOK TIDAK ditemui — bot kita mungkin tidak menerima mesej" >> gw.log
+        echo "AMARAN: TIADA [JEJAK] MESEJ daripada adapter — mesej tidak sampai ke handler" >> gw.log
       fi
+      # DIAGNOSTIK GETUPDATES: siapa PEMEGANG long-poll?
+      # 409 = ada pemegang lain (bot kita). Data/kosong tanpa 409 = KITA pemegang
+      # dan bot kita tidak menerima apa-apa -> mesej pergi ke tempat lain.
+      RESP=$(curl -4 -s -m 15 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?limit=3&timeout=0" 2>/dev/null)
+      if echo "$RESP" | grep -q '409'; then
+        echo "DIAG: getUpdates -> 409 (bot kita PEMEGANG long-poll — betul)" >> gw.log
+      elif echo "$RESP" | grep -q '"ok":true'; then
+        JUMLAH=$(echo "$RESP" | grep -o '"update_id"' | wc -l)
+        echo "DIAG: getUpdates -> ok, $JUMLAH update boleh dibaca (KITA pemegang!)" >> gw.log
+      else
+        echo "DIAG: getUpdates -> $(echo "$RESP" | head -c 160)" >> gw.log
+      fi
+      echo "DIAG: pending_update_count=$(curl -4 -s -m 12 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getWebhookInfo" | sed -n 's/.*"pending_update_count":\([0-9]*\).*/\1/p')" >> gw.log
       {
         echo "=== UJIAN PASCA-SAMBUNG $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
         echo "--- mesej diambil bot ---"
