@@ -1,4 +1,4 @@
-=== run 42349653868 tick 2026-11-07T14:27:12Z ===
+=== run 42349653868 tick 2026-11-07T14:42:14Z ===
 2026-11-07 10:41:25,223 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
 2026-11-07 10:41:25,254 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-07 10:41:25,416 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
@@ -381,4 +381,4 @@ openai.BadRequestError: Error code: 400 - {'error': {'message': '`reasoning_effo
    💡 Fix: pick another model (/model), or check `~/work/boz-cloud-runner/boz-cloud-runner/home/logs/agent.log`.
 2026-11-07 14:24:49,932 ERROR agent.conversation_loop: Non-retryable client error: Error code: 400 - {'error': {'message': '`reasoning_effort` must be one of `low`, `medium`, or `high`', 'type': 'invalid_request_error'}}
 ⚠️  Skipping session persistence for large failed session to prevent growth loop.
-denyut tick=225 fd=44/65536 2026-11-07T14:27:12Z
+denyut tick=240 fd=44/65536 2026-11-07T14:42:14Z
