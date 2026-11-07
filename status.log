@@ -1,7 +1,6 @@
-=== run 42390146157 AKHIR 2026-11-07T16:21:41Z ===
-=== gw.log (300 baris terakhir) ===
-gw.log dimulakan bersih 2026-11-07T16:16:49Z run 42390146157
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/4f25b1a0cefa4d25a1693a8a956afa4d/venv/bin/python
+=== run 42390907300 tick 2026-11-07T16:39:34Z ===
+gw.log dimulakan bersih 2026-11-07T16:39:08Z run 42390907300
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/b543352b62524701bcb2f0dbbb7b651b/venv/bin/python
 HERMES_SRC=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home
 adapter dijumpai: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
 JEJAK: adapter -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
@@ -21,92 +20,9 @@ ulimit -n = 65536
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-07 16:17:02,655 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3635, started_at=2026-11-07T15:51:28.551917+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-07T16:12:40.321429+00:00 last_mem={'rss_kib': 263608, 'mem_total_kib': 16367520, 'mem_available_kib': 15118116, 'swap_used_kib': 0} suspected_oom=False
-2026-11-07 16:17:02,814 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-07 16:17:02,845 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-07 16:17:03,015 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-07 16:17:13,977 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-07 16:19:40,462 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-07 16:19:40,462 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-
-=== uji-bot.log (jika ada) ===
-tiada
-
-=== diagnosa_bot.json (jika ada) ===
-[
- {
-  "uji": "DNS api.telegram.org",
-  "ok": true,
-  "bukti": "['149.154.166.110'] dalam 0.01s"
- },
- {
-  "uji": "DNS api.mistral.ai",
-  "ok": true,
-  "bukti": "['162.159.142.207', '172.66.2.203'] dalam 0.00s"
- },
- {
-  "uji": "DNS api.groq.com",
-  "ok": true,
-  "bukti": "['104.18.38.236', '172.64.149.20'] dalam 0.03s"
- },
- {
-  "uji": "TCP api.telegram.org:443",
-  "ok": true,
-  "bukti": "sambung dalam 0.15s"
- },
- {
-  "uji": "TCP api.mistral.ai:443",
-  "ok": true,
-  "bukti": "sambung dalam 0.01s"
- },
- {
-  "uji": "HTTPS api.telegram.org",
-  "ok": true,
-  "bukti": "HTTP 200 dalam 0.77s (25026 aksara)"
- },
- {
-  "uji": "HTTPS api.mistral.ai",
-  "ok": false,
-  "bukti": "HTTP 401 dalam 0.19s (29 aksara)"
- },
- {
-  "uji": "Telegram getMe",
-  "ok": true,
-  "bukti": "bot=hermes_personal_sole_bot HTTP 200"
- },
- {
-  "uji": "config.yaml",
-  "ok": true,
-  "bukti": "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/config.yaml"
- },
- {
-  "uji": "model mistral/mistral-large-4 (utama)",
-  "ok": true,
-  "bukti": "HTTP 200 -> [{'type': 'thinking', 'thinking': [{'type': 'text', 'text': 'The user wrote \"balas: OK\".'}], 'closed': True}]"
- },
- {
-  "uji": "model mistral/mistral-medium-latest (fallback)",
-  "ok": false,
-  "bukti": "HTTP 429: {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code"
- },
- {
-  "uji": "model mistral/ministral-14b-latest (fallback)",
-  "ok": true,
-  "bukti": "HTTP 200 -> '**Balas:** 😊 **OK!'"
- },
- {
-  "uji": "model mistral/ministral-8b-latest (fallback)",
-  "ok": true,
-  "bukti": "HTTP 200 -> \"It looks like you're saying **\""
- },
- {
-  "uji": "model groq/openai/gpt-oss-120b (fallback)",
-  "ok": true,
-  "bukti": "HTTP 200 -> ''"
- },
- {
-  "uji": "model groq/qwen/qwen3.8-27b (fallback)",
-  "ok": true,
-  "bukti": "HTTP 200 -> 'Baik! Silakan jika ada yang bi'"
- }
-]
+2026-11-07 16:39:22,462 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3667, started_at=2026-11-07T16:17:02.655979+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-07T16:21:14.155833+00:00 last_mem={'rss_kib': 258292, 'mem_total_kib': 16367524, 'mem_available_kib': 15141808, 'swap_used_kib': 0} suspected_oom=False
+2026-11-07 16:39:22,657 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-07 16:39:22,704 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-07 16:39:22,879 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-07 16:39:34,081 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+mula-cubaan-1 selepas-15s 2026-11-07T16:39:34Z
