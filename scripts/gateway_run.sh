@@ -317,8 +317,16 @@ while true; do
   # pending kembali 0 — iaitu bot benar-benar selesai memproses.
   STUCK=0
   # Jejak kematian: bila proses mati, catat kod keluar dan 40 baris terakhir.
-  ( wait $PID 2>/dev/null; RC=$?
-    echo "=== GATEWAY MATI rc=$RC pada $(date -u +%FT%TZ) ===" >> gw.log
+  # Jejak kematian: catat masa proses mati + 40 baris terakhir.
+  #
+  # PEPIJAT rc=127 PALSU (dibetulkan 7 Nov 2026): `wait` hanya berfungsi pada
+  # CHILD shell SEMASA. Di dalam subshell `( ... ) &`, $PID BUKAN child subshell
+  # itu, jadi `wait $PID` pulang 127 ("not a child of this shell") - kita
+  # melaporkan "GATEWAY MATI rc=127" padahal gateway tidak pernah keluar dgn 127.
+  # Ini menyesatkan siasatan berjam-jam. Ganti dgn gelung kill -0; kod keluar
+  # SEBENAR diambil dalam gelung utama (konteks child shell yg betul).
+  ( while kill -0 $PID 2>/dev/null; do sleep 5; done
+    echo "=== GATEWAY MATI (pid=$PID) pada $(date -u +%FT%TZ) ===" >> gw.log
     tail -40 gw.log >> gw.log 2>/dev/null
   ) &
 
@@ -415,8 +423,11 @@ while true; do
       break
     fi
   done
-  wait $PID 2>/dev/null || true
-  lapor "gateway-berhenti-cubaan-$cubaan (first_seen=${first_seen:-tiada})"
+    # Kod keluar SEBENAR: wait di sini adalah child shell SEMASA (konteks betul).
+    wait $PID 2>/dev/null
+    RC_SMH=$?
+    echo "=== cubaan $cubaan tamat: rc=$RC_SMH (pid=$PID) pada $(date -u +%FT%TZ) ===" >> gw.log
+    lapor "gateway-berhenti-cubaan-$cubaan rc=$RC_SMH (first_seen=${first_seen:-tiada})"
   # rehat eksponen berhad (maks 10 minit) supaya pulih cepat bila Telegram balik
   rehat=$((cubaan * 30)); [ "$rehat" -gt 600 ] && rehat=600
   echo "rehat ${rehat}s sebelum cubaan berikut"
