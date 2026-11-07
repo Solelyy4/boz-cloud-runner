@@ -39,7 +39,7 @@ except ImportError:
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 CHAT_ID = os.environ.get("BOZ_CHAT_ID", "8043910371")
 API = f"https://api.telegram.org/bot{TOKEN}"
-OUT = os.environ.get("INTERAKSI_OUT", "cari/interaksi.json")
+OUT = os.environ.get("INTERAKSI_OUT", "/tmp/interaksi.json")
 
 
 def _now() -> str:
@@ -100,11 +100,13 @@ def uji_satu(teks: str, tunggu: int = 90) -> dict:
 
 
 SIRI = [
-    "Hello",
-    "Apa khabar bot?",
-    "Cari video YouTube tentang cara buat telegram bot tanpa VPS",
-    "Cari resepi nasi lemak di Reddit",
-    "Apa trending di TikTok tentang AI sekarang?",
+    # Setiap jenis mesej yang BOZ mungkin hantar — bot mesti lalui SEMUA.
+    "Hello",                                                        # sapaan
+    "apa itu API? jelaskan ringkas",                                # soalan asas
+    "cari di google: telegram bot tanpa VPS 2026",                  # carian web
+    "tulis fail /tmp/uji-boz.txt dengan kandungan 'HALO BOZ' dan hantar kepada aku",  # fail + MEDIA
+    "jam berapa sekarang di Malaysia?",                             # masa
+    "siapa kau?",                                                   # identiti
 ]
 
 
