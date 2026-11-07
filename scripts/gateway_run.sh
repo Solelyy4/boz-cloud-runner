@@ -361,9 +361,26 @@ while true; do
       sleep 20   # beri adapter masa memasang handler
       echo "=== ujian-pasca: bot hidup, hantar 6 mesej $(date -u +%FT%TZ) ===" >> gw.log
       PY2="$(command -v python3 || echo python3)"
+      # TOKEN UNIK: mesej mengandungi token rawak. Kita kemudian cari token itu
+      # dalam [JEJAK] adapter. Kalau token muncul -> MESEJ KITA benar-benar
+      # sampai ke adapter (bukti keras). Kalau tidak -> bot kita tidak menerima
+      # mesej (sesi Telegram lain merampas getUpdates).
+      TOK="UJI$(date +%s)$RANDOM"
+      curl -4 -s -m 20 -X POST \
+        "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+        -d "chat_id=${BOZ_CHAT_ID:-8043910371}" \
+        -d "text=MESEJ UJIAN AUTOMATIK. Balas dengan tepat perkataan ini: ${TOK}" \
+        >/dev/null 2>&1 || true
+      echo "token ujian dihantar: $TOK" >> gw.log
       timeout 400 "$PY2" scripts/interaksi.py --siri --tunggu 45 >> gw.log 2>&1 || \
         echo "uji pasca gagal dilancarkan" >> gw.log
-      sleep 25   # beri bot masa menjawab
+      sleep 40   # beri bot masa menjawab (model + hantar balasan)
+      # Adakah token ujian muncul dalam [JEJAK]? Itu bukti keras.
+      if grep -q "$TOK" gw.log 2>/dev/null; then
+        echo "BUKTI KERAS: token $TOK DITEMUI dalam [JEJAK] — bot memproses mesej" >> gw.log
+      else
+        echo "AMARAN: token $TOK TIDAK ditemui — bot kita mungkin tidak menerima mesej" >> gw.log
+      fi
       {
         echo "=== UJIAN PASCA-SAMBUNG $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
         echo "--- mesej diambil bot ---"
