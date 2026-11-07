@@ -493,6 +493,67 @@ jobs:
           # kerana baris pada kolum 0 memecahkan parser YAML workflow.
           python3 scripts/sapu_queued.py
 
+      - name: AUDIT — hantar 6 mesej BOZ sebenar & rakam balasan
+        # MENGAPA: interaksi.py ada dalam repo tetapi TIDAK PERNAH dipanggil workflow
+        # (0 rujukan) — jadi tiada bukti bot benar-benar MEMBALAS. Langkah ini menghantar
+        # 6 jenis mesej yang BOZ biasa hantar, tunggu bot mengambil setiap satu, dan
+        # menyimpan transkrip sebagai bukti di repo.
+        if: always()
+        continue-on-error: true
+        timeout-minutes: 20
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          BOZ_CHAT_ID: "8043910371"
+          INTERAKSI_OUT: "/tmp/interaksi.json"
+        run: |
+          # Tunggu gateway benar-benar hidup (max 12 minit)
+          for i in $(seq 1 72); do
+            sleep 10
+            if grep -q "Connected to Telegram" gw.log 2>/dev/null; then
+              echo "gateway hidup selepas $((i*10))s"; break
+            fi
+          done
+          PY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] && PY="$cand" && break
+          done
+          [ -n "$PY" ] || PY="$(command -v python3)"
+          echo "python ujian: $PY"
+          "$PY" -m pip install --quiet httpx 2>/dev/null || true
+
+          echo "=== UJIAN BERDEPAN: 6 mesej ==="
+          "$PY" scripts/interaksi.py --siri 2>&1 | tee -a gw.log || echo "uji interaksi gagal"
+
+          # Kumpul bukti: [JEJAK] mesej masuk + ralat 400/401/429
+          {
+            echo "=== LAPORAN UJIAN BERDEPAN $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
+            echo "--- transkrip interaksi ---"
+            cat /tmp/interaksi.json 2>/dev/null || echo "tiada transkrip"
+            echo
+            echo "--- [JEJAK] mesej masuk ke adapter ---"
+            grep -n "\[JEJAK\]" gw.log 2>/dev/null | tail -40 || echo "tiada JEJAK"
+            echo
+            echo "--- ralat model/rangkaian (400/401/429/traceback) ---"
+            grep -inE "HTTP [45][0-9][0-9]|must be one of|rate_limited|Traceback|refus" gw.log 2>/dev/null | tail -30 || echo "tiada ralat"
+            echo
+            echo "--- bukti balasan dihantar (sendMessage/response) ---"
+            grep -inE "sendMessage|Sent message|reply|balas" gw.log 2>/dev/null | tail -20 || echo "tiada"
+            echo
+            echo "--- denyut & FD ---"
+            grep -n "denyut" gw.log 2>/dev/null | tail -5 || echo "tiada denyut lagi"
+          } > ujian-berdepan.log
+
+          echo "=== laporan ditulis: $(wc -l < ujian-berdepan.log) baris ==="
+          for p in 1 2 3; do
+            git fetch origin master -q >/dev/null 2>&1 || true
+            git rebase --abort >/dev/null 2>&1 || true
+            git checkout -q -B ujian-tmp origin/master 2>/dev/null || true
+            git add -f ujian-berdepan.log >/dev/null 2>&1
+            git -c user.email=bot@local -c user.name=bot commit -qm "bukti ujian berdepan $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+            if git push origin HEAD:master >/dev/null 2>&1; then echo "push bukti ok"; break; fi
+            sleep 5
+          done
+
       - name: Jalankan gateway (kukuh terhadap 409)
         timeout-minutes: 1450
         continue-on-error: true
