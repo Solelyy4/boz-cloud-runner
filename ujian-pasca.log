@@ -1,66 +1,66 @@
-=== UJIAN PASCA-SAMBUNG 2026-11-07T19:32:54Z run 42405149663 ===
+=== UJIAN PASCA-SAMBUNG 2026-11-07T20:00:44Z run 42407381003 ===
 --- mesej diambil bot ---
 {
- "ts": "2026-11-07T19:32:13+00:00",
+ "ts": "2026-11-07T20:00:04+00:00",
  "rekod": [
   {
-   "ts": "2026-11-07T19:31:19+00:00",
+   "ts": "2026-11-07T19:59:09+00:00",
    "mesej": "Hello",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 574,
+   "message_id": 587,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T19:31:28+00:00",
+   "ts": "2026-11-07T19:59:18+00:00",
    "mesej": "apa itu API? jelaskan ringkas",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 575,
+   "message_id": 588,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T19:31:37+00:00",
+   "ts": "2026-11-07T19:59:28+00:00",
    "mesej": "cari di google: telegram bot tanpa VPS 2026",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 576,
+   "message_id": 589,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T19:31:46+00:00",
+   "ts": "2026-11-07T19:59:37+00:00",
    "mesej": "tulis fail /tmp/uji-boz.txt dengan kandungan 'HALO BOZ' dan hantar kepada aku",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 577,
+   "message_id": 590,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T19:31:55+00:00",
+   "ts": "2026-11-07T19:59:46+00:00",
    "mesej": "jam berapa sekarang di Malaysia?",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 578,
+   "message_id": 591,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T19:32:04+00:00",
+   "ts": "2026-11-07T19:59:55+00:00",
    "mesej": "siapa kau?",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 579,
+   "message_id": 592,
    "bot_ambil": true,
    "saat_ambil": 5
   }
  ]
 }
 --- [JEJAK] mesej masuk ke adapter (BUKTI BOT MEMPROSES) ---
-59:BUKTI KERAS: token UJI17940798783269 DITEMUI dalam [JEJAK] — bot memproses mesej
+61:BUKTI KERAS: token UJI179408154914413 DITEMUI dalam [JEJAK] — bot memproses mesej
 
 --- bukti balasan dihantar oleh bot ---
 tiada
