@@ -1,0 +1,86 @@
+name: Diagnostik rc=127
+
+# Ujian terpencil: buktikan APA yang memberi rc=127 pada runner GitHub, supaya
+# kita tidak meneka lagi. Gateway mati 2 saat selepas "Connected" dengan rc=127
+# (= command not found) walaupun venv python disahkan wujud.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Uji arahan yang MUNGKIN beri rc=127
+        run: |
+          echo "=== PATH ==="
+          echo "$PATH" | tr ':' '\n'
+          echo
+          echo "=== arahan asas ==="
+          for c in bash sh curl git sed grep awk tail head wc date pkill pgrep kill sleep timeout python3; do
+            if command -v "$c" >/dev/null 2>&1; then
+              echo "  ADA      $c -> $(command -v "$c")"
+            else
+              echo "  TIADA    $c   <<< rc=127"
+            fi
+          done
+          echo
+          echo "=== uji pkill/pgrep benar-benar ==="
+          pkill --version 2>&1 | head -2 || echo "pkill rc=$?"
+          pgrep --version 2>&1 | head -2 || echo "pgrep rc=$?"
+          echo
+          echo "=== uji: bash script yg guna 'set -uo pipefail' + pgrep --version ==="
+          cat > /tmp/t1.sh <<'SHEOF'
+          set -uo pipefail
+          pgrep --version >/dev/null 2>&1
+          echo "selepas pgrep --version, rc=$?"
+          SHEOF
+          bash /tmp/t1.sh; echo "t1 rc=$?"
+          echo
+          echo "=== uji: pgrep --version dalam script dgn set -e ==="
+          cat > /tmp/t2.sh <<'SHEOF'
+          set -euo pipefail
+          pgrep --version
+          echo "sampai sini"
+          SHEOF
+          bash /tmp/t2.sh; echo "t2 rc=$?"
+          echo
+          echo "=== uji: ganti --version dengan -h ==="
+          cat > /tmp/t3.sh <<'SHEOF'
+          set -euo pipefail
+          pgrep -h 2>/dev/null || echo "pgrep -h rc=$? (tak penting)"
+          echo "sampai sini OK"
+          SHEOF
+          bash /tmp/t3.sh; echo "t3 rc=$?"
+          echo
+          echo "=== uji: python -c dgn import hermes_cli tiada (harus rc=1, bukan 127) ==="
+          python3 -c "import hermes_cli" 2>/dev/null; echo "python rc=$?"
+          echo
+          echo "=== uji: variabel kosong menghasilkan rc=127? ==="
+          PK=""
+          $PK --version 2>/dev/null; echo "kosong rc=$?"
+          echo
+          echo "=== SELESAI ==="
+
+      - name: uji 'pgrep --version' di bawah set -euo pipefail (salinan sebenar)
+        run: |
+          # Salinan tepat blok dari gateway_run.sh
+          set -uo pipefail
+          bunuh_gateway() {
+            if command -v pgrep >/dev/null 2>&1; then
+              for p in $(pgrep -f "hermes_cli.main" 2>/dev/null || true); do
+                [ "$p" = "$$" ] && continue
+                [ "$p" = "$PPID" ] && continue
+                kill -9 "$p" 2>/dev/null || true
+              done
+            fi
+            return 0
+          }
+          bunuh_gateway; echo "bunuh_gateway rc=$?"
+          echo "OK - blok ini selamat"
