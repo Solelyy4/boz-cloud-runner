@@ -252,11 +252,33 @@ fd_gateway() {
 had_fd() { ulimit -n 2>/dev/null || echo 1024; }
 echo "ulimit -n = $(had_fd)" | tee -a gw.log
 
+# ==== BUNUH GATEWAY DENGAN SELAMAT ====
+# PUNCA rc=127 (7 Nov 2026): `bunuh_gateway` padan dengan SKRIP INI
+# SENDIRI (baris arahan skrip mengandungi teks itu), jadi ia membunuh diri sendiri
+# 2 saat selepas "Connected" -> gateway mati setiap kali, bot bisu selama-lamanya.
+# Ubat: bunuh PID yang kita tahu, dan gunakan padanan yang TIDAK boleh padan diri.
+bunuh_gateway() {
+  # 1) bunuh PID yang kita simpan (paling selamat)
+  if [ -n "${PID:-}" ] && kill -0 "$PID" 2>/dev/null; then
+    kill -9 "$PID" 2>/dev/null || true
+  fi
+  # 2) sapu baki proses hermes gateway yang lain — TETAPI kecualikan diri sendiri.
+  #    `pgrep -f` juga padan diri, jadi tapis $$ dan PPID keluar dahulu.
+  if command -v pgrep >/dev/null 2>&1; then
+    for p in $(pgrep -f "hermes_cli.main" 2>/dev/null || true); do
+      [ "$p" = "$$" ] && continue
+      [ "$p" = "$PPID" ] && continue
+      kill -9 "$p" 2>/dev/null || true
+    done
+  fi
+  return 0
+}
+
 cubaan=0
 while true; do
   cubaan=$((cubaan+1))
   MARK=$(wc -l < gw.log 2>/dev/null || echo 0)
-  pkill -9 -f "hermes gateway" 2>/dev/null || true
+  bunuh_gateway 2>/dev/null || true
   sleep 8
   # PENTING: python di-buffer secara blok dalam runner bukan-TTY. Tanpa
   # PYTHONUNBUFFERED, gw.log kelihatan "berhenti selepas Connected" walaupun
@@ -305,7 +327,7 @@ while true; do
     tick=$((tick+1))
     # fail log sahaja — tiada panggilan Telegram API dari sini
     if tail -n +$((MARK+1)) gw.log | grep -q "Fatal telegram adapter error"; then
-      echo "fatal dikesan, mula semula"; pkill -9 -f "hermes gateway" 2>/dev/null || true; break
+      echo "fatal dikesan, mula semula"; bunuh_gateway 2>/dev/null || true; break
     fi
     NOW_LINES=$(wc -l < gw.log 2>/dev/null || echo 0)
     if [ "$NOW_LINES" -eq "$LAST_LINES" ]; then SILENT=$((SILENT+1)); else SILENT=0; LAST_LINES=$NOW_LINES; fi
@@ -331,14 +353,14 @@ while true; do
       # ATAU if proses tidak lagi mengaku polling dalam gw.log.
       if [ -z "$PENDING" ]; then
         echo "  API Telegram tidak menjawab — sambungan mati, proses bersara"
-        pkill -9 -f "hermes gateway" 2>/dev/null || true
+        bunuh_gateway 2>/dev/null || true
         SILENT=0
         break
       elif [ "$PENDING" -gt 0 ]; then
         STUCK=$((STUCK+1))
         if [ "$STUCK" -ge 3 ]; then
           echo "  pending=$PENDING tersekat ${STUCK}x36min DAN log beku — proses bersara"
-          pkill -9 -f "hermes gateway" 2>/dev/null || true
+          bunuh_gateway 2>/dev/null || true
           SILENT=0; STUCK=0
           break
         fi
@@ -367,7 +389,7 @@ while true; do
     # supaya selepas itu kita tidak membunuh gateway yang sedang bekerja.
     if [ "$tick" -eq 3 ] && [ -z "$first_seen" ] && [ "$cubaan" -le 2 ]; then
       echo "watchdog: tiada tanda polling selepas 3 minit — mula semula"
-      pkill -9 -f "hermes gateway" 2>/dev/null || true
+      bunuh_gateway 2>/dev/null || true
       break
     fi
     # KEBOCORAN FD (bukti 2026-11-05): 20x ConnectError('') sementara rangkaian
@@ -380,7 +402,7 @@ while true; do
     fi
     if [ "$FD" -gt 0 ] && [ "$FD" -gt 700 ] && [ "$FD" -gt $((FDMAX * 8 / 10)) ]; then
       echo "KEBOCORAN FD: $FD/$FDMAX — proses bersara untuk pulih"
-      pkill -9 -f "hermes gateway" 2>/dev/null || true
+      bunuh_gateway 2>/dev/null || true
       break
     fi
     if [ $((tick % 15)) -eq 0 ]; then lapor "denyut tick=$tick fd=$FD/$FDMAX"; fi
