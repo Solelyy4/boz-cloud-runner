@@ -1,59 +1,59 @@
-=== LAPORAN UJIAN BERDEPAN 2026-11-07T22:25:04Z run 42419122082 ===
+=== LAPORAN UJIAN BERDEPAN 2026-11-07T22:51:35Z run 42421264217 ===
 --- transkrip interaksi ---
 {
- "ts": "2026-11-07T22:25:04+00:00",
+ "ts": "2026-11-07T22:51:35+00:00",
  "rekod": [
   {
-   "ts": "2026-11-07T22:24:08+00:00",
+   "ts": "2026-11-07T22:50:39+00:00",
    "mesej": "Hello",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 645,
+   "message_id": 658,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T22:24:17+00:00",
+   "ts": "2026-11-07T22:50:48+00:00",
    "mesej": "apa itu API? jelaskan ringkas",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 646,
+   "message_id": 659,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T22:24:26+00:00",
+   "ts": "2026-11-07T22:50:58+00:00",
    "mesej": "cari di google: telegram bot tanpa VPS 2026",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 647,
+   "message_id": 660,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T22:24:36+00:00",
+   "ts": "2026-11-07T22:51:07+00:00",
    "mesej": "tulis fail /tmp/uji-boz.txt dengan kandungan 'HALO BOZ' dan hantar kepada aku",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 648,
+   "message_id": 661,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T22:24:45+00:00",
+   "ts": "2026-11-07T22:51:16+00:00",
    "mesej": "jam berapa sekarang di Malaysia?",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 649,
+   "message_id": 662,
    "bot_ambil": true,
    "saat_ambil": 5
   },
   {
-   "ts": "2026-11-07T22:24:55+00:00",
+   "ts": "2026-11-07T22:51:26+00:00",
    "mesej": "siapa kau?",
    "pending_sebelum": 0,
    "ok_hantar": true,
-   "message_id": 650,
+   "message_id": 663,
    "bot_ambil": true,
    "saat_ambil": 5
   }
@@ -68,7 +68,7 @@
 30:  GAGAL: model mistral/mistral-medium-latest (fallback) — HTTP 429: {"object":"error","message":"Rate limit exceeded","type":"rate_limited","param":null,"code
 
 --- bukti balasan dihantar (sendMessage/response) ---
-21:  [OK] model mistral/mistral-large-4 (utama): HTTP 200 -> [{'type': 'thinking', 'thinking': [{'type': 'text', 'text': 'The user wrote "balas: OK"'}], 'closed': True}]
+21:  [OK] model mistral/mistral-large-4 (utama): HTTP 200 -> [{'type': 'thinking', 'thinking': [{'type': 'text', 'text': 'The user just wrote "balas: OK'}], 'closed': True}]
 23:  [OK] model mistral/ministral-14b-latest (fallback): HTTP 200 -> '**Balas:** 😊\n\n*Ap'
 
 --- denyut & FD ---
