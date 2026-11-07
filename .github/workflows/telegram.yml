@@ -347,6 +347,30 @@ jobs:
           EOF
           sed -i 's/^ *//' home/.env
 
+      - name: Sahkan Python + toolkit (venv Hermes, BUKAN python3 sistem)
+        run: |
+          # FALSE-NEGATIVE LAMA: langkah diagnosa mencari venv dengan laluan tegar
+          # ($HOME/.local/share/hermes/venv) yang TIDAK wujud di runner, lalu jatuh ke
+          # python3 SISTEM — yang tiada httpx/pyyaml. Hasilnya 3/3 model dilaporkan MATI
+          # walaupun ia hidup. Cari venv cara yang sama seperti langkah gateway, dan
+          # gagal KETARA kalau tiada supaya kita tidak buta.
+          PY=""
+          for cand in "$PWD"/home/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] || continue
+            if "$cand" -c "import hermes_cli" 2>/dev/null; then PY="$cand"; break; fi
+          done
+          if [ -z "$PY" ]; then echo "::error::venv Hermes tidak dijumpai"; exit 1; fi
+          echo "PY=$PY" >> "$GITHUB_ENV"
+          echo "python untuk diagnosa: $PY"
+          "$PY" -c "import httpx, yaml; print('httpx', httpx.__version__, '| yaml OK')" \
+            || { echo "::warning::pasang httpx+pyyaml ke venv"; "$PY" -m pip install --quiet httpx pyyaml; }
+          # Toolkit pengambilan data BOZ minta (YouTube/TikTok/IG/Threads/Google)
+          for m in ddgs requests; do
+            "$PY" -c "import $m" 2>/dev/null || "$PY" -m pip install --quiet "$m" || true
+          done
+          echo "=== toolkit sedia ==="
+          "$PY" -c "import ddgs, requests; print('ddgs OK, requests OK')"
+
       - name: Sahkan config terpakai
         run: |
           echo "=== KUNCI API (gagal KETARA, bukan senyap) ==="
@@ -366,12 +390,21 @@ jobs:
           # Hermes baca nilai ini untuk TAHU ini bukan model reasoning, jadi ia tidak
           # menghantar parameter itu ke API. Membuang kunci sahaja meninggalkan None,
           # yang Hermes anggap "tidak dinyatakan" dan ia hantar nilai lalai -> 400.
-          if grep -qE 'reasoning_effort:\s*(false|no|none)\s*$' home/config.yaml; then
-            echo "  reasoning_effort=false (BETUL — Hermes tidak hantar parameter, elak HTTP 400)"
-          elif grep -q 'reasoning_effort' home/config.yaml; then
-            echo "::warning::reasoning_effort ADA tetapi bukan false — ministral-8b akan pulang HTTP 400"
+          # GUARD BARU (7 Nov 2026): `false` ialah PENYAKIT, bukan ubat.
+          # Kod `plugins/model-providers/custom/__init__.py` baris 73-81 memetakan
+          # reasoning_effort=false -> top-level reasoning_effort="none" MELAINKAN Groq
+          # hanya terima low/medium/high (ujian live: none->400, default->400,
+          # low->200, medium->200, TIADA parameter->200). Jadi nilai selamat = null.
+          if grep -qE '^\s*reasoning_effort:\s*(false|no|none)\s*$' home/config.yaml; then
+            echo "::error::reasoning_effort=false DITEMUI — ini mematikan bot (HTTP 400 pada setiap panggilan). Guna null."
+            exit 1
+          elif grep -qE '^\s*reasoning_effort:\s*(low|medium|high)\s*$' home/config.yaml; then
+            echo "  reasoning_effort=<level> — Groq terima low/medium/high, TETAPI ministral akan 400."
+            echo "::warning::level berperingkat pecah pada Mistral — lebih baik null"
+          elif grep -qE '^\s*reasoning_effort:\s*null\s*$' home/config.yaml; then
+            echo "  reasoning_effort=null (BETUL — tiada parameter dihantar, jalan pada Groq DAN Mistral)"
           else
-            echo "::warning::reasoning_effort TIADA dalam config — tetapkan false supaya Hermes tahu bukan model reasoning"
+            echo "  reasoning_effort TIADA dalam config (juga selamat — tiada parameter dihantar)"
           fi
 
       - name: Diagnosa rantaian bot (model + rangkaian)
@@ -442,6 +475,38 @@ jobs:
           git -c user.email=bot@local -c user.name=bot commit -qm "kesihatan jambatan $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
           for p in 1 2 3; do git push origin HEAD:master >/dev/null 2>&1 && break; sleep 4; done || true
           git checkout -q -
+
+      - name: Sapu run queued tersangkut (elak backlog menyekat bot)
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.BOZ_PAT }}
+        run: |
+          # Bukti 7 Nov 2026: run 42379226559 dicipta 13:56Z, masih 'pending' 40 minit
+          # kemudian. Setiap repo hanya boleh ada SATU job dalam concurrency group yang
+          # sama, jadi run queued lama MENYEKAT bot baharu daripada mula.
+          # Sapu run yang menunggu > 25 minit supaya run ini dapat runner.
+          echo "=== run queued sekarang ==="
+          gh run list --repo "$GITHUB_REPOSITORY" --workflow telegram-hermes \
+            --status queued -L 20 --json databaseId,createdAt \
+            --jq '.[]|"\(.databaseId) \(.createdAt)"' 2>/dev/null || true
+          gh run list --repo "$GITHUB_REPOSITORY" --workflow telegram-hermes \
+            --status queued -L 20 --json databaseId,createdAt 2>/dev/null | \
+          "$([ -n "${PY:-}" ] && echo "$PY" || echo python3)" -c "
+import json,sys,subprocess,os,datetime
+try: runs=json.load(sys.stdin)
+except Exception: sys.exit(0)
+now=datetime.datetime.now(datetime.timezone.utc)
+me=int(os.environ.get('GITHUB_RUN_ID','0'))
+repo=os.environ['GITHUB_REPOSITORY']
+for r in runs:
+    if r['databaseId']==me: continue
+    try: c=datetime.datetime.fromisoformat(r['createdAt'].replace('Z','+00:00'))
+    except Exception: continue
+    usia=(now-c).total_seconds()/60
+    if usia > 25:
+        print('  sapu run queued', r['databaseId'], f'(usia {usia:.0f} minit)')
+        subprocess.run(['gh','run','cancel',str(r['databaseId']),'--repo',repo])
+" || true
 
       - name: Jalankan gateway (kukuh terhadap 409)
         timeout-minutes: 1450
@@ -673,12 +738,14 @@ jobs:
           # CLOSE_WAIT dalam kolam -> satu fd bocor setiap retry -> proses kehabisan fd
           # -> SEMUA sambungan baharu gagal dengan ralat kosong walaupun rangkaian sihat.
           # Ubat: pantau bilangan fd gateway; bersara proses bila menghampiri had.
+          ulimit -n 65536 2>/dev/null || ulimit -n 8192 2>/dev/null || true
           fd_gateway() {
             local pid="$1"
             [ -d "/proc/$pid/fd" ] || { echo 0; return; }
             ls /proc/$pid/fd 2>/dev/null | wc -l
           }
           had_fd() { ulimit -n 2>/dev/null || echo 1024; }
+          echo "ulimit -n = $(had_fd)" | tee -a gw.log
 
           cubaan=0
           while true; do
@@ -803,7 +870,10 @@ jobs:
               # bersara proses SEKARANG — proses segar pulih serta-merta, manakala proses
               # bocor akan gagal selama-lamanya dengan ralat kosong.
               FD=$(fd_gateway "$PID"); FDMAX=$(had_fd)
-              if [ "$FD" -gt 0 ] && [ "$FD" -gt $((FDMAX * 8 / 10)) ]; then
+              if [ "$FD" -gt 0 ] && [ "$FD" -gt 512 ] && [ "$FD" -gt $((FDMAX * 6 / 10)) ]; then
+                echo "AMARAN FD: $FD/$FDMAX (60%+) — kebocoran sedang berlaku"
+              fi
+              if [ "$FD" -gt 0 ] && [ "$FD" -gt 700 ] && [ "$FD" -gt $((FDMAX * 8 / 10)) ]; then
                 echo "KEBOCORAN FD: $FD/$FDMAX — proses bersara untuk pulih"
                 pkill -9 -f "hermes gateway" 2>/dev/null || true
                 break
