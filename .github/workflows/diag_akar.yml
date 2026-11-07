@@ -1,0 +1,125 @@
+name: Diagnostik Akar — IP-rewrite + long-poll HTTPX
+
+# Menguji DUA hipotesis terakhir kenapa bot Hermes dapat ConnectError('') walaupun
+# `curl` ke IP yang SAMA berjaya 302 dari runner yang sama:
+#
+#  H5: `_rewrite_request_for_ip` (URL host=IP, header Host=api.telegram.org,
+#      extensions sni_hostname) menyebabkan Telegram MENUTUP sambungan.
+#  H6: long-poll GET /getUpdates dengan httpx (bukan curl) mati selepas ~100 saat
+#      tanpa data (keepalive/pool), dan Hermes mentafsirnya sebagai error maut.
+#
+# Bukti akan menentukan ubat: sama ada paksa hostname (buang IP-rewrite), atau
+# tetapkan had pool / matikan keepalive.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Pasang httpx
+        run: pip install --quiet httpx
+
+      - name: H5 — IP-rewrite (SNI + Host) vs hostname biasa
+        run: |
+          python3 - <<'PY'
+          import asyncio, httpx, ssl, time
+
+          HOST = "api.telegram.org"
+          SEED = ["149.154.166.110", "149.154.167.220"]
+
+          async def cuba(label, **kw):
+              t0 = time.time()
+              try:
+                  async with httpx.AsyncClient(**kw) as c:
+                      r = await c.get(f"https://{HOST}/", timeout=20)
+                      print(f"  OK    {label}: HTTP {r.status_code} dalam {time.time()-t0:.2f}s")
+                      return True
+              except Exception as e:
+                  print(f"  GAGAL {label}: {type(e).__name__}: {repr(e)[:120]} dalam {time.time()-t0:.2f}s")
+                  return False
+
+          async def tulis_url_host_HEADER_host(ip, sni=None):
+              """Sama seperti _rewrite_request_for_ip Hermes."""
+              label = f"ip={ip} sni={sni}"
+              t0 = time.time()
+              try:
+                  url = httpx.URL(f"https://{ip}/")
+                  hdrs = {"host": HOST}
+                  ext = {"sni_hostname": sni} if sni else {}
+                  req = httpx.Request("GET", url, headers=hdrs, extensions=ext)
+                  async with httpx.AsyncClient(timeout=20) as c:
+                      r = await c.send(req)
+                  print(f"  OK    {label}: HTTP {r.status_code} dalam {time.time()-t0:.2f}s")
+              except Exception as e:
+                  print(f"  GAGAL {label}: {type(e).__name__}: {repr(e)[:130]} dalam {time.time()-t0:.2f}s")
+
+          async def main():
+              print("=== A: baseline hostname ===")
+              await cuba("hostname biasa")
+
+              print("=== B: IP-rewrite TANPA sni_hostname ===")
+              for ip in SEED:
+                  await tulis_url_host_HEADER_host(ip, sni=None)
+
+              print("=== C: IP-rewrite DENGAN sni_hostname (macam Hermes) ===")
+              for ip in SEED:
+                  await tulis_url_host_HEADER_host(ip, sni=HOST)
+
+              print("=== D: curl --resolve sebagai rujukan ===")
+          asyncio.run(main())
+          PY
+          for ip in 149.154.166.110 149.154.167.220; do
+            echo -n "  curl --resolve $ip -> "
+            curl -4 -s -m 10 -o /dev/null -w "%{http_code} %{time_total}s\n" \
+              --resolve api.telegram.org:443:$ip https://api.telegram.org/
+          done
+
+      - name: H6 — long-poll httpx (macam Hermes)
+        run: |
+          python3 - <<'PY'
+          import asyncio, httpx, os, time
+
+          TOK = os.environ["TOKEN"]
+          URL = f"https://api.telegram.org/bot{TOK}/getUpdates"
+
+          async def main():
+              # Pool kecil seperti Hermes (_POOL_LIMITS 8/4), keepalive hidup
+              limits = httpx.Limits(max_connections=8, max_keepalive_connections=4)
+              print("=== long-poll httpx timeout=50, ulang 10x (max ~8 minit) ===")
+              async with httpx.AsyncClient(limits=limits, timeout=httpx.Timeout(70)) as c:
+                  ok = gagal = 0
+                  t0 = time.time()
+                  for i in range(1, 11):
+                      try:
+                          r = await c.get(URL, params={"timeout": 50, "limit": 1})
+                          ok += 1
+                          print(f"  {i:>2} OK    {r.status_code} ({time.time()-t0:.0f}s)")
+                      except Exception as e:
+                          gagal += 1
+                          print(f"  {i:>2} GAGAL {type(e).__name__}: {repr(e)[:110]} ({time.time()-t0:.0f}s)")
+                          # Hermes akan reset transport di sini
+                  print(f"  jumlah: ok={ok} gagal={gagal}")
+
+              print("=== long-poll httpx TANPA read timeout (timeout=None) ===")
+              async with httpx.AsyncClient(timeout=httpx.Timeout(connect=10, read=None, write=10, pool=10)) as c:
+                  for i in range(1, 6):
+                      try:
+                          r = await c.get(URL, params={"timeout": 50, "limit": 1})
+                          print(f"  {i} OK {r.status_code}")
+                      except Exception as e:
+                          print(f"  {i} GAGAL {type(e).__name__}: {repr(e)[:110]}")
+          asyncio.run(main())
+          PY
