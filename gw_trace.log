@@ -1,4 +1,4 @@
-=== TRACE 2026-11-07T23:49:36Z run 42425623631 ===
+=== TRACE 2026-11-07T23:50:38Z run 42425623631 ===
 gw.log dimulakan bersih 2026-11-07T23:48:36Z run 42425623631
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e4ad66e6d150457aab247873b6217210/venv/bin/python
 HERMES_SRC=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home
@@ -45,3 +45,21 @@ token ujian dihantar: UJI17940953745720
 getMe: ok=True bot=hermes_personal_sole_bot
 
 --- hantar: Hello ---
+  message_id=691 bot_ambil=True saat=5
+
+--- hantar: apa itu API? jelaskan ringkas ---
+  message_id=692 bot_ambil=True saat=5
+
+--- hantar: cari di google: telegram bot tanpa VPS 2026 ---
+  message_id=693 bot_ambil=True saat=5
+
+--- hantar: tulis fail /tmp/uji-boz.txt dengan kandungan 'HALO BOZ' dan  ---
+  message_id=694 bot_ambil=True saat=5
+
+--- hantar: jam berapa sekarang di Malaysia? ---
+  message_id=695 bot_ambil=True saat=5
+
+--- hantar: siapa kau? ---
+  message_id=696 bot_ambil=True saat=5
+
+RINGKASAN: 6/6 mesej diambil bot -> /tmp/interaksi.json
