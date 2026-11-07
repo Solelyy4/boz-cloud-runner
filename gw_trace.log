@@ -1,4 +1,4 @@
-=== TRACE 2026-11-07T21:58:43Z run 42416974187 ===
+=== TRACE 2026-11-07T21:59:44Z run 42416974187 ===
 gw.log dimulakan bersih 2026-11-07T21:57:42Z run 42416974187
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/806a42ce194e45f58fb6251ef4eef119/venv/bin/python
 HERMES_SRC=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home
@@ -40,3 +40,26 @@ jejak-pemanjat t=1: JEJAK: 2/2 salinan sedia untuk dimuat gateway
 2026-11-07 21:58:00,382 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-07 21:58:11,269 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 uji pasca: pemanjat dipasang (hantar selepas Connected)
+=== ujian-pasca: bot hidup, hantar 6 mesej 2026-11-07T21:58:47Z ===
+token ujian dihantar: UJI17940887279150
+getMe: ok=True bot=hermes_personal_sole_bot
+
+--- hantar: Hello ---
+  message_id=639 bot_ambil=True saat=5
+
+--- hantar: apa itu API? jelaskan ringkas ---
+  message_id=640 bot_ambil=True saat=5
+
+--- hantar: cari di google: telegram bot tanpa VPS 2026 ---
+  message_id=641 bot_ambil=True saat=5
+
+--- hantar: tulis fail /tmp/uji-boz.txt dengan kandungan 'HALO BOZ' dan  ---
+  message_id=642 bot_ambil=True saat=5
+
+--- hantar: jam berapa sekarang di Malaysia? ---
+  message_id=643 bot_ambil=True saat=5
+
+--- hantar: siapa kau? ---
+  message_id=644 bot_ambil=True saat=5
+
+RINGKASAN: 6/6 mesej diambil bot -> /tmp/interaksi.json
