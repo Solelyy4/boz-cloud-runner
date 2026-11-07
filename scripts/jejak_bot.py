@@ -1,40 +1,44 @@
 #!/usr/bin/env python3
-"""jejak_bot.py — patch jejak mesej masuk ke log bot (aras WARNING).
+"""jejak_bot.py - patch jejak mesej masuk ke log bot (aras WARNING).
 
 MENGAPA
 =======
-Bukti 2026-11-06 (status.log run 42233774433, baris 21):
-    denyut tick=15 fd=30/65536
-Bot HIDUP dan SIHAT (fd hanya 30/65536, tiada kebocoran), tetapi gw.log TIDAK
-menunjukkan sebarang pemprosesan mesej. Punca: adapter Telegram mencatat mesej
-masuk pada aras `logger.debug`, manakala gateway berjalan pada aras WARNING.
-Jadi pemprosesan berlaku TETAPI TIDAK KELIHATAN — mustahil membuktikan bot
-berfungsi atau tidak.
+Adapter Telegram mencatat mesej masuk pada aras `debug`, manakala gateway
+berjalan pada aras WARNING. Jadi pemprosesan berlaku TETAPI TIDAK KELIHATAN -
+mustahil membuktikan bot berfungsi atau tidak.
 
-Skrip ini menampal `_handle_text_message` (dan handler command/media) supaya
-setiap mesej masuk ditulis pada aras WARNING. Ia idempoten dan UNDUR sendiri
-jika patch menghasilkan sintaks rosak — bot tidak pernah dibiarkan rosak.
+PUNCA PATCH SEBELUM INI GAGAL (dibuktikan 7 Nov 2026)
+=====================================================
+Versi lama hanya menampal SATU fail:
+    <HERMES_HOME>/hermes-agent/plugins/platforms/telegram/adapter.py
+Tetapi Hermes menyalin (bukan symlink) pokok plugin ke
+    <HERMES_HOME>/installs/<id>/environments/<env>/workspace/plugins
+dan gateway mengimport dari SALINAN itu - nama modul dibina daripada
+manifest_key: "plugins/platforms/telegram" menjadi "plugins__platforms__telegram"
+(bukti gw_trace.log run 42396007028: hermes_plugins.platforms__telegram.adapter).
 
-Guna:
-    HERMES_SRC=<dir hermes-agent> python scripts/jejak_bot.py
+Bukti saiz berbeza pada laptop:
+    hermes-agent/plugins/platforms/telegram/adapter.py            441,748 bait
+    installs/.../workspace/plugins/platforms/telegram/adapter.py  442,334 bait
+
+Versi ini menampal SETIAP salinan yang dijumpai. Idempoten; undur sendiri jika
+patch menghasilkan sintaks rosak - bot tidak pernah dibiarkan rosak.
 """
 from __future__ import annotations
 
 import os
 import re
-import sys
 from pathlib import Path
 
 PENANDA = "# JEJAK-BOT-BOZ v1"
 
-# Handler yang kita tampal -> nama jenis mesej.
 HANDLER = {
     "_handle_text_message": "TEKS",
     "_handle_command": "PERINTAH",
     "_handle_media_message": "MEDIA",
 }
 
-SNIP_TEMPLATE = '''{ind}# JEJAK-BOT-BOZ v1: catat mesej masuk pada aras WARNING supaya
+SNIP_TEMPLATE = """{ind}# JEJAK-BOT-BOZ v1: catat mesej masuk pada aras WARNING supaya
 {ind}# ia kelihatan dalam gw.log (bukti bot MEMPROSES, bukan hanya sambung).
 {ind}try:
 {ind}    _jb_m = self._effective_update_message(update)
@@ -44,27 +48,11 @@ SNIP_TEMPLATE = '''{ind}# JEJAK-BOT-BOZ v1: catat mesej masuk pada aras WARNING 
 {ind}                   str(_jb_teks)[:200])
 {ind}except Exception:
 {ind}    pass
-'''
+"""
 
 
-def cari_adapter(akar: Path) -> Path | None:
-    """Cari adapter.py Telegram dalam pepohon akar."""
-    try:
-        for p in akar.rglob("plugins/platforms/telegram/adapter.py"):
-            return p
-    except OSError:
-        return None
-    return None
-
-
-def tampal_handler(teks: str, nama: str, jenis: str) -> tuple[str, bool]:
-    """Tampal jejak selepas definisi + docstring handler `nama`.
-
-    PENTING: indent untuk sisipan ialah indent BADAN handler (8 ruang), bukan
-    indent `def` (4). Menggunakan indent `def` menyebabkan jejak ditulis di aras
-    fungsi (bukan dalamnya) -> SyntaxError 'await outside function'. Kes ini
-    disahkan pada ujian 2026-11-06; skrip undur dengan selamat.
-    """
+def tampal_handler(teks: str, nama: str, jenis: str):
+    """Tampal jejak selepas definisi + docstring handler."""
     corak = re.compile(
         rf"(?P<def>\n(?P<ind>[ \t]+)async def {re.escape(nama)}\([^)]*\)[^:]*:\n)"
         r"(?P<doc>(?P<dind>[ \t]*)\"\"\".*?\"\"\"\n)?",
@@ -73,7 +61,6 @@ def tampal_handler(teks: str, nama: str, jenis: str) -> tuple[str, bool]:
     m = corak.search(teks)
     if not m:
         return teks, False
-    # Indent badan = indent def + 4; kalau ada docstring, guna indent docstring.
     ind = (m.group("dind") if m.group("dind") else m.group("ind") + "    ")
     if not ind.strip():
         ind = m.group("ind") + "    "
@@ -82,51 +69,72 @@ def tampal_handler(teks: str, nama: str, jenis: str) -> tuple[str, bool]:
     return teks[:titik] + sisip + teks[titik:], True
 
 
-def main() -> int:
-    src = os.environ.get("HERMES_SRC", "")
-    calon: list[Path] = []
-    if src:
-        calon.append(Path(src))
-    calon += [Path.cwd(), Path.home() / ".local/share/hermes",
-              Path("/home/runner/work"), Path.home()]
-    adapter: Path | None = None
-    for c in calon:
-        if c and c.exists():
-            adapter = cari_adapter(c)
-            if adapter:
-                break
-    if not adapter:
-        print("JEJAK: adapter.py tidak dijumpai — langkau (bukan ralat maut)")
-        return 0
-    print(f"JEJAK: adapter -> {adapter}")
-    teks = adapter.read_text(encoding="utf-8", errors="replace")
-    if PENANDA in teks:
-        print("JEJAK: sudah ditampal (idempoten) — tiada perubahan")
-        return 0
+def cari_semua_adapter(akar: Path):
+    """Cari SETIAP adapter.py Telegram di bawah akar, termasuk salinan di dalam
+    installs/*/environments/*/workspace (yang sebenarnya dimuat oleh gateway)."""
+    jumpa = []
+    try:
+        for p in akar.rglob("plugins/platforms/telegram/adapter.py"):
+            jumpa.append(p)
+    except OSError:
+        pass
+    return jumpa
 
+
+def tampal_satu(adapter: Path) -> str:
+    try:
+        teks = adapter.read_text(encoding="utf-8", errors="replace")
+    except OSError as e:
+        return "BACA GAGAL: " + str(e)
+    if PENANDA in teks:
+        return "sudah ditampal (idempoten)"
     asal = teks
-    ditampal: list[str] = []
+    ditampal = []
     for nama, jenis in HANDLER.items():
         teks, ok = tampal_handler(teks, nama, jenis)
         if ok:
             ditampal.append(nama)
     if not ditampal:
-        print("JEJAK: tiada handler sepadan — bot tidak diubah (tetap berfungsi)")
-        return 0
-
-    # Sahkan boleh dikompil; undur jika rosak.
+        return "tiada handler sepadan"
     try:
         compile(teks, str(adapter), "exec")
     except SyntaxError as e:
-        print(f"JEJAK: sintaks rosak ({e}) — DIUNDUR, bot tidak diubah")
-        return 0
-
+        return "sintaks rosak (" + str(e) + ") - DIUNDUR"
     simpan = adapter.with_suffix(".py.jejak_asli")
     if not simpan.exists():
-        simpan.write_text(asal, encoding="utf-8")
-    adapter.write_text(teks, encoding="utf-8")
-    print(f"JEJAK: patch BERJAYA pada {len(ditampal)} handler: {', '.join(ditampal)}")
-    print("JEJAK: sintaks sah — setiap mesej masuk akan dicatat [JEJAK] dalam gw.log")
+        try:
+            simpan.write_text(asal, encoding="utf-8")
+        except OSError:
+            pass
+    try:
+        adapter.write_text(teks, encoding="utf-8")
+    except OSError as e:
+        return "TULIS GAGAL: " + str(e)
+    return "PATCH OK (" + str(len(ditampal)) + "): " + ", ".join(ditampal)
+
+
+def main() -> int:
+    akar = Path(os.environ.get("HERMES_HOME") or os.path.expanduser("~/hermes"))
+    kalau = [akar, Path.cwd(), Path.home() / ".local/share/hermes"]
+    semua = []
+    for a in kalau:
+        if a and a.exists():
+            semua += cari_semua_adapter(a)
+    unik = []
+    for p in semua:
+        if p not in unik:
+            unik.append(p)
+    if not unik:
+        print("JEJAK: adapter.py tidak dijumpai - langkau (bukan ralat maut)")
+        return 0
+    print("JEJAK: " + str(len(unik)) + " salinan adapter.py dijumpai")
+    ok = 0
+    for i, p in enumerate(unik, 1):
+        hasil = tampal_satu(p)
+        print("  [" + str(i) + "] " + hasil + " -> " + str(p))
+        if hasil.startswith("PATCH OK") or hasil.startswith("sudah"):
+            ok += 1
+    print("JEJAK: " + str(ok) + "/" + str(len(unik)) + " salinan sedia untuk dimuat gateway")
     return 0
 
 
