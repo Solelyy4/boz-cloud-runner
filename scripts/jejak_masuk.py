@@ -1,27 +1,28 @@
 #!/usr/bin/env python3
-"""jejak_masuk.py - tampal Application.process_update supaya setiap update yang
-sampai ke python-telegram-bot dicetak.
+"""jejak_masuk.py - tampal Application.process_update untuk jejak update.
 
-PENDEKATAN TEPAT (tidak boleh tersasar)
-=======================================
-Versi sebelum ini meneka laluan PTB melalui glob venv/lib/python*/site-packages
-dan GAGAL (0 dijumpai) walaupun venv betul. Bukti gw_trace 42419122082:
-    python=.../installs/.../venv/bin/python
-    JEJAK-MASUK: 0 _application.py dijumpai
+VERSI 5 - TANPA REGEX
+=====================
+Versi 4 gagal dengan:
+    re.PatternError: missing ), unterminated subpattern at position 77 (line 3, column 2)
+Regex kompleks yang dibina melalui gabungan rentetan (chr(92)+"t" untuk TAB, kurungan
+bersarang untuk docstring opsional) terlalu rapuh. Carian teks lurus lebih selamat dan
+cukup untuk kes ini.
 
-Versi ini IMPORT python-telegram-bot dan bertanya kepadanya DI MANA ia tinggal:
-    import telegram
-    telegram.__file__  ->  .../site-packages/telegram/__init__.py
-Laluan itu kita pakai untuk mencari ext/_application.py. Mustahil tersasar kerana
-kita guna laluan yang Python sendiri laporkan.
+LALUAN PTB
+==========
+Versi 3 gagal dengan ModuleNotFoundError kerana ia dijalankan SEBELUM PTB dipasang.
+Kini blok ini berada SELEPAS `pip install python-telegram-bot`. Versi ini juga tidak
+meneka laluan: ia `import telegram` dan guna `telegram.__file__`.
 
-Nota: skrip ini mesti dijalankan dengan python venv gateway ($GWPY), yang memang
-mempunyai PTB (gw.log: "telegram OK 22.8").
+Bukti (gw_trace.log run 42423444372):
+    JEJAK-MASUK: telegram 22.8 -> .../venv/lib/python3.14/site-packages/telegram/__init__.py
+    JEJAK-MASUK: 2/2 fail PTB dijumpai
+    re.PatternError: missing ), unterminated subpattern at position 77
 """
 from __future__ import annotations
 
 import os
-import re
 import sys
 from pathlib import Path
 
@@ -32,29 +33,58 @@ Q3 = chr(34) * 3
 BS = chr(92)
 TAB = BS + "t"
 
-CORAK_APP = "".join([
-    "(?P<def>", NL,
-    "(?P<ind>[ ", TAB, "]+)",
-    "async def process_update", BS, "(", "self, update",
-    "[^)]*", BS, ")", "[^:]*:", NL,
-    ")",
-    "(?P<doc>(?P<dind>[ ", TAB, "]*", Q3, ".*?", Q3, NL, ")?",
-])
+# Header lurus - tiada regex
+HEADER = "async def process_update(self, update: Update, context: CallbackContext"
 
-SNIP_APP = "".join([
-    "{ind}# JEJAK-MASUK-BOZ v1: cetak setiap update yang sampai ke Application.",
-    NL,
-    "{ind}try:", NL,
-    "{ind}    print(",
-    chr(34),
-    "[JEJAK-MASUK] process_update id=%s update_id=%s modul=%s",
-    chr(34),
-    " % (id(self), getattr(update, ", chr(34), "update_id", chr(34),
-    ", ", chr(34), "?", chr(34), "), __file__), flush=True)", NL,
-    "{ind}except Exception as _e:", NL,
-    "{ind}    print(", chr(34), "[JEJAK-MASUK] RALAT: %r", chr(34),
-    " % (_e,), flush=True)", NL,
-])
+SNIP = (
+    "{ind}# JEJAK-MASUK-BOZ v1: cetak setiap update yang sampai ke Application."
+    + NL
+    + "{ind}try:"
+    + NL
+    + "{ind}    print("
+    + chr(34)
+    + "[JEJAK-MASUK] process_update id=%s update_id=%s"
+    + chr(34)
+    + " % (id(self), getattr(update, "
+    + chr(34) + "update_id" + chr(34) + ", " + chr(34) + "?" + chr(34) + ")), flush=True)"
+    + NL
+    + "{ind}except Exception as _e:"
+    + NL
+    + "{ind}    print(" + chr(34) + "[JEJAK-MASUK] RALAT: %r" + chr(34) + " % (_e,), flush=True)"
+    + NL
+)
+
+
+def garis_indent(teks: str, pos: int) -> str:
+    """Indentasi baris yang mengandungi pos."""
+    mula = teks.rfind(NL, 0, pos) + 1
+    ind = ""
+    for c in teks[mula:]:
+        if c in (" ", TAB):
+            ind += c
+        else:
+            break
+    return ind or "        "
+
+
+def titik_sisip(teks: str, kepala: int) -> int:
+    """Hujung baris 'def' (selepas ':'), melepasi docstring kalau ada."""
+    nl = teks.find(NL, kepala)
+    if nl < 0:
+        return -1
+    titik = nl + 1
+    # lompat docstring penutup kalau ada
+    sisa = teks[titik:titik + 600]
+    strip = sisa.lstrip(" " + TAB)
+    if strip.startswith(Q3):
+        ofs = len(sisa) - len(strip)
+        j = titik + ofs + 3
+        j2 = teks.find(Q3, j)
+        if j2 > 0:
+            nl2 = teks.find(NL, j2)
+            if nl2 > 0:
+                titik = nl2 + 1
+    return titik
 
 
 def tampal(fail: Path) -> str:
@@ -64,15 +94,14 @@ def tampal(fail: Path) -> str:
         return "BACA GAGAL: " + str(e)
     if PENANDA in teks:
         return "sudah"
-    m = re.search(CORAK_APP, teks, re.DOTALL)
-    if not m:
+    kepala = teks.find(HEADER)
+    if kepala < 0:
         return "corak TIDAK padan"
-    gd = m.groupdict()
-    ind = gd.get("dind") if gd.get("dind") else (m.group("ind") + "    ")
-    if not ind.strip():
-        ind = m.group("ind") + "    "
-    titik = m.end("doc") if gd.get("doc") else m.end("def")
-    baru = teks[:titik] + SNIP_APP.format(ind=ind) + teks[titik:]
+    titik = titik_sisip(teks, kepala)
+    if titik < 0:
+        return "corak TIDAK padan (tiada baris)"
+    ind = garis_indent(teks, kepala) + "    "
+    baru = teks[:titik] + SNIP.format(ind=ind) + teks[titik:]
     try:
         compile(baru, str(fail), "exec")
     except SyntaxError as e:
@@ -107,17 +136,14 @@ def main() -> int:
     print("JEJAK-MASUK: telegram " + getattr(telegram, "__version__", "?") +
           " -> " + str(telegram.__file__))
     pakej = Path(telegram.__file__).parent
-    calon = [pakej / "ext" / "_application.py", pakej / "_update.py"]
-    ada = [p for p in calon if p.is_file()]
-    print("JEJAK-MASUK: " + str(len(ada)) + "/" + str(len(calon)) + " fail PTB dijumpai")
-    if not ada:
+    calon = [pakej / "ext" / "_application.py"]
+    if not calon[0].is_file():
         try:
-            isi = sorted(x.name for x in (pakej / "ext").iterdir())[:14]
+            calon = sorted((pakej / "ext").glob("_*.py"))
         except OSError:
-            isi = []
-        print("JEJAK-MASUK: " + str(pakej / "ext") + " -> " + repr(isi))
-        return 0
-    for p in ada:
+            calon = []
+    print("JEJAK-MASUK: " + str(len(calon)) + " fail PTB dijumpai")
+    for p in calon:
         print("  " + tampal(p) + " -> " + str(p))
     return 0
 
