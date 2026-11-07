@@ -1,0 +1,54 @@
+name: Diagnostik rc=127 v2
+
+# Ujian terpencil v2: reproduksi TEPAT keadaan gateway. Matlamat: buktikan sama ada
+# "python -c" dengan kod hermes_cli memberi rc=127 (bukan rc=1) pada runner ini.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Uji python -c dengan kod gateway sebenar
+        run: |
+          echo "=== A: python3 -c kod ringkas ==="
+          python3 -c "print('halo')"; echo "A rc=$?"
+          echo
+
+          echo "=== B: python3 -c IMPORT YANG GAGAL (harus rc=1) ==="
+          python3 -c "from hermes_cli.main import main"; echo "B rc=$?"
+          echo
+
+          echo "=== C: python3 -X faulthandler -c (macam gateway) ==="
+          python3 -X faulthandler -c "import sys; sys.exit(0)"; echo "C rc=$?"
+          echo
+
+          echo "=== D: python3 dengan import tiada + faulthandler ==="
+          python3 -X faulthandler -c "from hermes_cli.main import main; sys.argv=['hermes','gateway','run']; main()"; echo "D rc=$?"
+          echo
+
+          echo "=== E: env var kosong -> rc? ==="
+          GWPY=""
+          "$GWPY" -c "print(1)" 2>/dev/null; echo "E rc=$?"
+          echo
+
+          echo "=== F: variabel tak wujud -> rc? ==="
+          "$TIADA_VAR_INI" -c "print(1)" 2>/dev/null; echo "F rc=$?"
+          echo
+
+          echo "=== G: python yg TIDAK WUJUD (laluan salah) -> rc? ==="
+          /home/runner/tiada/python -c "print(1)" 2>/dev/null; echo "G rc=$?"
+          echo
+
+          echo "=== H: uji bash -c 'set -uo pipefail' + subshell ==="
+          bash -c 'set -uo pipefail; X=""; $X -c "print(1)" 2>/dev/null; echo "H rc=$?"'
+          echo
+
+          echo "=== SELESAI ==="
