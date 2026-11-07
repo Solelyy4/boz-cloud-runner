@@ -1,20 +1,20 @@
-=== 2026-11-06T22:38:37Z ===
-python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bc221ad4328243bd9468811bcbe0d95a/venv/bin/python
+=== 2026-11-07T04:38:51Z ===
+python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/29056a53af934dc3ada257f71e44a37f/venv/bin/python
 --- 0. pasang pakej ddgs ke python ini ---
-/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bc221ad4328243bd9468811bcbe0d95a/venv/bin/python: No module named pip
-Looking in links: /tmp/tmpuc7nrq6j
-Processing /tmp/tmpuc7nrq6j/pip-26.2.2-py3-none-any.whl
+/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/29056a53af934dc3ada257f71e44a37f/venv/bin/python: No module named pip
+Looking in links: /tmp/tmpzk1ff33y
+Processing /tmp/tmpzk1ff33y/pip-26.2.2-py3-none-any.whl
 Installing collected packages: pip
 Successfully installed pip-26.2.2
 
 [notice] A new release of pip is available: 26.2.2 -> 26.3
-[notice] To update, run: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bc221ad4328243bd9468811bcbe0d95a/venv/bin/python -m pip install --upgrade pip
+[notice] To update, run: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/29056a53af934dc3ada257f71e44a37f/venv/bin/python -m pip install --upgrade pip
 ddgs ADA versi 9.16.1
 --- 1. GATE: check_web_api_key() + registry ---
 check_web_api_key(): True
 _configured_backend(): ddgs
 _get_search_backend(): ddgs
-_keyless_backend(): firecrawl
+_keyless_backend(): exa
 semak registry GAGAL: ModuleNotFoundError No module named 'agent.tool_registry'
 web_search_tool OK, hasil: 0
 --- 1b. dalaman web_search_tool ---
@@ -24,16 +24,11 @@ supports_search: True
 active provider: DDGSWebSearchProvider | name: ddgs
 _memoized_search hasil: 3 | success: True | error: None
 --- 2. plugin ddgs terus ---
-DDGS search error: DDGSException: No results found.
 ddgs OK, hasil: 2
 --- 3. curl keluar ---
 example.com HTTP 200
 duckduckgo HTTP 202
 --- 4. kadar kejayaan ddgs (5 cubaan) ---
-DDGS search error: DDGSException: No results found.
-web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
-DDGS search error: DDGSException: No results found.
-web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
 DDGS search error: DDGSException: No results found.
 web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
 DDGS search error: DDGSException: No results found.
