@@ -489,24 +489,9 @@ jobs:
           gh run list --repo "$GITHUB_REPOSITORY" --workflow telegram-hermes \
             --status queued -L 20 --json databaseId,createdAt \
             --jq '.[]|"\(.databaseId) \(.createdAt)"' 2>/dev/null || true
-          gh run list --repo "$GITHUB_REPOSITORY" --workflow telegram-hermes \
-            --status queued -L 20 --json databaseId,createdAt 2>/dev/null | \
-          "$([ -n "${PY:-}" ] && echo "$PY" || echo python3)" -c "
-import json,sys,subprocess,os,datetime
-try: runs=json.load(sys.stdin)
-except Exception: sys.exit(0)
-now=datetime.datetime.now(datetime.timezone.utc)
-me=int(os.environ.get('GITHUB_RUN_ID','0'))
-repo=os.environ['GITHUB_REPOSITORY']
-for r in runs:
-    if r['databaseId']==me: continue
-    try: c=datetime.datetime.fromisoformat(r['createdAt'].replace('Z','+00:00'))
-    except Exception: continue
-    usia=(now-c).total_seconds()/60
-    if usia > 25:
-        print('  sapu run queued', r['databaseId'], f'(usia {usia:.0f} minit)')
-        subprocess.run(['gh','run','cancel',str(r['databaseId']),'--repo',repo])
-" || true
+          # Skrip berasingan: kod python TIDAK boleh ditulis terus dalam blok run: |
+          # kerana baris pada kolum 0 memecahkan parser YAML workflow.
+          python3 scripts/sapu_queued.py
 
       - name: Jalankan gateway (kukuh terhadap 409)
         timeout-minutes: 1450
