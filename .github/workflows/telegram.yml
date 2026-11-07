@@ -554,6 +554,36 @@ jobs:
             sleep 5
           done
 
+      - name: TUNGGU Telegram bebas (elak polling conflict -> bot PARKED)
+        # BUKTI: gw_trace.log run 42390907300 menunjukkan "Telegram polling conflict
+        # (1/5)..(5/5)" diikuti "telegram is PARKED after a non-retryable error".
+        # Setiap restart mencetuskan ini kerana sesi LAMA masih memegang long-poll
+        # selama ~2-4 minit. Tanpa langkah ini, bot baharu masuk, berlanggar 5x
+        # (200s), menyerah, dan KEKAL BISU sehingga restart seterusnya.
+        # Langkah ini menunggu sehingga Telegram benar-benar bebas sebelum mula.
+        timeout-minutes: 12
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          echo "=== MENUNGGU TELEGRAM BEBAS ==="
+          for i in $(seq 1 48); do
+            # getUpdates TANPA offset: kalau 409, masih ada pemegang long-poll lama.
+            RESP=$(curl -4 -s -m 15 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?limit=1&timeout=0" 2>/dev/null)
+            if echo "$RESP" | grep -q '"ok":true'; then
+              echo "  percubaan $i: Telegram BEBAS — teruskan"
+              exit 0
+            fi
+            if echo "$RESP" | grep -q '409'; then
+              # 409 = conflict (pemegang lama). Beri masa, jangan cetuskan kekacauan.
+              echo "  percubaan $i: masih ada pemegang (409) — tunggu 15s"
+            else
+              echo "  percubaan $i: jawapan tidak dijangka: $(echo "$RESP" | head -c 120)"
+            fi
+            sleep 15
+          done
+          echo "AMARAN: Telegram tidak bebas selepas 12 minit — cuba juga (gateway akan retry sendiri)"
+
       - name: Jalankan gateway (kukuh terhadap 409)
         timeout-minutes: 1450
         continue-on-error: true
