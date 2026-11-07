@@ -211,6 +211,16 @@ done
 HERMES_HOME="$HERMES_HOME" "$GWPY" scripts/jejak_bot.py 2>&1 | grep -E '^JEJAK|^  \[' | \
   tee -a gw.log || true
 echo "jejak: salinan workspace ada=($ADA_WS)" | tee -a gw.log
+# BUKTI SAH: kira penanda dalam SETIAP salinan + saiz, SEBELUM gateway mula.
+# Bukti sebelum ini menunjukkan "PATCH OK" tetapi tiada [JEJAK] dalam log, jadi
+# kita perlu bukti BAIT, bukan laporan skrip.
+for d in "$HERMES_HOME"/hermes-agent/plugins/platforms/telegram/adapter.py \
+         "$HERMES_HOME"/installs/*/environments/*/workspace/plugins/platforms/telegram/adapter.py; do
+  [ -f "$d" ] || continue
+  N=$(grep -c 'JEJAK-BOT-BOZ' "$d" 2>/dev/null || echo 0)
+  S=$(wc -c < "$d" 2>/dev/null || echo 0)
+  echo "  SAH: penanda=$N saiz=$S $d" | tee -a gw.log
+done
 (
   # Pemanjat: 40 x 15s = 10 minit, cukup untuk Hermes boot + salin pokok plugin.
   for t in $(seq 1 40); do
