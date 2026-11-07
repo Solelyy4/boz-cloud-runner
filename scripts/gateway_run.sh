@@ -189,6 +189,16 @@ else
   fi
 fi
 
+# ==== JEJAK TITIK MASUK UPDATE (Application.process_update) ====
+# Kenapa: jejak handler (adapter.py) sudah terbukti ditampal (penanda=5, saiz
+# 446,201 pada kedua-dua salinan) tetapi TIADA [JEJAK] muncul walaupun kita
+# memegang long-poll (DIAG: getUpdates ok, 0 update, pending=0). Kita perlu tahu
+# sama ada update sampai ke python-telegram-bot Application.process_update.
+# Kalau TIDAK -> masalah sebelum adapter (rangkaian/sesi/handler).
+# Kalau YA tetapi handler senyap -> gate menolak sebelum handler.
+"$GWPY" scripts/jejak_masuk.py 2>&1 | tee -a gw.log || \
+  echo "::warning::jejak_masuk gagal (bukan ralat maut)" | tee -a gw.log
+
 # ==== JEJAK KE SALINAN WORKSPACE (yang gateway SEBENARNYA import) ====
 # BUKTI (gw_trace.log run 42396007028, baris 24-26):
 #   logger guna nama modul `hermes_plugins.platforms__telegram.adapter`.
