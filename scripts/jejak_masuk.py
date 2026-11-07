@@ -1,25 +1,22 @@
 #!/usr/bin/env python3
-"""jejak_masuk.py - tampal Application.process_update (titik masuk update).
+"""jejak_masuk.py - tampal Application.process_update supaya setiap update yang
+sampai ke python-telegram-bot dicetak.
 
-MENGAPA carian venv, bukan HERMES_HOME
-=====================================
-Bukti (gw_trace.log run 42416974187):
+PENDEKATAN TEPAT (tidak boleh tersasar)
+=======================================
+Versi sebelum ini meneka laluan PTB melalui glob venv/lib/python*/site-packages
+dan GAGAL (0 dijumpai) walaupun venv betul. Bukti gw_trace 42419122082:
+    python=.../installs/.../venv/bin/python
     JEJAK-MASUK: 0 _application.py dijumpai
-    JEJAK-MASUK: 2 telegram/__init__.py dijumpai
-      -> home/hermes-agent/plugins/platforms/telegram/__init__.py
-      -> home/installs/.../workspace/plugins/platforms/telegram/__init__.py
-Kedua-duanya plugin Hermes bernama "telegram", BUKAN pakej python-telegram-bot.
-PTB tinggal dalam site-packages venv:
-    <HERMES_HOME>/installs/<id>/environments/<env>/venv/lib/pythonX.Y/site-packages/telegram/
 
-Strategi carian (berlapis):
-  1. sys.path (jika site-packages sudah ada)
-  2. <HERMES_HOME>/installs/*/environments/*/venv/lib/python*/site-packages/telegram
-  3. <HERMES_HOME>/installs/*/environments/*/venv/Lib/site-packages/telegram (Windows)
-  4. rglob generik (sandaran)
+Versi ini IMPORT python-telegram-bot dan bertanya kepadanya DI MANA ia tinggal:
+    import telegram
+    telegram.__file__  ->  .../site-packages/telegram/__init__.py
+Laluan itu kita pakai untuk mencari ext/_application.py. Mustahil tersasar kerana
+kita guna laluan yang Python sendiri laporkan.
 
-Kalau process_update TIDAK pernah cetak -> update tidak sampai ke app.
-Kalau ia cetak tetapi handler senyap -> gate menolak sebelum handler.
+Nota: skrip ini mesti dijalankan dengan python venv gateway ($GWPY), yang memang
+mempunyai PTB (gw.log: "telegram OK 22.8").
 """
 from __future__ import annotations
 
@@ -58,45 +55,6 @@ SNIP_APP = "".join([
     "{ind}    print(", chr(34), "[JEJAK-MASUK] RALAT: %r", chr(34),
     " % (_e,), flush=True)", NL,
 ])
-
-
-def calon_ptb(akar: Path):
-    """Senarai laluan _application.py yang munasabah."""
-    jumpa = []
-
-    # 1. sys.path
-    for base in sys.path:
-        if not base:
-            continue
-        p = Path(base) / "telegram" / "ext" / "_application.py"
-        if p.is_file():
-            jumpa.append(p)
-
-    # 2. venv Linux/Mac + Windows, dari akar
-    for pola in (
-        "installs/*/environments/*/venv/lib/python*/site-packages/telegram/ext/_application.py",
-        "installs/*/environments/*/venv/Lib/site-packages/telegram/ext/_application.py",
-        "*/lib/python*/site-packages/telegram/ext/_application.py",
-    ):
-        try:
-            for p in akar.glob(pola):
-                jumpa.append(p)
-        except OSError:
-            pass
-
-    # 3. sandaran: rglob
-    if not jumpa:
-        try:
-            for p in akar.rglob("site-packages/telegram/ext/_application.py"):
-                jumpa.append(p)
-        except OSError:
-            pass
-
-    unik = []
-    for p in jumpa:
-        if p not in unik:
-            unik.append(p)
-    return unik
 
 
 def tampal(fail: Path) -> str:
@@ -140,28 +98,27 @@ def tampal(fail: Path) -> str:
 
 
 def main() -> int:
-    akar = Path(os.environ.get("HERMES_HOME") or os.path.expanduser("~/hermes"))
     print("JEJAK-MASUK: python=" + sys.executable)
-    unik = calon_ptb(akar)
-    print("JEJAK-MASUK: " + str(len(unik)) + " _application.py dijumpai")
-    if not unik:
-        print("JEJAK-MASUK: sys.path[:14] = " + repr(sys.path[:14]))
-        for pola in ("installs", "."):
-            d = akar / pola
-            if d.is_dir():
-                try:
-                    isi = sorted(x.name for x in d.iterdir())[:10]
-                except OSError:
-                    isi = []
-                print("JEJAK-MASUK: " + str(d) + " -> " + repr(isi))
+    try:
+        import telegram  # noqa: PLC0415
+    except Exception as e:
+        print("JEJAK-MASUK: GAGAL import telegram: %r" % (e,))
         return 0
-    ok = 0
-    for p in unik:
-        hasil = tampal(p)
-        print("  " + hasil + " -> " + str(p))
-        if hasil in ("PATCH OK", "sudah"):
-            ok += 1
-    print("JEJAK-MASUK: " + str(ok) + "/" + str(len(unik)) + " sedia")
+    print("JEJAK-MASUK: telegram " + getattr(telegram, "__version__", "?") +
+          " -> " + str(telegram.__file__))
+    pakej = Path(telegram.__file__).parent
+    calon = [pakej / "ext" / "_application.py", pakej / "_update.py"]
+    ada = [p for p in calon if p.is_file()]
+    print("JEJAK-MASUK: " + str(len(ada)) + "/" + str(len(calon)) + " fail PTB dijumpai")
+    if not ada:
+        try:
+            isi = sorted(x.name for x in (pakej / "ext").iterdir())[:14]
+        except OSError:
+            isi = []
+        print("JEJAK-MASUK: " + str(pakej / "ext") + " -> " + repr(isi))
+        return 0
+    for p in ada:
+        print("  " + tampal(p) + " -> " + str(p))
     return 0
 
 
