@@ -340,6 +340,56 @@ while true; do
   done
   tail -20 gw.log
   lapor "mula-cubaan-$cubaan selepas-${TUNGGU}s"
+
+  # ==== UJIAN PASCA-SAMBUNG (bukti bot benar-benar MEMBALAS) ====
+  # BUKTI KEPERLUAN (gw_trace.log run 42398381595):
+  #   Langkah AUDIT dalam workflow berjalan SEBELUM gateway mula:
+  #     18:08:32-18:09:29 hantar 6 mesej  <- bot BELUM hidup
+  #     18:09:46          gateway mula
+  #     18:09:58          Connected
+  #   Akibatnya [JEJAK] KOSONG — ujian menguji bot mati, dan "bot_ambil: true"
+  #   yang dilaporkan adalah palsu (pending turun kerana sebab lain).
+  # Ujian sebenar mesti dihantar SEMASA bot hidup. Kita tunggu sambungan,
+  # kemudian hantar 6 mesej dan tangkap [JEJAK] yang sebenar.
+  if [ ! -f .uji_pasca_dijalankan ]; then
+    (
+      # Tunggu Connected (maks 4 minit) — TUNGGU=15s biasanya sudah cukup.
+      for w in $(seq 1 24); do
+        sleep 10
+        tail -n +$((MARK+1)) gw.log | grep -q "Connected to Telegram" && break
+      done
+      sleep 20   # beri adapter masa memasang handler
+      echo "=== ujian-pasca: bot hidup, hantar 6 mesej $(date -u +%FT%TZ) ===" >> gw.log
+      PY2="$(command -v python3 || echo python3)"
+      timeout 400 "$PY2" scripts/interaksi.py --siri --tunggu 45 >> gw.log 2>&1 || \
+        echo "uji pasca gagal dilancarkan" >> gw.log
+      sleep 25   # beri bot masa menjawab
+      {
+        echo "=== UJIAN PASCA-SAMBUNG $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
+        echo "--- mesej diambil bot ---"
+        cat /tmp/interaksi.json 2>/dev/null | head -60 || echo "tiada transkrip"
+        echo
+        echo "--- [JEJAK] mesej masuk ke adapter (BUKTI BOT MEMPROSES) ---"
+        grep -n "\[JEJAK\]" gw.log 2>/dev/null | head -40 || echo "tiada JEJAK"
+        echo
+        echo "--- bukti balasan dihantar oleh bot ---"
+        grep -inE "Sent message|sendMessage|response sent|Balasan" gw.log 2>/dev/null | head -20 || echo "tiada"
+        echo
+        echo "--- ralat semasa menjawab ---"
+        grep -inE "HTTP [45][0-9][0-9]|Traceback|rate_limited" gw.log 2>/dev/null | tail -15 || echo "tiada"
+      } > ujian-pasca.log
+      touch .uji_pasca_dijalankan
+      for p in 1 2 3; do
+        git fetch origin master -q >/dev/null 2>&1 || true
+        git checkout -q -B upasca-tmp origin/master 2>/dev/null || true
+        git add -f ujian-pasca.log >/dev/null 2>&1
+        git -c user.email=bot@local -c user.name=bot commit -qm "bukti ujian pasca $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+        git push origin HEAD:master >/dev/null 2>&1 && break
+        sleep 5
+      done
+    ) &
+    echo "uji pasca: pemanjat dipasang (hantar selepas Connected)" >> gw.log
+  fi
   if ! sehat; then
     echo "AMARAN: getMe bukan 200 pada cubaan $cubaan"
   fi
