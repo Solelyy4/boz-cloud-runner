@@ -1,4 +1,4 @@
-=== TRACE 2026-11-07T12:07:06Z run 42349653868 ===
+=== TRACE 2026-11-07T12:08:07Z run 42349653868 ===
 gw.log dimulakan bersih 2026-11-07T10:41:12Z run 42349653868
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7f7b2e12ea9745aab39fa4f4a6ea0740/venv/bin/python
 HERMES_SRC=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home
@@ -26,3 +26,5 @@ DNS core.telegram.org -> 149.154.167.99
 2026-11-07 10:41:36,362 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-07 11:25:09,914 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-11-07 11:25:09,915 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-11-07 12:07:33,583 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-07 12:07:33,583 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
