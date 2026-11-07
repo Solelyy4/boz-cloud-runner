@@ -1,4 +1,5 @@
-=== run 42419122082 tick 2026-11-07T22:25:39Z ===
+=== run 42419122082 AKHIR 2026-11-07T22:30:02Z ===
+=== gw.log (300 baris terakhir) ===
 gw.log dimulakan bersih 2026-11-07T22:25:06Z run 42419122082
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/86ed57ca81e746249371ffb99b479fe0/venv/bin/python
 HERMES_SRC=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home
@@ -40,4 +41,112 @@ jejak-pemanjat t=1: JEJAK: 2/2 salinan sedia untuk dimuat gateway
 2026-11-07 22:25:23,238 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-07 22:25:23,446 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-07 22:25:34,579 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-mula-cubaan-1 selepas-20s 2026-11-07T22:25:39Z
+uji pasca: pemanjat dipasang (hantar selepas Connected)
+=== ujian-pasca: bot hidup, hantar 6 mesej 2026-11-07T22:26:10Z ===
+token ujian dihantar: UJI17940903705890
+getMe: ok=True bot=hermes_personal_sole_bot
+
+--- hantar: Hello ---
+  message_id=652 bot_ambil=True saat=5
+
+--- hantar: apa itu API? jelaskan ringkas ---
+  message_id=653 bot_ambil=True saat=5
+
+--- hantar: cari di google: telegram bot tanpa VPS 2026 ---
+  message_id=654 bot_ambil=True saat=5
+
+--- hantar: tulis fail /tmp/uji-boz.txt dengan kandungan 'HALO BOZ' dan  ---
+  message_id=655 bot_ambil=True saat=5
+
+--- hantar: jam berapa sekarang di Malaysia? ---
+  message_id=656 bot_ambil=True saat=5
+
+--- hantar: siapa kau? ---
+  message_id=657 bot_ambil=True saat=5
+
+RINGKASAN: 6/6 mesej diambil bot -> /tmp/interaksi.json
+AMARAN: TIADA [JEJAK] MESEJ daripada adapter — mesej tidak sampai ke handler
+DIAG: getUpdates -> ok, 0 update boleh dibaca (KITA pemegang!)
+DIAG: pending_update_count=0
+
+=== uji-bot.log (jika ada) ===
+tiada
+
+=== diagnosa_bot.json (jika ada) ===
+[
+ {
+  "uji": "DNS api.telegram.org",
+  "ok": true,
+  "bukti": "['149.154.166.110'] dalam 0.00s"
+ },
+ {
+  "uji": "DNS api.mistral.ai",
+  "ok": true,
+  "bukti": "['162.159.142.207', '172.66.2.203'] dalam 0.00s"
+ },
+ {
+  "uji": "DNS api.groq.com",
+  "ok": true,
+  "bukti": "['104.18.38.236', '172.64.149.20'] dalam 0.04s"
+ },
+ {
+  "uji": "TCP api.telegram.org:443",
+  "ok": true,
+  "bukti": "sambung dalam 0.13s"
+ },
+ {
+  "uji": "TCP api.mistral.ai:443",
+  "ok": true,
+  "bukti": "sambung dalam 0.01s"
+ },
+ {
+  "uji": "HTTPS api.telegram.org",
+  "ok": true,
+  "bukti": "HTTP 200 dalam 0.93s (25026 aksara)"
+ },
+ {
+  "uji": "HTTPS api.mistral.ai",
+  "ok": false,
+  "bukti": "HTTP 401 dalam 0.21s (29 aksara)"
+ },
+ {
+  "uji": "Telegram getMe",
+  "ok": true,
+  "bukti": "bot=hermes_personal_sole_bot HTTP 200"
+ },
+ {
+  "uji": "config.yaml",
+  "ok": true,
+  "bukti": "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/config.yaml"
+ },
+ {
+  "uji": "model mistral/mistral-large-4 (utama)",
+  "ok": true,
+  "bukti": "HTTP 200 -> [{'type': 'thinking', 'thinking': [{'type': 'text', 'text': 'The user wrote \"balas: OK\"'}], 'closed': True}]"
+ },
+ {
+  "uji": "model mistral/mistral-medium-latest (fallback)",
+  "ok": false,
+  "bukti": "HTTP 429: {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code"
+ },
+ {
+  "uji": "model mistral/ministral-14b-latest (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> '**Balas:** 😊\\n\\n*Ap'"
+ },
+ {
+  "uji": "model mistral/ministral-8b-latest (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> \"It looks like you're starting \""
+ },
+ {
+  "uji": "model groq/openai/gpt-oss-120b (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> ''"
+ },
+ {
+  "uji": "model groq/qwen/qwen3.8-27b (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> 'OK! Ada yang bisa saya bantu h'"
+ }
+]
