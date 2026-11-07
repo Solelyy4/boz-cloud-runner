@@ -1,0 +1,69 @@
+=== UJIAN PASCA-SAMBUNG 2026-11-07T18:59:21Z run 42402364333 ===
+--- mesej diambil bot ---
+{
+ "ts": "2026-11-07T18:58:56+00:00",
+ "rekod": [
+  {
+   "ts": "2026-11-07T18:58:01+00:00",
+   "mesej": "Hello",
+   "pending_sebelum": 0,
+   "ok_hantar": true,
+   "message_id": 561,
+   "bot_ambil": true,
+   "saat_ambil": 5
+  },
+  {
+   "ts": "2026-11-07T18:58:10+00:00",
+   "mesej": "apa itu API? jelaskan ringkas",
+   "pending_sebelum": 0,
+   "ok_hantar": true,
+   "message_id": 562,
+   "bot_ambil": true,
+   "saat_ambil": 5
+  },
+  {
+   "ts": "2026-11-07T18:58:19+00:00",
+   "mesej": "cari di google: telegram bot tanpa VPS 2026",
+   "pending_sebelum": 0,
+   "ok_hantar": true,
+   "message_id": 563,
+   "bot_ambil": true,
+   "saat_ambil": 5
+  },
+  {
+   "ts": "2026-11-07T18:58:28+00:00",
+   "mesej": "tulis fail /tmp/uji-boz.txt dengan kandungan 'HALO BOZ' dan hantar kepada aku",
+   "pending_sebelum": 0,
+   "ok_hantar": true,
+   "message_id": 564,
+   "bot_ambil": true,
+   "saat_ambil": 5
+  },
+  {
+   "ts": "2026-11-07T18:58:38+00:00",
+   "mesej": "jam berapa sekarang di Malaysia?",
+   "pending_sebelum": 0,
+   "ok_hantar": true,
+   "message_id": 565,
+   "bot_ambil": true,
+   "saat_ambil": 5
+  },
+  {
+   "ts": "2026-11-07T18:58:47+00:00",
+   "mesej": "siapa kau?",
+   "pending_sebelum": 0,
+   "ok_hantar": true,
+   "message_id": 566,
+   "bot_ambil": true,
+   "saat_ambil": 5
+  }
+ ]
+}
+--- [JEJAK] mesej masuk ke adapter (BUKTI BOT MEMPROSES) ---
+tiada JEJAK
+
+--- bukti balasan dihantar oleh bot ---
+tiada
+
+--- ralat semasa menjawab ---
+tiada
