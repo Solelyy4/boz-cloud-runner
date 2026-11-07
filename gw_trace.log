@@ -1,4 +1,4 @@
-=== TRACE 2026-11-07T22:53:39Z run 42421264217 ===
+=== TRACE 2026-11-07T22:54:40Z run 42421264217 ===
 gw.log dimulakan bersih 2026-11-07T22:51:37Z run 42421264217
 gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/36e17ca53b6d4e779f0f36e420d70a6b/venv/bin/python
 HERMES_SRC=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home
@@ -61,3 +61,6 @@ getMe: ok=True bot=hermes_personal_sole_bot
   message_id=670 bot_ambil=True saat=5
 
 RINGKASAN: 6/6 mesej diambil bot -> /tmp/interaksi.json
+AMARAN: TIADA [JEJAK] MESEJ daripada adapter — mesej tidak sampai ke handler
+DIAG: getUpdates -> ok, 0 update boleh dibaca (KITA pemegang!)
+DIAG: pending_update_count=0
