@@ -1,0 +1,91 @@
+name: Diagnostik Telegram ConnectError
+
+# Menyiasat: gateway tersambung ke Telegram, kemudian ~2.5 minit kemudian laluan
+# IPv4 "sticky" gagal dengan ConnectError('') dan bot menjadi bisu.
+#
+# Hipotesis yang diuji:
+#  H1: Runner GitHub mempunyai had sambungan serentak keluar (connection cap).
+#  H2: IPv4 yang "lekat" (sticky) itu mati; fallback ke nama host tidak dicuba.
+#  H3: long-poll menyekat soket sehingga kebocoran FD / SNAT habis.
+#  H4: IPv6 dicuba walaupun FORCE_IPV4 (laluan mati) -> timeout 2.5 minit.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Terokai IP Telegram
+        run: |
+          echo "=== DNS ==="
+          getent ahosts api.telegram.org | head -10
+          echo
+          echo "=== IPv4 vs IPv6 ==="
+          dig +short A api.telegram.org 2>/dev/null || nslookup -type=A api.telegram.org
+          dig +short AAAA api.telegram.org 2>/dev/null || echo "(tiada dig)"
+          echo
+          echo "=== TCP ke setiap IP (IPv4) ==="
+          for ip in $(dig +short A api.telegram.org 2>/dev/null || echo "149.154.167.220"); do
+            if timeout 8 bash -c "cat < /dev/null > /dev/tcp/$ip/443" 2>/dev/null; then
+              echo "  OK   $ip:443"
+            else
+              echo "  GAGAL $ip:443"
+            fi
+          done
+          echo
+          echo "=== curl ke setiap IP terus (10 saat) ==="
+          for ip in $(dig +short A api.telegram.org 2>/dev/null); do
+            code=$(curl -4 -s -m 10 -o /dev/null -w "%{http_code} %{time_total}s" \
+                   --resolve api.telegram.org:443:$ip https://api.telegram.org/ 2>&1)
+            echo "  $ip -> $code"
+          done
+
+      - name: Uji kebocoran soket (H3) — 60 sambungan selari
+        run: |
+          echo "=== Had fd ==="
+          ulimit -n
+          echo "=== Sambungan selari ke Telegram (60x) ==="
+          ok=0; gagal=0
+          for i in $(seq 1 60); do
+            ( curl -4 -s -m 15 -o /dev/null https://api.telegram.org/ && echo OK || echo GAGAL ) &
+          done > /tmp/par.txt 2>&1
+          wait
+          ok=$(grep -c "^OK$" /tmp/par.txt || true)
+          gagal=$(grep -c "^GAGAL$" /tmp/par.txt || true)
+          echo "  berjaya=$ok  gagal=$gagal"
+          echo
+          echo "=== Sambungan berulang (ketahui bila mula gagal) ==="
+          for i in $(seq 1 40); do
+            code=$(curl -4 -s -m 8 -o /dev/null -w "%{http_code}" https://api.telegram.org/ 2>/dev/null)
+            echo "  cubaan $i -> $code"
+            sleep 1
+          done
+
+      - name: Simulasi long-poll 3 minit (H3)
+        run: |
+          echo "=== long-poll: tahan sambungan 3 minit, uji setiap 15s ==="
+          # getUpdates dengan timeout=50 = long-poll sebenar Telegram
+          ( curl -4 -s -m 200 "https://api.telegram.org/bot${TOKEN}/getUpdates?timeout=50&limit=1" \
+              -o /tmp/poll1.txt; echo "poll1 selesai rc=$?" ) &
+          POLLPID=$!
+          for i in $(seq 1 12); do
+            sleep 15
+            code=$(curl -4 -s -m 8 -o /dev/null -w "%{http_code}" https://api.telegram.org/ 2>/dev/null)
+            fd=$(ls /proc/$$/fd 2>/dev/null | wc -l)
+            echo "  t=$((i*15))s  curl=$code  fd_shell=$fd"
+          done
+          wait $POLLPID 2>/dev/null || true
+          echo "poll1 tail:"; tail -c 300 /tmp/poll1.txt 2>/dev/null || true
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
+      - name: Ringkasan
+        if: always()
+        run: echo "=== DIAGNOSTIK SELESAI ==="
