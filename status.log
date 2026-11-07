@@ -1,26 +1,55 @@
-=== run 42421264217 tick 2026-11-07T22:52:04Z ===
-gw.log dimulakan bersih 2026-11-07T22:51:37Z run 42421264217
-gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/36e17ca53b6d4e779f0f36e420d70a6b/venv/bin/python
+=== run 42423444372 tick 2026-11-07T23:20:51Z ===
+gw.log dimulakan bersih 2026-11-07T23:20:18Z run 42423444372
+gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/287c00e72ade46b69bad6b9c36f951ba/venv/bin/python
 HERMES_SRC=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home
-adapter dijumpai: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/36e17ca53b6d4e779f0f36e420d70a6b/workspace/plugins/platforms/telegram/adapter.py
+adapter dijumpai: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/287c00e72ade46b69bad6b9c36f951ba/workspace/plugins/platforms/telegram/adapter.py
 JEJAK: 2 salinan adapter.py dijumpai
   [1] PATCH OK (5): _handle_text_message, _handle_command, _handle_media_message, _handle_sticker, _handle_location_message -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
-  [2] PATCH OK (5): _handle_text_message, _handle_command, _handle_media_message, _handle_sticker, _handle_location_message -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/36e17ca53b6d4e779f0f36e420d70a6b/workspace/plugins/platforms/telegram/adapter.py
+  [2] PATCH OK (5): _handle_text_message, _handle_command, _handle_media_message, _handle_sticker, _handle_location_message -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/287c00e72ade46b69bad6b9c36f951ba/workspace/plugins/platforms/telegram/adapter.py
 JEJAK: 2/2 salinan sedia untuk dimuat gateway
 jejak dalam adapter: 5
-JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/36e17ca53b6d4e779f0f36e420d70a6b/venv/bin/python
-JEJAK-MASUK: GAGAL import telegram: ModuleNotFoundError("No module named 'telegram'")
 JEJAK: 2 salinan adapter.py dijumpai
   [1] sudah ditampal (idempoten) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
-  [2] sudah ditampal (idempoten) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/36e17ca53b6d4e779f0f36e420d70a6b/workspace/plugins/platforms/telegram/adapter.py
+  [2] sudah ditampal (idempoten) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/287c00e72ade46b69bad6b9c36f951ba/workspace/plugins/platforms/telegram/adapter.py
 JEJAK: 2/2 salinan sedia untuk dimuat gateway
 jejak: salinan workspace ada=(1)
   SAH: penanda=5 saiz=446201 /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
-  SAH: penanda=5 saiz=446201 /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/36e17ca53b6d4e779f0f36e420d70a6b/workspace/plugins/platforms/telegram/adapter.py
+  SAH: penanda=5 saiz=446201 /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/287c00e72ade46b69bad6b9c36f951ba/workspace/plugins/platforms/telegram/adapter.py
 jejak: pemanjat latar dipasang (10 minit)
 === pasang dependency platform (python-telegram-bot) ===
 telegram OK 22.8
 ddgs OK
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/287c00e72ade46b69bad6b9c36f951ba/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/287c00e72ade46b69bad6b9c36f951ba/venv/lib/python3.14/site-packages/telegram/__init__.py
+JEJAK-MASUK: 2/2 fail PTB dijumpai
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/scripts/jejak_masuk.py", line 126, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/scripts/jejak_masuk.py", line 121, in main
+    print("  " + tampal(p) + " -> " + str(p))
+                 ~~~~~~^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/scripts/jejak_masuk.py", line 67, in tampal
+    m = re.search(CORAK_APP, teks, re.DOTALL)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+20261021-linux-x64/lib/python3.14/re/__init__.py", line 177, in search
+    return _compile(pattern, flags).search(string)
+           ~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+20261021-linux-x64/lib/python3.14/re/__init__.py", line 350, in _compile
+    p = _compiler.compile(pattern, flags)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+20261021-linux-x64/lib/python3.14/re/_compiler.py", line 762, in compile
+    p = _parser.parse(p, flags)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+20261021-linux-x64/lib/python3.14/re/_parser.py", line 973, in parse
+    p = _parse_sub(source, state, flags & SRE_FLAG_VERBOSE, 0)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+20261021-linux-x64/lib/python3.14/re/_parser.py", line 460, in _parse_sub
+    itemsappend(_parse(source, state, verbose, nested + 1,
+                ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                       not nested and not items))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/tools/python-3.14.9+20261021-linux-x64/lib/python3.14/re/_parser.py", line 858, in _parse
+    raise source.error("missing ), unterminated subpattern",
+                       source.tell() - start)
+re.PatternError: missing ), unterminated subpattern at position 77 (line 3, column 2)
+::warning::jejak_masuk gagal (bukan ralat maut)
 DNS api.telegram.org -> 149.154.166.110
 DNS core.telegram.org -> 149.154.167.99
 ulimit -n = 65536
@@ -31,18 +60,28 @@ ulimit -n = 65536
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-07 22:51:52,021 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=4419, started_at=2026-11-07T22:25:22.954749+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-07T22:29:34.882900+00:00 last_mem={'rss_kib': 256676, 'mem_total_kib': 16365628, 'mem_available_kib': 15115768, 'swap_used_kib': 0} suspected_oom=False
-2026-11-07 22:51:52,208 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-07 22:51:52,252 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-07 22:51:52,404 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 jejak-pemanjat t=1: JEJAK: 2/2 salinan sedia untuk dimuat gateway
-2026-11-07 22:52:03,565 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-07 23:20:35,252 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=4184, started_at=2026-11-07T22:51:52.021279+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-07T22:58:33.786722+00:00 last_mem={'rss_kib': 258892, 'mem_total_kib': 16366636, 'mem_available_kib': 15104164, 'swap_used_kib': 0} suspected_oom=False
+2026-11-07 23:20:35,492 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-07 23:20:35,545 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-07 23:20:35,757 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-07 23:20:46,597 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 --- ERROR LINES ---
-JEJAK-MASUK: GAGAL import telegram: ModuleNotFoundError("No module named 'telegram'")
-JEJAK: 2 salinan adapter.py dijumpai
-  [1] sudah ditampal (idempoten) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
-  [2] sudah ditampal (idempoten) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/36e17ca53b6d4e779f0f36e420d70a6b/workspace/plugins/platforms/telegram/adapter.py
-JEJAK: 2/2 salinan sedia untuk dimuat gateway
-jejak: salinan workspace ada=(1)
-  SAH: penanda=5 saiz=446201 /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
-mula-cubaan-1 selepas-15s 2026-11-07T22:52:04Z
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/scripts/jejak_masuk.py", line 126, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/scripts/jejak_masuk.py", line 121, in main
+    print("  " + tampal(p) + " -> " + str(p))
+                 ~~~~~~^^^
+--
+    raise source.error("missing ), unterminated subpattern",
+                       source.tell() - start)
+re.PatternError: missing ), unterminated subpattern at position 77 (line 3, column 2)
+::warning::jejak_masuk gagal (bukan ralat maut)
+DNS api.telegram.org -> 149.154.166.110
+DNS core.telegram.org -> 149.154.167.99
+ulimit -n = 65536
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+mula-cubaan-1 selepas-20s 2026-11-07T23:20:51Z
