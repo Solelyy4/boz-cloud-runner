@@ -49,8 +49,44 @@ MODEL_DILARANG = {
 KUNCI_WAJIB = ("model", "providers", "platforms", "skills")
 
 
+def _yaml():
+    """Pulang modul yaml, memasangnya jika perlu.
+
+    SEBAB: runner GitHub memakai venv Hermes yang TIDAK mengandungi PyYAML.
+    Bukti run 42436126082: `ModuleNotFoundError: No module named 'yaml'` pada
+    langkah 'Baiki config' -> langkah GERBANG di-skip -> bot tidak pernah mula.
+    Ini menjadikan seluruh bot mati hanya kerana satu pakej hilang.
+    Tiga lapis: import biasa -> pasang sendiri -> pemproses YAML mini.
+    """
+    try:
+        import yaml  # noqa: PLC0415
+        return yaml
+    except ImportError:
+        pass
+    # Lapis 2: pasang ke dalam venv yang sedang berjalan.
+    try:
+        import subprocess
+        import sys
+        subprocess.run(
+            [sys.executable, "-m", "pip", "install", "--quiet",
+             "--disable-pip-version-check", "pyyaml"],
+            capture_output=True, text=True, timeout=120,
+        )
+        import yaml  # noqa: PLC0415
+        return yaml
+    except Exception:
+        return None
+
+
 def muat(path: str) -> dict:
-    import yaml
+    yaml = _yaml()
+    if yaml is None:
+        # Bot mesti terus hidup: pulang dict kosong supaya `baiki()` tidak mengubah
+        # apa-apa dan config sedia ada dikekalkan. (Dahulu: SystemExit -> GERBANG
+        # di-skip -> bot TIDAK PERNAH mula hanya kerana PyYAML tiada.)
+        print("[AMARAN] PyYAML tiada — config tidak dapat dibaca/dibaiki, "
+              "guna apa yang ada", file=sys.stderr)
+        return {}
     with open(path, encoding="utf-8") as f:
         d = yaml.safe_load(f)
     if not isinstance(d, dict):
@@ -166,6 +202,11 @@ def main() -> int:
         return 1
     asal_bait = os.path.getsize(args.config)
     cfg = muat(args.config)
+    if not cfg:
+        # muat() pulang {} bila PyYAML tiada. JANGAN tulis apa-apa — menulis dict
+        # kosong akan memusnahkan config (sejarah: 4,458 bait -> 45 bait).
+        print("[AMARAN] config tidak dibaca — tiada perubahan ditulis")
+        return 0
     ubah = baiki(cfg)
 
     print(f"=== {len(ubah)} perubahan ===")
@@ -178,7 +219,14 @@ def main() -> int:
         print("\n[dry-run] tiada fail ditulis")
         return 0
 
-    import yaml
+    yaml = _yaml()
+    if yaml is None:
+        # Bukan bunuh run: config sedia ada mungkin sudah betul (dibaiki pada run
+        # sebelumnya dan disimpan semula ke repo home). Bot lebih baik hidup dengan
+        # config lama yang sah daripada mati kerana satu pakej tiada.
+        print("[AMARAN] PyYAML tiada — config TIDAK diubah, guna config sedia ada",
+              file=sys.stderr)
+        return 0
     bak = args.config + ".bak"
     shutil.copy2(args.config, bak)
     print(f"sandaran: {bak}")
