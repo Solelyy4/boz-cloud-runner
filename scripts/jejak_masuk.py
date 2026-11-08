@@ -33,8 +33,13 @@ Q3 = chr(34) * 3
 BS = chr(92)
 TAB = BS + "t"
 
-# Header lurus - tiada regex
-HEADER = "async def process_update(self, update: Update, context: CallbackContext"
+# Header lurus - tiada regex.
+# PEPIJAT: versi lama cari "async def process_update(self, update: Update, context: CallbackContext"
+# tetapi PTB 22.8 menukar tandatangan kepada `(self, update: object) -> None` (tiada `context`).
+# Akibatnya carian gagal senyap ("corak TIDAK padan") dan penjejak tidak pernah dipasang —
+# kita terus buta terhadap mesej masuk walaupun gateway sihat.
+# Kini kita cari PREFIX pendek yang stabil merentas versi PTB.
+HEADER = "async def process_update(self, update:"
 
 SNIP = (
     "{ind}# JEJAK-MASUK-BOZ v1: cetak setiap update yang sampai ke Application."
