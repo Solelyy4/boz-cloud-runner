@@ -1,4 +1,4 @@
-=== TRACE 2026-11-08T14:18:28Z run 42488280000 ===
+=== TRACE 2026-11-08T14:19:59Z run 42488280000 ===
 2026-11-08T14:16:58Z === gateway_jalan mula: run=42488280000 masa_jalan=720m ===
 2026-11-08T14:16:58Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/15f69d45a13445929703aba396c2c7dd/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=True): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/15f69d45a13445929703aba396c2c7dd/workspace/plugins/platforms/telegram/adapter.py
@@ -35,3 +35,4 @@ RESULT: teraju sihat
 2026-11-08 14:17:13,267 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 jejak-pemanjat: salinan workspace ditampal
 2026-11-08T14:17:13Z SAMBUNG OK selepas 15s (bukti: baris 'Connected to Telegram')
+{"masa": "2026-11-08T21:18:59+07:00", "getMe_http": 200, "getMe_saat": 0.385, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
