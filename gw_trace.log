@@ -1,4 +1,4 @@
-=== TRACE 2026-11-08T20:52:53Z run 42521622755 ===
+=== TRACE 2026-11-08T20:54:24Z run 42521622755 ===
 2026-11-08T20:51:22Z === gateway_jalan mula: run=42521622755 masa_jalan=720m ===
 2026-11-08T20:51:22Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7aabe439d7cd4df289de5228efee5f12/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=True): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7aabe439d7cd4df289de5228efee5f12/workspace/plugins/platforms/telegram/adapter.py
@@ -43,3 +43,4 @@ jejak-pemanjat: salinan workspace ditampal
 2026-11-08T20:51:43Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
 2026-11-08 20:52:01,669 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-11-08 20:52:01,669 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+{"masa": "2026-11-09T03:53:24+07:00", "getMe_http": 200, "getMe_saat": 0.306, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
