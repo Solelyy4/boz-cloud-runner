@@ -118,6 +118,48 @@ bunuh_gateway() {
   return 0
 }
 
+# ---------- BERSIHKAN SESI TELEGRAM LAMA SEBELUM GATEWAY MULA ----------
+# PEPIJAT SEBENAR yang menyebabkan bot "bersambung tetapi tidak menjawab":
+#   Connected to Telegram (polling mode)  -> nampak sihat
+#   Telegram polling conflict (1/5)      -> 2.5 min kemudian
+#   JEJAK MASUK = 0 selama-lamanya
+#
+# Telegram menyimpan sesi getUpdates selama ~5 minit selepas klien hilang. Bila
+# run lama dibatalkan (atau runner mati), sesi itu masih "terbuka" di pelayan
+# Telegram. Gateway baharu menyambung, menang getMe, tetapi getUpdates-nya
+# di-409 oleh sesi hantu itu — dan ia hanya menunggu 20s x 5 sebelum menyerah.
+# Sepanjang tempoh itu bot kelihatan HIDUP (getMe 200) tetapi TIDAK menerima
+# mesej, dan tiada apa dalam log menunjukkannya kepada operator.
+#
+# Penyelesaian: panggil getUpdates dengan offset=-1 dan timeout=0 SEBELUM mula.
+# Itu menamatkan sesi hantu di pelayan Telegram serta-merta, jadi gateway
+# memperoleh long-poll secara eksklusif sejak saat pertama.
+bersih_sesi_telegram() {
+  local i
+  for i in 1 2 3 4 5; do
+    local hasil
+    hasil=$(curl -4 -s -m 15 -X POST \
+      "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates" \
+      -H "Content-Type: application/json" \
+      -d '{"offset":-1,"timeout":0,"limit":1}' 2>/dev/null)
+    case "$hasil" in
+      *'"ok":true'*)
+        log "sesi Telegram lama dibersihkan (cubaan $i) — long-poll kini bebas"
+        return 0 ;;
+      *409*)
+        log "sesi hantu masih dipegang (cubaan $i/5), tunggu 10s"
+        sleep 10 ;;
+      *)
+        log "bersih sesi: jawapan tidak dijangka (cubaan $i), teruskan"
+        return 0 ;;
+    esac
+  done
+  log "AMARAN: sesi hantu tidak dapat dibersihkan — gateway mungkin kena konflik semula"
+  return 0
+}
+
+bersih_sesi_telegram
+
 # ---------- denyut: adakah Telegram boleh dicapai dari sini SEKARANG? ----------
 # PEPIJAT SEBENAR: versi lama guna SATU cubaan `curl -4` ke api.telegram.org.
 # Runner kadang gagal IPv4 (ConnectError('')) lalu domain bekerja semula — jadi
