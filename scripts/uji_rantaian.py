@@ -88,7 +88,14 @@ def main() -> int:
                 code_akhir = code
                 ok, nota = False, ""
                 try:
-                    d = json.loads(body)
+                    # PEPIJAT BESAR: 9Router menyambung `data: [DONE]` pada HUJUNG
+                    # JSON penuh bukan-streaming -> "Extra data: line 1 column 543"
+                    # -> model SIHAT dilaporkan gagal. Ini yang menyekat bot berulang
+                    # kali. Buang ekor SSE DAHULU sebelum menghurai.
+                    bersih = body
+                    if "data: [DONE]" in bersih:
+                        bersih = bersih.split("data: [DONE]")[0].strip()
+                    d = json.loads(bersih)
                     if code == 200 and "choices" in d:
                         ch = d["choices"][0].get("message", {})
                         tc = ch.get("tool_calls") or []
