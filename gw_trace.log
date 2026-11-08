@@ -1,4 +1,4 @@
-=== TRACE 2026-11-08T13:10:04Z run 42483149820 ===
+=== TRACE 2026-11-08T13:11:36Z run 42483149820 ===
 2026-11-08T13:08:34Z === gateway_jalan mula: run=42483149820 masa_jalan=720m ===
 2026-11-08T13:08:34Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f3a5de44cf4245cab38bfe0936f9b96a/venv/bin/python
 JEJAK ditampal: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f3a5de44cf4245cab38bfe0936f9b96a/workspace/plugins/platforms/telegram/adapter.py
@@ -34,3 +34,9 @@ RESULT: TERAJU MATI — 4 sandaran hidup, bot masih menjawab
 jejak-pemanjat: salinan workspace ditampal
 2026-11-08 13:08:49,905 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-08T13:08:54Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
+2026-11-08 13:10:13,947 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-08 13:10:13,947 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-11-08 13:10:24,875 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
+2026-11-08 13:10:24,875 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
+2026-11-08 13:10:35,270 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+{"masa": "2026-11-08T20:10:35+07:00", "getMe_http": 200, "getMe_saat": 0.397, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
