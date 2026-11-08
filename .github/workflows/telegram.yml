@@ -183,7 +183,7 @@ jobs:
           fi
           echo "config disahkan"
 
-      - name: GERBANG — sahkan setiap pautan model HIDUP
+      - name: GERBANG — farming model + sahkan setiap pautan HIDUP
         id: gerbang
         if: always()
         run: |
@@ -192,6 +192,12 @@ jobs:
           # TIADA dalam akaun. Gerbang ini menjadikan kegagalan itu kelihatan SEBELUM
           # bot menerima satu mesej pun.
           set -a; . home/.env; set +a
+          echo "--- farming: kumpul SEMUA model hidup (ini yang tentukan rantaian) ---"
+          # ladang_model.py menguji setiap calon dengan tool-calling sebenar. Model
+          # yang lulus 2/2 atau 5/5 sahaja masuk rantaian. Ini menggantikan tekaan.
+          "$PY" scripts/ladang_model.py --cepat --tulis-config home/config.yaml || true
+          echo
+          echo "--- gerbang: sahkan setiap pautan dalam config akhir ---"
           "$PY" scripts/sah_model.py
           echo "--- ujian rantaian penuh (sembang + tool-calling) ---"
           "$PY" scripts/uji_rantaian.py home/config.yaml
