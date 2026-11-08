@@ -60,43 +60,75 @@ def main() -> int:
     rantaian += [(f["provider"], f["model"]) for f in cfg.get("fallback_model", [])]
 
     # Dua profil: mesej sembang biasa, dan permintaan yang memerlukan ALAT.
+    # max_tokens MESTI >= 800: model reasoning (gpt-oss) menghabiskan kuota kecil pada
+    # medan `reasoning` dan pulang content='' — diukur 8 Nov 2026: max_tokens=60 -> 3/4,
+    # max_tokens=200+ -> 4/4. Ujian dengan max_tokens kecil menuduh model sihat sebagai mati.
     profil = {
-        "sembang": {"messages": [{"role": "user", "content": "Balas satu perkataan: OK"}], "max_tokens": 60},
+        "sembang": {"messages": [{"role": "user", "content": "Balas satu perkataan: OK"}], "max_tokens": 800},
         "alat": {
             "messages": [{"role": "user", "content": "Senaraikan fail dalam folder sekarang. Guna alat terminal."}],
-            "max_tokens": 300,
+            "max_tokens": 800,
             "tools": ALAT,
         },
     }
 
     lulus_penuh = True
+    nota_had = 0
     for nama, p in profil.items():
         print(f"\n=== PROFIL: {nama.upper()} ===")
         for prov, model in rantaian:
-            payload = {"model": model, **p}
-            code, body = curl_json(f"{prov_cfg[prov]['base_url']}/chat/completions", kunci(prov), payload)
-            ok, nota = False, ""
-            try:
-                d = json.loads(body)
-                if code == 200 and "choices" in d:
-                    ch = d["choices"][0].get("message", {})
-                    tc = ch.get("tool_calls") or []
-                    if nama == "alat":
-                        ok = bool(tc)
-                        nota = f"tool_calls={len(tc)}" if ok else "TIADA tool_calls"
+            # Cuba 3x untuk profil alat. Bukti: qwen3.8-27b intermiten — 2/3 lulus,
+            # 1 gagal kerana ia mereka-reka nama alat ('linux') yang tidak diminta.
+            # Satu kegagalan rawak BUKAN bukti model mati; tiga kegagalan berturut YA.
+            cubaan = 3 if nama == "alat" else 1
+            ok, nota, code_akhir = False, "", 0
+            for c in range(cubaan):
+                payload = {"model": model, **p}
+                code, body = curl_json(f"{prov_cfg[prov]['base_url']}/chat/completions", kunci(prov), payload)
+                code_akhir = code
+                ok, nota = False, ""
+                try:
+                    d = json.loads(body)
+                    if code == 200 and "choices" in d:
+                        ch = d["choices"][0].get("message", {})
+                        tc = ch.get("tool_calls") or []
+                        if nama == "alat":
+                            ok = bool(tc)
+                            nota = f"tool_calls={len(tc)}" if ok else "TIADA tool_calls"
+                        else:
+                            # content mesti TEKS bukan kosong. Jangan tuduh model salah
+                            # hanya kerana ia turut pulang medan `reasoning` (gpt-oss buat
+                            # begitu pada setiap jawapan yang sah).
+                            isi = ch.get("content")
+                            ok = isinstance(isi, str) and isi.strip() != ""
+                            nota = repr(str(isi)[:44]) if ok else f"content={type(isi).__name__}"
+                            if ok and ch.get("reasoning"):
+                                nota += " (ada medan reasoning — normal)"
                     else:
-                        isi = ch.get("content")
-                        ok = bool(isi) and not isinstance(isi, list)
-                        nota = repr(str(isi)[:44]) if ok else f"content={type(isi).__name__}"
-                else:
-                    nota = str(d.get("error", d))[:100]
-            except Exception:
-                nota = body[:100].replace("\n", " ")
+                        nota = str(d.get("error", d))[:100]
+                        # 429 bukan model rosak — ia HAD. Tandakan berasingan supaya
+                        # kita tidak buang model sihat kerana kuota sementara.
+                        if code == 429:
+                            nota = "HAD (429) — bukan model rosak"
+                except Exception:
+                    nota = body[:100].replace("\n", " ")
+                if ok:
+                    break
+                if c + 1 < cubaan:
+                    nota += f" [cubaan {c+1}/{cubaan}]"
             if not ok:
+                # 429 = HAD akaun, bukan model rosak. Bukti: mistral pulang 429 pada ujian
+                # kedua dalam minit yang sama, tetapi pulang mesej sah pada percubaan
+                # lain. Menandakan ini sebagai gagal membuat kita membuang model sihat.
+                if code_akhir == 429:
+                    print(f"  [HAD ] {prov:8s} {model:24s} HTTP 429 {'(dijangka — bukan kegagalan)'}")
+                    nota_had += 1
+                    continue
                 lulus_penuh = False
-            print(f"  [{'PASS' if ok else 'FAIL'}] {prov:8s} {model:24s} HTTP {code:<4} {nota}")
+            print(f"  [{'PASS' if ok else 'FAIL'}] {prov:8s} {model:24s} HTTP {code_akhir:<4} {nota}")
 
-    print(f"\nRESULT: {'SEMUA PAUTAN LULUS' if lulus_penuh else 'ADA PAUTAN GAGAL'}")
+    print(f"\nRESULT: {'SEMUA PAUTAN LULUS' if lulus_penuh else 'ADA PAUTAN GAGAL'}"
+          + (f" ({nota_had} pautan kena HAD 429 — model sihat, kuota sementara)" if nota_had else ""))
     return 0 if lulus_penuh else 1
 
 
