@@ -14,32 +14,14 @@ name: telegram-hermes
 #      (sejarah: 12 run `cancelled` berturut pada 7 Nov 2026).
 
 on:
-  # DIUKUR 9 Nov 2026 -- reka bentuk lama menyebabkan MESEJ HILANG.
-  #   cron "13 * * * *"  +  masa_jalan 720 minit  +  cancel-in-progress: false
-  # = satu run hidup 12 jam sementara cron mencetus 12 run baharu yang MENUNGGU.
-  # Bila run tamat (720 min) runner meneruskan 80 minit lagi sehingga
-  # timeout-minutes 800, kemudian run BAHARU mula dari awal (checkout + gerbang
-  # farming ~7 minit). BOZ menghantar mesej dalam jurang itu -> Telegram menyimpan
-  # update (sehingga 24 jam) tetapi bot tiada sesiapa untuk membacanya, jadi dari
-  # sisi BOZ mesej "tidak sampai".
-  #
-  # REKA BENTUK BAHARU (dikira, bukan tekaan):
-  #   cron 0 */6 * * * = 360 minit antara permulaan run.
-  #   persediaan (checkout + gerbang farming) = ~7 minit.
-  #   Maka masa_jalan optimum = 360 - 7 = 353 minit -> JURANG 0 MINIT.
-  #   timeout-minutes 400 memberi 47 minit kepala untuk penutupan bersih.
-  # Setiap cron memulakan run baharu tepat apabila yang sebelumnya berhenti
-  # (jurang 0 minit, dikira di atas). Concurrency false memastikan tiada dua run
-  # bertindih merebut long-poll Telegram yang sama.
-
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "13 * * * *"
   workflow_dispatch:
     inputs:
       masa_jalan:
-        description: "Minit bot dijalankan sebelum berhenti bersih (lalai 353)"
+        description: "Minit bot dijalankan sebelum berhenti bersih (lalai 720)"
         required: false
-        default: "353"
+        default: "720"
 
 permissions:
   contents: write
@@ -64,7 +46,7 @@ env:
 jobs:
   jalankan:
     runs-on: ubuntu-latest
-    timeout-minutes: 400
+    timeout-minutes: 800
     steps:
       - uses: actions/checkout@v4
 
@@ -142,7 +124,6 @@ jobs:
           TELEGRAM_ALLOWED_USERS=8043910371
           MISTRAL_API_KEY=${{ secrets.MISTRAL_API_KEY }}
           GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
-          TOKENOMIX_API_KEY=${{ secrets.TOKENOMIX_API_KEY }}
           BOZ_PAT=${{ secrets.BOZ_PAT }}
           ROUTER9_API_KEY=${{ secrets.ROUTER9_API_KEY }}
           BOZ_USER=Solelyy4
@@ -156,52 +137,14 @@ jobs:
         run: |
           # Kunci kosong = bot HIDUP tetapi mustahil menjawab. Kegagalan senyap itulah
           # yang membuat operator mengejar rangkaian berjam-jam.
-          for K in TELEGRAM_BOT_TOKEN MISTRAL_API_KEY GROQ_API_KEY TOKENOMIX_API_KEY; do
+          for K in TELEGRAM_BOT_TOKEN MISTRAL_API_KEY GROQ_API_KEY; do
             V=$(grep -m1 "^$K=" home/.env | cut -d= -f2-)
             if [ -z "$V" ]; then echo "::error::$K KOSONG"; exit 1; fi
             if [ "${#V}" -lt 20 ]; then echo "::error::$K terlalu pendek (${#V})"; exit 1; fi
             echo "  $K ada (${#V} aksara, ${V:0:6}...)"
           done
 
-      - name: Lapor IDENTITI bot (elak hantar mesej ke bot yang salah)
-        run: |
-          # SEBAB: berjam-jam dihabiskan menghantar mesej ujian ke satu bot sementara
-          # gateway bersambung dengan bot LAIN (token berbeza). Mesej tidak pernah
-          # sampai, log bersih, `pending: 0`, dan semuanya nampak "sihat".
-          # Satu perintah getMe menjadikan identiti itu KETARA dalam log run.
-          set -a; . home/.env; set +a
-          IDN=$(curl -4 -s -m 20 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe")
-          echo "IDENTITI: $IDN"
-          BOT_ID=$(echo "$IDN" | sed -n 's/.*"id":\([0-9]*\).*/\1/p')
-          BOT_UN=$(echo "$IDN" | sed -n 's/.*"username":"\([^"]*\)".*/\1/p')
-          if [ -z "$BOT_ID" ]; then echo "::error::token tidak sah — getMe gagal"; exit 1; fi
-          echo "BOT: id=$BOT_ID username=@$BOT_UN"
-          {
-            echo "--- identiti bot dalam run ini ---"
-            echo "id=$BOT_ID username=@$BOT_UN"
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Pasang PyYAML dalam venv (WAJIB sebelum baiki config)
-        continue-on-error: true
-        run: |
-          # SEBAB: venv Hermes di runner TIDAK mengandungi PyYAML, malah TIDAK ada pip.
-          # Bukti run 42436126082 & 42436859782:
-          #   ModuleNotFoundError: No module named 'yaml'
-          #   .../venv/bin/python: No module named pip
-          # -> GERBANG di-skip -> bot tidak pernah mula. Satu pakej hilang = bot mati.
-          set +e
-          "$PY" -m ensurepip --upgrade >/dev/null 2>&1
-          "$PY" -m pip install --quiet --disable-pip-version-check pyyaml 2>&1 | tail -2
-          if "$PY" -c "import yaml; print('pyyaml', yaml.__version__, 'OK')" 2>/dev/null; then
-            echo "PyYAML sedia"
-          else
-            # JANGAN bunuh run. baiki_config.py kini tahan tanpa PyYAML (config
-            # dikekalkan, tiada perubahan ditulis) dan gateway tetap boleh mula.
-            echo "::warning::PyYAML tidak dapat dipasang — baiki_config akan kekalkan config sedia ada"
-          fi
-
       - name: Baiki config (kekalkan skills/prompt, buang model reput)
-        continue-on-error: true
         run: |
           # scripts/baiki_config.py: salin .bak -> edit dengan YAML parser -> sahkan
           # saiz + kunci penting -> pulih dari .bak kalau rosak.
@@ -220,29 +163,15 @@ jobs:
           fi
           echo "config disahkan"
 
-      - name: GERBANG — farming model + sahkan setiap pautan HIDUP
+      - name: GERBANG — sahkan setiap pautan model HIDUP
         id: gerbang
-        if: always()
         run: |
           # LANGKAH PALING PENTING. Bot pernah mati dengan `rebuilt_restart_limit_exceeded`
           # kerana mistral-medium-latest pulang 429 dan open-mistral-nemo/pixtral sudah
           # TIADA dalam akaun. Gerbang ini menjadikan kegagalan itu kelihatan SEBELUM
           # bot menerima satu mesej pun.
           set -a; . home/.env; set +a
-          echo "--- farming: kumpul SEMUA model hidup (ini yang tentukan rantaian) ---"
-          # ladang_model.py menguji setiap calon dengan tool-calling sebenar. Model
-          # yang lulus 2/2 atau 5/5 sahaja masuk rantaian. Ini menggantikan tekaan.
-          "$PY" scripts/ladang_model.py --cepat --tulis-config home/config.yaml || true
-          echo
-          echo "--- pasang tokenomix: teraju yang diukur PATUH (4/5) ---"
-          # WAJIB SELEPAS farming. ladang_model menulis rantaian ikut kestabilan;
-          # skrip ini menetapkan teraju kepada glm-5.3 (satu-satunya yang lulus
-          # ujian patuh) dan MEMBUANG provider 9router yang menunjuk VPS tidak
-          # stabil. Ia juga mengekalkan auto_load/memory/max_tokens.
-          "$PY" scripts/pasang_tokenomix.py --config home/config.yaml || true
-          echo
-          echo "--- gerbang: sahkan setiap pautan dalam config akhir ---"
-          "$PY" scripts/sah_model.py --config home/config.yaml --longgar
+          "$PY" scripts/sah_model.py
           echo "--- ujian rantaian penuh (sembang + tool-calling) ---"
           "$PY" scripts/uji_rantaian.py home/config.yaml
 
@@ -257,11 +186,10 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          TOKENOMIX_API_KEY: ${{ secrets.TOKENOMIX_API_KEY }}
           ROUTER9_API_KEY: ${{ secrets.ROUTER9_API_KEY }}
           BOZ_PAT: ${{ secrets.BOZ_PAT }}
           BOZ_CHAT_ID: "8043910371"
-          MASA_JALAN: ${{ inputs.masa_jalan || '353' }}
+          MASA_JALAN: ${{ inputs.masa_jalan || '720' }}
         run: |
           export HERMES_HOME="$PWD/home"
           export PATH="$HOME/.local/bin:$PATH"

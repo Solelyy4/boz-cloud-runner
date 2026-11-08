@@ -29,19 +29,11 @@ import sys
 # Rantaian berasas HAD SEBENAR yang diukur 8 Nov 2026:
 #   Groq    : 1000 permintaan/jam, 8/8 panggilan berturut lulus, gpt-oss-120b & 20b 2/2 tools
 #   Mistral : ~3-4 panggilan lalu 429 berpanjangan (diukur: 200,200,200,429,429,429)
-#
-# DIKEMAS KINI 9 Nov 2026: Tokenomix (glm-5.3) diukur lebih baik untuk bot ini —
-# 4/5 tugasan bersekat lulus berbanding Groq yang menolak atau tidak diuji. Jika
-# config SUDAH menetapkan provider `tokenomix` dengan kunci yang ada, JANGAN
-# timpa: `_teraju_dilindungi()` mengesan itu dan membiarkan rantaian sedia ada.
+# Bot mesti diterajui Groq. Mistral hanya sandaran terakhir.
 MODEL_LALAI = ("groq", "openai/gpt-oss-120b")
 FALLBACK = [
     {"provider": "groq", "model": "openai/gpt-oss-20b"},
 ]
-# Provider yang layak MENGGANTIKAN MODEL_LALAI jika ia sudah menjadi teraju.
-# Skrip ini dulu memaksa teraju ke groq dan memusnahkan rantaian Tokenomix yang
-# baru dipasang — gateway kemudian mula dengan model yang menolak tugasan BOZ.
-TERAJU_DILINDUNGI = {"tokenomix"}
 # Mistral: had akaun sangat ketat — diukur 8 Nov 2026: 200,200,200,429,429,429 berturut.
 # Ia BOLEH jadi sandaran terakhir di config, tetapi TIDAK boleh disahkan sebagai wajib:
 # menguji dua kali dalam satu minit sudah cukup untuk mencetuskan 429.
@@ -154,25 +146,12 @@ def baiki(cfg: dict) -> list[str]:
     # Bukti: fallback warisan (mistral-medium-latest, qwen3.8-27b, open-mistral-nemo)
     # semuanya mati/reput. Membaiki sebahagian sahaja meninggalkan urutan buruk:
     # Mistral (429 selepas 3-4 panggilan) mendahului Groq (1000/jam) -> bot mati lambat.
-    #
-    # LINDUNG: jika teraju dilindungi, fallback sedia ada JUGA dikekalkan — ia
-    # disusun oleh ladang_model yang menguji setiap model dengan tool-calling.
     lama = cfg.get("fallback_model") or []
     model_lama = [f.get("model") for f in lama if isinstance(f, dict)]
-    if dilindungi and lama:
-        # Buang hanya pautan yatim/reput; kekalkan urutan yang sudah diuji.
-        bersih = [
-            f for f in lama
-            if isinstance(f, dict)
-            and f.get("provider") in prov
-            and f.get("model") not in MODEL_DILARANG
-        ]
-        cfg["fallback_model"] = bersih
-        ubah.append(f"fallback: dikekalkan {len(bersih)} pautan yang diuji "
-                    f"(dibuang {len(lama) - len(bersih)} yatim/reput)")
-    else:
-        cfg["fallback_model"] = [dict(f) for f in FALLBACK] + [dict(SANDARAN_TERAKHIR)]
-        ubah.append(
+    # Mistral sebagai sandaran TERAKHIR: ia membantu bila Groq benar-benar mati,
+    # tetapi tidak boleh diuji sebagai wajib (429 selepas beberapa panggilan).
+    cfg["fallback_model"] = [dict(f) for f in FALLBACK] + [dict(SANDARAN_TERAKHIR)]
+    ubah.append(
         f"fallback ditulis semula: {model_lama} -> {[f['model'] for f in cfg['fallback_model']]}"
     )
 
