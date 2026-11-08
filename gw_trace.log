@@ -1,4 +1,4 @@
-=== TRACE 2026-11-08T14:26:05Z run 42488280000 ===
+=== TRACE 2026-11-08T14:27:36Z run 42488280000 ===
 2026-11-08T14:16:58Z === gateway_jalan mula: run=42488280000 masa_jalan=720m ===
 2026-11-08T14:16:58Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/15f69d45a13445929703aba396c2c7dd/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=True): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/15f69d45a13445929703aba396c2c7dd/workspace/plugins/platforms/telegram/adapter.py
@@ -39,3 +39,13 @@ jejak-pemanjat: salinan workspace ditampal
 {"masa": "2026-11-08T21:21:00+07:00", "getMe_http": 200, "getMe_saat": 0.339, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-08T21:23:00+07:00", "getMe_http": 200, "getMe_saat": 0.33, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-08T21:25:03+07:00", "getMe_http": 200, "getMe_saat": 2.565, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-08T21:27:04+07:00", "getMe_http": 200, "getMe_saat": 0.348, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-08T14:27:13Z denyut tick=10 pid=3577
+=== JAGA RANTAIAN 2026-11-08T14:27:24+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok
+  [HIDUP] groq         openai/gpt-oss-20b         ok
+  [HIDUP] 9router      mistral-fast               ok
+  [HIDUP] 9router      mistral-code               ok
+  [HIDUP] 9router      mistral-max                ok
+  [HIDUP] mistral      ministral-8b-latest        ok
+RESULT: teraju sihat
