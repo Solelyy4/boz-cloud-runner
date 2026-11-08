@@ -124,6 +124,7 @@ jobs:
           TELEGRAM_ALLOWED_USERS=8043910371
           MISTRAL_API_KEY=${{ secrets.MISTRAL_API_KEY }}
           GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
+          TOKENOMIX_API_KEY=${{ secrets.TOKENOMIX_API_KEY }}
           BOZ_PAT=${{ secrets.BOZ_PAT }}
           ROUTER9_API_KEY=${{ secrets.ROUTER9_API_KEY }}
           BOZ_USER=Solelyy4
@@ -137,7 +138,7 @@ jobs:
         run: |
           # Kunci kosong = bot HIDUP tetapi mustahil menjawab. Kegagalan senyap itulah
           # yang membuat operator mengejar rangkaian berjam-jam.
-          for K in TELEGRAM_BOT_TOKEN MISTRAL_API_KEY GROQ_API_KEY; do
+          for K in TELEGRAM_BOT_TOKEN MISTRAL_API_KEY GROQ_API_KEY TOKENOMIX_API_KEY; do
             V=$(grep -m1 "^$K=" home/.env | cut -d= -f2-)
             if [ -z "$V" ]; then echo "::error::$K KOSONG"; exit 1; fi
             if [ "${#V}" -lt 20 ]; then echo "::error::$K terlalu pendek (${#V})"; exit 1; fi
@@ -231,6 +232,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TOKENOMIX_API_KEY: ${{ secrets.TOKENOMIX_API_KEY }}
           ROUTER9_API_KEY: ${{ secrets.ROUTER9_API_KEY }}
           BOZ_PAT: ${{ secrets.BOZ_PAT }}
           BOZ_CHAT_ID: "8043910371"
