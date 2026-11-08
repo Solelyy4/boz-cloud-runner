@@ -132,10 +132,30 @@ def _jejak_pasang(modul):
 
 try:
     import sys as _jsys
-    _mod = _jsys.modules.get(__name__) or _jsys.modules.get(__name__.split(".")[0])
-    _jejak_pasang(_mod)
-except Exception:
-    pass
+    # PENTING: balut KELAS, bukan modul.
+    # Adapter Hermes mentakrifkan method dalam kelas `TelegramAdapter`. Membalut
+    # modul (`_jejak_pasang(modul)`) tidak menyentuh method kelas sama sekali —
+    # itulah sebab log kekal kosong walaupun blok dipasang "berjaya".
+    _kelas = None
+    _mod = _jsys.modules.get(__name__)
+    if _mod is not None:
+        for _nama in dir(_mod):
+            _o = getattr(_mod, _nama, None)
+            if isinstance(_o, type) and hasattr(_o, "_handle_text_message"):
+                _kelas = _o
+                break
+    if _kelas is not None:
+        _jejak_pasang(_kelas)
+        _JUMLAH = sum(1 for _n in ("_handle_text_message", "_handle_command", "_on_platform_update")
+                      if getattr(getattr(_kelas, _n, None), "_jejak", False))
+        _JLOG.warning("DIPASANG pada kelas %s — %d method dibalut", _kelas.__name__, _JUMLAH)
+    else:
+        _JLOG.warning("GAGAL: kelas adapter tidak dijumpai — tiada method dibalut")
+except Exception as _e:
+    try:
+        _JLOG.warning("GAGAL pasang: %s: %s", type(_e).__name__, _e)
+    except Exception:
+        pass
 # --- HUJUNG JEJAK-BOT ---
 '''
 
