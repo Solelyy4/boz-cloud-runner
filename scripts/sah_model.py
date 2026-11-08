@@ -24,12 +24,16 @@ import urllib.request
 TIMEOUT = 45
 CURL = "curl"
 
-# Rantaian muktamad. Disahkan hidup 8 Nov 2026 (tool_calls=1 pada setiap satu).
+# Rantaian berasas HAD SEBENAR (diukur 8 Nov 2026, bukan agakan):
+#   Groq  : x-ratelimit-limit-requests = 1000/jam, 8/8 panggilan berturut lulus
+#           gpt-oss-120b 2/2 tool-calling, gpt-oss-20b 2/2, qwen3.8-27b 1/2 (tak stabil)
+#   Mistral: ~3-4 panggilan per tetingkap lalu 429 BERPANJANGAN (diukur: 200,200,200,429,429,429)
+#           -> Mistral TIDAK BOLEH jadi teraju bot yang buat banyak panggilan alat.
+# Bot mesti diterajui Groq. Mistral hanya sandaran terakhir.
 RANTAIAN = [
-    ("mistral", "https://api.mistral.ai/v1", "MISTRAL_API_KEY", "ministral-14b-latest"),
-    ("mistral", "https://api.mistral.ai/v1", "MISTRAL_API_KEY", "ministral-8b-latest"),
     ("groq", "https://api.groq.com/openai/v1", "GROQ_API_KEY", "openai/gpt-oss-120b"),
-    ("groq", "https://api.groq.com/openai/v1", "GROQ_API_KEY", "qwen/qwen3.8-27b"),
+    ("groq", "https://api.groq.com/openai/v1", "GROQ_API_KEY", "openai/gpt-oss-20b"),
+    ("mistral", "https://api.mistral.ai/v1", "MISTRAL_API_KEY", "ministral-8b-latest"),
 ]
 
 
@@ -70,7 +74,12 @@ def uji(p: str, url: str, key: str, model: str) -> dict:
     """Satu pautan: adakah ia menjawab DAN menyokong tool-calling?"""
     payload = {
         "model": model,
-        "max_tokens": 120,
+        # max_tokens MESTI besar. DIUKUR 8 Nov 2026 pada Groq gpt-oss:
+        #   max_tokens=60  -> 3/4 berisi; content='' dengan finish_reason=length
+        #   max_tokens=200+ -> 4/4 berisi
+        # Model reasoning menghabiskan kuota kecil pada medan `reasoning`, bukan jawapan.
+        # Ujian yang guna nilai kecil menuduh model SIHAT sebagai mati.
+        "max_tokens": 800,
         "messages": [{"role": "user", "content": "Cari 'malaysia'. Guna alat."}],
         "tools": [{
             "type": "function",
@@ -148,39 +157,48 @@ def tulis_config(path: str) -> None:
     sed/pemboleh ubah satu baris — pernah menjadikan config 4,458 bait jadi 45 bait
     dan bot hilang providers/skills/platforms.
     """
-    blok = """# Blok rantaian model dijana oleh scripts/sah_model.py.
-# Setiap pautan disahkan HIDUP sebelum gateway mula. Jangan tambah model
-# tanpa mengesahkannya dahulu — fallback reput = bot hidup tetapi mustahil menjawab.
-model:
-  provider: mistral
-  default: ministral-14b-latest
-  api_mode: chat_completions
-  context_window: 262144
-  max_tokens: 8192
+    # Blok dijana DARIPADA RANTAIAN — satu sumber kebenaran. Versi lama menulis
+    # senarai bertulis tangan (mistral-teraju, qwen3.8-27b yang tak stabil) yang
+    # menyimpang daripada senarai yang baru diuji. Sekarang mustahil menyimpang.
+    teraju_p, teraju_model = RANTAIAN[0][0], RANTAIAN[0][3]
+    BARIS = [
+        "# Blok rantaian model dijana oleh scripts/sah_model.py.",
+        "# Setiap pautan disahkan HIDUP sebelum gateway mula. Jangan tambah model",
+        "# tanpa mengesahkannya dahulu — fallback reput = bot hidup tetapi mustahil menjawab.",
+        "model:",
+        f"  provider: {teraju_p}",
+        f"  default: {teraju_model}",
+        "  api_mode: chat_completions",
+        "  context_window: 131072   # gpt-oss-120b di Groq = 131,072 konteks",
+        "  max_tokens: 4096         # >=2000 WAJIB: model reasoning pulang content kosong jika kecil",
+        "",
+        "providers:",
+        "  groq:",
+        "    base_url: https://api.groq.com/openai/v1",
+        "    api_key_env: GROQ_API_KEY",
+        "  mistral:",
+        "    base_url: https://api.mistral.ai/v1",
+        "    api_key_env: MISTRAL_API_KEY",
+        "",
+        "fallback_model:",
+    ]
+    for p, _url, _k, m in RANTAIAN[1:]:
+        BARIS += [f"  - provider: {p}", f"    model: {m}"]
+    blok = "\n".join(BARIS) + "\n"
 
-providers:
-  mistral:
-    base_url: https://api.mistral.ai/v1
-    api_key_env: MISTRAL_API_KEY
-  groq:
-    base_url: https://api.groq.com/openai/v1
-    api_key_env: GROQ_API_KEY
-
-fallback_model:
-  - provider: mistral
-    model: ministral-8b-latest
-  - provider: groq
-    model: openai/gpt-oss-120b
-  - provider: groq
-    model: qwen/qwen3.8-27b
-"""
     os.makedirs(os.path.dirname(os.path.abspath(path)) or ".", exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(blok)
+    # Sahkan SELEPAS tulis — baca balik dan pastikan rantaian betul-betul mendarat.
+    with open(path, encoding="utf-8") as f:
+        semula = f.read()
     saiz = os.path.getsize(path)
     if saiz < 300:
         raise SystemExit(f"[FAIL] config terlalu kecil ({saiz} bait) — tulis gagal")
-    print(f"config rantaian ditulis: {path} ({saiz} bait)")
+    for p, _url, _k, m in RANTAIAN:
+        if m not in semula:
+            raise SystemExit(f"[FAIL] baca-balik gagal: {p}/{m} tiada dalam {path}")
+    print(f"config rantaian ditulis: {path} ({saiz} bait, {len(RANTAIAN)} pautan disahkan)")
 
 
 if __name__ == "__main__":
