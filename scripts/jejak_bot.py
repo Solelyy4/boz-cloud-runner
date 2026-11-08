@@ -71,6 +71,15 @@ def _catat(label, a, k):
                 break
             if isinstance(arg, str) and not teks:
                 teks = arg[:160]
+            # Objek PTB (Update/Message) — bukan dict. Baca atribut secara defensif.
+            for attr in ("effective_message", "message"):
+                o = getattr(arg, attr, None)
+                if o is not None:
+                    mid = mid or str(getattr(o, "message_id", "") or "")
+                    teks = teks or str(getattr(o, "text", "") or getattr(o, "caption", "") or "")[:160]
+                    break
+            if not mid:
+                mid = str(getattr(arg, "update_id", "") or "")
         _JLOG.warning("%s id=%s teks=%r", label, mid or "-", teks)
     except Exception:
         pass
@@ -79,14 +88,18 @@ def _catat(label, a, k):
 def _jejak_pasang(modul):
     """Balut method modul supaya setiap panggilan dicatat. Selamat jika tiada.
 
-    NAMA SEBENAR (dibaca daripada adapter Hermes, bukan tekaan):
-      - `_on_platform_update`  <- catch-all PTB handler (group 99) untuk update MASUK
-      - `send_message`         <- hantar balasan keluar
-    Versi pertama meneka `_handle_update`/`_process_update` yang TIDAK WUJUD, jadi
-    tiada satu pun dicatat dan kita tersalah simpul "mesej tidak sampai".
+    NAMA SEBENAR (dibaca daripada `_register_handlers`, bukan tekaan):
+      - `_handle_text_message`  <- MessageHandler(filters.TEXT & ~COMMAND)
+      - `_handle_command`       <- MessageHandler(filters.COMMAND)
+      - `_on_platform_update`   <- TypeHandler(Update, group=99) catch-all
+      - `send_message`          <- hantar balasan keluar
+    Versi pertama meneka `_handle_update`/`_process_update`; versi kedua meneka
+    `_on_platform_update` sahaja. KEDUA-DUA salah sasaran untuk mesej teks biasa,
+    jadi log kekal kosong walaupun bot memproses mesej.
     """
-    for nama, label in (("_on_platform_update", "MASUK"),
-                        ("_record_updates_received", "TERIMA"),
+    for nama, label in (("_handle_text_message", "MASUK"),
+                        ("_handle_command", "MASUK-CMD"),
+                        ("_on_platform_update", "UPDATE"),
                         ("send_message", "BALAS"),
                         ("_send_message", "BALAS")):
         asal = getattr(modul, nama, None)
