@@ -28,6 +28,13 @@ from pathlib import Path
 
 PENANDA = "# JEJAK-MASUK-BOZ v1"
 
+
+def _masa() -> str:
+    """Cap waktu UTC untuk diari — tanpa ini, log berbilang run tidak boleh dibezakan."""
+    import datetime  # noqa: PLC0415
+
+    return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
 NL = chr(10)
 Q3 = chr(34) * 3
 BS = chr(92)
@@ -135,9 +142,21 @@ def main() -> int:
     # Output di-flush secara eksplisit: di runner, stdout Python dibuffer dan baris
     # penting boleh hilang apabila proses induk keluar — kita pernah buta tentang
     # sebab penampal gagal hanya kerana mesejnya tidak sempat dicetak.
+    #
+    # TAMBAHAN: tulis juga ke FAIL di sebelah skrip. `tee` boleh memotong baris
+    # apabila proses induk keluar, dan kita sudah berulang kali kehilangan bukti
+    # penting (baris "PATCH OK" hilang walaupun tampalan berjaya di tempatan).
+    diari = Path(__file__).with_name("jejak_masuk.log")
+
     def c(m: str) -> None:
         print(m, flush=True)
+        try:
+            with diari.open("a", encoding="utf-8") as f:
+                f.write(m + "\n")
+        except OSError:
+            pass
 
+    c("=== " + _masa() + " mula ===")
     c("JEJAK-MASUK: python=" + sys.executable)
     try:
         import telegram  # noqa: PLC0415
@@ -155,7 +174,24 @@ def main() -> int:
             calon = []
     c("JEJAK-MASUK: " + str(len(calon)) + " fail PTB dijumpai")
     for p in calon:
-        c("  " + tampal(p) + " -> " + str(p))
+        hasil = tampal(p)
+        c("  " + hasil + " -> " + str(p))
+        # Sahkan tulis-balik: jangan percaya mesej fungsi, baca fail semula.
+        try:
+            teks = p.read_text(encoding="utf-8", errors="replace")
+            c("  sahkan: penanda=%s (bait=%d)" % (PENANDA in teks, len(teks)))
+        except OSError as e:
+            c("  sahkan GAGAL baca: %r" % (e,))
+        if hasil != "PATCH OK" and hasil != "sudah":
+            # Diagnosis bila corak tidak padan: cetak tandatangan sebenar.
+            try:
+                teks = p.read_text(encoding="utf-8", errors="replace")
+                i = teks.find("async def process_update")
+                c("  tandatangan sebenar: " + repr(teks[i:i + 110]) if i >= 0 else
+                  "  TIADA 'async def process_update' dalam fail")
+            except OSError:
+                pass
+    c("=== selesai ===")
     return 0
 
 
