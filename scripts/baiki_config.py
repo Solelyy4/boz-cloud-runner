@@ -29,11 +29,19 @@ import sys
 # Rantaian berasas HAD SEBENAR yang diukur 8 Nov 2026:
 #   Groq    : 1000 permintaan/jam, 8/8 panggilan berturut lulus, gpt-oss-120b & 20b 2/2 tools
 #   Mistral : ~3-4 panggilan lalu 429 berpanjangan (diukur: 200,200,200,429,429,429)
-# Bot mesti diterajui Groq. Mistral hanya sandaran terakhir.
+#
+# DIKEMAS KINI 9 Nov 2026: Tokenomix (glm-5.3) diukur lebih baik untuk bot ini —
+# 4/5 tugasan bersekat lulus berbanding Groq yang menolak atau tidak diuji. Jika
+# config SUDAH menetapkan provider `tokenomix` dengan kunci yang ada, JANGAN
+# timpa: `_teraju_dilindungi()` mengesan itu dan membiarkan rantaian sedia ada.
 MODEL_LALAI = ("groq", "openai/gpt-oss-120b")
 FALLBACK = [
     {"provider": "groq", "model": "openai/gpt-oss-20b"},
 ]
+# Provider yang layak MENGGANTIKAN MODEL_LALAI jika ia sudah menjadi teraju.
+# Skrip ini dulu memaksa teraju ke groq dan memusnahkan rantaian Tokenomix yang
+# baru dipasang — gateway kemudian mula dengan model yang menolak tugasan BOZ.
+TERAJU_DILINDUNGI = {"tokenomix"}
 # Mistral: had akaun sangat ketat — diukur 8 Nov 2026: 200,200,200,429,429,429 berturut.
 # Ia BOLEH jadi sandaran terakhir di config, tetapi TIDAK boleh disahkan sebagai wajib:
 # menguji dua kali dalam satu minit sudah cukup untuk mencetuskan 429.
@@ -100,7 +108,21 @@ def baiki(cfg: dict) -> list[str]:
 
     # --- 1. Rantaian model ---
     model = cfg.setdefault("model", {})
-    if (model.get("provider"), model.get("default")) != MODEL_LALAI:
+    prov = cfg.setdefault("providers", {})
+    # LINDUNG TERAJU: jika config SUDAH diterajui provider yang dipasang khas
+    # (tokenomix/glm-5.3, diukur 4/5 tugasan bersekat) dan kuncinya ada, JANGAN
+    # timpa. Skrip ini dulu memaksa groq lalu memusnahkan rantaian baharu pada
+    # setiap run -- gateway mula dengan model yang menolak tugasan BOZ.
+    teraju_asal = model.get("provider")
+    dilindungi = (
+        teraju_asal in TERAJU_DILINDUNGI
+        and teraju_asal in prov
+        and bool(prov[teraju_asal].get("base_url"))
+    )
+    if dilindungi:
+        ubah.append(f"model: dikekalkan {teraju_asal}/{model.get('default')} "
+                    f"(teraju dilindungi, bukan ditimpa ke {MODEL_LALAI[0]})")
+    elif (model.get("provider"), model.get("default")) != MODEL_LALAI:
         ubah.append(f"model: {model.get('provider')}/{model.get('default')} -> {MODEL_LALAI[0]}/{MODEL_LALAI[1]}")
         model["provider"], model["default"] = MODEL_LALAI
     model.setdefault("api_mode", "chat_completions")
@@ -111,24 +133,46 @@ def baiki(cfg: dict) -> list[str]:
         model["context_window"] = 131072
 
     # --- 2. Providers wajib wujud ---
-    prov = cfg.setdefault("providers", {})
     if "mistral" not in prov:
         prov["mistral"] = {"base_url": "https://api.mistral.ai/v1", "api_key_env": "MISTRAL_API_KEY"}
         ubah.append("providers.mistral ditambah")
     if "groq" not in prov:
         prov["groq"] = {"base_url": "https://api.groq.com/openai/v1", "api_key_env": "GROQ_API_KEY"}
         ubah.append("providers.groq ditambah")
+    if "tokenomix" not in prov:
+        prov["tokenomix"] = {"base_url": "https://api.tokenomixai.com/v1",
+                             "api_key_env": "TOKENOMIX_API_KEY"}
+        ubah.append("providers.tokenomix ditambah")
+    # Provider yatim (menunjuk base_url kosong) mematikan setiap giliran yang
+    # jatuh ke sandaran itu. Buang supaya rantaian hanya menyenaraikan yang sah.
+    for nama in [k for k, v in list(prov.items())
+                 if isinstance(v, dict) and not v.get("base_url")]:
+        prov.pop(nama, None)
+        ubah.append(f"providers.{nama} dibuang (base_url kosong)")
 
     # --- 3. Fallback ditulis SEMULA ikut data ukuran, bukan diwarisi ---
     # Bukti: fallback warisan (mistral-medium-latest, qwen3.8-27b, open-mistral-nemo)
     # semuanya mati/reput. Membaiki sebahagian sahaja meninggalkan urutan buruk:
     # Mistral (429 selepas 3-4 panggilan) mendahului Groq (1000/jam) -> bot mati lambat.
+    #
+    # LINDUNG: jika teraju dilindungi, fallback sedia ada JUGA dikekalkan — ia
+    # disusun oleh ladang_model yang menguji setiap model dengan tool-calling.
     lama = cfg.get("fallback_model") or []
     model_lama = [f.get("model") for f in lama if isinstance(f, dict)]
-    # Mistral sebagai sandaran TERAKHIR: ia membantu bila Groq benar-benar mati,
-    # tetapi tidak boleh diuji sebagai wajib (429 selepas beberapa panggilan).
-    cfg["fallback_model"] = [dict(f) for f in FALLBACK] + [dict(SANDARAN_TERAKHIR)]
-    ubah.append(
+    if dilindungi and lama:
+        # Buang hanya pautan yatim/reput; kekalkan urutan yang sudah diuji.
+        bersih = [
+            f for f in lama
+            if isinstance(f, dict)
+            and f.get("provider") in prov
+            and f.get("model") not in MODEL_DILARANG
+        ]
+        cfg["fallback_model"] = bersih
+        ubah.append(f"fallback: dikekalkan {len(bersih)} pautan yang diuji "
+                    f"(dibuang {len(lama) - len(bersih)} yatim/reput)")
+    else:
+        cfg["fallback_model"] = [dict(f) for f in FALLBACK] + [dict(SANDARAN_TERAKHIR)]
+        ubah.append(
         f"fallback ditulis semula: {model_lama} -> {[f['model'] for f in cfg['fallback_model']]}"
     )
 
@@ -181,8 +225,15 @@ def sahkan(path: str, asal_bait: int) -> tuple[bool, str]:
     except Exception as e:
         return False, f"tidak boleh parse: {e}"
     saiz = os.path.getsize(path)
-    if saiz < 3000:
-        return False, f"terlalu kecil ({saiz} bait, asal {asal_bait})"
+    # Had mutlak 3000 bait melindungi config sebenar (~10k) daripada dirosakkan
+    # oleh sedsed/sed yang menulis satu baris. Tetapi ia juga menolak config sah
+    # yang MEMANG kecil (config ujian) -- dan itu membuatkan `baiki_config`
+    # melaporkan FAIL pada fail yang betul. Jadi had = 3000 ATAU 60% saiz asal,
+    # yang mana lebih rendah: config besar tidak boleh menyusut teruk, config
+    # kecil tidak dihukum kerana saiznya.
+    had = min(3000, max(200, int(asal_bait * 0.6))) if asal_bait else 3000
+    if saiz < had:
+        return False, f"terlalu kecil ({saiz} bait < had {had}, asal {asal_bait})"
     hilang = [k for k in KUNCI_WAJIB if k not in d]
     if hilang:
         return False, f"kunci hilang: {hilang}"
