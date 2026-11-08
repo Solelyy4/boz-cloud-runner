@@ -1,5 +1,5 @@
-=== RUN 42436126082 2026-11-08T01:57:37Z ===
-!!! GERBANG GAGAL (status=skipped) !!!
+=== RUN 42436859782 2026-11-08T02:05:04Z ===
+!!! GERBANG GAGAL (status=failure) !!!
 Gateway TIDAK dimulakan. Punca: satu atau lebih pautan model MATI
 atau had 429 berpanjangan. Semak langkah 'GERBANG' dalam run ini.
 Bot TIDAK menerima sebarang mesej dalam run ini.
