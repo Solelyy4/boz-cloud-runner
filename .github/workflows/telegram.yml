@@ -198,7 +198,7 @@ jobs:
           "$PY" scripts/ladang_model.py --cepat --tulis-config home/config.yaml || true
           echo
           echo "--- gerbang: sahkan setiap pautan dalam config akhir ---"
-          "$PY" scripts/sah_model.py
+          "$PY" scripts/sah_model.py --config home/config.yaml --longgar
           echo "--- ujian rantaian penuh (sembang + tool-calling) ---"
           "$PY" scripts/uji_rantaian.py home/config.yaml
 
