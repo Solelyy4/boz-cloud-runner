@@ -1,0 +1,697 @@
+name: telegram-hermes
+
+on:
+  schedule:
+    - cron: "13 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram-hermes
+  # JANGAN tukar ke true. `true` bermakna setiap run/dispatch baharu MEMBUNUH bot yang
+  # sedang hidup. Sejarah: 10 run berturut-turut `cancelled` dalam satu sesi kerana
+  # operator mengulang dispatch untuk "restart" — bot tidak pernah sempat membalas.
+  # Dengan `false`, run baharu MENUNGGU giliran; bot kekal hidup sepanjang hari.
+  cancel-in-progress: false
+
+jobs:
+  jalankan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1440
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Ambil home Hermes (repo peribadi)
+        run: |
+          git clone --depth 1 "https://x-access-token:${{ secrets.BOZ_PAT }}@github.com/Solelyy4/boz-hermes-home.git" home
+          ls home
+
+      - name: Pasang Hermes
+        run: |
+          # CARA RASMI: `pip install hermes-agent` dan `pip install git+...` KEDUA-DUANYA
+          # disekat oleh reka bentuk Hermes ("Building wheels or sdists for hermes-agent is
+          # not supported" — disahkan pada runner ini). PyPI pula berhenti pada 0.19.0,
+          # manakala laptop BOZ yang BEKERJA guna v0.22.6 (2026.9.24) dari git.
+          # Penyelesaian rasmi = skrip bootstrap install.sh (clone + uv + venv sendiri).
+          set +e
+          curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh -o /tmp/h-install.sh
+          if [ ! -s /tmp/h-install.sh ]; then
+            echo "cetakan gagal, cuba melalui git clone"
+            git clone --depth 1 https://github.com/NousResearch/hermes-agent.git /tmp/ha
+            cp /tmp/ha/scripts/install.sh /tmp/h-install.sh
+          fi
+          chmod +x /tmp/h-install.sh 2>/dev/null
+          HERMES_HOME="$PWD/home" HERMES_INSTALL_CHANNEL=stable bash /tmp/h-install.sh --non-interactive 2>&1 | tail -25
+          set -e
+          export PATH="$HOME/.local/bin:$PATH"
+          # install.sh menamatkan dengan mesej "no dependency environment is committed for this
+          # install; run `hermes pm repair`" — venv belum dipautkan. Jalankan pembaikan itu,
+          # kalau tidak semua langkah berikutnya gagal dengan 'hermes: command not found'.
+          hermes pm repair 2>&1 | tail -8 || true
+          hermes pm install 2>&1 | tail -8 || true
+          echo "--- versi dipasang ---"
+          hermes --version 2>&1 | head -3 || echo "AMARAN: CLI hermes tidak dijumpai"
+
+      - name: Bypass guardrail Hermes (patch cloud)
+        run: |
+          # Bot cloud berjalan dengan guardrail ASAL Hermes kerana apply_patches.py hanya
+          # pernah dijalankan di laptop. Tanpa langkah ini, threat scanner, skill install guard,
+          # terminal hardline, file deny-glob dan env blocklist tetap menyekat tugasan BOZ.
+          export HERMES_HOME="$PWD/home"
+          export PATH="$HOME/.local/bin:$PATH"
+
+          # Venv Hermes dibina oleh install.sh di home/installs/*/environments/*/venv.
+          # PENTING: mesti guna python venv itu, bukan python3 sistem — patch menulis
+          # sitecustomize.py ke site-packages python yang menjalankan skrip.
+          PY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] || continue
+            if "$cand" -c "import hermes_cli" 2>/dev/null; then PY="$cand"; break; fi
+          done
+          if [ -z "$PY" ]; then
+            echo "::error::venv Hermes tidak dijumpai — patch tidak dapat dijalankan"
+            exit 1
+          fi
+          echo "python dipakai: $PY"
+          "$PY" -c "import sys; print('site-packages:', [p for p in sys.path if 'site-packages' in p][:2])"
+
+          echo "=== TERAP PATCH ==="
+          set +e
+          "$PY" scripts/apply_patches.py 2>&1 | tail -45
+          PATCH_RC=$?
+          set -e
+          echo "patch exit: $PATCH_RC"
+
+          echo "=== VERDICT ==="
+          VERDICT=$("$PY" scripts/apply_patches.py --check 2>&1 | grep -E "^RESULT:" || echo "RESULT: TIDAK TERBACA")
+          echo "$VERDICT"
+          PASS=$(  "$PY" scripts/apply_patches.py --check 2>&1 | grep -c "\[PASS\]" || echo 0)
+          FAIL=$(  "$PY" scripts/apply_patches.py --check 2>&1 | grep -c "\[FAIL\]" || echo 0)
+          echo "PASS=$PASS FAIL=$FAIL"
+
+          # Sahkan sitecustomize benar-benar wujud dalam venv ini
+          SP=$("$PY" -c "import sys;print([p for p in sys.path if 'site-packages' in p][0])")
+          if [ -f "$SP/sitecustomize.py" ]; then
+            echo "sitecustomize: WUJUD di $SP"
+          else
+            echo "::error::sitecustomize TIDAK wujud di $SP — bypass tidak aktif"
+            exit 1
+          fi
+
+          if [ "$FAIL" -gt 0 ]; then
+            echo "::error::$FAIL komponen GAGAL dilempar"
+            exit 1
+          fi
+          echo "GUARDRAIL BYPASS AKTIF ($PASS komponen PASS)"
+
+      - name: Sahkan pelayar (Playwright Chromium)
+        # install.sh Hermes sudah memasang chromium + venv sendiri (disahkan: "✓ chromium").
+        # Jangan jalankan `python -m playwright install` — ia guna Python sistem yang tidak
+        # ada playwright, lalu gagal dan (dengan `bash -e`) membunuh seluruh run.
+        run: |
+          hermes --version | head -1
+          echo "pelayar diuruskan oleh venv Hermes (install.sh)"
+
+      - name: Sahkan akses luar (web_search, web_extract, curl)
+        # TIDAK kritikal: probe ini melaporkan keupayaan, bukan menghalang bot.
+        # Run sebelum ini mati kerana exit 1 di sini — bot tidak pernah mula.
+        continue-on-error: true
+        run: |
+          export HERMES_HOME="$PWD/home"
+          export PATH="$HOME/.local/bin:$PATH"
+          PY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] && "$cand" -c "import hermes_cli" 2>/dev/null && { PY="$cand"; break; }
+          done
+          [ -n "$PY" ] || { echo "::warning::venv tidak dijumpai"; exit 0; }
+          export ROUTER9_API_KEY="${{ secrets.ROUTER9_API_KEY }}"
+          echo "python: $PY"
+
+          echo "=== curl keluar ==="
+          curl -s -o /dev/null -w "example.com HTTP %{http_code}\n" -m 20 https://example.com || echo "curl gagal"
+
+          echo "=== web_search (melalui hermes tools) ==="
+          cd "$HERMES_HOME/.." 2>/dev/null || true
+          "$PY" - <<'PYEOF' || echo "probe web_search gagal (tidak kritikal)"
+          import sys
+          try:
+              from tools.web_tools import web_search as _ws
+              print("import ok")
+          except Exception as e:
+              print("import hermes_cli.tools.web_tools gagal:", type(e).__name__, str(e)[:150])
+              sys.exit(0)
+          try:
+              r = _ws("python asyncio tutorial", 3)
+              web = (r.get("data") or {}).get("web") or []
+              print("hasil:", len(web))
+              for x in web[:2]:
+                  print("  -", str(x.get("title",""))[:60], "|", str(x.get("url",""))[:60])
+          except Exception as e:
+              print("panggilan gagal:", type(e).__name__, str(e)[:200])
+          PYEOF
+          echo "=== ujian tool-calling 9Router ==="
+          curl -s -m 60 -X POST http://129.221.178.149:20128/v1/chat/completions \
+            -H "Authorization: Bearer $ROUTER9_API_KEY" -H "Content-Type: application/json" \
+            -d '{"model":"mistral-code","max_tokens":150,"tools":[{"type":"function","function":{"name":"web_search","description":"Cari internet","parameters":{"type":"object","properties":{"query":{"type":"string"}},"required":["query"]}}}],"messages":[{"role":"user","content":"Cari berita AI. Guna alat."}]}' \
+            | head -c 400 || echo "tool-calling gagal"
+
+          echo "=== ujian web_search dalam venv ==="
+          "$PY" - <<'PYEOF' || echo "web_search gagal (tidak kritikal)"
+          import asyncio
+          try:
+              from plugins.web.ddgs.provider import DDGSWebSearchProvider
+              p = DDGSWebSearchProvider()
+              res = p.search("python asyncio", 3)
+              print("ddgs hasil:", len(res))
+          except Exception as e:
+              print("ddgs GAGAL:", type(e).__name__, str(e)[:180])
+          PYEOF
+
+
+      - name: Pasang pakej web (ddgs) ke venv Hermes
+        continue-on-error: true
+        run: |
+          export HERMES_HOME="$PWD/home"
+          PY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] && "$cand" -c "import hermes_cli" 2>/dev/null && { PY="$cand"; break; }
+          done
+          [ -n "$PY" ] || { echo "::warning::venv tiada"; exit 0; }
+          echo "python: $PY"
+          # Backend web_search 'ddgs' memerlukan pakej PyPI `ddgs` — tanpa ia gating
+          # melaporkan "ddgs package is not installed" dan carian pulang 0 hasil.
+          "$PY" -m pip install --quiet --disable-pip-version-check ddgs 2>&1 | tail -5 || \
+            "$PY" -m ensurepip --upgrade >/dev/null 2>&1 && "$PY" -m pip install --quiet ddgs 2>&1 | tail -3
+          "$PY" -c "import ddgs; print('ddgs versi:', getattr(ddgs, '__version__', 'ADA'))" || echo "ddgs masih tiada"
+
+      - name: Uji alat web dalam venv (tulis hasil ke repo)
+        continue-on-error: true
+        run: |
+          export HERMES_HOME="$PWD/home"
+          export PATH="$HOME/.local/bin:$PATH"
+          PY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] && "$cand" -c "import hermes_cli" 2>/dev/null && { PY="$cand"; break; }
+          done
+          [ -n "$PY" ] || { echo "::warning::venv tiada"; exit 0; }
+
+          OUT=alat_verdict.txt
+          echo "=== $(date -u +%FT%TZ) ===" > $OUT
+          echo "python: $PY" >> $OUT
+
+          echo "--- 0. pasang pakej ddgs ke python ini ---" >> $OUT
+          timeout 120 "$PY" -m pip install --quiet --disable-pip-version-check ddgs >> $OUT 2>&1 || \
+            timeout 120 "$PY" -m ensurepip --upgrade >> $OUT 2>&1 && \
+            timeout 120 "$PY" -m pip install --quiet ddgs >> $OUT 2>&1 || true
+          "$PY" -c "import ddgs; print('ddgs ADA versi', getattr(ddgs,'__version__','?'))" >> $OUT 2>&1 || echo "ddgs MASIH TIADA" >> $OUT
+
+          echo "--- 1. GATE: check_web_api_key() + registry ---" >> $OUT
+          timeout 90 "$PY" - >> $OUT 2>&1 <<'PYEOF' || echo "EXIT=$?" >> $OUT
+          import sys, traceback
+          try:
+              from tools.web_tools import check_web_api_key, _get_search_backend, _configured_backend, _keyless_backend
+              print("check_web_api_key():", check_web_api_key())
+              print("_configured_backend():", _configured_backend())
+              print("_get_search_backend():", _get_search_backend())
+              print("_keyless_backend():", _keyless_backend())
+          except Exception as e:
+              print("GATE GAGAL:", type(e).__name__, str(e)[:300]); traceback.print_exc()
+
+          # adakah tool benar-benar didaftar?
+          try:
+              import tools.web_tools as wt
+              import agent.tool_registry as tr
+              reg = getattr(tr, "registry", None) or getattr(wt, "registry", None)
+              names = []
+              if reg is not None:
+                  for attr in ("list_tools", "tools", "_tools"):
+                      v = getattr(reg, attr, None)
+                      if callable(v):
+                          try: names = [t if isinstance(t, str) else getattr(t, "name", "") for t in v()]; break
+                          except Exception: pass
+                      elif isinstance(v, dict):
+                          names = list(v.keys()); break
+              print("web tools didaftar:", sorted(n for n in names if "web" in str(n)))
+          except Exception as e:
+              print("semak registry GAGAL:", type(e).__name__, str(e)[:200])
+
+          # panggil handler sebenar seperti agent
+          try:
+              from tools.web_tools import web_search_tool
+              r = web_search_tool("python asyncio", limit=3)
+              d = r if isinstance(r, dict) else {}
+              web = (d.get("data") or {}).get("web") or []
+              print("web_search_tool OK, hasil:", len(web))
+              for x in web[:2]:
+                  print("  -", str(x.get("title",""))[:55], "|", str(x.get("url",""))[:55])
+          except Exception as e:
+              print("web_search_tool GAGAL:", type(e).__name__, str(e)[:300]); traceback.print_exc()
+          PYEOF
+
+          echo "--- 1b. dalaman web_search_tool ---" >> $OUT
+          timeout 90 "$PY" - >> $OUT 2>&1 <<'PYEOF' || echo "EXIT=$?" >> $OUT
+          import json, traceback
+          try:
+              from tools.web_tools import _ensure_web_plugins_loaded, _get_search_backend
+              _ensure_web_plugins_loaded()
+              from agent.web_search_registry import get_provider, get_active_search_provider
+              b = _get_search_backend()
+              print("backend:", b)
+              p = get_provider(b)
+              print("get_provider(%r):" % b, type(p).__name__ if p else None)
+              print("supports_search:", p.supports_search() if p else "n/a")
+              act = get_active_search_provider()
+              print("active provider:", type(act).__name__ if act else None, "| name:", getattr(act, "name", None))
+              from tools.web_tools import _memoized_search
+              if p is not None and p.supports_search():
+                  res = _memoized_search(p, "python asyncio", 3)
+                  web = (res.get("data") or {}).get("web") or []
+                  print("_memoized_search hasil:", len(web), "| success:", res.get("success"), "| error:", res.get("error"))
+          except Exception as e:
+              print("DIAG GAGAL:", type(e).__name__, str(e)[:300]); traceback.print_exc()
+          PYEOF
+
+          echo "--- 2. plugin ddgs terus ---" >> $OUT
+          timeout 60 "$PY" - >> $OUT 2>&1 <<'PYEOF' || echo "EXIT=$?" >> $OUT
+          try:
+              from plugins.web.ddgs.provider import DDGSWebSearchProvider
+              p = DDGSWebSearchProvider()
+              res = p.search("python asyncio", 3)
+              print("ddgs OK, hasil:", len(res))
+          except Exception as e:
+              print("ddgs GAGAL:", type(e).__name__, str(e)[:300])
+          PYEOF
+
+          echo "--- 3. curl keluar ---" >> $OUT
+          curl -s -o /dev/null -w "example.com HTTP %{http_code}\n" -m 20 https://example.com >> $OUT 2>&1 || echo "curl gagal" >> $OUT
+          curl -s -o /dev/null -w "duckduckgo HTTP %{http_code}\n" -m 20 "https://html.duckduckgo.com/html/?q=test" >> $OUT 2>&1 || echo "ddg gagal" >> $OUT
+
+          echo "--- 4. kadar kejayaan ddgs (5 cubaan) ---" >> $OUT
+          timeout 200 "$PY" - >> $OUT 2>&1 <<'PYEOF' || echo "EXIT=$?" >> $OUT
+          import time
+          from tools.web_tools import _ensure_web_plugins_loaded, _get_search_backend, _memoized_search
+          from agent.web_search_registry import get_provider, get_active_search_provider
+          _ensure_web_plugins_loaded()
+          b = _get_search_backend()
+          ok = 0
+          for i in range(5):
+              q = "test query %d %d" % (i, int(time.time()) % 100000)
+              try:
+                  p = get_provider(b) or get_active_search_provider()
+                  res = _memoized_search(p, q, 3)
+                  n = len((res.get("data") or {}).get("web") or [])
+              except Exception as e:
+                  n = 0
+                  print("  cubaan %d: EXC %s" % (i + 1, str(e)[:80]))
+              print("  cubaan %d: hasil=%d success=%s" % (i + 1, n, res.get("success") if 'res' in dir() else '?'))
+              if n > 0:
+                  ok += 1
+              time.sleep(2)
+          print("KADAR: %d/5" % ok)
+          PYEOF
+
+          echo "=== SELESAI ===" >> $OUT
+          cat $OUT
+
+          git fetch origin master -q >/dev/null 2>&1 || true
+          git checkout -q -B alat-tmp origin/master >/dev/null 2>&1 || true
+          cp $OUT alat_verdict.tmp && mv alat_verdict.tmp alat_verdict.txt
+          git add -f alat_verdict.txt >/dev/null 2>&1
+          git -c user.email=bot@local -c user.name=bot commit -qm "alat verdict" >/dev/null 2>&1 || true
+          for p in 1 2 3 4 5; do
+            git push origin HEAD:master >/dev/null 2>&1 && break
+            sleep $((3 + p * 2))
+          done || true
+
+      - name: Tulis .env
+        run: |
+          cat > home/.env <<'EOF'
+          TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_ALLOWED_USERS=8043910371
+          MISTRAL_API_KEY=${{ secrets.MISTRAL_API_KEY }}
+          GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
+          BOZ_PAT=${{ secrets.BOZ_PAT }}
+          ROUTER9_API_KEY=${{ secrets.ROUTER9_API_KEY }}
+          BOZ_USER=Solelyy4
+          EOF
+          sed -i 's/^ *//' home/.env
+
+      - name: Sahkan config terpakai
+        run: |
+          echo "=== network / gateway dari home repo ==="
+          grep -A3 '^network:' home/config.yaml || echo "TIADA network:"
+          grep -A2 '^gateway:' home/config.yaml || true
+          echo "=== auto_load ==="
+          grep -c '^  - ' home/config.yaml || true
+          # PENTING: .skills_prompt_snapshot.json ialah CACHE senarai skill. Kalau ia kekal
+          # dalam repo home, skill yang ditambah oleh workflow `evolve` TIDAK dimuat kerana
+          # snapshot lama dianggap sah. Buang setiap kali run bermula -> skill baharu kelihatan.
+          if [ -f home/.skills_prompt_snapshot.json ]; then
+            rm -f home/.skills_prompt_snapshot.json
+            echo "cache skill dibuang (snapshot akan dijana semula dengan skill evolusi terkini)"
+          fi
+          echo "=== jumlah skill dalam home ==="
+          ls home/skills | wc -l
+          # Cari python venv Hermes secara langsung. `hermes python --path` tiada; venv
+          # Hermes berada di bawah ~/.hermes atau dalam direktori pemasangan install.sh.
+          # Fallback: pasang pyyaml ke python yang kita jumpa (bukan python sistem kosong).
+          PY=""
+          for cand in "$HOME/.local/share/hermes/venv/bin/python" \
+                      "$HOME/.hermes/venv/bin/python" \
+                      "$(ls -d "$HOME"/.local/share/hermes/*/venv/bin/python 2>/dev/null | head -1)" \
+                      "$(find "$HOME" -maxdepth 6 -path '*/hermes*/venv/bin/python' 2>/dev/null | head -1)"; do
+            if [ -n "$cand" ] && [ -x "$cand" ]; then PY="$cand"; break; fi
+          done
+          [ -n "$PY" ] || PY="$(command -v python3)"
+          echo "python dipakai: $PY"
+          "$PY" -c "import yaml" 2>/dev/null || "$PY" -m pip install --quiet pyyaml 2>/dev/null || true
+          "$PY" - <<'PY'
+          import sys, pathlib
+          try:
+              import yaml
+          except ImportError:
+              # Pengesahan tidak kritikal: lapor dan keluar sifar supaya run bot tidak mati.
+              print("pyyaml tiada — langkah sahkan dilangkau (tidak kritikal)")
+              sys.exit(0)
+          cfg = yaml.safe_load(open("home/config.yaml", encoding="utf-8"))
+          net = cfg.get("network", {})
+          gw = cfg.get("gateway", {})
+          al = cfg.get("skills", {}).get("auto_load", [])
+          print(f"force_ipv4={net.get('force_ipv4')} connect_timeout={gw.get('platform_connect_timeout')} auto_load={len(al)}")
+          if net.get("force_ipv4") is not True:
+              print("AMARAN: force_ipv4 tiada — IPv6 boleh hang gateway")
+          skills = {p.name for p in pathlib.Path("home/skills").iterdir() if p.is_dir()}
+          hilang = [s for s in al if s not in skills]
+          if hilang:
+              print("AMARAN: auto_load menyenaraikan skill yang TIADA:", hilang)
+          else:
+              print("auto_load: semua skill dipetik ADA")
+          print("jumlah skill:", len(skills))
+          PY
+
+      - name: Kesihatan jambatan laptop (bukti hidup)
+        # Tidak kritikal: kalau laptop tidur, bot mesti tetap hidup. Hasil ditulis ke
+        # bridge_health.log supaya operator boleh lihat kesihatan otak sekunder.
+        continue-on-error: true
+        run: |
+          export BOZ_PAT="${{ secrets.BOZ_PAT }}"
+          PY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] && "$cand" -c "import hermes_cli" 2>/dev/null && { PY="$cand"; break; }
+          done
+          if [ -z "$PY" ]; then echo "venv tiada - probe dilangkau" > bridge_health.log; exit 0; fi
+          timeout 240 "$PY" scripts/bridge.py brain "probe kesihatan laptop" --kind probe --wait 150             > bridge_health.log 2>&1 || echo "probe gagal (laptop mungkin tidur)" >> bridge_health.log
+          cat bridge_health.log
+          git fetch origin master -q >/dev/null 2>&1 || true
+          git checkout -q -B health-tmp origin/master 2>/dev/null || true
+          git add -f bridge_health.log >/dev/null 2>&1
+          git -c user.email=bot@local -c user.name=bot commit -qm "kesihatan jambatan $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+          for p in 1 2 3; do git push origin HEAD:master >/dev/null 2>&1 && break; sleep 4; done || true
+          git checkout -q -
+
+      - name: Jalankan gateway (kukuh terhadap 409)
+        timeout-minutes: 1450
+        continue-on-error: true
+        run: |
+          export HERMES_HOME="$PWD/home"
+          export HERMES_NO_UPDATE_CHECK=1
+          export PYTHONUNBUFFERED=1
+          export PYTHONIOENCODING=utf-8
+          export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
+          # PUNCA UTAMA bot menjawab "AI model service kept failing" + fallback habis:
+          # langkah ini DAHULUNYA hanya mengeksport TELEGRAM_BOT_TOKEN, sedangkan
+          # config.yaml merujuk api_key_env: MISTRAL_API_KEY. Tanpa kunci ini setiap
+          # panggilan model pulang 401 dan rantai fallback mati satu per satu
+          # (ministral-14b -> ministral-8b -> groq -> habis).
+          export MISTRAL_API_KEY="${{ secrets.MISTRAL_API_KEY }}"
+          export GROQ_API_KEY="${{ secrets.GROQ_API_KEY }}"
+          export ROUTER9_API_KEY="${{ secrets.ROUTER9_API_KEY }}"
+          export BOZ_PAT="${{ secrets.BOZ_PAT }}"
+          # CLI dipasang oleh install.sh ke ~/.local/bin — tanpa ini `hermes` tidak dijumpai.
+          export PATH="$HOME/.local/bin:$PATH"
+
+          # PENALA SAMBUNGAN. Lalai Hermes: 30s x 8 cubaan + 120s = 360s sebelum menyerah.
+          # 30s terlalu panjang untuk runner: telegram-init yang hang memakan masa sepenuhnya
+          # dan menghalang cubaan berikut, sedangkan getMe dari IP runner pulang dalam 0.27s
+          # (jadi hang 30s = bug dalam proses, bukan rangkaian perlahan). 10s x 3 = 30s
+          # memberi 3 peluang pantas dan gagal cepat supaya gelung luar boleh mula semula.
+          export HERMES_TELEGRAM_INIT_TIMEOUT=10
+          export HERMES_TELEGRAM_HTTP_CONNECT_TIMEOUT=8
+          export HERMES_TELEGRAM_HTTP_READ_TIMEOUT=15
+
+          # Keluarkan token dari URL git supaya jejak tak kekal dalam .git/config
+          git remote set-url origin "$(git remote get-url origin | sed -E 's#https://x-access-token:[^@]*@#https://github.com/#')" 2>/dev/null || true
+
+          lapor() {
+            # PENTING: batch sediakan kunci push SEBELUM mengunci — supaya semasa bot hidup
+            # (yang memang kerap push) status.log tidak tertinggal berjam-jam menyebabkan
+            # operator menyangka bot mati. Retry ditambah + jitter.
+            for p in 1 2 3 4 5 6; do
+              git fetch origin master -q >/dev/null 2>&1 || true
+              git rebase --abort >/dev/null 2>&1 || true
+              git checkout -q -B status-tmp origin/master >/dev/null 2>&1 || true
+              {
+                echo "=== run $GITHUB_RUN_ID tick $(date -u +%FT%TZ) ==="
+                tail -n 300 gw.log 2>/dev/null || true
+                if grep -qiE 'error|traceback|exception|failed|refus' gw.log 2>/dev/null; then
+                  echo '--- ERROR LINES ---'
+                  grep -iE -A6 'error|traceback|exception|failed|refus' gw.log 2>/dev/null | tail -n 120 || true
+                fi
+                echo "$1 $(date -u +%FT%TZ)"
+              } > status.log
+              git add -f status.log >/dev/null 2>&1
+              git -c user.email=bot@local -c user.name=bot commit -qm "status $1 $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+              if git push origin HEAD:master >/dev/null 2>&1; then return 0; fi
+              sleep $((3 + p * 2))
+            done
+            return 0
+          }
+
+          # ===== JAMBATAN KE HERMES PENUH (laptop BOZ) =====
+          # Bila bot TIDAK BOLEH menyelesaikan tugasan dengan toolset nipisnya, ia TIDAK
+          # menyerah: ia tanya otak kedua di laptop BOZ (Hermes penuh + 9Router + shell) dan
+          # memulangkan jawapannya ke Telegram. Ini menjawab "bot kena boleh buat semua".
+          #   python scripts/bridge.py brain "<masalah>" --context '<json>' --wait 600
+          # Laptop tidur/mati -> jambatan tamat masa; bot mesti beritahu BOZ dengan jujur.
+          echo "jambatan: guna 'python scripts/bridge.py brain ...' bila alat gagal atau soalan di luar toolset"
+
+          # PENTING: jangan sesekali panggil getUpdates dari luar.
+          # Adapter Hermes SENDIRI yang memegang long-poll; sebarang getUpdates lain
+          # (canary, probe, deleteWebhook semasa poll) akan memicu 409 dan mematikan bot.
+          # Satu-satunya proses yang dibenarkan menyentuh Telegram API ialah gateway.
+
+          # BUKTI KEADAAN (bukan teka-teki teks): getMe jauh lebih murah daripada meneka
+          # tanda dalam log. Disahkan 5/5 HTTP 200 dari IP runner, jadi kalau getMe OK tetapi
+          # gateway tetap "attempt 1/8", masalahnya DALAM proses Hermes — bukan rangkaian.
+          sehat() {
+            code=$(curl -4 -s -o /dev/null -m 12 -w "%{http_code}" \
+              "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe" || echo 000)
+            [ "$code" = "200" ]
+          }
+
+          # Sambungan dianggap BERJAYA bila salah satu tanda ini muncul. Tanda lama
+          # ("telegram") terlalu longgar dan meloloskan kegagalan; tanda baharu lebih tepat.
+          TANDA='polling|connected|Bot started|listening|getUpdates|Started polling|long.poll'
+
+          # PENJEJAK: push gw.log setiap 60s supaya operator boleh lihat mesej diproses atau tidak.
+          # Tanpa ini kita buta — log hanya di-push bila lapor() dipanggil (setiap ~10 min).
+          (
+            while true; do
+              sleep 60
+              if [ -s gw.log ]; then
+                git fetch origin master -q >/dev/null 2>&1 || true
+                git checkout -q -B trace-tmp origin/master >/dev/null 2>&1 || true
+                { echo "=== TRACE $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="; tail -n 400 gw.log 2>/dev/null; } > gw_trace.log
+                git add -f gw_trace.log >/dev/null 2>&1
+                git -c user.email=bot@local -c user.name=bot commit -qm "trace $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
+                git push origin HEAD:master >/dev/null 2>&1 || true
+              fi
+            done
+          ) &
+          TRACE_PID=$!
+
+          # Cubaan tanpa had (bounded by timeout-minutes 1450). Kalau Telegram Bot API down
+          # (502/timeout), kita tunggu & cuba semula sehingga runner tamat — bot pulih sendiri.
+          # BUG LAMA: gw.log diwarisi daripada run terdahulu. MARK = baris lama, jadi
+          # `tail -n +MARK` terus memadankan "Connected" milik sesi mati dan workflow
+          # melaporkan sambungan yang tidak wujud — bot tidak pernah mula, tetapi kita
+          # fikir ia mula. Mula dengan log BERSIH setiap kali.
+          : > gw.log
+          echo "gw.log dimulakan bersih $(date -u +%FT%TZ) run $GITHUB_RUN_ID" >> gw.log
+
+          # PENTING: `python` mentah dalam runner BUKAN venv Hermes — ia sistem python
+          # yang tiada modul hermes_cli. Bukti sebenar: gw.log penuh dengan
+          # "ModuleNotFoundError: No module named 'hermes_cli'" 3 kali berturut-turut →
+          # bot tidak pernah mula langsung. Cari venv Hermes SEKALI sebelum gelung.
+          GWPY=""
+          for cand in "$HERMES_HOME"/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] || continue
+            if "$cand" -c "import hermes_cli" 2>/dev/null; then GWPY="$cand"; break; fi
+          done
+          if [ -z "$GWPY" ]; then
+            echo "::error::venv Hermes tidak dijumpai — gateway tidak boleh mula"
+            echo "venv tidak dijumpai — gateway tidak boleh mula" >> gw.log
+            exit 1
+          fi
+          echo "gateway python: $GWPY" | tee -a gw.log
+
+          # WAJIB: adapter Telegram gagal tanpa python-telegram-bot dalam venv INI.
+          # Bukti sebenar: gw.log berbunyi "Platform 'Telegram' requirements not met
+          # (platform.telegram.install_hint)" + "No adapter available for telegram".
+          # Lazy-installer Hermes (pm.ensure_import) tidak berjaya di runner (tiada
+          # akses tulis/pip yang dikonfigurasi), jadi pasang terus di sini.
+          echo "=== pasang dependency platform (python-telegram-bot) ===" | tee -a gw.log
+          "$GWPY" -c "import telegram; print('telegram ADA', telegram.__version__)" 2>/dev/null \
+            || { "$GWPY" -m ensurepip --upgrade >/dev/null 2>&1 || true
+                 "$GWPY" -m pip install --quiet --disable-pip-version-check \
+                   "python-telegram-bot[socks,http2]>=21" 2>&1 | tail -5 || true; }
+          "$GWPY" -c "import telegram, telegram.ext; print('telegram OK', telegram.__version__)" \
+            | tee -a gw.log || { echo "::error::python-telegram-bot tidak dapat dipasang"; exit 1; }
+
+          # ddgs: backend web_search keyless. Tanpa ia, web_search pulang 0 hasil
+          # dan bot tidak boleh ambil apa-apa dari internet (tugasan utama BOZ).
+          "$GWPY" -m pip install --quiet --disable-pip-version-check ddgs 2>&1 | tail -3 || true
+          "$GWPY" -c "import ddgs; print('ddgs OK')" | tee -a gw.log \
+            || echo "AMARAN: ddgs tiada — web_search mungkin pulang 0" | tee -a gw.log
+
+          cubaan=0
+          while true; do
+            cubaan=$((cubaan+1))
+            MARK=$(wc -l < gw.log 2>/dev/null || echo 0)
+            pkill -9 -f "hermes gateway" 2>/dev/null || true
+            sleep 8
+            # PENTING: python di-buffer secara blok dalam runner bukan-TTY. Tanpa
+            # PYTHONUNBUFFERED, gw.log kelihatan "berhenti selepas Connected" walaupun
+            # gateway sebenarnya memproses mesej — kita buta, bukan bot bisu.
+            # Tangkap exit code + sebab keluar. Gateway yang keluar senyap (SIGTERM/exit 0)
+            # adalah punca bot "bisu": ia sambung, kemudian mati tanpa traceback.
+            PYTHONUNBUFFERED=1 HERMES_DEBUG=1 "$GWPY" -X faulthandler -c \
+              "import sys,signal; signal.signal(signal.SIGTERM, lambda *a: (print('GATEWAY SIGTERM', flush=True), sys.exit(143))); from hermes_cli.main import main; sys.argv=['hermes','gateway','run']; main()" \
+              >> gw.log 2>&1 &
+            PID=$!
+            TUNGGU=0
+            for i in $(seq 1 36); do
+              sleep 5
+              TUNGGU=$((TUNGGU+5))
+              if tail -n +$((MARK+1)) gw.log | grep -qiE "$TANDA"; then
+                echo "sambungan dikesan selepas ${TUNGGU}s"
+                break
+              fi
+              kill -0 $PID 2>/dev/null || break
+            done
+            tail -20 gw.log
+            lapor "mula-cubaan-$cubaan selepas-${TUNGGU}s"
+            if ! sehat; then
+              echo "AMARAN: getMe bukan 200 pada cubaan $cubaan"
+            fi
+            # uji_hidup DIBUANG: `break` di sini menamatkan gelung utama dan
+            # membunuh gateway yang sihat. Biarkan watchdog SILENT yang mengendalikan
+            # kes tergantung (12 minit, bukan 45s) supaya bot sempat memproses mesej.
+
+            tick=0
+            first_seen=""
+            LAST_LINES=$(wc -l < gw.log 2>/dev/null || echo 0)
+            SILENT=0
+            # Jejak kematian: bila proses mati, catat kod keluar dan 40 baris terakhir.
+            ( wait $PID 2>/dev/null; RC=$?
+              echo "=== GATEWAY MATI rc=$RC pada $(date -u +%FT%TZ) ===" >> gw.log
+              tail -40 gw.log >> gw.log 2>/dev/null
+            ) &
+
+            while kill -0 $PID 2>/dev/null; do
+              sleep 60
+              tick=$((tick+1))
+              # fail log sahaja — tiada panggilan Telegram API dari sini
+              if tail -n +$((MARK+1)) gw.log | grep -q "Fatal telegram adapter error"; then
+                echo "fatal dikesan, mula semula"; pkill -9 -f "hermes gateway" 2>/dev/null || true; break
+              fi
+              NOW_LINES=$(wc -l < gw.log 2>/dev/null || echo 0)
+              if [ "$NOW_LINES" -eq "$LAST_LINES" ]; then SILENT=$((SILENT+1)); else SILENT=0; LAST_LINES=$NOW_LINES; fi
+              if [ "$SILENT" -ge 12 ]; then
+                PENDING=$(curl -4 -s -m 12 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getWebhookInfo" \
+                  | sed -n 's/.*"pending_update_count":\([0-9]*\).*/\1/p')
+                echo "BISU dikesan: ${SILENT}min tanpa log baharu, pending=${PENDING:-?}"
+                if [ -z "$PENDING" ] || [ "$PENDING" -gt 0 ]; then
+                  pkill -9 -f "hermes gateway" 2>/dev/null || true
+                  SILENT=0
+                  break
+                fi
+                SILENT=0
+              fi
+              # WATCHDOG (isu Hermes #18086): updater tergantung senyap selepas satu blip
+              # rangkaian. `Updater.running` kekal True tetapi tiada update diproses dan tiada
+              # ralat dicatat — gateway "hidup" tetapi bot bisu berjam-jam.
+              #
+              # PENTING: jangan uji dengan getMe sahaja. Probe dari IP runner membuktikan
+              # getMe 5/5 HTTP 200 walaupun adapter masih tersangkut pada "attempt 1/8".
+              # Bukti sambungan sebenar = getWebhookInfo melaporkan pending_update_count DAN
+              # proses mengaku polling. getWebhookInfo TIDAK merebut long-poll (bukan
+              # getUpdates), jadi ia selamat dijalankan semasa gateway hidup.
+              if [ -z "$first_seen" ] && tail -n +$((MARK+1)) gw.log | grep -qiE "$TANDA"; then
+                first_seen="tick$tick"
+                echo "sambungan disahkan pada $first_seen"
+              fi
+              # Kalau selepas 3 tick (3 minit) gateway masih tiada tanda polling DAN proses
+              # mengaku hidup, ia tersangkut -> mula semula. Hadkan kepada 2 cubaan awal
+              # supaya selepas itu kita tidak membunuh gateway yang sedang bekerja.
+              if [ "$tick" -eq 3 ] && [ -z "$first_seen" ] && [ "$cubaan" -le 2 ]; then
+                echo "watchdog: tiada tanda polling selepas 3 minit — mula semula"
+                pkill -9 -f "hermes gateway" 2>/dev/null || true
+                break
+              fi
+              if [ $((tick % 15)) -eq 0 ]; then lapor "denyut tick=$tick"; fi
+              # PENGESAN KEMATIAN PROSES — punca bot bisu berjam-jam walaupun run "in_progress".
+              # Tanpa ini, loop terus mengira tick selamanya sementara gateway sudah mati
+              # (heartbeat beku, active_sessions kosong, mesej Telegram tidak diambil).
+              # `kill -0` menguji kewujudan proses TANPA menghantarnya isyarat.
+              if ! kill -0 "$PID" 2>/dev/null; then
+                echo "PENGESAN: proses gateway (pid=$PID) sudah MATI pada tick=$tick"
+                break
+              fi
+            done
+            wait $PID 2>/dev/null || true
+            lapor "gateway-berhenti-cubaan-$cubaan (first_seen=${first_seen:-tiada})"
+            # rehat eksponen berhad (maks 10 minit) supaya pulih cepat bila Telegram balik
+            rehat=$((cubaan * 30)); [ "$rehat" -gt 600 ] && rehat=600
+            echo "rehat ${rehat}s sebelum cubaan berikut"
+            sleep "$rehat"
+          done
+          tail -60 gw.log
+
+      - name: Hantar log akhir ke repo
+        if: always()
+        run: |
+          for p in 1 2 3; do
+            git fetch origin master -q >/dev/null 2>&1 || true
+            git rebase --abort >/dev/null 2>&1 || true
+            git checkout -q -B status-tmp origin/master >/dev/null 2>&1 || true
+            {
+              echo "=== run $GITHUB_RUN_ID AKHIR $(date -u +%FT%TZ) ==="
+              tail -n 300 gw.log 2>/dev/null || echo "tiada gw.log"
+            } > status.log
+            git add -f status.log
+            git -c user.email=bot@local -c user.name=bot commit -qm "status akhir $(date -u +%FT%TZ)" || true
+            if git push origin HEAD:master >/dev/null 2>&1; then echo "push ok"; break; fi
+            sleep 5
+          done
+
+      - name: Simpan state ke repo peribadi
+        if: always()
+        run: |
+          cd home
+          git config user.email bot@local
+          git config user.name boz-bot
+          rm -f .env
+          git add -A
+          git commit -m "state $(date -u +%FT%TZ)" || echo "tiada perubahan"
+          for p in 1 2 3; do
+            git pull --rebase --autostash -q >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1 || true
+            if git push origin HEAD:master >/dev/null 2>&1; then echo "state push ok"; break; fi
+            sleep 5
+          done

@@ -1,0 +1,67 @@
+[
+ {
+  "uji": "DNS api.telegram.org",
+  "ok": true,
+  "bukti": "['149.154.166.110'] dalam 0.05s"
+ },
+ {
+  "uji": "DNS api.mistral.ai",
+  "ok": true,
+  "bukti": "['162.159.142.207', '172.66.2.203'] dalam 0.04s"
+ },
+ {
+  "uji": "DNS api.groq.com",
+  "ok": true,
+  "bukti": "['104.18.38.236', '172.64.149.20'] dalam 0.05s"
+ },
+ {
+  "uji": "TCP api.telegram.org:443",
+  "ok": true,
+  "bukti": "sambung dalam 0.25s"
+ },
+ {
+  "uji": "TCP api.mistral.ai:443",
+  "ok": true,
+  "bukti": "sambung dalam 0.06s"
+ },
+ {
+  "uji": "HTTPS api.telegram.org",
+  "ok": true,
+  "bukti": "HTTP 200 dalam 1.62s (25026 aksara)"
+ },
+ {
+  "uji": "HTTPS api.mistral.ai",
+  "ok": false,
+  "bukti": "HTTP 401 dalam 0.43s (29 aksara)"
+ },
+ {
+  "uji": "Telegram getMe",
+  "ok": false,
+  "bukti": "TELEGRAM_BOT_TOKEN tiada dalam persekitaran"
+ },
+ {
+  "uji": "config.yaml",
+  "ok": true,
+  "bukti": "C:\\Users\\zahin\\AppData\\Local/hermes/cloud/fix/cfg_ajar.yaml"
+ },
+ {
+  "uji": "model mistral/ministral-8b-latest (utama)",
+  "ok": true,
+  "bukti": "HTTP 200 -> \"It looks like you're saying **\""
+ },
+ {
+  "uji": "model mistral/ministral-8b-latest (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> \"It looks like you're starting \""
+ },
+ {
+  "uji": "model mistral/open-mistral-nemo (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> \"It looks like you're saying **\""
+ },
+ {
+  "uji": "model groq/openai/gpt-oss-120b (fallback)",
+  "ok": true,
+  "bukti": "HTTP 200 -> ''"
+ }
+]
