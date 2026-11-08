@@ -2,18 +2,28 @@
 """jejak_bot.py — tampal penjejak ke adapter Telegram supaya mesej NAMPAK dalam log.
 
 SEBAB SKRIP INI WUJUD
-Gateway Hermes mencatat mesej masuk pada aras DEBUG, tetapi proses berjalan pada
-aras WARNING. Jadi bot boleh menerima dan menjawab mesej sementara log KOSONG —
-kita buta. Inilah yang menyebabkan "Bot TIDAK menerima sebarang mesej" dilaporkan
-walaupun `pending_update_count` sentiasa 0 (ertinya gateway MEMANG mengambilnya).
+Gateway mencatat mesej masuk pada aras DEBUG tetapi proses berjalan pada WARNING,
+jadi bot boleh menerima dan menjawab sementara log KOSONG. Itulah yang membuat kita
+berjam-jam menyangka "bot tidak menerima mesej" sedangkan `pending` sentiasa 0.
 
-CARA IA BEKERJA
-Tampal satu blok pada permulaan `plugins/platforms/telegram/adapter.py` dalam
-SALINAN WORKSPACE Hermes (bukan pakej asal — Hermes menyalin workspace semasa
-boot). Blok itu membalut dua tempat:
-  - penerimaan update  -> cetak `JEJAK MASUK  id=... dari=... teks=...`
-  - penghantaran balas -> cetak `JEJAK BALAS  id=... bait=...`
-Semua pada aras WARNING supaya muncul dalam `gw.log`.
+DUA PEPIJAT SEBENAR YANG DISELESAIKAN DI SINI
+---------------------------------------------
+1. Membalut MODUL tidak menyentuh method kelas — method tinggal dalam
+   `TelegramAdapter`. Versi lama berbuat begitu lalu "dipasang" tanpa kesan.
+
+2. LEBIH HALUS: `_register_handlers` mendaftar
+       app.add_handler(MessageHandler(..., self._handle_text_message))
+   Rujukan `self._handle_text_message` DIKUNCI pada saat pendaftaran. Membalut
+   atribut kelas SELEPAS itu tidak mengubah fungsi yang sudah dirujuk PTB — jadi
+   pembalutan nampak "berjaya" tetapi penjejak tidak pernah dipanggil.
+   (Tanda tangan dalam log: `DIPASANG ... 3 method dibalut` tetapi TIADA `JEJAK MASUK`.)
+
+PENYELESAIAN
+------------
+Suntik penjejak TERUS ke dalam BADAN dua method (bukan membalut):
+  - `_handle_text_message` -> cetak peristiwa masuk
+  - `send_message`         -> cetak peristiwa balas
+Tambah satu baris bukti pada `_register_handlers` supaya kita tahu handler didaftar.
 
 Guna: python scripts/jejak_bot.py
 Keluar 0 = ditampal (atau sudah ada). Keluar 1 = workspace tidak dijumpai.
@@ -26,137 +36,47 @@ import sys
 
 PENANDA = "# --- JEJAK-BOT (dipasang oleh scripts/jejak_bot.py) ---"
 
-BLOK = '''
-# --- JEJAK-BOT (dipasang oleh scripts/jejak_bot.py) ---
-# Tujuan: bukti mesej DIPROSES, bukan sekadar bot bersambung. Dua peristiwa
-# penting dicatat pada aras WARNING kerana gateway berjalan pada WARNING:
-#   1. update diterima daripada Telegram (id + pengirim + teks)
-#   2. balasan dihantar semula (id + saiz)
-# Tanpa ini, bot boleh menjawab dengan jayanya sementara log kosong, dan kita
-# tersalah simpul "bot tidak menerima mesej".
-import logging as _jlog
-import os as _jos
-
-_JLOG = _jlog.getLogger("JEJAK")
-if not _JLOG.handlers:
-    _h = _jlog.StreamHandler()
-    _h.setFormatter(_jlog.Formatter("%(asctime)s JEJAK %(message)s"))
-    _JLOG.addHandler(_h)
-    _JLOG.setLevel(_jlog.WARNING)
-    _JLOG.propagate = False
-
-_JEJAK_LOG = _jos.environ.get("JEJAK_LOG", "")
-if _JEJAK_LOG:
-    try:
-        _fh = _jlog.FileHandler(_JEJAK_LOG, encoding="utf-8")
-        _fh.setFormatter(_jlog.Formatter("%(asctime)s JEJAK %(message)s"))
-        _JLOG.addHandler(_fh)
-    except Exception:
-        pass
-
-
-def _catat(label, a, k):
-    """Catat satu peristiwa. Tidak boleh membaling — penjejak TIDAK boleh merosakkan bot."""
-    try:
-        mid, teks = "", ""
-        for arg in a:
-            if isinstance(arg, dict):
-                mid = str(arg.get("update_id") or arg.get("message_id") or arg.get("chat_id") or "")
-                m = arg.get("message") or arg.get("edited_message") or {}
-                if isinstance(m, dict):
-                    mid = mid or str(m.get("message_id") or "")
-                    teks = str(m.get("text") or m.get("caption") or "")[:160]
-                if not teks and isinstance(arg.get("text"), str):
-                    teks = arg["text"][:160]
-                break
-            if isinstance(arg, str) and not teks:
-                teks = arg[:160]
-            # Objek PTB (Update/Message) — bukan dict. Baca atribut secara defensif.
-            for attr in ("effective_message", "message"):
-                o = getattr(arg, attr, None)
-                if o is not None:
-                    mid = mid or str(getattr(o, "message_id", "") or "")
-                    teks = teks or str(getattr(o, "text", "") or getattr(o, "caption", "") or "")[:160]
-                    break
-            if not mid:
-                mid = str(getattr(arg, "update_id", "") or "")
-        _JLOG.warning("%s id=%s teks=%r", label, mid or "-", teks)
-    except Exception:
-        pass
-
-
-def _jejak_pasang(modul):
-    """Balut method modul supaya setiap panggilan dicatat. Selamat jika tiada.
-
-    NAMA SEBENAR (dibaca daripada `_register_handlers`, bukan tekaan):
-      - `_handle_text_message`  <- MessageHandler(filters.TEXT & ~COMMAND)
-      - `_handle_command`       <- MessageHandler(filters.COMMAND)
-      - `_on_platform_update`   <- TypeHandler(Update, group=99) catch-all
-      - `send_message`          <- hantar balasan keluar
-    Versi pertama meneka `_handle_update`/`_process_update`; versi kedua meneka
-    `_on_platform_update` sahaja. KEDUA-DUA salah sasaran untuk mesej teks biasa,
-    jadi log kekal kosong walaupun bot memproses mesej.
-    """
-    for nama, label in (("_handle_text_message", "MASUK"),
-                        ("_handle_command", "MASUK-CMD"),
-                        ("_on_platform_update", "UPDATE"),
-                        ("send_message", "BALAS"),
-                        ("_send_message", "BALAS")):
-        asal = getattr(modul, nama, None)
-        if not callable(asal) or getattr(asal, "_jejak", False):
-            continue
-
-        def buat(fn, lbl):
-            import functools
-            import inspect
-
-            if inspect.iscoroutinefunction(fn):
-                @functools.wraps(fn)
-                async def balut(*a, **k):
-                    _catat(lbl, a, k)
-                    return await fn(*a, **k)
-            else:
-                @functools.wraps(fn)
-                def balut(*a, **k):
-                    _catat(lbl, a, k)
-                    return fn(*a, **k)
-
-            balut._jejak = True
-            return balut
-
-        try:
-            setattr(modul, nama, buat(asal, label))
+# Suntikan baris masuk — diletak sebagai baris PERTAMA badan method.
+SUNTIK_MASUK = '''        try:
+            import logging as _jl, os as _jo
+            _ju = update
+            _jm = getattr(_ju, "effective_message", None) or getattr(_ju, "message", None)
+            _jid = getattr(_ju, "update_id", "?")
+            _jmid = getattr(_jm, "message_id", "?") if _jm is not None else "?"
+            _jt = (getattr(_jm, "text", None) or getattr(_jm, "caption", None)) if _jm is not None else None
+            _jf = getattr(_jm, "from_user", None) if _jm is not None else None
+            _jc = getattr(getattr(_jm, "chat", None), "id", "?") if _jm is not None else "?"
+            _jd = (getattr(_jf, "username", None) or getattr(_jf, "first_name", None) or "?") if _jf is not None else "?"
+            _jn = "JEJAK MASUK update=%s msg=%s chat=%s dari=%s teks=%r" % (
+                _jid, _jmid, _jc, _jd, (str(_jt)[:160] if _jt is not None else None))
+            _jl.getLogger("JEJAK").warning(_jn)
+            _jp = _jo.path.join(_jo.environ.get("GITHUB_WORKSPACE", "."), "gw_trace.log")
+            with _jo.open(_jp, "a", encoding="utf-8") as _jfh:
+                _jfh.write(_jn + "\\n")
         except Exception:
             pass
+'''
 
+# Suntikan baris balas — diletak sebagai baris PERTAMA badan `send_message`.
+SUNTIK_BALAS = '''        try:
+            import logging as _jl, os as _jo
+            _jn = "JEJAK BALAS chat=%s" % (locals().get("chat_id", "?"),)
+            _jl.getLogger("JEJAK").warning(_jn)
+            _jp = _jo.path.join(_jo.environ.get("GITHUB_WORKSPACE", "."), "gw_trace.log")
+            with _jo.open(_jp, "a", encoding="utf-8") as _jfh:
+                _jfh.write(_jn + "\\n")
+        except Exception:
+            pass
+'''
 
-try:
-    import sys as _jsys
-    # PENTING: balut KELAS, bukan modul.
-    # Adapter Hermes mentakrifkan method dalam kelas `TelegramAdapter`. Membalut
-    # modul (`_jejak_pasang(modul)`) tidak menyentuh method kelas sama sekali —
-    # itulah sebab log kekal kosong walaupun blok dipasang "berjaya".
-    _kelas = None
-    _mod = _jsys.modules.get(__name__)
-    if _mod is not None:
-        for _nama in dir(_mod):
-            _o = getattr(_mod, _nama, None)
-            if isinstance(_o, type) and hasattr(_o, "_handle_text_message"):
-                _kelas = _o
-                break
-    if _kelas is not None:
-        _jejak_pasang(_kelas)
-        _JUMLAH = sum(1 for _n in ("_handle_text_message", "_handle_command", "_on_platform_update")
-                      if getattr(getattr(_kelas, _n, None), "_jejak", False))
-        _JLOG.warning("DIPASANG pada kelas %s — %d method dibalut", _kelas.__name__, _JUMLAH)
-    else:
-        _JLOG.warning("GAGAL: kelas adapter tidak dijumpai — tiada method dibalut")
-except Exception as _e:
-    try:
-        _JLOG.warning("GAGAL pasang: %s: %s", type(_e).__name__, _e)
-    except Exception:
-        pass
-# --- HUJUNG JEJAK-BOT ---
+SUNTIK_DAFTAR = '''        try:
+            import logging as _jl, os as _jo
+            _jl.getLogger("JEJAK").warning("JEJAK DAFTAR handler teks didaftar")
+            _jp = _jo.path.join(_jo.environ.get("GITHUB_WORKSPACE", "."), "gw_trace.log")
+            with _jo.open(_jp, "a", encoding="utf-8") as _jfh:
+                _jfh.write("JEJAK DAFTAR handler teks didaftar\\n")
+        except Exception:
+            pass
 '''
 
 
@@ -166,7 +86,8 @@ def cari_adapter() -> list[str]:
     akar = []
     if home:
         akar.append(home)
-    akar.append(os.path.expanduser("~/AppData/Local/hermes" if os.name == "nt" else "~/.local/share/hermes"))
+    akar.append(os.path.expanduser(
+        "~/AppData/Local/hermes" if os.name == "nt" else "~/.local/share/hermes"))
     jumpa: list[str] = []
     for a in akar:
         if not os.path.isdir(a):
@@ -177,26 +98,59 @@ def cari_adapter() -> list[str]:
     return sorted(set(jumpa))
 
 
+def _sisip_badan(teks: str, tandatangan: str, suntik: str) -> tuple[str, bool]:
+    """Sisip `suntik` sebagai baris pertama BADAN method bertandatangan `tandatangan`."""
+    i = teks.find(tandatangan)
+    if i < 0:
+        return teks, False
+    j = teks.find("\n", i)
+    if j < 0:
+        return teks, False
+    return teks[:j + 1] + suntik + teks[j + 1:], True
+
+
 def tampal(path: str) -> str:
     try:
         isi = open(path, encoding="utf-8", errors="replace").read()
     except Exception as e:
         return f"baca gagal: {e}"
-    if PENANDA in isi:
+    if "JEJAK MASUK" in isi and "JEJAK BALAS" in isi:
         return "sudah ada"
-    # Sisip SELEPAS docstring/import permulaan supaya tidak merosakkan modul.
-    # Guna strategi selamat: letak blok di HUJUNG fail — modul sudah dimuatkan
-    # sepenuhnya ketika itu, jadi getattr melihat semua fungsi yang wujud.
-    baru = isi.rstrip() + "\n\n" + BLOK + "\n"
+
+    teks = isi
+    ok_m = ok_b = ok_d = False
+    # Tandatangan SEBENAR (dibaca daripada adapter.py, bukan tekaan):
+    #   async def _handle_text_message(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    import re as _re
+    m = _re.search(r"^    async def _handle_text_message\(.*?:$", teks, _re.M | _re.S)
+    if m:
+        teks = teks[:m.end()] + "\n" + SUNTIK_MASUK + teks[m.end() + 1:]
+        ok_m = True
+    m = _re.search(r"^    async def send\(.*?:$", teks, _re.M | _re.S)
+    if m:
+        teks = teks[:m.end()] + "\n" + SUNTIK_BALAS + teks[m.end() + 1:]
+        ok_b = True
+    m = _re.search(r"^        app\.add_handler\(TelegramMessageHandler\(filters\.TEXT.*\)$",
+                   teks, _re.M)
+    if m:
+        teks = teks[:m.end()] + "\n" + SUNTIK_DAFTAR + teks[m.end() + 1:]
+        ok_d = True
+
+    if not ok_m:
+        return "GAGAL: method _handle_text_message tidak dijumpai"
+    if not ok_b:
+        return "GAGAL: method send_message tidak dijumpai"
+
+    if PENANDA not in teks:
+        teks = teks.rstrip("\n") + "\n" + PENANDA + "\n"
     try:
-        open(path, "w", encoding="utf-8", newline="\n").write(baru)
+        open(path, "w", encoding="utf-8", newline="\n").write(teks)
     except Exception as e:
         return f"tulis gagal: {e}"
-    # Sahkan baca-balik
     semula = open(path, encoding="utf-8", errors="replace").read()
-    if PENANDA not in semula:
+    if "JEJAK MASUK" not in semula or "JEJAK BALAS" not in semula:
         return "PENGESAHAN GAGAL"
-    return "ditampal"
+    return f"ditampal (masuk={ok_m} balas={ok_b} daftar={ok_d})"
 
 
 def main() -> int:
@@ -206,8 +160,7 @@ def main() -> int:
         print("JEJAK: (ini normal jika gateway belum boot kali pertama)")
         return 1
     for p in calon:
-        hasil = tampal(p)
-        print(f"JEJAK {hasil}: {p}")
+        print(f"JEJAK {tampal(p)}: {p}")
     return 0
 
 
