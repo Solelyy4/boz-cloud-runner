@@ -132,14 +132,20 @@ def tampal(fail: Path) -> str:
 
 
 def main() -> int:
-    print("JEJAK-MASUK: python=" + sys.executable)
+    # Output di-flush secara eksplisit: di runner, stdout Python dibuffer dan baris
+    # penting boleh hilang apabila proses induk keluar — kita pernah buta tentang
+    # sebab penampal gagal hanya kerana mesejnya tidak sempat dicetak.
+    def c(m: str) -> None:
+        print(m, flush=True)
+
+    c("JEJAK-MASUK: python=" + sys.executable)
     try:
         import telegram  # noqa: PLC0415
     except Exception as e:
-        print("JEJAK-MASUK: GAGAL import telegram: %r" % (e,))
+        c("JEJAK-MASUK: GAGAL import telegram: %r" % (e,))
         return 0
-    print("JEJAK-MASUK: telegram " + getattr(telegram, "__version__", "?") +
-          " -> " + str(telegram.__file__))
+    c("JEJAK-MASUK: telegram " + getattr(telegram, "__version__", "?") +
+      " -> " + str(telegram.__file__))
     pakej = Path(telegram.__file__).parent
     calon = [pakej / "ext" / "_application.py"]
     if not calon[0].is_file():
@@ -147,9 +153,9 @@ def main() -> int:
             calon = sorted((pakej / "ext").glob("_*.py"))
         except OSError:
             calon = []
-    print("JEJAK-MASUK: " + str(len(calon)) + " fail PTB dijumpai")
+    c("JEJAK-MASUK: " + str(len(calon)) + " fail PTB dijumpai")
     for p in calon:
-        print("  " + tampal(p) + " -> " + str(p))
+        c("  " + tampal(p) + " -> " + str(p))
     return 0
 
 
