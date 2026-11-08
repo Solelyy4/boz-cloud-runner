@@ -115,6 +115,12 @@ log "peronda latar dipasang (pid=$PERONDA_PID, denyut 120s)"
     git checkout -q -B trace-tmp origin/master >/dev/null 2>&1 || true
     cp "$TRACE_LOG" gw_trace.log
     git add -f gw_trace.log >/dev/null 2>&1
+    # Diari penampal juga dimuat naik: "PATCH OK" / "corak TIDAK padan" hanya wujud
+    # di sini, dan tanpa fail ini kita buta bila penjejak gagal dipasang di runner.
+    if [ -s scripts/jejak_masuk.log ]; then
+      cp scripts/jejak_masuk.log jejak_masuk.log
+      git add -f jejak_masuk.log >/dev/null 2>&1
+    fi
     git -c user.email=bot@local -c user.name=bot commit -qm "trace $(date -u +%FT%TZ)" >/dev/null 2>&1 || true
     git push origin HEAD:master >/dev/null 2>&1 || true
   done
