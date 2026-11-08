@@ -37,10 +37,25 @@ ALAT = [{
 
 
 def _hurai(teks: str) -> dict | None:
-    """9Router hantar `data: [DONE]` walaupun bukan streaming."""
+    """Hurai respons 9Router.
+
+    PEPIJAT SEBENAR (diukur 8 Nov 2026): 9Router menyambung `data: [DONE]` pada
+    HUJUNG JSON penuh walaupun bukan streaming:
+
+        {...\"content\":\"\"}}]}data: [DONE]\\n\\n
+
+    `json.loads` penuh gagal dengan "Extra data: line 1 column 543". Versi lama
+    terus pulang None -> model SIHAT dilaporkan MATI dan peronda menangis palsu.
+    """
     teks = (teks or "").strip()
     if not teks:
         return None
+    # Buang ekor SSE dahulu — ini kes 9Router yang paling kerap.
+    if "data: [DONE]" in teks:
+        teks = teks.split("data: [DONE]")[0].strip()
+    if not teks:
+        return None
+    # Bentuk SSE sebenar: baris bermula `data: {...}`
     if teks.startswith("data:"):
         for b in teks.split("\n"):
             b = b.strip()
@@ -50,8 +65,6 @@ def _hurai(teks: str) -> dict | None:
                 except Exception:
                     pass
         return None
-    if "data: [DONE]" in teks:
-        teks = teks.split("data: [DONE]")[0].strip()
     try:
         return json.loads(teks)
     except Exception:
