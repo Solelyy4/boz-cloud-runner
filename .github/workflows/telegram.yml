@@ -144,6 +144,15 @@ jobs:
             echo "  $K ada (${#V} aksara, ${V:0:6}...)"
           done
 
+      - name: Pasang PyYAML dalam venv (WAJIB sebelum baiki config)
+        run: |
+          # SEBAB: venv Hermes di runner TIDAK mengandungi PyYAML.
+          # Bukti run 42436126082: langkah 'Baiki config' mati dengan
+          #   ModuleNotFoundError: No module named 'yaml'
+          # -> GERBANG di-skip -> bot tidak pernah mula. Satu pakej hilang = bot mati.
+          "$PY" -m pip install --quiet --disable-pip-version-check pyyaml 2>&1 | tail -2
+          "$PY" -c "import yaml; print('pyyaml', yaml.__version__, 'OK')"
+
       - name: Baiki config (kekalkan skills/prompt, buang model reput)
         run: |
           # scripts/baiki_config.py: salin .bak -> edit dengan YAML parser -> sahkan
@@ -165,6 +174,7 @@ jobs:
 
       - name: GERBANG — sahkan setiap pautan model HIDUP
         id: gerbang
+        if: always()
         run: |
           # LANGKAH PALING PENTING. Bot pernah mati dengan `rebuilt_restart_limit_exceeded`
           # kerana mistral-medium-latest pulang 429 dan open-mistral-nemo/pixtral sudah
