@@ -296,12 +296,27 @@ while true; do
     #     pulih — akibatnya gateway SIHAT dibunuh setiap ~15 min (SIGKILL berulang)
     #     dan mesej BOZ hilang dalam selang itu. Sekarang perlu DUA kali gagal
     #     berturut-turut (20 min) sebelum bertindak.
-    if [ $(( tick % 10 )) -eq 0 ]; then
+    #
+    #     PEPIJAT KEDUA (dibaiki 9 Nov 2026): `$MARK` ditetapkan SEBELUM gateway
+    #     mula dan TIDAK PERNAH dikemas kini. Selepas log bergerak sekali, syarat
+    #     `$BARU -eq $MARK` sentiasa palsu — jadi watchdog TIDAK PERNAH memeriksa
+    #     kesihatan selepas minit pertama. Bot boleh tersangkut berjam-jam dengan
+    #     `ConnectError('')` sementara pengawasan tidur. Sekarang MARK dikemas kini
+    #     selepas setiap pemeriksaan, dan kita periksa kesihatan SETIAP tick 5 minit.
+    if [ $(( tick % 5 )) -eq 0 ]; then
       BARU=$(wc -l < "$GW_LOG" 2>/dev/null || echo 0)
-      if [ "$BARU" -eq "$MARK" ] && [ "$SAMBUNG" = "1" ]; then
+      if [ "$BARU" -eq "$MARK" ]; then
         if ! telegram_hidup; then
           GAGAL=$(( ${GAGAL:-0} + 1 ))
-          log "watchdog: Telegram tidak menjawab (gagal $GAGAL/2) — belum bunuh"
+          log "watchdog: log beku + Telegram tidak menjawab (gagal $GAGAL/2) — belum bunuh"
+          # Kiraan ConnectError dalam tetingkap log terkini: tiga atau lebih
+          # bermakna kebocoran fd, bukan blip rangkaian sesaat.
+          CE=$(tail -n 200 "$GW_LOG" 2>/dev/null | grep -c "ConnectError" || true)
+          if [ "$CE" -ge 3 ]; then
+            log "watchdog: $CE ConnectError dalam 200 baris -> kebocoran fd, mula semula"
+            bunuh_gateway "$GW_PID"
+            break
+          fi
           if [ "$GAGAL" -ge 2 ]; then
             log "watchdog: 2 kegagalan berturut -> sambungan benar-benar rosak, mula semula"
             bunuh_gateway "$GW_PID"
@@ -311,6 +326,9 @@ while true; do
           GAGAL=0
         fi
       else
+        # Log bergerak = gateway bekerja. Kemas kini MARK supaya pemeriksaan
+        # seterusnya mengukur aktiviti SEJAK titik ini, bukan sejak permulaan.
+        MARK=$BARU
         GAGAL=0
       fi
     fi
