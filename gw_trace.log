@@ -1,4 +1,4 @@
-=== TRACE 2026-11-08T16:39:28Z run 42500056116 ===
+=== TRACE 2026-11-08T16:40:59Z run 42500056116 ===
 2026-11-08T16:33:23Z === gateway_jalan mula: run=42500056116 masa_jalan=720m ===
 2026-11-08T16:33:23Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/ee622264be394df0b71f0a50ebf6607f/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=True): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/ee622264be394df0b71f0a50ebf6607f/workspace/plugins/platforms/telegram/adapter.py
@@ -46,3 +46,5 @@ RESULT: teraju sihat
 {"masa": "2026-11-08T23:35:25+07:00", "getMe_http": 200, "getMe_saat": 0.27, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-08T23:37:25+07:00", "getMe_http": 200, "getMe_saat": 0.281, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-08T23:39:26+07:00", "getMe_http": 200, "getMe_saat": 0.27, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-08 16:40:25,567 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-08 16:40:54,078 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
