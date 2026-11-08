@@ -75,6 +75,17 @@ fi
     --beritahu-selepas 3 >> "$GW_LOG" 2>&1
 ) &
 PERONDA_PID=$!
+
+# ---------- peronda RANTAIAN: model mati semasa bot hidup ----------
+# Gerbang menyemak model SEBELUM bot mula. Skrip ini menyemak SELEPAS itu — model
+# boleh kena had atau provider boleh jatuh di tengah jalan. Tanpa ini, bot perlahan
+# menjadi bisu tanpa sesiapa tahu.
+(
+  "$GWPY" scripts/jaga_rantaian.py "$HERMES_HOME/config.yaml" --loop 600 --beritahu \
+    >> "$GW_LOG" 2>&1
+) &
+RANTAIAN_PID=$!
+log "peronda rantaian dipasang (pid=$RANTAIAN_PID, semak setiap 10 min)"
 log "peronda latar dipasang (pid=$PERONDA_PID, denyut 120s)"
 
 # ---------- penjejak: push log setiap 90s supaya operator nampak keadaan ----------
