@@ -119,11 +119,32 @@ bunuh_gateway() {
 }
 
 # ---------- denyut: adakah Telegram boleh dicapai dari sini SEKARANG? ----------
+# PEPIJAT SEBENAR: versi lama guna SATU cubaan `curl -4` ke api.telegram.org.
+# Runner kadang gagal IPv4 (ConnectError('')) lalu domain bekerja semula — jadi
+# ujian tunggal melaporkan "Telegram mati" sedangkan gateway sendiri masih
+# long-poll dengan baik, dan watchdog MEMBUNUH gateway sihat.
+# Bukti: 'Previous gateway life exited UNCLEANLY (SIGKILL)' berulang setiap ~15 min.
+# Diperbaiki: 3 cubaan (IPv4 -> hostname -> IP literal Telegram) sebelum mengaku mati.
 telegram_hidup() {
-  local code
-  code=$(curl -4 -s -o /dev/null -m 15 -w "%{http_code}" \
-    "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe" || echo 000)
-  [ "$code" = "200" ]
+  local code ip
+  for cubaan in 1 2 3; do
+    code=$(curl -4 -s -o /dev/null -m 12 -w "%{http_code}" \
+      "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe" 2>/dev/null || echo 000)
+    [ "$code" = "200" ] && return 0
+    # cubaan 2: hostname tanpa paksa IPv4 (dual-stack)
+    code=$(curl -s -o /dev/null -m 12 -w "%{http_code}" \
+      "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe" 2>/dev/null || echo 000)
+    [ "$code" = "200" ] && return 0
+    # cubaan 3: IP literal Telegram (elak DNS/IPv4 runner yang rosak)
+    for ip in 149.154.167.220 149.154.166.110; do
+      code=$(curl -s -o /dev/null -m 12 -w "%{http_code}" \
+        --resolve "api.telegram.org:443:$ip" \
+        "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe" 2>/dev/null || echo 000)
+      [ "$code" = "200" ] && return 0
+    done
+    sleep 3
+  done
+  return 1
 }
 
 MULA=$(date +%s)
@@ -194,12 +215,28 @@ while true; do
     # (d) watchdog: proses HIDUP tetapi tiada aktiviti log DAN Telegram tak tercapai.
     #     Ini berbeza daripada "pending=0 kerana tiada mesej" — itu NORMAL dan TIDAK
     #     membunuh bot. Kita hanya bertindak bila ADA bukti sambungan rosak.
+    #
+    #     PEPIJAT SEBELUM: satu kegagalan `telegram_hidup` serta-merta membunuh
+    #     gateway. Runner GitHub kadang gagal IPv4 sekejap (ConnectError('')) lalu
+    #     pulih — akibatnya gateway SIHAT dibunuh setiap ~15 min (SIGKILL berulang)
+    #     dan mesej BOZ hilang dalam selang itu. Sekarang perlu DUA kali gagal
+    #     berturut-turut (20 min) sebelum bertindak.
     if [ $(( tick % 10 )) -eq 0 ]; then
       BARU=$(wc -l < "$GW_LOG" 2>/dev/null || echo 0)
-      if [ "$BARU" -eq "$MARK" ] && [ "$SAMBUNG" = "1" ] && ! telegram_hidup; then
-        log "watchdog: log beku + Telegram tidak menjawab -> sambungan rosak, mula semula"
-        bunuh_gateway "$GW_PID"
-        break
+      if [ "$BARU" -eq "$MARK" ] && [ "$SAMBUNG" = "1" ]; then
+        if ! telegram_hidup; then
+          GAGAL=$(( ${GAGAL:-0} + 1 ))
+          log "watchdog: Telegram tidak menjawab (gagal $GAGAL/2) — belum bunuh"
+          if [ "$GAGAL" -ge 2 ]; then
+            log "watchdog: 2 kegagalan berturut -> sambungan benar-benar rosak, mula semula"
+            bunuh_gateway "$GW_PID"
+            break
+          fi
+        else
+          GAGAL=0
+        fi
+      else
+        GAGAL=0
       fi
     fi
 
