@@ -139,14 +139,25 @@ def uji(base: str, kunci: str, model: str) -> tuple[bool, str]:
 
 
 def kunci_untuk(provider: str) -> str:
+    # DIUKUR 9 Nov 2026: `provider` yang tiada dalam peta jatuh ke lalai
+    # MISTRAL_API_KEY. Selepas teraju ditukar ke tokenomix, peronda menghantar
+    # KUNCI MISTRAL ke api.tokenomixai.com lalu melaporkan `Invalid API key`
+    # pada kelima-lima model -- seolah-olah kunci Tokenomix rosak, sedangkan
+    # kunci itu betul (uji-tokenomix.yml dari runner: 26 model tersedia).
+    # Lalai mesti provider itu SENDIRI, dan kegagalan mesti ketara.
     peta = {
         "groq": "GROQ_API_KEY",
         "mistral": "MISTRAL_API_KEY",
+        "tokenomix": "TOKENOMIX_API_KEY",
         "9router": "ROUTER9_API_KEY",
         "9router-laptop": "ROUTER9_API_KEY",
         "9router-vps": "ROUTER9_API_KEY",
     }
-    nama = peta.get(provider, "MISTRAL_API_KEY")
+    if provider in peta:
+        nama = peta[provider]
+    else:
+        # Provider baharu tanpa pemetaan -> jangan pinjam kunci provider lain.
+        nama = provider.upper().replace("-", "_") + "_API_KEY"
     v = os.environ.get(nama, "").strip()
     if v:
         return v
