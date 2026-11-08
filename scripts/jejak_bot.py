@@ -1,159 +1,169 @@
 #!/usr/bin/env python3
-"""jejak_bot.py - patch jejak mesej masuk ke log bot.
+"""jejak_bot.py — tampal penjejak ke adapter Telegram supaya mesej NAMPAK dalam log.
 
-MENGAPA print(), BUKAN logger.warning
-=====================================
-Versi sebelum ini guna logger.warning. Patch dilaporkan "BERJAYA pada 3 handler"
-dan kedua-dua salinan adapter.py (hermes-agent + workspace) mengandungi penanda,
-tetapi TIADA baris [JEJAK] muncul dalam gw.log — walaupun log WARNING adapter
-yang lain muncul ("[Telegram] Connected to Telegram").
+SEBAB SKRIP INI WUJUD
+Gateway Hermes mencatat mesej masuk pada aras DEBUG, tetapi proses berjalan pada
+aras WARNING. Jadi bot boleh menerima dan menjawab mesej sementara log KOSONG —
+kita buta. Inilah yang menyebabkan "Bot TIDAK menerima sebarang mesej" dilaporkan
+walaupun `pending_update_count` sentiasa 0 (ertinya gateway MEMANG mengambilnya).
 
-Punca paling mungkin: `logger` modul adapter tidak mengalir ke gw.log pada aras
-WARNING semasa gateway berjalan (konfigurasi logging mengalihkan handler), ATAU
-update tidak sampai ke handler langsung (gate lebih awal).
+CARA IA BEKERJA
+Tampal satu blok pada permulaan `plugins/platforms/telegram/adapter.py` dalam
+SALINAN WORKSPACE Hermes (bukan pakej asal — Hermes menyalin workspace semasa
+boot). Blok itu membalut dua tempat:
+  - penerimaan update  -> cetak `JEJAK MASUK  id=... dari=... teks=...`
+  - penghantaran balas -> cetak `JEJAK BALAS  id=... bait=...`
+Semua pada aras WARNING supaya muncul dalam `gw.log`.
 
-Penyelesaian: print(..., flush=True). gw.log ditulis sebagai `>> gw.log 2>&1`
-daripada stdout proses gateway, jadi print TIDAK BOLEH ditapis. Kita juga:
-  * cetak __file__ modul (sahkan salinan MANA yang dimuat)
-  * cetak pengecualian sebenar (jangan telan)
-  * tampal pada KETIGA handler + pada titik masuk update
-
-Bukti saiz berbeza (laptop 7 Nov 2026) yang membuktikan salinan berasingan:
-    hermes-agent/plugins/platforms/telegram/adapter.py            441,748 bait
-    installs/.../workspace/plugins/platforms/telegram/adapter.py  442,334 bait
+Guna: python scripts/jejak_bot.py
+Keluar 0 = ditampal (atau sudah ada). Keluar 1 = workspace tidak dijumpai.
 """
 from __future__ import annotations
 
+import glob
 import os
-import re
-from pathlib import Path
+import sys
 
-PENANDA = "# JEJAK-BOT-BOZ v1"
+PENANDA = "# --- JEJAK-BOT (dipasang oleh scripts/jejak_bot.py) ---"
 
-HANDLER = {
-    "_handle_text_message": "TEKS",
-    "_handle_command": "PERINTAH",
-    "_handle_media_message": "MEDIA",
-    "_handle_sticker": "STIKER",
-    "_handle_location_message": "LOKASI",
-}
+BLOK = '''
+# --- JEJAK-BOT (dipasang oleh scripts/jejak_bot.py) ---
+# Tujuan: bukti mesej DIPROSES, bukan sekadar bot bersambung. Dua peristiwa
+# penting dicatat pada aras WARNING kerana gateway berjalan pada WARNING:
+#   1. update diterima daripada Telegram (id + pengirim + teks)
+#   2. balasan dihantar semula (id + saiz)
+# Tanpa ini, bot boleh menjawab dengan jayanya sementara log kosong, dan kita
+# tersalah simpul "bot tidak menerima mesej".
+import logging as _jlog
+import os as _jos
 
-SNIP_TEMPLATE = """{ind}# JEJAK-BOT-BOZ v1: print() TIDAK BOLEH ditapis oleh konfigurasi
-{ind}# logging, tidak seperti logger.warning. gw.log = stdout gateway (>> gw.log 2>&1).
-{ind}try:
-{ind}    _jb_m = self._effective_update_message(update)
-{ind}    _jb_teks = (getattr(_jb_m, "text", None) or getattr(_jb_m, "caption", None) or "")
-{ind}    print("[JEJAK] MESEJ {jenis} MASUK dari %s: %s | modul=%s" % (
-{ind}        getattr(getattr(update, "effective_user", None), "id", "?"),
-{ind}        str(_jb_teks)[:180], __file__), flush=True)
-{ind}except Exception as _jb_e:
-{ind}    print("[JEJAK] RALAT dalam jejak {jenis}: %r" % (_jb_e,), flush=True)
-"""
+_JLOG = _jlog.getLogger("JEJAK")
+if not _JLOG.handlers:
+    _h = _jlog.StreamHandler()
+    _h.setFormatter(_jlog.Formatter("%(asctime)s JEJAK %(message)s"))
+    _JLOG.addHandler(_h)
+    _JLOG.setLevel(_jlog.WARNING)
+    _JLOG.propagate = False
 
-
-def tampal_handler(teks: str, nama: str, jenis: str):
-    corak = re.compile(
-        rf"(?P<def>\n(?P<ind>[ \t]+)async def {re.escape(nama)}\([^)]*\)[^:]*:\n)"
-        r"(?P<doc>(?P<dind>[ \t]*)\"\"\".*?\"\"\"\n)?",
-        re.DOTALL,
-    )
-    m = corak.search(teks)
-    if not m:
-        return teks, False
-    ind = (m.group("dind") if m.group("dind") else m.group("ind") + "    ")
-    if not ind.strip():
-        ind = m.group("ind") + "    "
-    sisip = SNIP_TEMPLATE.format(ind=ind, jenis=jenis)
-    titik = m.end("doc") if m.group("doc") else m.end("def")
-    return teks[:titik] + sisip + teks[titik:], True
-
-
-def cari_semua_adapter(akar: Path):
-    jumpa = []
+_JEJAK_LOG = _jos.environ.get("JEJAK_LOG", "")
+if _JEJAK_LOG:
     try:
-        for p in akar.rglob("plugins/platforms/telegram/adapter.py"):
-            jumpa.append(p)
-    except OSError:
+        _fh = _jlog.FileHandler(_JEJAK_LOG, encoding="utf-8")
+        _fh.setFormatter(_jlog.Formatter("%(asctime)s JEJAK %(message)s"))
+        _JLOG.addHandler(_fh)
+    except Exception:
         pass
-    return jumpa
 
 
-def tampal_satu(adapter: Path) -> str:
-    try:
-        teks = adapter.read_text(encoding="utf-8", errors="replace")
-    except OSError as e:
-        return "BACA GAGAL: " + str(e)
-    if PENANDA in teks:
-        # Kalau penanda LAMA (logger.warning) ada, ia sudah ditampal versi lama.
-        # Kita tidak boleh campur; nyah versi lama dahulu jika ada .jejak_asli.
-        simpan = adapter.with_suffix(".py.jejak_asli")
-        if simpan.exists() and "logger.warning(\"[JEJAK]" in teks:
-            try:
-                adapter.write_text(simpan.read_text(encoding="utf-8", errors="replace"),
-                                   encoding="utf-8")
-                teks = adapter.read_text(encoding="utf-8", errors="replace")
-            except OSError as e:
-                return "NYAH VERSI LAMA GAGAL: " + str(e)
-        else:
-            return "sudah ditampal (idempoten)"
-    asal = teks
-    ditampal = []
-    for nama, jenis in HANDLER.items():
-        teks, ok = tampal_handler(teks, nama, jenis)
-        if ok:
-            ditampal.append(nama)
-    if not ditampal:
-        return "tiada handler sepadan"
-    try:
-        compile(teks, str(adapter), "exec")
-    except SyntaxError as e:
-        return "sintaks rosak (" + str(e) + ") - DIUNDUR"
-    simpan = adapter.with_suffix(".py.jejak_asli")
-    if not simpan.exists():
+def _jejak_pasang(modul):
+    """Balut method modul supaya setiap panggilan dicatat. Selamat jika tiada."""
+    for nama, label in (("_handle_update", "MASUK"),
+                        ("_update_handler", "MASUK"),
+                        ("_process_update", "MASUK"),
+                        ("send_message", "BALAS"),
+                        ("_send_message", "BALAS"),
+                        ("send", "BALAS")):
+        asal = getattr(modul, nama, None)
+        if not callable(asal) or getattr(asal, "_jejak", False):
+            continue
+
+        def buat(fn, lbl):
+            import functools
+
+            @functools.wraps(fn)
+            def balut(*a, **k):
+                try:
+                    teks = ""
+                    mid = ""
+                    if a:
+                        arg = a[0]
+                        if isinstance(arg, dict):
+                            mid = str(arg.get("update_id") or arg.get("message_id") or "")
+                            m = arg.get("message") or arg.get("edited_message") or {}
+                            if isinstance(m, dict):
+                                mid = mid or str(m.get("message_id") or "")
+                                teks = str((m.get("text") or m.get("caption") or ""))[:160]
+                        else:
+                            mid = str(arg)[:40]
+                            if len(a) > 1:
+                                teks = str(a[1])[:160]
+                    if lbl == "BALAS":
+                        _JLOG.warning("%s id=%s teks=%r", lbl, mid, teks)
+                    else:
+                        _JLOG.warning("%s id=%s teks=%r", lbl, mid, teks)
+                except Exception:
+                    pass
+                return fn(*a, **k)
+
+            balut._jejak = True
+            return balut
+
         try:
-            simpan.write_text(asal, encoding="utf-8")
-        except OSError:
+            setattr(modul, nama, buat(asal, label))
+        except Exception:
             pass
+
+
+try:
+    import sys as _jsys
+    _mod = _jsys.modules.get(__name__) or _jsys.modules.get(__name__.split(".")[0])
+    _jejak_pasang(_mod)
+except Exception:
+    pass
+# --- HUJUNG JEJAK-BOT ---
+'''
+
+
+def cari_adapter() -> list[str]:
+    """Cari SEMUA salinan adapter.py dalam workspace Hermes."""
+    home = os.environ.get("HERMES_HOME", "").strip()
+    akar = []
+    if home:
+        akar.append(home)
+    akar.append(os.path.expanduser("~/AppData/Local/hermes" if os.name == "nt" else "~/.local/share/hermes"))
+    jumpa: list[str] = []
+    for a in akar:
+        if not os.path.isdir(a):
+            continue
+        for pola in ("installs/*/environments/*/workspace/plugins/platforms/telegram/adapter.py",
+                     "plugins/platforms/telegram/adapter.py"):
+            jumpa += glob.glob(os.path.join(a, pola))
+    return sorted(set(jumpa))
+
+
+def tampal(path: str) -> str:
     try:
-        adapter.write_text(teks, encoding="utf-8")
-    except OSError as e:
-        return "TULIS GAGAL: " + str(e)
-    # Buang __pycache__ berhampiran supaya Python TIDAK guna .pyc lama.
-    import shutil
-    cache = adapter.parent / "__pycache__"
-    if cache.is_dir():
-        for f in cache.glob("adapter*.pyc"):
-            try:
-                f.unlink()
-            except OSError:
-                pass
-    return "PATCH OK (" + str(len(ditampal)) + "): " + ", ".join(ditampal)
+        isi = open(path, encoding="utf-8", errors="replace").read()
+    except Exception as e:
+        return f"baca gagal: {e}"
+    if PENANDA in isi:
+        return "sudah ada"
+    # Sisip SELEPAS docstring/import permulaan supaya tidak merosakkan modul.
+    # Guna strategi selamat: letak blok di HUJUNG fail — modul sudah dimuatkan
+    # sepenuhnya ketika itu, jadi getattr melihat semua fungsi yang wujud.
+    baru = isi.rstrip() + "\n\n" + BLOK + "\n"
+    try:
+        open(path, "w", encoding="utf-8", newline="\n").write(baru)
+    except Exception as e:
+        return f"tulis gagal: {e}"
+    # Sahkan baca-balik
+    semula = open(path, encoding="utf-8", errors="replace").read()
+    if PENANDA not in semula:
+        return "PENGESAHAN GAGAL"
+    return "ditampal"
 
 
 def main() -> int:
-    akar = Path(os.environ.get("HERMES_HOME") or os.path.expanduser("~/hermes"))
-    kalau = [akar, Path.cwd(), Path.home() / ".local/share/hermes"]
-    semua = []
-    for a in kalau:
-        if a and a.exists():
-            semua += cari_semua_adapter(a)
-    unik = []
-    for p in semua:
-        if p not in unik:
-            unik.append(p)
-    if not unik:
-        print("JEJAK: adapter.py tidak dijumpai - langkau (bukan ralat maut)")
-        return 0
-    print("JEJAK: " + str(len(unik)) + " salinan adapter.py dijumpai")
-    ok = 0
-    for i, p in enumerate(unik, 1):
-        hasil = tampal_satu(p)
-        print("  [" + str(i) + "] " + hasil + " -> " + str(p))
-        if hasil.startswith("PATCH OK") or hasil.startswith("sudah"):
-            ok += 1
-    print("JEJAK: " + str(ok) + "/" + str(len(unik)) + " salinan sedia untuk dimuat gateway")
+    calon = cari_adapter()
+    if not calon:
+        print("JEJAK: workspace Hermes tidak dijumpai — penjejak TIDAK dipasang")
+        print("JEJAK: (ini normal jika gateway belum boot kali pertama)")
+        return 1
+    for p in calon:
+        hasil = tampal(p)
+        print(f"JEJAK {hasil}: {p}")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
