@@ -14,14 +14,32 @@ name: telegram-hermes
 #      (sejarah: 12 run `cancelled` berturut pada 7 Nov 2026).
 
 on:
+  # DIUKUR 9 Nov 2026 -- reka bentuk lama menyebabkan MESEJ HILANG.
+  #   cron "13 * * * *"  +  masa_jalan 720 minit  +  cancel-in-progress: false
+  # = satu run hidup 12 jam sementara cron mencetus 12 run baharu yang MENUNGGU.
+  # Bila run tamat (720 min) runner meneruskan 80 minit lagi sehingga
+  # timeout-minutes 800, kemudian run BAHARU mula dari awal (checkout + gerbang
+  # farming ~7 minit). BOZ menghantar mesej dalam jurang itu -> Telegram menyimpan
+  # update (sehingga 24 jam) tetapi bot tiada sesiapa untuk membacanya, jadi dari
+  # sisi BOZ mesej "tidak sampai".
+  #
+  # REKA BENTUK BAHARU (dikira, bukan tekaan):
+  #   cron 0 */6 * * * = 360 minit antara permulaan run.
+  #   persediaan (checkout + gerbang farming) = ~7 minit.
+  #   Maka masa_jalan optimum = 360 - 7 = 353 minit -> JURANG 0 MINIT.
+  #   timeout-minutes 400 memberi 47 minit kepala untuk penutupan bersih.
+  # Setiap cron memulakan run baharu tepat apabila yang sebelumnya berhenti
+  # (jurang 0 minit, dikira di atas). Concurrency false memastikan tiada dua run
+  # bertindih merebut long-poll Telegram yang sama.
+
   schedule:
-    - cron: "13 * * * *"
+    - cron: "0 */6 * * *"
   workflow_dispatch:
     inputs:
       masa_jalan:
-        description: "Minit bot dijalankan sebelum berhenti bersih (lalai 720)"
+        description: "Minit bot dijalankan sebelum berhenti bersih (lalai 353)"
         required: false
-        default: "720"
+        default: "353"
 
 permissions:
   contents: write
@@ -46,7 +64,7 @@ env:
 jobs:
   jalankan:
     runs-on: ubuntu-latest
-    timeout-minutes: 800
+    timeout-minutes: 400
     steps:
       - uses: actions/checkout@v4
 
@@ -243,7 +261,7 @@ jobs:
           ROUTER9_API_KEY: ${{ secrets.ROUTER9_API_KEY }}
           BOZ_PAT: ${{ secrets.BOZ_PAT }}
           BOZ_CHAT_ID: "8043910371"
-          MASA_JALAN: ${{ inputs.masa_jalan || '720' }}
+          MASA_JALAN: ${{ inputs.masa_jalan || '353' }}
         run: |
           export HERMES_HOME="$PWD/home"
           export PATH="$HOME/.local/bin:$PATH"
