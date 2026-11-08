@@ -1,0 +1,6 @@
+# Skrip .sh MESTI kekal LF. CRLF menyebabkan bash gagal di runner Linux
+# ("$'\r': command not found" / "set: -: invalid option").
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.py text eol=lf

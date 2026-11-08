@@ -26,19 +26,25 @@ import os
 import shutil
 import sys
 
-# Model yang DISAHKAN hidup oleh scripts/sah_model.py (8 Nov 2026).
-MODEL_LALAI = ("mistral", "ministral-14b-latest")
+# Rantaian berasas HAD SEBENAR yang diukur 8 Nov 2026:
+#   Groq    : 1000 permintaan/jam, 8/8 panggilan berturut lulus, gpt-oss-120b & 20b 2/2 tools
+#   Mistral : ~3-4 panggilan lalu 429 berpanjangan (diukur: 200,200,200,429,429,429)
+# Bot mesti diterajui Groq. Mistral hanya sandaran terakhir.
+MODEL_LALAI = ("groq", "openai/gpt-oss-120b")
 FALLBACK = [
-    {"provider": "mistral", "model": "ministral-8b-latest"},
-    {"provider": "groq", "model": "openai/gpt-oss-120b"},
-    {"provider": "groq", "model": "qwen/qwen3.8-27b"},
+    {"provider": "groq", "model": "openai/gpt-oss-20b"},
 ]
+# Mistral: had akaun sangat ketat — diukur 8 Nov 2026: 200,200,200,429,429,429 berturut.
+# Ia BOLEH jadi sandaran terakhir di config, tetapi TIDAK boleh disahkan sebagai wajib:
+# menguji dua kali dalam satu minit sudah cukup untuk mencetuskan 429.
+SANDARAN_TERAKHIR = {"provider": "mistral", "model": "ministral-8b-latest"}
 # Model yang terbukti MATI/reput — jangan sekali-kali masuk fallback.
 MODEL_DILARANG = {
     "open-mistral-nemo",       # TIADA dalam akaun
     "pixtral-12b-latest",      # TIADA dalam akaun
     "mistral-medium-latest",   # 429 rate_limited (fallback #1 lama)
     "mistral-large-4",         # pulang blok `thinking` -> jawapan pelik
+    "qwen/qwen3.8-27b",        # tool-calling tidak stabil (1/2, mereka-reka nama alat)
 }
 KUNCI_WAJIB = ("model", "providers", "platforms", "skills")
 
@@ -62,6 +68,11 @@ def baiki(cfg: dict) -> list[str]:
         ubah.append(f"model: {model.get('provider')}/{model.get('default')} -> {MODEL_LALAI[0]}/{MODEL_LALAI[1]}")
         model["provider"], model["default"] = MODEL_LALAI
     model.setdefault("api_mode", "chat_completions")
+    # gpt-oss-120b di Groq: 131,072 konteks. Nilai lama (262,144 untuk ministral-14b)
+    # akan membuat Hermes menghantar prompt terlalu besar -> 400.
+    if model.get("context_window") != 131072:
+        ubah.append(f"model.context_window: {model.get('context_window')} -> 131072")
+        model["context_window"] = 131072
 
     # --- 2. Providers wajib wujud ---
     prov = cfg.setdefault("providers", {})
@@ -72,30 +83,30 @@ def baiki(cfg: dict) -> list[str]:
         prov["groq"] = {"base_url": "https://api.groq.com/openai/v1", "api_key_env": "GROQ_API_KEY"}
         ubah.append("providers.groq ditambah")
 
-    # --- 3. Fallback bersih ---
+    # --- 3. Fallback ditulis SEMULA ikut data ukuran, bukan diwarisi ---
+    # Bukti: fallback warisan (mistral-medium-latest, qwen3.8-27b, open-mistral-nemo)
+    # semuanya mati/reput. Membaiki sebahagian sahaja meninggalkan urutan buruk:
+    # Mistral (429 selepas 3-4 panggilan) mendahului Groq (1000/jam) -> bot mati lambat.
     lama = cfg.get("fallback_model") or []
-    bersih, dibuang = [], []
-    for f in lama:
-        if not isinstance(f, dict):
-            continue
-        m = f.get("model", "")
-        if m in MODEL_DILARANG or m == MODEL_LALAI[1]:
-            dibuang.append(m)  # reput/mati, atau sekadar ulangan model lalai
-            continue
-        bersih.append({"provider": f.get("provider"), "model": m})
-    if dibuang:
-        ubah.append(f"fallback dibuang (mati/reput/ulangan): {dibuang}")
-    ada = {f["model"] for f in bersih}
-    for f in FALLBACK:
-        if f["model"] == MODEL_LALAI[1]:
-            continue  # jangan ulang model lalai dalam fallback
-        if f["model"] not in ada:
-            bersih.append(dict(f))
-            ada.add(f["model"])
-            ubah.append(f"fallback ditambah: {f['provider']}/{f['model']}")
-    cfg["fallback_model"] = bersih
+    model_lama = [f.get("model") for f in lama if isinstance(f, dict)]
+    # Mistral sebagai sandaran TERAKHIR: ia membantu bila Groq benar-benar mati,
+    # tetapi tidak boleh diuji sebagai wajib (429 selepas beberapa panggilan).
+    cfg["fallback_model"] = [dict(f) for f in FALLBACK] + [dict(SANDARAN_TERAKHIR)]
+    ubah.append(
+        f"fallback ditulis semula: {model_lama} -> {[f['model'] for f in cfg['fallback_model']]}"
+    )
 
-    # --- 4. reasoning_effort: buang sepenuhnya (nilai peringkat -> HTTP 400) ---
+    # --- 4. max_tokens: WAJIB besar untuk model reasoning ---
+    # BUKTI DIUKUR 8 Nov 2026 pada Groq gpt-oss:
+    #   max_tokens=60   -> 3/4 berisi (ia habiskan kuota pada medan `reasoning`,
+    #                      content='' dengan finish_reason=length)
+    #   max_tokens=200+ -> 4/4 berisi
+    # Ini punca bot "menjawab kosong" / mesej tidak sampai. Jangan turunkan.
+    if (model.get("max_tokens") or 0) < 2000:
+        ubah.append(f"model.max_tokens: {model.get('max_tokens')} -> 4096 (model reasoning perlukan ruang)")
+        model["max_tokens"] = 4096
+
+    # --- 5. reasoning_effort: buang sepenuhnya (nilai peringkat -> HTTP 400) ---
     agent = cfg.get("agent") or {}
     re_val = agent.get("reasoning_effort", "<tiada>")
     if re_val not in ("<tiada>", None):

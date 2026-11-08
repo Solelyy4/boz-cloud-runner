@@ -67,7 +67,10 @@ fi
 
 # ---------- peronda latar: keadaan rangkaian sebenar, tanpa getUpdates ----------
 (
-  python3 scripts/peronda_telegram.py \
+  # Guna GWPY (venv Hermes), BUKAN python3 sistem. Di runner Ubuntu, python3 sistem
+  # tiada modul yang peronda perlukan -> peronda mati senyap dan kita hilang bukti
+  # rangkaian sebenar. Ini pernah menyembunyikan punca "Bad Gateway".
+  "$GWPY" scripts/peronda_telegram.py \
     --tunggu 120 --pusingan 0 --keluaran status_peronda.jsonl \
     --beritahu-selepas 3 >> "$GW_LOG" 2>&1
 ) &

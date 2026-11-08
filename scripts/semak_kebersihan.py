@@ -56,9 +56,26 @@ SEMAK = [
         0,
         "Token/kunci tidak boleh masuk repo awam.",
     ),
+    (
+        "python3 sistem dalam skrip gateway",
+        re.compile(r"^\s*(?:\"[^\"]*\$\{?GWPY|\$GWPY|python3)\s+scripts/", re.M),
+        (".sh",),
+        0,
+        "Runner Ubuntu tiada modul venv -> peronda mati senyap, bukti rangkaian hilang.",
+    ),
+    (
+        "max_tokens terlalu kecil (model reasoning)",
+        re.compile(r"\"max_tokens\"\s*:\s*(\d{1,3})\s*[,}]"),
+        (".py",),
+        0,
+        "gpt-oss habiskan kuota pada `reasoning` -> content='' (diukur: 60 -> 3/4 gagal).",
+    ),
 ]
 
 DILANGKAU = {".git", "node_modules", "__pycache__", "ujian", "bukti", "cari"}
+
+# Ambang: nilai max_tokens di bawah ini pada model reasoning = jawapan kosong.
+MIN_TOKENS = 200
 
 
 def jalan(root: str) -> int:
@@ -82,6 +99,13 @@ def jalan(root: str) -> int:
                     if not line.lstrip().startswith(("#", "//", "*"))
                 )
                 padan = corak.findall(bersih)
+                if nama.startswith("max_tokens"):
+                    # Bandingkan NILAI, bukan bilangan padanan.
+                    kecil = [p for p in padan if int(p) < MIN_TOKENS]
+                    if kecil:
+                        langgar += 1
+                        print(f"[LANGAR] {rel}: {nama} {kecil} — {sebab}")
+                    continue
                 if len(padan) > maks:
                     langgar += 1
                     print(f"[LANGAR] {rel}: {nama} ({len(padan)}x) — {sebab}")
