@@ -1,0 +1,62 @@
+name: uji-tokenomix
+
+# Ujian ringan: sahkan TOKENOMIX_API_KEY dalam GitHub Secrets benar-benar
+# berfungsi DARI RUNNER, bukan dari laptop. Dibuat 9 Nov 2026 selepas run
+# 42521622755 melaporkan `Invalid API key` pada kelima-lima model tokenomix
+# walaupun panggilan terus dari laptop pulang 200.
+#
+# Ia TIDAK menyentuh Telegram (tiada getUpdates) supaya tidak merampas
+# long-poll gateway yang sedang hidup.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Uji kunci dan UA
+        env:
+          K: ${{ secrets.TOKENOMIX_API_KEY }}
+        run: |
+          set +e
+          echo "panjang kunci: ${#K}"
+          echo "prefix: ${K:0:8}..."
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+
+          echo
+          echo "=== 1. TANPA UA browser ==="
+          curl -4 -s -m 25 -o /tmp/a.json -w "HTTP %{http_code} %{time_total}s\n" \
+            -X POST https://api.tokenomixai.com/v1/chat/completions \
+            -H "Authorization: Bearer $K" -H "Content-Type: application/json" \
+            -d '{"model":"glm-5.3","messages":[{"role":"user","content":"hi"}],"max_tokens":30}'
+          head -c 200 /tmp/a.json; echo
+
+          echo
+          echo "=== 2. DENGAN UA browser ==="
+          curl -4 -s -m 25 -o /tmp/b.json -w "HTTP %{http_code} %{time_total}s\n" \
+            -X POST https://api.tokenomixai.com/v1/chat/completions \
+            -H "Authorization: Bearer $K" -H "Content-Type: application/json" \
+            -H "User-Agent: $UA" \
+            -d '{"model":"glm-5.3","messages":[{"role":"user","content":"hi"}],"max_tokens":30}'
+          head -c 300 /tmp/b.json; echo
+
+          echo
+          echo "=== 3. senarai model ==="
+          curl -4 -s -m 25 -o /tmp/c.json -w "HTTP %{http_code}\n" \
+            https://api.tokenomixai.com/v1/models \
+            -H "Authorization: Bearer $K" -H "User-Agent: $UA"
+          python3 -c "import json;d=json.load(open('/tmp/c.json'));ms=[m['id'] for m in d.get('data',[]) if m.get('available')];print('  %d model tersedia' % len(ms))" 2>/dev/null || head -c 150 /tmp/c.json
+
+          echo
+          echo "=== VERDICT ==="
+          if grep -q '"content"' /tmp/b.json 2>/dev/null; then
+            echo "  LULUS: kunci runner BERFUNGSI dengan UA browser"
+          elif grep -qi 'invalid api key' /tmp/b.json 2>/dev/null; then
+            echo "  GAGAL: kunci runner memang tidak sah (bukan masalah UA)"
+          else
+            echo "  TIDAK PASTI: lihat respons di atas"
+          fi
