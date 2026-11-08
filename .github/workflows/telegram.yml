@@ -145,15 +145,26 @@ jobs:
           done
 
       - name: Pasang PyYAML dalam venv (WAJIB sebelum baiki config)
+        continue-on-error: true
         run: |
-          # SEBAB: venv Hermes di runner TIDAK mengandungi PyYAML.
-          # Bukti run 42436126082: langkah 'Baiki config' mati dengan
+          # SEBAB: venv Hermes di runner TIDAK mengandungi PyYAML, malah TIDAK ada pip.
+          # Bukti run 42436126082 & 42436859782:
           #   ModuleNotFoundError: No module named 'yaml'
+          #   .../venv/bin/python: No module named pip
           # -> GERBANG di-skip -> bot tidak pernah mula. Satu pakej hilang = bot mati.
+          set +e
+          "$PY" -m ensurepip --upgrade >/dev/null 2>&1
           "$PY" -m pip install --quiet --disable-pip-version-check pyyaml 2>&1 | tail -2
-          "$PY" -c "import yaml; print('pyyaml', yaml.__version__, 'OK')"
+          if "$PY" -c "import yaml; print('pyyaml', yaml.__version__, 'OK')" 2>/dev/null; then
+            echo "PyYAML sedia"
+          else
+            # JANGAN bunuh run. baiki_config.py kini tahan tanpa PyYAML (config
+            # dikekalkan, tiada perubahan ditulis) dan gateway tetap boleh mula.
+            echo "::warning::PyYAML tidak dapat dipasang — baiki_config akan kekalkan config sedia ada"
+          fi
 
       - name: Baiki config (kekalkan skills/prompt, buang model reput)
+        continue-on-error: true
         run: |
           # scripts/baiki_config.py: salin .bak -> edit dengan YAML parser -> sahkan
           # saiz + kunci penting -> pulih dari .bak kalau rosak.
