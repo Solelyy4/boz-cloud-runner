@@ -55,45 +55,58 @@ if _JEJAK_LOG:
         pass
 
 
+def _catat(label, a, k):
+    """Catat satu peristiwa. Tidak boleh membaling — penjejak TIDAK boleh merosakkan bot."""
+    try:
+        mid, teks = "", ""
+        for arg in a:
+            if isinstance(arg, dict):
+                mid = str(arg.get("update_id") or arg.get("message_id") or arg.get("chat_id") or "")
+                m = arg.get("message") or arg.get("edited_message") or {}
+                if isinstance(m, dict):
+                    mid = mid or str(m.get("message_id") or "")
+                    teks = str(m.get("text") or m.get("caption") or "")[:160]
+                if not teks and isinstance(arg.get("text"), str):
+                    teks = arg["text"][:160]
+                break
+            if isinstance(arg, str) and not teks:
+                teks = arg[:160]
+        _JLOG.warning("%s id=%s teks=%r", label, mid or "-", teks)
+    except Exception:
+        pass
+
+
 def _jejak_pasang(modul):
-    """Balut method modul supaya setiap panggilan dicatat. Selamat jika tiada."""
-    for nama, label in (("_handle_update", "MASUK"),
-                        ("_update_handler", "MASUK"),
-                        ("_process_update", "MASUK"),
+    """Balut method modul supaya setiap panggilan dicatat. Selamat jika tiada.
+
+    NAMA SEBENAR (dibaca daripada adapter Hermes, bukan tekaan):
+      - `_on_platform_update`  <- catch-all PTB handler (group 99) untuk update MASUK
+      - `send_message`         <- hantar balasan keluar
+    Versi pertama meneka `_handle_update`/`_process_update` yang TIDAK WUJUD, jadi
+    tiada satu pun dicatat dan kita tersalah simpul "mesej tidak sampai".
+    """
+    for nama, label in (("_on_platform_update", "MASUK"),
+                        ("_record_updates_received", "TERIMA"),
                         ("send_message", "BALAS"),
-                        ("_send_message", "BALAS"),
-                        ("send", "BALAS")):
+                        ("_send_message", "BALAS")):
         asal = getattr(modul, nama, None)
         if not callable(asal) or getattr(asal, "_jejak", False):
             continue
 
         def buat(fn, lbl):
             import functools
+            import inspect
 
-            @functools.wraps(fn)
-            def balut(*a, **k):
-                try:
-                    teks = ""
-                    mid = ""
-                    if a:
-                        arg = a[0]
-                        if isinstance(arg, dict):
-                            mid = str(arg.get("update_id") or arg.get("message_id") or "")
-                            m = arg.get("message") or arg.get("edited_message") or {}
-                            if isinstance(m, dict):
-                                mid = mid or str(m.get("message_id") or "")
-                                teks = str((m.get("text") or m.get("caption") or ""))[:160]
-                        else:
-                            mid = str(arg)[:40]
-                            if len(a) > 1:
-                                teks = str(a[1])[:160]
-                    if lbl == "BALAS":
-                        _JLOG.warning("%s id=%s teks=%r", lbl, mid, teks)
-                    else:
-                        _JLOG.warning("%s id=%s teks=%r", lbl, mid, teks)
-                except Exception:
-                    pass
-                return fn(*a, **k)
+            if inspect.iscoroutinefunction(fn):
+                @functools.wraps(fn)
+                async def balut(*a, **k):
+                    _catat(lbl, a, k)
+                    return await fn(*a, **k)
+            else:
+                @functools.wraps(fn)
+                def balut(*a, **k):
+                    _catat(lbl, a, k)
+                    return fn(*a, **k)
 
             balut._jejak = True
             return balut
