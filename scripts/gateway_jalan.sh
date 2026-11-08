@@ -81,6 +81,17 @@ if [ -f scripts/jejak_masuk.py ]; then
     echo "AMARAN: jejak_masuk gagal (bukan ralat maut)" | tee -a "$GW_LOG"
 fi
 
+# ---------- JANGAN BUANG mesej BOZ semasa pulih konflik ----------
+# Adapter memanggil `_start_polling_once(..., drop_pending_updates=True)` ketika
+# memulihkan diri daripada konflik 409. Parameter itu MEMBUANG setiap update yang
+# menunggu — iaitu mesej BOZ yang belum diproses. Kesannya: `pending` kekal 0,
+# log berkata "Connected", `getMe` 200, tetapi TIADA mesej sampai selama-lamanya.
+# Tukar kepada False: konflik masih diselesaikan tanpa mengorbankan mesej BOZ.
+if [ -f scripts/jangan_buang.py ]; then
+  HERMES_HOME="$HERMES_HOME" "$GWPY" scripts/jangan_buang.py 2>&1 | tee -a "$GW_LOG" || \
+    echo "AMARAN: jangan_buang gagal (bukan ralat maut)" | tee -a "$GW_LOG"
+fi
+
 # ---------- peronda latar: keadaan rangkaian sebenar, tanpa getUpdates ----------
 (
   # Guna GWPY (venv Hermes), BUKAN python3 sistem. Di runner Ubuntu, python3 sistem
