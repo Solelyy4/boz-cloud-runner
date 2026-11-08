@@ -144,6 +144,24 @@ jobs:
             echo "  $K ada (${#V} aksara, ${V:0:6}...)"
           done
 
+      - name: Lapor IDENTITI bot (elak hantar mesej ke bot yang salah)
+        run: |
+          # SEBAB: berjam-jam dihabiskan menghantar mesej ujian ke satu bot sementara
+          # gateway bersambung dengan bot LAIN (token berbeza). Mesej tidak pernah
+          # sampai, log bersih, `pending: 0`, dan semuanya nampak "sihat".
+          # Satu perintah getMe menjadikan identiti itu KETARA dalam log run.
+          set -a; . home/.env; set +a
+          IDN=$(curl -4 -s -m 20 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe")
+          echo "IDENTITI: $IDN"
+          BOT_ID=$(echo "$IDN" | sed -n 's/.*"id":\([0-9]*\).*/\1/p')
+          BOT_UN=$(echo "$IDN" | sed -n 's/.*"username":"\([^"]*\)".*/\1/p')
+          if [ -z "$BOT_ID" ]; then echo "::error::token tidak sah — getMe gagal"; exit 1; fi
+          echo "BOT: id=$BOT_ID username=@$BOT_UN"
+          {
+            echo "--- identiti bot dalam run ini ---"
+            echo "id=$BOT_ID username=@$BOT_UN"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Pasang PyYAML dalam venv (WAJIB sebelum baiki config)
         continue-on-error: true
         run: |
