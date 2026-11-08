@@ -65,6 +65,22 @@ if [ -f scripts/jejak_bot.py ]; then
   ) &
 fi
 
+# ---------- jejak PTB process_update: titik masuk PALING AWAL ----------
+# PEPIJAT: menampal adapter `_handle_text_message` tidak mencukupi. PTB mendaftar
+# rujukan handler SEMASA `_register_handlers`, dan dispatch berlaku melalui
+# `Application.process_update`. Menampal method adapter selepas pendaftaran tidak
+# menjamin ia dipanggil (dan penjejak yang "dipasang" boleh kekal senyap).
+#
+# `Application.process_update` ialah pintu masuk SETIAP update sebelum sebarang
+# penapis/auth/dispatch. Menampal di situ membuktikan sama ada Telegram benar-benar
+# MENYERAHKAN mesej kepada proses ini — perbezaan antara "gateway mati" dan
+# "handler tidak dipanggil". Ia juga menampal ke SALINAN PTB dalam venv, jadi ia
+# berkuat kuasa walaupun workspace disalin semula.
+if [ -f scripts/jejak_masuk.py ]; then
+  HERMES_HOME="$HERMES_HOME" "$GWPY" scripts/jejak_masuk.py 2>&1 | tee -a "$GW_LOG" || \
+    echo "AMARAN: jejak_masuk gagal (bukan ralat maut)" | tee -a "$GW_LOG"
+fi
+
 # ---------- peronda latar: keadaan rangkaian sebenar, tanpa getUpdates ----------
 (
   # Guna GWPY (venv Hermes), BUKAN python3 sistem. Di runner Ubuntu, python3 sistem
