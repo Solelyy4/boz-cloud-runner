@@ -59,13 +59,28 @@ SEMBER = [
         "openai/gpt-oss-120b", "openai/gpt-oss-20b",
     ]),
     ("mistral", "https://api.mistral.ai/v1", "MISTRAL_API_KEY", [
-        "ministral-8b-latest",
+        "ministral-8b-latest", "mistral-small-latest",
     ]),
+]
+
+# Model yang dijana 9Router selain alias pendek. Diuji juga — kalau alias menukar
+# model di belakang tabir, laluan eksplisit ini memberi kawalan sebenar.
+MODEL_9ROUTER_TAMBAHAN = [
+    "mistral/mistral-large-latest",
+    "mistral/codestral-latest",
+    "mistral/mistral-medium-latest",
+    "oc/union-alpha",
+    "mmf/mimo-auto",
 ]
 
 
 def _kunci(nama: str) -> str:
-    """Ambil kunci dari env, atau dari fail secrets Hermes."""
+    """Ambil kunci dari env (runner), atau dari fail secrets Hermes (laptop).
+
+    PEPIJAT SEBELUM INI: `jalur` dan `kunci` tertukar semasa membina path, jadi
+    skrip membaca `hermes/9router_key.txt` (tiada) dan SEMUA panggilan gagal
+    senyap. Jangan sekali-kali guna semula nama `kunci` untuk dua maksud.
+    """
     v = os.environ.get(nama, "").strip()
     if v:
         return v
@@ -91,8 +106,17 @@ def _kunci(nama: str) -> str:
 
 
 def _hurai(teks: str) -> dict | None:
-    """Hurai respons. 9Router menyambung `data: [DONE]` walaupun bukan streaming."""
+    """Hurai respons. 9Router menyambung `data: [DONE]` pada HUJUNG JSON penuh.
+
+    Diukur 8 Nov 2026: body berakhir `...}}\n]data: [DONE]\n\n` (556 bait).
+    `json.loads` penuh gagal "Extra data: line 1 column 543" -> model SIHAT
+    dilaporkan MATI. Buang ekor DAHULU, sebelum apa-apa percubaan hurai.
+    """
     teks = (teks or "").strip()
+    if not teks:
+        return None
+    if "data: [DONE]" in teks:
+        teks = teks.split("data: [DONE]")[0].strip()
     if not teks:
         return None
     if teks.startswith("data:"):
@@ -104,8 +128,6 @@ def _hurai(teks: str) -> dict | None:
                 except Exception:
                     pass
         return None
-    if "data: [DONE]" in teks:
-        teks = teks.split("data: [DONE]")[0].strip()
     try:
         return json.loads(teks)
     except Exception:
@@ -148,13 +170,34 @@ def uji(base: str, kunci: str, model: str, alat: bool) -> tuple[bool, str, float
     if "error" in d:
         return False, str(d["error"])[:70], saat
     try:
-        ch = d["choices"][0]["message"]
+        pilihan = d["choices"][0]
+        ch = pilihan["message"]
     except Exception:
         return False, "tiada choices", saat
+    # Model mana yang BENAR-BENAR menjawab? Jangan percaya nama yang diminta:
+    # 9Router diminta `mistral-fast` tetapi menjawab dengan `ministral-8b-latest`.
+    sebenar = d.get("model") or ""
+    nota = f" (dijawab {sebenar})" if sebenar and sebenar != model else ""
+    selesai = pilihan.get("finish_reason") or "?"
+
     if alat:
-        return bool(ch.get("tool_calls")), "tool_calls" if ch.get("tool_calls") else "tiada tool_calls", saat
+        if ch.get("tool_calls"):
+            return True, f"tools=1{nota}", saat
+        # PEPIJAT PENTING: `finish_reason: length` bermakna jawapan TERPOTONG kerana
+        # max_tokens kecil — BUKAN model tidak sokong alat. Dulu ini dilaporkan
+        # "tiada tool_calls" dan menyalahkan model yang sebenarnya sihat.
+        if selesai == "length":
+            return False, f"TERPOTONG (naikkan max_tokens){nota}", saat
+        return False, f"tiada tool_calls ({selesai}){nota}", saat
     c = ch.get("content")
-    return bool(isinstance(c, str) and c.strip()), (c or "(kosong)")[:30], saat
+    if isinstance(c, str) and c.strip():
+        return True, c.strip()[:30], saat
+    # Model reasoning (gpt-oss) boleh habiskan token pada `reasoning` -> content kosong.
+    if selesai == "length":
+        return False, f"TERPOTONG{nota}", saat
+    if ch.get("reasoning") or ch.get("reasoning_content"):
+        return True, "reasoning sahaja (normal)", saat
+    return False, f"kosong ({selesai}){nota}", saat
 
 
 def main() -> int:
@@ -175,7 +218,8 @@ def main() -> int:
             print(f"[SKIP] {nama}: kunci {kenv} tiada")
             continue
         print(f"\n--- {nama} ({base}) ---")
-        for m in senarai:
+        penuh = list(senarai) + (MODEL_9ROUTER_TAMBAHAN if "9router" in nama else [])
+        for m in penuh:
             ok_s, sebab_s, _ = uji(base, kunci, m, alat=False)
             time.sleep(JEDA)
             if not ok_s:
@@ -186,17 +230,20 @@ def main() -> int:
             if not ok_a:
                 print(f"  [TIADA ALAT] {m:30s} {sebab_a}")
                 continue
-            # kestabilan
-            lulus = 0
+            # kestabilan: ulang ujian ALAT (bukan sembang) — bot perlukan alat
+            lulus, masa = 0, []
             for _ in range(ulang):
-                ok, _, _ = uji(base, kunci, m, alat=True)
-                lulus += 1 if ok else 0
+                ok, _, dt = uji(base, kunci, m, alat=True)
+                if ok:
+                    lulus += 1
+                    masa.append(dt)
                 time.sleep(JEDA)
+            purata = round(sum(masa) / len(masa), 2) if masa else saat
             calon.append({
                 "sumber": nama, "base": base, "kunci_env": kenv, "model": m,
-                "lulus": lulus, "ulang": ulang, "saat": saat,
+                "lulus": lulus, "ulang": ulang, "saat": purata,
             })
-            print(f"  [HIDUP] {m:30s} {lulus}/{ulang} stabil, {saat}s/panggilan")
+            print(f"  [HIDUP] {m:30s} {lulus}/{ulang} stabil, {purata}s/panggilan")
 
     if not calon:
         print("\nRESULT: TIADA MODEL HIDUP — semak kunci dan rangkaian", file=sys.stderr)
