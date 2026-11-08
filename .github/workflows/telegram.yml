@@ -164,6 +164,7 @@ jobs:
           echo "config disahkan"
 
       - name: GERBANG — sahkan setiap pautan model HIDUP
+        id: gerbang
         run: |
           # LANGKAH PALING PENTING. Bot pernah mati dengan `rebuilt_restart_limit_exceeded`
           # kerana mistral-medium-latest pulang 429 dan open-mistral-nemo/pixtral sudah
@@ -198,17 +199,29 @@ jobs:
       - name: Lapor keadaan ke repo (jujur, bukan tekaan)
         if: always()
         continue-on-error: true
+        env:
+          GERBANG: ${{ steps.gerbang.outcome }}
         run: |
           for p in 1 2 3; do
             git fetch origin master -q >/dev/null 2>&1 || true
             git checkout -q -B status-tmp origin/master >/dev/null 2>&1 || true
             {
               echo "=== RUN $GITHUB_RUN_ID $(date -u +%FT%TZ) ==="
+              # Kalau GERBANG gagal, gateway TIDAK PERNAH mula. Tanpa baris ini,
+              # status.log kosong membuatkan bot nampak "tiada log" dan punca sebenar
+              # (model mati) hilang selama berjam-jam.
+              if [ "${GERBANG:-}" != "success" ]; then
+                echo "!!! GERBANG GAGAL (status=${GERBANG:-tidak-dijalankan}) !!!"
+                echo "Gateway TIDAK dimulakan. Punca: satu atau lebih pautan model MATI"
+                echo "atau had 429 berpanjangan. Semak langkah 'GERBANG' dalam run ini."
+                echo "Bot TIDAK menerima sebarang mesej dalam run ini."
+                echo
+              fi
               echo "--- peronda (bukti rangkaian runner) ---"
               "$PY" scripts/peronda_telegram.py --sejarah status_peronda.jsonl 2>/dev/null || echo "tiada data peronda"
               echo
               echo "--- gw.log (60 baris terakhir) ---"
-              tail -n 60 /tmp/gw_akhir.log 2>/dev/null || echo "tiada log"
+              tail -n 60 /tmp/gw_akhir.log 2>/dev/null || echo "tiada log gateway"
             } > status.log
             git add -f status.log
             git -c user.email=bot@local -c user.name=bot commit -qm "status $GITHUB_RUN_ID" >/dev/null 2>&1 || true
