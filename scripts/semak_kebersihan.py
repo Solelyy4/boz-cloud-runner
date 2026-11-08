@@ -70,6 +70,13 @@ SEMAK = [
         0,
         "gpt-oss habiskan kuota pada `reasoning` -> content='' (diukur: 60 -> 3/4 gagal).",
     ),
+    (
+        "import yaml tanpa perlindungan",
+        re.compile(r"^\s{0,4}import yaml\s*$", re.M),
+        (".py",),
+        1,
+        "Runner tiada PyYAML -> ModuleNotFoundError -> bot tidak mula (run 42436126082).",
+    ),
 ]
 
 DILANGKAU = {".git", "node_modules", "__pycache__", "ujian", "bukti", "cari"}
