@@ -26,6 +26,12 @@ import sys
 import time
 
 TIMEOUT = 45
+# UA browser WAJIB untuk Tokenomix (lihat komen di panggilan curl). Cloudflare
+# membalas `403 error code: 1010` kepada UA curl lalai, dan ralat itu dipaparkan
+# sebagai `Invalid API key` -- menyalahkan kunci yang betul.
+UA_BROWSER = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+
 
 ALAT = [{
     "type": "function",
@@ -109,6 +115,12 @@ def uji(base: str, kunci: str, model: str) -> tuple[bool, str]:
         r = subprocess.run(
             ["curl", "-4", "-s", "-m", str(TIMEOUT), "-X", "POST", f"{base}/chat/completions",
              "-H", f"Authorization: Bearer {kunci}", "-H", "Content-Type: application/json",
+             # UA browser WAJIB untuk Tokenomix: Cloudflare membalas `403 error code:
+             # 1010` kepada UA curl lalai, dan gateway memaparkannya sebagai
+             # `Invalid API key` -- menyalahkan kunci yang sebenarnya betul.
+             # Diukur 9 Nov 2026: tanpa baris ini SEMUA 5 model tokenomix dilaporkan
+             # MATI sementara panggilan terus dari laptop pulang 200.
+             "-H", f"User-Agent: {UA_BROWSER}",
              "-d", json.dumps(payload)],
             capture_output=True, text=True, timeout=TIMEOUT + 15,
         )
