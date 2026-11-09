@@ -1,6 +1,4 @@
-=== TRACE 2026-11-09T15:05:20Z run 42609707795 ===
-  [MATI ] tokenomix    glm-5.3-flash              tiada tool_calls
-  [HIDUP] groq         openai/gpt-oss-120b        ok
+=== TRACE 2026-11-09T15:06:51Z run 42609707795 ===
   [HIDUP] mistral      ministral-14b-latest       ok
 RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
 {"masa": "2026-11-09T19:41:51+07:00", "getMe_http": 200, "getMe_saat": 0.308, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
@@ -249,3 +247,5 @@ RESULT: teraju sihat
 2026-11-09 15:02:46,846 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-11-09 15:02:46,846 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
 {"masa": "2026-11-09T22:03:24+07:00", "getMe_http": 200, "getMe_saat": 0.324, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-09T22:05:24+07:00", "getMe_http": 200, "getMe_saat": 0.369, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-09T15:06:42Z denyut tick=130 pid=6840
