@@ -1,7 +1,4 @@
-=== TRACE 2026-11-09T04:17:33Z run 42534470302 ===
-2026-11-09 02:10:38,956 WARNING tools.skills_tool: Skill name collision for 'anti-bot-http-ladder': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/anti-bot-http-ladder/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/anti-bot-http-ladder/SKILL.md
-2026-11-09 02:10:39,232 WARNING tools.skills_tool: Skill name collision for 'blockchain-cli-patterns': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/blockchain-cli-patterns/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/blockchain-cli-patterns/SKILL.md
-2026-11-09 02:10:39,282 WARNING tools.skills_tool: Skill name collision for 'blocked-page-recovery': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/blocked-page-recovery/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/blocked-page-recovery/SKILL.md
+=== TRACE 2026-11-09T04:19:04Z run 42534470302 ===
 2026-11-09 02:10:39,333 WARNING tools.skills_tool: Skill name collision for 'bounty-autopilot': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/bounty-autopilot/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/bounty-autopilot/SKILL.md
 2026-11-09 02:10:39,776 WARNING tools.skills_tool: Skill name collision for 'captcha-solver': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/captcha-solver/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/captcha-solver/SKILL.md
 [JEJAK-MASUK] process_update id=139442806594768 update_id=825346164
@@ -249,3 +246,6 @@ RESULT: teraju sihat
 2026-11-09 04:17:25,657 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 2/5): [Errno 111] Connect call failed ('127.0.0.1', 34599)
 2026-11-09 04:17:27,660 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 3/5): [Errno 111] Connect call failed ('127.0.0.1', 34599)
 2026-11-09 04:17:31,665 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: connect failed (attempt 4/5): [Errno 111] Connect call failed ('127.0.0.1', 34599)
+2026-11-09 04:17:39,668 WARNING tools.browser_supervisor: CDP supervisor 20261103_063333_48ebf25e: stopped after 5 failed reconnect attempts: [Errno 111] Connect call failed ('127.0.0.1', 34599)
+2026-11-09 04:18:20,557 WARNING agent.tool_executor: Tool skill_manage returned error (0.43s): {"success": false, "error": "operations[2] (patch on 'android-tv-app-sideloading') failed: Could not find a match for old_string in the file\n\nDid you mean one of these sections?\n  84|    dan beri U
+2026-11-09 04:18:39,524 WARNING agent.tool_executor: Tool skill_manage returned error (0.24s): {"success": false, "error": "operations[0] (patch on 'android-tv-app-sideloading') failed: No edit was applied because old_string and new_string are identical. Provide the existing text to replace in 
