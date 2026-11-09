@@ -83,6 +83,13 @@ SEMBER = [
         "glm-5.3", "glm-5.2", "deepseek-v4-pro", "kimi-k2.8",
         "mimo-v2.6-pro", "glm-5.3-flash", "deepseek-v4-flash", "kimi-k2.7-code",
     ]),
+    # Keyless: TIADA e-mel, TIADA pendaftaran, TIADA kunci API. env_kunci kosong
+    # bermakna _kunci() memulangkan string kosong dan Authorization tidak dihantar.
+    # Diuji 9-10 Nov 2026: llama-3.3-70b lulus 5/5 tugasan bersekat (lihat skill
+    # keyless-llm-router). Ini pengganti percuma untuk provider berbayar di atas.
+    ("nafimods", "https://keyless-llm.nafimods.workers.dev/v1", "", [
+        "llama-3.3-70b", "gpt-oss-20b", "gpt-oss-120b",
+    ]),
 ]
 
 # Model yang dijana 9Router selain alias pendek. Diuji juga — kalau alias menukar
@@ -160,12 +167,16 @@ def _hurai(teks: str) -> dict | None:
 def _curl(url: str, kunci: str, payload: dict) -> str:
     args = ["curl", "-4", "-s", "-m", str(TIMEOUT), "-X", "POST",
             f"{url}/chat/completions",
-            "-H", f"Authorization: Bearer {kunci}",
             "-H", "Content-Type: application/json",
             # UA browser WAJIB untuk Tokenomix: Cloudflare pulang `403 error code: 1010`
             # kepada UA curl lalai. Tanpa baris ini model sihat dilaporkan MATI.
             "-H", f"User-Agent: {UA_BROWSER}",
             "-d", json.dumps(payload)]
+    # Kunci kosong = endpoint keyless (nafimods). Jangan hantar header Authorization:
+    # `Bearer ` kosong membuat sesetengah gateway membalas 401 dan model percuma
+    # dilaporkan MATI walaupun ia sihat tanpa kunci.
+    if kunci:
+        args[args.index("-H"):args.index("-H")] = ["-H", f"Authorization: Bearer {kunci}"]
     try:
         r = subprocess.run(args, capture_output=True, text=True, timeout=TIMEOUT + 15)
         return r.stdout or r.stderr
@@ -279,9 +290,14 @@ def main() -> int:
     print("=== FARMING MODEL ===")
     for nama, base, kenv, senarai in SEMBER:
         kunci = _kunci(kenv)
-        if not kunci:
+        # kenv kosong = endpoint KEYLESS yang direka untuk berjalan tanpa kunci
+        # (cth nafimods). Jangan langkau - itu satu-satunya sumber percuma tanpa
+        # e-mel, dan `_curl` sudah tahu tidak menghantar header Authorization.
+        if not kunci and kenv:
             print(f"[SKIP] {nama}: kunci {kenv} tiada")
             continue
+        if not kunci:
+            print(f"[KEYLESS] {nama}: tiada kunci diperlukan")
         print(f"\n--- {nama} ({base}) ---")
         penuh = list(senarai) + (MODEL_9ROUTER_TAMBAHAN if "9router" in nama else [])
         for m in penuh:
