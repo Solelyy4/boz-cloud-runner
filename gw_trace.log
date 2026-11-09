@@ -1,8 +1,4 @@
-=== TRACE 2026-11-09T02:12:31Z run 42534470302 ===
-    ...<7 lines>...
-    ),
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 712, in _post
+=== TRACE 2026-11-09T02:14:03Z run 42534470302 ===
     return await self._do_post(
            ^^^^^^^^^^^^^^^^^^^^
     ...<6 lines>...
@@ -249,3 +245,7 @@ RESULT: teraju sihat
 2026-11-09 02:11:34,038 WARNING JEJAK: JEJAK MASUK update=825346165 msg=760 chat=8043910371 dari=Solelah14 teks='Ye, ambil semua kod aplikasi untuk yang ada dalam downloader mi stick tv.'
 2026-11-09 02:12:21,828 WARNING agent.tool_executor: Tool terminal returned error (0.25s): {"output": "", "exit_code": 92, "error": null}
 2026-11-09 02:12:30,122 WARNING agent.tool_executor: Tool terminal returned error (0.24s): {"output": "code=000 size=0", "exit_code": 92, "error": null}
+{"masa": "2026-11-09T09:12:31+07:00", "getMe_http": 200, "getMe_saat": 0.361, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-09 02:12:47,452 WARNING agent.tool_executor: Tool terminal returned error (6.66s): {"output": "try1 code=000 size=0\ntry2 code=000 size=0\ntry3 code=000 size=0\nls: cannot access '*.html': No such file or directory", "exit_code": 2, "error": null}
+2026-11-09 02:13:40,304 WARNING plugins.web.ddgs.provider: DDGS search error: DDGSException: No results found.
+2026-11-09 02:13:40,312 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
