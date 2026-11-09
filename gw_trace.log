@@ -1,7 +1,4 @@
-=== TRACE 2026-11-09T05:03:17Z run 42534470302 ===
-{"masa": "2026-11-09T09:56:47+07:00", "getMe_http": 200, "getMe_saat": 0.349, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T09:58:48+07:00", "getMe_http": 200, "getMe_saat": 0.353, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-09T02:59:21+0000 ===
+=== TRACE 2026-11-09T05:04:48Z run 42534470302 ===
   [HIDUP] tokenomix    glm-5.3                    ok
   [HIDUP] tokenomix    deepseek-v4-pro            ok
   [HIDUP] tokenomix    kimi-k2.8                  ok
@@ -249,3 +246,6 @@ RESULT: teraju sihat
   [HIDUP] mistral      ministral-14b-latest       ok
 RESULT: teraju sihat
 2026-11-09 05:02:34,343 WARNING JEJAK: JEJAK BALAS chat=8043910371
+{"masa": "2026-11-09T12:03:34+07:00", "getMe_http": 200, "getMe_saat": 0.356, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-09 05:04:28,944 WARNING tools.connectors.gateway.bridge: Connector search failed (D32): Hosted connectors are not set up for this user yet. Call manage_connections to connect the app first; that sets them up.
+2026-11-09 05:04:39,419 WARNING JEJAK: JEJAK BALAS chat=8043910371
