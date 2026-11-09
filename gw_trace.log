@@ -1,14 +1,4 @@
-=== TRACE 2026-11-09T09:24:38Z run 42566681696 ===
-  [HIDUP] mistral      ministral-14b-latest       ok
-RESULT: teraju sihat
-[JEJAK-MASUK] process_update id=125652426444736 update_id=825346187
-2026-11-09 07:42:51,031 ERROR tools.vision_tools: Error analyzing image: Error code: 400 - {'error': {'message': "Vision is disabled for model 'glm-5.3'.", 'type': 'upstream_error', 'code': 'upstream_error'}}
-Traceback (most recent call last):
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/ba777be8d66d41a9bd4ecd452e3ed327/workspace/tools/vision_tools.py", line 859, in _run_analysis
-    analysis, scale_note = await stage(user_prompt, debug_call_data, temp_paths)
-                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/ba777be8d66d41a9bd4ecd452e3ed327/workspace/tools/vision_tools.py", line 913, in stage
-    response = await async_call_llm(**call_kwargs)
+=== TRACE 2026-11-09T09:26:10Z run 42566681696 ===
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/ba777be8d66d41a9bd4ecd452e3ed327/workspace/agent/auxiliary_client.py", line 2570, in wrapped
     return await callback(*args, **kwargs)
@@ -249,3 +239,13 @@ RESULT: teraju sihat
 {"masa": "2026-11-09T16:19:59+07:00", "getMe_http": 200, "getMe_saat": 0.424, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-09T16:22:00+07:00", "getMe_http": 200, "getMe_saat": 0.454, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-09T16:24:01+07:00", "getMe_http": 200, "getMe_saat": 0.446, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-09T09:25:27+0000 ===
+  [HIDUP] tokenomix    glm-5.3                    ok
+  [HIDUP] tokenomix    deepseek-v4-pro            ok
+  [HIDUP] tokenomix    kimi-k2.8                  ok
+  [HIDUP] tokenomix    mimo-v2.6-pro              ok
+  [HIDUP] tokenomix    glm-5.3-flash              ok
+  [HIDUP] groq         openai/gpt-oss-120b        ok
+  [MATI ] mistral      ministral-14b-latest       tiada tool_calls
+RESULT: teraju sihat
+{"masa": "2026-11-09T16:26:02+07:00", "getMe_http": 200, "getMe_saat": 0.505, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
