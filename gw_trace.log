@@ -1,8 +1,4 @@
-=== TRACE 2026-11-09T01:13:02Z run 42534470302 ===
-{"masa": "2026-11-09T07:03:04+07:00", "getMe_http": 200, "getMe_saat": 0.369, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T07:05:05+07:00", "getMe_http": 200, "getMe_saat": 0.372, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-09T00:05:11Z denyut tick=40 pid=3898
-=== JAGA RANTAIAN 2026-11-09T00:05:47+0000 ===
+=== TRACE 2026-11-09T01:14:34Z run 42534470302 ===
   [HIDUP] tokenomix    glm-5.3                    ok
   [HIDUP] tokenomix    deepseek-v4-pro            ok
   [HIDUP] tokenomix    kimi-k2.8                  ok
@@ -249,3 +245,7 @@ Traceback (most recent call last):
 telegram.error.NetworkError: Bad Gateway
 2026-11-09 01:12:41,114 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: Bad Gateway
 2026-11-09 01:12:41,115 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 3/10), reconnecting in 20s. Error: Bad Gateway
+2026-11-09 01:13:31,117 WARNING agent.deadline: [deadline] 'telegram' timed out after 30.0s; task abandoned
+2026-11-09 01:13:31,117 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: timed out after 30s (telegram)
+2026-11-09 01:13:31,117 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 4/10), reconnecting in 40s. Error: timed out after 30s (telegram)
+{"masa": "2026-11-09T08:13:50+07:00", "getMe_http": 0, "getMe_saat": 20.002, "ok": false, "ralat": "", "pending": null, "webhook_http": 0}
