@@ -1,5 +1,4 @@
-=== TRACE 2026-11-09T02:29:17Z run 42534470302 ===
-    ^
+=== TRACE 2026-11-09T02:30:49Z run 42534470302 ===
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 4934, in delete_webhook
     return await self._post(
            ^^^^^^^^^^^^^^^^^
@@ -249,3 +248,4 @@ display.review.summary_cli
   [HIDUP] groq         openai/gpt-oss-120b        ok
   [HIDUP] mistral      ministral-14b-latest       ok
 RESULT: teraju sihat
+{"masa": "2026-11-09T09:30:38+07:00", "getMe_http": 200, "getMe_saat": 0.356, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
