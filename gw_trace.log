@@ -1,4 +1,4 @@
-=== TRACE 2026-11-09T12:52:38Z run 42609707795 ===
+=== TRACE 2026-11-09T12:54:10Z run 42609707795 ===
 2026-11-09T11:39:28Z === gateway_jalan mula: run=42609707795 masa_jalan=353m ===
 2026-11-09T11:39:28Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7a4c939766da4ade868e6d08ac692ec1/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=True): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7a4c939766da4ade868e6d08ac692ec1/workspace/plugins/platforms/telegram/adapter.py
@@ -154,3 +154,4 @@ RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
   [HIDUP] groq         openai/gpt-oss-120b        ok
   [HIDUP] mistral      ministral-14b-latest       ok
 RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
+{"masa": "2026-11-09T19:53:55+07:00", "getMe_http": 200, "getMe_saat": 0.327, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
