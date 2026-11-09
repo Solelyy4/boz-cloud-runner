@@ -1,4 +1,4 @@
-=== TRACE 2026-11-09T12:31:17Z run 42609707795 ===
+=== TRACE 2026-11-09T12:32:49Z run 42609707795 ===
 2026-11-09T11:39:28Z === gateway_jalan mula: run=42609707795 masa_jalan=353m ===
 2026-11-09T11:39:28Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7a4c939766da4ade868e6d08ac692ec1/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=True): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7a4c939766da4ade868e6d08ac692ec1/workspace/plugins/platforms/telegram/adapter.py
@@ -112,3 +112,13 @@ RESULT: teraju sihat
 {"masa": "2026-11-09T19:27:46+07:00", "getMe_http": 200, "getMe_saat": 0.323, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-09T19:29:47+07:00", "getMe_http": 200, "getMe_saat": 0.318, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-09T12:29:50Z denyut tick=50 pid=3908
+=== JAGA RANTAIAN 2026-11-09T12:31:24+0000 ===
+  [MATI ] tokenomix    glm-5.3                    tiada tool_calls
+  [MATI ] tokenomix    deepseek-v4-pro            tiada tool_calls
+  [MATI ] tokenomix    kimi-k2.8                  tiada tool_calls
+  [MATI ] tokenomix    mimo-v2.6-pro              tiada tool_calls
+  [MATI ] tokenomix    glm-5.3-flash              tiada tool_calls
+  [HIDUP] groq         openai/gpt-oss-120b        ok
+  [MATI ] mistral      ministral-14b-latest       tiada tool_calls
+RESULT: TERAJU MATI — 1 sandaran hidup, bot masih menjawab
+{"masa": "2026-11-09T19:31:48+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
