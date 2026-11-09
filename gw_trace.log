@@ -1,6 +1,4 @@
-=== TRACE 2026-11-09T10:07:24Z run 42566681696 ===
-openai.BadRequestError: Error code: 400 - {'error': {'message': "Vision is disabled for model 'glm-5.3'.", 'type': 'upstream_error', 'code': 'upstream_error'}}
-{"masa": "2026-11-09T14:43:13+07:00", "getMe_http": 200, "getMe_saat": 0.452, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-09T10:08:55Z run 42566681696 ===
 2026-11-09 07:43:50,553 WARNING JEJAK: JEJAK BALAS chat=8043910371
 2026-11-09 07:44:46,989 WARNING agent.stream_diag: Stream drop on attempt 1/3 — retrying. subagent_id=- depth=0 provider=custom base_url=https://api.tokenomixai.com/v1 error_type=ReadError error=[Errno 104] Connection reset by peer chain=ReadError([Errno 104] Connection reset by peer) <- ReadError([Errno 104] Connection reset by peer) <- ConnectionResetError([Errno 104] Connection reset by peer) http_status=200 bytes=40 chunks=1 elapsed=17.47s ttfb=17.43s serving_provider=mis********** finish_reason_seen=False upstream=[cf-ray=a57b31489e235b4d-SEA cf-cache-status=DYNAMIC server=cloudflare]
 2026-11-09 07:45:09,323 WARNING JEJAK: JEJAK BALAS chat=8043910371
@@ -249,3 +247,5 @@ RESULT: teraju sihat
   [HIDUP] groq         openai/gpt-oss-120b        ok
   [HIDUP] mistral      ministral-14b-latest       ok
 RESULT: teraju sihat
+{"masa": "2026-11-09T17:08:23+07:00", "getMe_http": 200, "getMe_saat": 0.502, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-09T10:08:32Z denyut tick=280 pid=3621
