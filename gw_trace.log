@@ -1,4 +1,4 @@
-=== TRACE 2026-11-09T07:39:19Z run 42566681696 ===
+=== TRACE 2026-11-09T07:40:51Z run 42566681696 ===
     )
     ^
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/ba777be8d66d41a9bd4ecd452e3ed327/workspace/agent/auxiliary_hooks.py", line 261, in arun_with_aux_hooks
