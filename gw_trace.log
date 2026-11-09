@@ -1,4 +1,4 @@
-=== TRACE 2026-11-09T02:36:55Z run 42534470302 ===
+=== TRACE 2026-11-09T02:38:26Z run 42534470302 ===
     )
     ^
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 712, in _post
