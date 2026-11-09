@@ -1,4 +1,4 @@
-=== TRACE 2026-11-09T10:02:49Z run 42566681696 ===
+=== TRACE 2026-11-09T10:04:21Z run 42566681696 ===
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/ba777be8d66d41a9bd4ecd452e3ed327/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 2907, in create
     return await self._post(
            ^^^^^^^^^^^^^^^^^
