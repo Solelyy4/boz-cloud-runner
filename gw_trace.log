@@ -1,5 +1,4 @@
-=== TRACE 2026-11-09T16:18:33Z run 42609707795 ===
-  [HIDUP] tokenomix    glm-5.3-flash              ok
+=== TRACE 2026-11-09T16:20:04Z run 42609707795 ===
   [HIDUP] groq         openai/gpt-oss-120b        ok
   [HIDUP] mistral      ministral-14b-latest       ok
 RESULT: teraju sihat
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-09 16:17:34,563 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
 2026-11-09 16:17:44,875 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
 {"masa": "2026-11-09T23:17:50+07:00", "getMe_http": 200, "getMe_saat": 0.36, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-09T23:19:51+07:00", "getMe_http": 200, "getMe_saat": 0.516, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
