@@ -1,5 +1,4 @@
-=== TRACE 2026-11-09T15:28:12Z run 42609707795 ===
-└─────────────────────────────────────────────────────────┘
+=== TRACE 2026-11-09T15:29:43Z run 42609707795 ===
 
 2026-11-09 12:55:17,346 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
 2026-11-09 12:55:17,379 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-09 15:25:49,998 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
 2026-11-09T15:26:43Z denyut tick=150 pid=6840
 {"masa": "2026-11-09T22:27:33+07:00", "getMe_http": 200, "getMe_saat": 0.324, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-09T22:29:34+07:00", "getMe_http": 200, "getMe_saat": 0.323, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
