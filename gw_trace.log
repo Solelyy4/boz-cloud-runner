@@ -1,6 +1,4 @@
-=== TRACE 2026-11-09T02:33:52Z run 42534470302 ===
-    return await self._post(
-           ^^^^^^^^^^^^^^^^^
+=== TRACE 2026-11-09T02:35:23Z run 42534470302 ===
     ...<7 lines>...
     )
     ^
@@ -249,3 +247,5 @@ display.review.summary_cli
 RESULT: teraju sihat
 {"masa": "2026-11-09T09:30:38+07:00", "getMe_http": 200, "getMe_saat": 0.356, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-09T09:32:38+07:00", "getMe_http": 200, "getMe_saat": 0.356, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-09T09:34:39+07:00", "getMe_http": 200, "getMe_saat": 0.352, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-09T02:35:13Z denyut tick=190 pid=3898
