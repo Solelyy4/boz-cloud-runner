@@ -1,4 +1,4 @@
-=== TRACE 2026-11-09T03:27:14Z run 42534470302 ===
+=== TRACE 2026-11-09T03:28:46Z run 42534470302 ===
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
     raise exception
 telegram.error.NetworkError: Bad Gateway
