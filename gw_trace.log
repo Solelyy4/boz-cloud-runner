@@ -1,4 +1,4 @@
-=== TRACE 2026-11-09T02:30:49Z run 42534470302 ===
+=== TRACE 2026-11-09T02:32:20Z run 42534470302 ===
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 4934, in delete_webhook
     return await self._post(
            ^^^^^^^^^^^^^^^^^
