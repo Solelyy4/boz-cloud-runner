@@ -1,5 +1,4 @@
-=== TRACE 2026-11-09T08:51:04Z run 42566681696 ===
-2026-11-09 07:21:28,783 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+=== TRACE 2026-11-09T08:52:36Z run 42566681696 ===
 2026-11-09 07:21:28,783 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
 2026-11-09 07:21:38,425 WARNING JEJAK: JEJAK BALAS chat=8043910371
 === JAGA RANTAIAN 2026-11-09T07:21:42+0000 ===
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 {"masa": "2026-11-09T15:47:44+07:00", "getMe_http": 200, "getMe_saat": 0.445, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-09T08:48:31Z denyut tick=200 pid=3621
 {"masa": "2026-11-09T15:49:45+07:00", "getMe_http": 200, "getMe_saat": 0.504, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-09T15:51:46+07:00", "getMe_http": 200, "getMe_saat": 0.451, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
