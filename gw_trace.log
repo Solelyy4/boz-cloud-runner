@@ -1,6 +1,4 @@
-=== TRACE 2026-11-09T07:04:14Z run 42566681696 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok
-  [HIDUP] mistral      ministral-14b-latest       ok
+=== TRACE 2026-11-09T07:05:45Z run 42566681696 ===
 RESULT: teraju sihat
 {"masa": "2026-11-09T13:20:32+07:00", "getMe_http": 200, "getMe_saat": 0.528, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 [JEJAK-MASUK] process_update id=125652426444736 update_id=825346178
@@ -249,3 +247,5 @@ RESULT: teraju sihat
 2026-11-09 07:03:58,910 WARNING tools.web_tools: web_search backend 'ddgs' failed (DuckDuckGo search failed: DDGSException: No results found.); one-shot keyless rescue
 2026-11-09 07:04:09,950 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-11-09 07:04:09,951 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+{"masa": "2026-11-09T14:04:54+07:00", "getMe_http": 200, "getMe_saat": 0.447, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-09 07:05:14,598 WARNING agent.tool_executor: Tool terminal returned error (0.45s): {"output": "=== sdkVersion (min) ===", "exit_code": 1, "error": null}
