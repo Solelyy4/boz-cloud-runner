@@ -1,14 +1,4 @@
-=== TRACE 2026-11-09T16:12:27Z run 42609707795 ===
-  [HIDUP] tokenomix    mimo-v2.6-pro              ok
-  [HIDUP] tokenomix    glm-5.3-flash              ok
-  [HIDUP] groq         openai/gpt-oss-120b        ok
-  [HIDUP] mistral      ministral-14b-latest       ok
-RESULT: teraju sihat
-{"masa": "2026-11-09T20:34:49+07:00", "getMe_http": 200, "getMe_saat": 0.335, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-09T13:36:41Z denyut tick=40 pid=6840
-{"masa": "2026-11-09T20:36:50+07:00", "getMe_http": 200, "getMe_saat": 0.388, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T20:38:51+07:00", "getMe_http": 200, "getMe_saat": 0.316, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T20:40:51+07:00", "getMe_http": 200, "getMe_saat": 0.322, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-09T16:13:58Z run 42609707795 ===
 {"masa": "2026-11-09T20:42:52+07:00", "getMe_http": 200, "getMe_saat": 0.359, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 === JAGA RANTAIAN 2026-11-09T13:43:36+0000 ===
   [HIDUP] tokenomix    glm-5.3                    ok
@@ -249,3 +239,13 @@ RESULT: teraju sihat
 {"masa": "2026-11-09T23:11:48+07:00", "getMe_http": 200, "getMe_saat": 0.321, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-09 16:11:56,595 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-11-09 16:11:56,595 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+=== JAGA RANTAIAN 2026-11-09T16:12:46+0000 ===
+  [HIDUP] tokenomix    glm-5.3                    ok
+  [HIDUP] tokenomix    deepseek-v4-pro            ok
+  [HIDUP] tokenomix    kimi-k2.8                  ok
+  [HIDUP] tokenomix    mimo-v2.6-pro              ok
+  [HIDUP] tokenomix    glm-5.3-flash              ok
+  [HIDUP] groq         openai/gpt-oss-120b        ok
+  [HIDUP] mistral      ministral-14b-latest       ok
+RESULT: teraju sihat
+{"masa": "2026-11-09T23:13:49+07:00", "getMe_http": 200, "getMe_saat": 0.315, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
