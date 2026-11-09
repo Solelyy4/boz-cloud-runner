@@ -1,14 +1,4 @@
-=== TRACE 2026-11-09T15:40:24Z run 42609707795 ===
-2026-11-09T12:56:40Z SAMBUNG OK selepas 85s (bukti: baris 'Connected to Telegram')
-{"masa": "2026-11-09T19:58:35+07:00", "getMe_http": 200, "getMe_saat": 0.316, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T20:00:36+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-09T13:02:32+0000 ===
-  [HIDUP] tokenomix    glm-5.3                    ok
-  [HIDUP] tokenomix    deepseek-v4-pro            ok
-  [HIDUP] tokenomix    kimi-k2.8                  ok
-  [HIDUP] tokenomix    mimo-v2.6-pro              ok
-  [HIDUP] tokenomix    glm-5.3-flash              ok
-  [HIDUP] groq         openai/gpt-oss-120b        ok
+=== TRACE 2026-11-09T15:41:56Z run 42609707795 ===
   [MATI ] mistral      ministral-14b-latest       tiada tool_calls
 RESULT: teraju sihat
 {"masa": "2026-11-09T20:02:37+07:00", "getMe_http": 200, "getMe_saat": 0.371, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
@@ -249,3 +239,13 @@ RESULT: teraju sihat
 2026-11-09T15:36:43Z denyut tick=160 pid=6840
 {"masa": "2026-11-09T22:37:36+07:00", "getMe_http": 200, "getMe_saat": 0.311, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-09T22:39:37+07:00", "getMe_http": 200, "getMe_saat": 0.615, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-09T15:41:18+0000 ===
+  [HIDUP] tokenomix    glm-5.3                    ok
+  [HIDUP] tokenomix    deepseek-v4-pro            ok
+  [HIDUP] tokenomix    kimi-k2.8                  ok
+  [MATI ] tokenomix    mimo-v2.6-pro              tiada respons
+  [HIDUP] tokenomix    glm-5.3-flash              ok
+  [HIDUP] groq         openai/gpt-oss-120b        ok
+  [MATI ] mistral      ministral-14b-latest       tiada tool_calls
+RESULT: teraju sihat
+{"masa": "2026-11-09T22:41:38+07:00", "getMe_http": 200, "getMe_saat": 0.315, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
