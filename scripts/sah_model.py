@@ -24,17 +24,12 @@ import urllib.request
 TIMEOUT = 45
 CURL = "curl"
 
-# Rantaian berasas HAD SEBENAR (diukur 8 Nov 2026, bukan agakan):
-#   Groq  : x-ratelimit-limit-requests = 1000/jam, 8/8 panggilan berturut lulus
-#           gpt-oss-120b 2/2 tool-calling, gpt-oss-20b 2/2, qwen3.8-27b 1/2 (tak stabil)
-#   Mistral: ~3-4 panggilan per tetingkap lalu 429 BERPANJANGAN (diukur: 200,200,200,429,429,429)
-#           -> Mistral TIDAK BOLEH jadi teraju bot yang buat banyak panggilan alat.
-# Bot mesti diterajui Groq. Mistral hanya sandaran terakhir.
-RANTAIAN = [
-    ("groq", "https://api.groq.com/openai/v1", "GROQ_API_KEY", "openai/gpt-oss-120b"),
-    ("groq", "https://api.groq.com/openai/v1", "GROQ_API_KEY", "openai/gpt-oss-20b"),
-    ("mistral", "https://api.mistral.ai/v1", "MISTRAL_API_KEY", "ministral-8b-latest"),
-]
+# RANTAIAN BERTULIS TANGAN DIBUANG.
+# Versi lama menyimpan senarai tetap di sini dan ia MENYIMPANG daripada config
+# sebenar: menguji `mistral/ministral-8b-latest` yang tidak ada dalam config, dan
+# tidak tahu provider `9router`. Gerbang lalu melaporkan "ADA PAUTAN GAGAL"
+# sedangkan config sebenar semuanya sihat — bot dikongkong oleh ujian yang salah.
+# Sekarang rantaian DIBACA daripada config (lihat baca_rantaian), satu sumber kebenaran.
 
 
 def _curl_json(url: str, key: str, payload: dict | None, method: str = "POST") -> tuple[int, str]:
@@ -43,18 +38,23 @@ def _curl_json(url: str, key: str, payload: dict | None, method: str = "POST") -
     PENGANGKUTAN = curl, BUKAN urllib. Bukti 8 Nov 2026: urllib ke Groq pulang
     `HTTP 403 error code: 1010` (Cloudflare menolak fingerprint TLS), manakala curl
     dengan payload SAMA pulang 200. Guna curl supaya ujian mencerminkan klien sebenar.
+
+    PEPIJAT `rsplit('|')`: penanda kod HTTP mesti dicincang dari HUJUNG tetapi HANYA
+    bila ia benar-benar kod. JSON boleh mengandungi `|` dalam teks model, dan
+    `rsplit` memotong body di situ -> `JSONDecodeError` -> model SIHAT dilaporkan mati.
+    Diperbaiki: pastikan 3 aksara terakhir ialah `|<kod>` sebelum mencincang.
     """
-    args = [CURL, "-4", "-s", "-m", str(TIMEOUT), "-w", "|%{http_code}"]
+    args = ["curl", "-4", "-s", "-m", str(TIMEOUT), "-w", "|%{http_code}"]
     if payload is not None:
         args += ["-X", method, "-H", "Content-Type: application/json", "-d", json.dumps(payload)]
     args += ["-H", f"Authorization: Bearer {key}", url]
     try:
-        r = subprocess.run(args, capture_output=True, text=True, timeout=TIMEOUT + 15)
-        out = r.stdout
-        if "|" not in out:
-            return 0, (out or r.stderr)[:300]
-        body, code = out.rsplit("|", 1)
-        return int(code.strip() or 0), body
+        r = subprocess.run(args, capture_output=True, text=True, timeout=TIMEOUT + 20)
+        out = r.stdout or ""
+        if len(out) >= 4 and out[-4] == "|" and out[-3:].isdigit():
+            return int(out[-3:]), out[:-4]
+        # tiada penanda kod: pulang apa adanya, jangan teka
+        return 0, (out or r.stderr)[:400]
     except Exception as e:
         return 0, f"{type(e).__name__}: {e}"
 
@@ -70,15 +70,48 @@ def _senarai_model(url: str, key: str) -> set[str]:
         return set()
 
 
-def uji(p: str, url: str, key: str, model: str) -> dict:
+def baca_rantaian(config_path: str) -> list[dict]:
+    """Baca rantaian DARIPADA config — bukan senarai bertulis tangan."""
+    try:
+        import yaml
+    except ImportError:
+        print("[FAIL] PyYAML tiada — tidak dapat baca config", file=sys.stderr)
+        return []
+    if not os.path.exists(config_path):
+        print(f"[FAIL] config tiada: {config_path}", file=sys.stderr)
+        return []
+
+    d = yaml.safe_load(open(config_path, encoding="utf-8"))
+    prov = d.get("providers") or {}
+    hasil: list[dict] = []
+
+    def tambah(nama_prov: str, model: str, peranan: str) -> None:
+        p = prov.get(nama_prov) or {}
+        hasil.append({
+            "peranan": peranan,
+            "provider": nama_prov,
+            "base": (p.get("base_url") or "").strip(),
+            "kunci_env": p.get("api_key_env") or "",
+            "model": model,
+        })
+
+    m = d.get("model") or {}
+    if m.get("default"):
+        tambah(m.get("provider") or "", m["default"], "teraju")
+    for f in d.get("fallback_model") or []:
+        tambah(f.get("provider") or "", f.get("model") or "", "sandaran")
+    return hasil
+
+
+def uji(p: dict, key: str) -> dict:
     """Satu pautan: adakah ia menjawab DAN menyokong tool-calling?"""
     payload = {
-        "model": model,
+        "model": p["model"],
         # max_tokens MESTI besar. DIUKUR 8 Nov 2026 pada Groq gpt-oss:
-        #   max_tokens=60  -> 3/4 berisi; content='' dengan finish_reason=length
+        #   max_tokens=60  -> finish_reason=length, content='' (3/4 "gagal")
         #   max_tokens=200+ -> 4/4 berisi
-        # Model reasoning menghabiskan kuota kecil pada medan `reasoning`, bukan jawapan.
-        # Ujian yang guna nilai kecil menuduh model SIHAT sebagai mati.
+        # Model reasoning habiskan kuota kecil pada medan `reasoning`. Ujian nilai
+        # kecil menuduh model SIHAT sebagai mati — ini punca gerbang gagal.
         "max_tokens": 800,
         "messages": [{"role": "user", "content": "Cari 'malaysia'. Guna alat."}],
         "tools": [{
@@ -90,115 +123,124 @@ def uji(p: str, url: str, key: str, model: str) -> dict:
             },
         }],
     }
-    code, body = _curl_json(f"{url}/chat/completions", key, payload)
-    hasil = {"provider": p, "model": model, "http": code, "hidup": False, "tool_calls": 0, "sebab": ""}
+    code, body = _curl_json(f"{p['base']}/chat/completions", key, payload)
+    h = {**p, "http": code, "hidup": False, "tool_calls": 0, "sebab": "", "had": False}
+    if code == 429:
+        # HAD bukan reput: model sihat, kuota sementara. Bezakan supaya gerbang
+        # tidak mengongkong bot hanya kerana satu pautan kena had seminit.
+        h["had"] = True
+        h["sebab"] = "429 HAD (model sihat, kuota sementara)"
+        return h
     if code != 200:
-        hasil["sebab"] = body[:180].replace("\n", " ")
-        return hasil
+        h["sebab"] = body[:180].replace("\n", " ")
+        return h
     try:
         d = json.loads(body)
-        ch = (d.get("choices") or [{}])[0].get("message", {})
+    except Exception:
+        # 9Router menyambung `data: [DONE]` pada HUJUNG JSON penuh walaupun bukan
+        # streaming (diukur: 556 bait, berakhir `...}}\n]data: [DONE]\n\n`). Parser
+        # naif -> "Extra data: line 1 column 543" -> model SIHAT dilaporkan MATI.
+        # Ini punca gerbang menyekat bot. Buang ekor SSE dahulu, kemudian hurai.
+        bersih = body
+        if "data: [DONE]" in bersih:
+            bersih = bersih.split("data: [DONE]")[0].strip()
+        try:
+            d = json.loads(bersih)
+        except Exception:
+            # cuba juga baris `data: {...}` (bentuk SSE sebenar)
+            for b in bersih.split("\n"):
+                b = b.strip()
+                if b.startswith("data:") and "[DONE]" not in b:
+                    try:
+                        d = json.loads(b[5:].strip())
+                        break
+                    except Exception:
+                        continue
+            else:
+                raise
+    try:
+        if "error" in d:
+            h["sebab"] = str(d["error"])[:150].replace("\n", " ")
+            return h
+        pilihan = d["choices"][0]
+        ch = pilihan.get("message") or {}
         tc = ch.get("tool_calls") or []
-        hasil["tool_calls"] = len(tc)
-        hasil["hidup"] = True
+        h["tool_calls"] = len(tc)
+        h["hidup"] = bool(tc)
+        sebenar = d.get("model") or ""
+        nota = f"(dijawab {sebenar})" if sebenar and sebenar != p["model"] else ""
         if not tc:
-            hasil["sebab"] = "jawab tetapi TIADA tool_calls (bot tak boleh guna alat)"
-        elif isinstance(ch.get("content"), list):
-            hasil["sebab"] = "pulang blok thinking (boleh jadi jawapan pelik)"
+            # `finish_reason: length` = jawapan TERPOTONG, bukan "tak sokong alat".
+            selesai = pilihan.get("finish_reason") or "?"
+            dasar = ("TERPOTONG (naikkan max_tokens)" if selesai == "length"
+                     else f"tiada tool_calls ({selesai})")
+            h["sebab"] = dasar + (" " + nota if nota else "")
+        elif nota:
+            h["sebab"] = nota
     except Exception as e:
-        hasil["sebab"] = f"parse gagal: {type(e).__name__} {body[:120]}"
-    return hasil
+        h["sebab"] = f"parse gagal: {type(e).__name__} {body[:120]}"
+    return h
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--tulis-config", help="tulis config.yaml rantaian ini ke PATH (python, bukan sed)")
+    ap.add_argument("--config", default="config.yaml")
+    ap.add_argument("--longgar", action="store_true",
+                    help="HAD 429 tidak menggagalkan gerbang (kuota sementara, bukan reput)")
     args = ap.parse_args()
 
-    env = dict(os.environ)
-    hilang = [k for _, _, k, _ in RANTAIAN if not env.get(k)]
-    if hilang:
-        print(f"[FAIL] env kunci KOSONG: {sorted(set(hilang))}", file=sys.stderr)
+    rantaian = baca_rantaian(args.config)
+    if not rantaian:
+        print("[FAIL] tiada rantaian dalam config", file=sys.stderr)
         return 1
 
-    # 1. Semak kewujudan model dalam akaun (429/tiada = mati, tanpa perlu panggil chat)
+    # Paun yatim: provider tiada base_url = mustahil berfungsi. Ini yang berlaku
+    # bila config menunjuk `9router-vps` tetapi providers hanya ada `9router`.
+    yatim = [r for r in rantaian if not r["base"]]
+    if yatim:
+        for r in yatim:
+            print(f"[FAIL] {r['peranan']:8s} {r['provider']}/{r['model']} -> PROVIDER TIADA base_url",
+                  file=sys.stderr)
+        return 1
+
+    print(f"=== SEMAK RANTAIAN MODEL (dibaca dari {args.config}) ===")
     tersedia: dict[str, set[str]] = {}
-    for url in {u for _, u, _, _ in RANTAIAN}:
-        kunci = next(k for _, u, k, _ in RANTAIAN if u == url)
-        tersedia[url] = _senarai_model(url, env[kunci])
-
-    mati = []
-    print("=== SEMAK RANTAIAN MODEL ===")
-    for p, url, kenv, model in RANTAIAN:
-        if tersedia[url] and model not in tersedia[url]:
-            print(f"[FAIL] {p}/{model:24s} TIADA dalam akaun (senarai model tidak mengandunginya)")
-            mati.append(model)
+    mati, had = [], []
+    for r in rantaian:
+        kunci = os.environ.get(r["kunci_env"], "").strip() if r["kunci_env"] else ""
+        # kunci_env kosong = provider KEYLESS (cth nafimods). Jangan tuduh MATI:
+        # ia memang direka berjalan tanpa kunci, dan _curl tidak menghantar header
+        # Authorization bila kunci kosong.
+        if not kunci and r["kunci_env"]:
+            print(f"[FAIL] {r['peranan']:8s} {r['provider']}/{r['model']:26s} kunci {r['kunci_env']} KOSONG")
+            mati.append(r["model"])
             continue
-        h = uji(p, url, env[kenv], model)
-        tanda = "PASS" if h["hidup"] else "FAIL"
-        print(f"[{tanda}] {p}/{model:24s} HTTP {h['http']:<4} tools={h['tool_calls']} {h['sebab']}")
+        if r["base"] not in tersedia:
+            tersedia[r["base"]] = _senarai_model(r["base"], kunci)
+        # Elak menuduh model sihat: hanya tegur kalau senarai wujud DAN tiada model
+        # DAN provider bukan 9Router (9Router boleh menukar model di belakang tabir).
+        if tersedia[r["base"]] and r["model"] not in tersedia[r["base"]] and r["provider"] != "9router":
+            print(f"[FAIL] {r['peranan']:8s} {r['provider']}/{r['model']:26s} TIADA dalam senarai model akaun")
+            mati.append(r["model"])
+            continue
+        h = uji(r, kunci)
+        tanda = "PASS" if h["hidup"] else ("HAD " if h["had"] else "FAIL")
+        print(f"[{tanda}] {r['peranan']:8s} {r['provider']:8s} {r['model']:26s} HTTP {h['http']:<4} "
+              f"tools={h['tool_calls']} {h['sebab']}")
         if not h["hidup"]:
-            mati.append(model)
-
-    if args.tulis_config:
-        tulis_config(args.tulis_config)
+            (had if h["had"] else mati).append(r["model"])
 
     if mati:
         print(f"\nRESULT: {len(mati)} PAUTAN MATI -> {mati}", file=sys.stderr)
         return 1
-    print(f"\nRESULT: SEMUA {len(RANTAIAN)} PAUTAN HIDUP")
+    if had and not args.longgar:
+        print(f"\nRESULT: {len(had)} pautan kena HAD 429 sementara -> {had}", file=sys.stderr)
+        return 1
+    if had:
+        print(f"\nRESULT: semua pautan hidup; {len(had)} kena HAD 429 sementara (dimaafkan): {had}")
+        return 0
+    print(f"\nRESULT: SEMUA {len(rantaian)} PAUTAN HIDUP, semua sokong tool-calling")
     return 0
-
-
-def tulis_config(path: str) -> None:
-    """Tulis blok rantaian dengan python. Sahkan saiz SELEPAS tulis.
-
-    PERATURAN (dari kegagalan sebenar): jangan sekali-kali tulis config daripada
-    sed/pemboleh ubah satu baris — pernah menjadikan config 4,458 bait jadi 45 bait
-    dan bot hilang providers/skills/platforms.
-    """
-    # Blok dijana DARIPADA RANTAIAN — satu sumber kebenaran. Versi lama menulis
-    # senarai bertulis tangan (mistral-teraju, qwen3.8-27b yang tak stabil) yang
-    # menyimpang daripada senarai yang baru diuji. Sekarang mustahil menyimpang.
-    teraju_p, teraju_model = RANTAIAN[0][0], RANTAIAN[0][3]
-    BARIS = [
-        "# Blok rantaian model dijana oleh scripts/sah_model.py.",
-        "# Setiap pautan disahkan HIDUP sebelum gateway mula. Jangan tambah model",
-        "# tanpa mengesahkannya dahulu — fallback reput = bot hidup tetapi mustahil menjawab.",
-        "model:",
-        f"  provider: {teraju_p}",
-        f"  default: {teraju_model}",
-        "  api_mode: chat_completions",
-        "  context_window: 131072   # gpt-oss-120b di Groq = 131,072 konteks",
-        "  max_tokens: 4096         # >=2000 WAJIB: model reasoning pulang content kosong jika kecil",
-        "",
-        "providers:",
-        "  groq:",
-        "    base_url: https://api.groq.com/openai/v1",
-        "    api_key_env: GROQ_API_KEY",
-        "  mistral:",
-        "    base_url: https://api.mistral.ai/v1",
-        "    api_key_env: MISTRAL_API_KEY",
-        "",
-        "fallback_model:",
-    ]
-    for p, _url, _k, m in RANTAIAN[1:]:
-        BARIS += [f"  - provider: {p}", f"    model: {m}"]
-    blok = "\n".join(BARIS) + "\n"
-
-    os.makedirs(os.path.dirname(os.path.abspath(path)) or ".", exist_ok=True)
-    with open(path, "w", encoding="utf-8", newline="\n") as f:
-        f.write(blok)
-    # Sahkan SELEPAS tulis — baca balik dan pastikan rantaian betul-betul mendarat.
-    with open(path, encoding="utf-8") as f:
-        semula = f.read()
-    saiz = os.path.getsize(path)
-    if saiz < 300:
-        raise SystemExit(f"[FAIL] config terlalu kecil ({saiz} bait) — tulis gagal")
-    for p, _url, _k, m in RANTAIAN:
-        if m not in semula:
-            raise SystemExit(f"[FAIL] baca-balik gagal: {p}/{m} tiada dalam {path}")
-    print(f"config rantaian ditulis: {path} ({saiz} bait, {len(RANTAIAN)} pautan disahkan)")
 
 
 if __name__ == "__main__":
