@@ -1,8 +1,4 @@
-=== TRACE 2026-11-09T01:14:34Z run 42534470302 ===
-  [HIDUP] tokenomix    glm-5.3                    ok
-  [HIDUP] tokenomix    deepseek-v4-pro            ok
-  [HIDUP] tokenomix    kimi-k2.8                  ok
-  [HIDUP] tokenomix    mimo-v2.6-pro              ok
+=== TRACE 2026-11-09T01:16:05Z run 42534470302 ===
   [HIDUP] tokenomix    glm-5.3-flash              ok
   [HIDUP] groq         openai/gpt-oss-120b        ok
   [HIDUP] mistral      ministral-14b-latest       ok
@@ -249,3 +245,7 @@ telegram.error.NetworkError: Bad Gateway
 2026-11-09 01:13:31,117 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: timed out after 30s (telegram)
 2026-11-09 01:13:31,117 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 4/10), reconnecting in 40s. Error: timed out after 30s (telegram)
 {"masa": "2026-11-09T08:13:50+07:00", "getMe_http": 0, "getMe_saat": 20.002, "ok": false, "ralat": "", "pending": null, "webhook_http": 0}
+2026-11-09 01:14:41,120 WARNING agent.deadline: [deadline] 'telegram' timed out after 30.0s; task abandoned
+2026-11-09 01:14:41,120 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: timed out after 30s (telegram)
+2026-11-09 01:14:41,120 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 5/10), reconnecting in 60s. Error: timed out after 30s (telegram)
+2026-11-09T01:15:12Z denyut tick=110 pid=3898
