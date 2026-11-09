@@ -1,4 +1,4 @@
-=== TRACE 2026-11-09T12:55:41Z run 42609707795 ===
+=== TRACE 2026-11-09T12:57:13Z run 42609707795 ===
 2026-11-09T11:39:28Z === gateway_jalan mula: run=42609707795 masa_jalan=353m ===
 2026-11-09T11:39:28Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7a4c939766da4ade868e6d08ac692ec1/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=True): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7a4c939766da4ade868e6d08ac692ec1/workspace/plugins/platforms/telegram/adapter.py
@@ -183,3 +183,14 @@ RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
 2026-11-09 12:55:17,379 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-09 12:55:17,487 WARNING JEJAK: JEJAK DAFTAR handler teks didaftar
 2026-11-09 12:55:17,488 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-09 12:55:47,373 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connect attempt 1/8 interrupted by CancelledError — propagating
+2026-11-09 12:55:47,375 ERROR gateway.run: ✗ telegram error: telegram connect timed out after 30s
+2026-11-09 12:55:47,395 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: telegram connect timed out after 30s
+2026-11-09 12:55:47,396 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
+2026-11-09 12:56:17,464 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
+2026-11-09 12:56:17,487 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-09 12:56:17,515 WARNING JEJAK: JEJAK DAFTAR handler teks didaftar
+2026-11-09 12:56:17,515 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+{"masa": "2026-11-09T19:56:15+07:00", "getMe_http": 0, "getMe_saat": 20.001, "ok": false, "ralat": "", "pending": null, "webhook_http": 0}
+2026-11-09 12:56:36,230 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-09T12:56:40Z SAMBUNG OK selepas 85s (bukti: baris 'Connected to Telegram')
