@@ -1,94 +1,4 @@
-=== TRACE 2026-11-09T01:11:31Z run 42534470302 ===
-2026-11-08T23:24:49Z === gateway_jalan mula: run=42534470302 masa_jalan=353m ===
-2026-11-08T23:24:49Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/bin/python
-JEJAK ditampal (masuk=True balas=True daftar=True): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/workspace/plugins/platforms/telegram/adapter.py
-=== 2026-11-08T23:24:49Z mula ===
-JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/bin/python
-JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/__init__.py
-JEJAK-MASUK: 1 fail PTB dijumpai
-  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_application.py
-  sahkan: penanda=True (bait=85224)
-=== selesai ===
-JANGAN-BUANG: 1 adapter dijumpai
-  ditampal 1 tempat -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/workspace/plugins/platforms/telegram/adapter.py
-2026-11-08T23:24:49Z peronda rantaian dipasang (pid=3872, semak setiap 10 min)
-2026-11-08T23:24:49Z peronda latar dipasang (pid=3871, denyut 120s)
-2026-11-08T23:24:50Z sesi Telegram lama dibersihkan (cubaan 1) — long-poll kini bebas
-2026-11-08T23:24:50Z --- cubaan 1: mula gateway ---
-2026-11-08T23:24:50Z gateway pid=3898
-{"masa": "2026-11-09T06:24:50+07:00", "getMe_http": 200, "getMe_saat": 0.378, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-┌─────────────────────────────────────────────────────────┐
-│           ☤ Hermes Gateway Starting...                 │
-├─────────────────────────────────────────────────────────┤
-│  Messaging platforms + cron scheduler                    │
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
-
-2026-11-08 23:24:55,031 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=4097, started_at=2026-11-08T21:29:49.180708+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-08T23:17:01.775451+00:00 last_mem={'rss_kib': 270180, 'mem_total_kib': 16366640, 'mem_available_kib': 15071804, 'swap_used_kib': 0} suspected_oom=False
-2026-11-08 23:24:55,275 WARNING gateway.config: config.yaml allow_all_users: true grants every sender on every platform access (bridged to GATEWAY_ALLOW_ALL_USERS; an explicit env var wins).
-2026-11-08 23:24:55,328 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-08 23:24:55,583 WARNING JEJAK: JEJAK DAFTAR handler teks didaftar
-2026-11-08 23:24:55,584 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-=== JAGA RANTAIAN 2026-11-08T23:24:57+0000 ===
-  [HIDUP] tokenomix    glm-5.3                    ok
-  [HIDUP] tokenomix    deepseek-v4-pro            ok
-  [HIDUP] tokenomix    kimi-k2.8                  ok
-  [HIDUP] tokenomix    mimo-v2.6-pro              ok
-  [HIDUP] tokenomix    glm-5.3-flash              ok
-  [HIDUP] groq         openai/gpt-oss-120b        ok
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-jejak-pemanjat: salinan workspace ditampal
-2026-11-08 23:25:06,658 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-08T23:25:10Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
-{"masa": "2026-11-09T06:26:51+07:00", "getMe_http": 200, "getMe_saat": 0.355, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:28:51+07:00", "getMe_http": 200, "getMe_saat": 0.39, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:30:52+07:00", "getMe_http": 200, "getMe_saat": 0.36, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:32:53+07:00", "getMe_http": 200, "getMe_saat": 0.352, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:34:54+07:00", "getMe_http": 200, "getMe_saat": 0.355, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-08T23:35:08+0000 ===
-  [HIDUP] tokenomix    glm-5.3                    ok
-  [HIDUP] tokenomix    deepseek-v4-pro            ok
-  [HIDUP] tokenomix    kimi-k2.8                  ok
-  [HIDUP] tokenomix    mimo-v2.6-pro              ok
-  [HIDUP] tokenomix    glm-5.3-flash              ok
-  [HIDUP] groq         openai/gpt-oss-120b        ok
-  [HIDUP] mistral      ministral-14b-latest       ok
-RESULT: teraju sihat
-2026-11-08T23:35:10Z denyut tick=10 pid=3898
-{"masa": "2026-11-09T06:36:54+07:00", "getMe_http": 200, "getMe_saat": 0.368, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:38:55+07:00", "getMe_http": 200, "getMe_saat": 0.369, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:40:56+07:00", "getMe_http": 200, "getMe_saat": 0.374, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:42:57+07:00", "getMe_http": 200, "getMe_saat": 0.378, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:44:57+07:00", "getMe_http": 200, "getMe_saat": 0.387, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-08T23:45:10Z denyut tick=20 pid=3898
-=== JAGA RANTAIAN 2026-11-08T23:45:19+0000 ===
-  [HIDUP] tokenomix    glm-5.3                    ok
-  [HIDUP] tokenomix    deepseek-v4-pro            ok
-  [HIDUP] tokenomix    kimi-k2.8                  ok
-  [HIDUP] tokenomix    mimo-v2.6-pro              ok
-  [HIDUP] tokenomix    glm-5.3-flash              ok
-  [HIDUP] groq         openai/gpt-oss-120b        ok
-  [HIDUP] mistral      ministral-14b-latest       ok
-RESULT: teraju sihat
-{"masa": "2026-11-09T06:46:58+07:00", "getMe_http": 200, "getMe_saat": 0.371, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:48:59+07:00", "getMe_http": 200, "getMe_saat": 0.361, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:51:00+07:00", "getMe_http": 200, "getMe_saat": 0.439, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:53:00+07:00", "getMe_http": 200, "getMe_saat": 0.354, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:55:01+07:00", "getMe_http": 200, "getMe_saat": 0.37, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-08T23:55:10Z denyut tick=30 pid=3898
-=== JAGA RANTAIAN 2026-11-08T23:55:34+0000 ===
-  [HIDUP] tokenomix    glm-5.3                    ok
-  [HIDUP] tokenomix    deepseek-v4-pro            ok
-  [HIDUP] tokenomix    kimi-k2.8                  ok
-  [HIDUP] tokenomix    mimo-v2.6-pro              ok
-  [HIDUP] tokenomix    glm-5.3-flash              ok
-  [HIDUP] groq         openai/gpt-oss-120b        ok
-  [HIDUP] mistral      ministral-14b-latest       ok
-RESULT: teraju sihat
-{"masa": "2026-11-09T06:57:02+07:00", "getMe_http": 200, "getMe_saat": 0.383, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T06:59:03+07:00", "getMe_http": 200, "getMe_saat": 0.378, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-09T07:01:03+07:00", "getMe_http": 200, "getMe_saat": 0.36, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-09T01:13:02Z run 42534470302 ===
 {"masa": "2026-11-09T07:03:04+07:00", "getMe_http": 200, "getMe_saat": 0.369, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-09T07:05:05+07:00", "getMe_http": 200, "getMe_saat": 0.372, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-09T00:05:11Z denyut tick=40 pid=3898
@@ -194,3 +104,148 @@ RESULT: teraju sihat
 {"masa": "2026-11-09T08:07:28+07:00", "getMe_http": 200, "getMe_saat": 0.369, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-09T08:09:29+07:00", "getMe_http": 200, "getMe_saat": 0.366, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-09T08:11:30+07:00", "getMe_http": 200, "getMe_saat": 0.357, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-09 01:12:24,510 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error, scheduling reconnect: Bad Gateway
+2026-11-09 01:12:24,510 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 1/10), reconnecting in 5s. Error: Bad Gateway
+2026-11-09 01:12:30,369 ERROR telegram.ext.Updater: Error while calling `get_updates` one more time to mark all fetched updates. Suppressing error to ensure graceful shutdown. When polling for updates is restarted, updates may be fetched again. Please adjust timeouts via `ApplicationBuilder` or the parameter `get_updates_request` of `Bot`.
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_updater.py", line 400, in _get_updates_cleanup
+    await self.bot.get_updates(
+    ...<4 lines>...
+    )
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 680, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 4767, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 712, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 378, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 741, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.NetworkError: Bad Gateway
+2026-11-09 01:12:30,751 ERROR telegram.ext: Network Retry Loop (Bootstrap delete Webhook): Failed run number 0 of 0. Aborting.
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 161, in network_retry_loop
+    await do_action()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 136, in do_action
+    await action_cb()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_updater.py", line 686, in bootstrap_del_webhook
+    await self.bot.delete_webhook(drop_pending_updates=drop_pending_updates)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 1520, in delete_webhook
+    return await super().delete_webhook(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 4934, in delete_webhook
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 712, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 378, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 741, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.NetworkError: Bad Gateway
+2026-11-09 01:12:30,754 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: Bad Gateway
+2026-11-09 01:12:30,754 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 2/10), reconnecting in 10s. Error: Bad Gateway
+2026-11-09 01:12:41,112 ERROR telegram.ext: Network Retry Loop (Bootstrap delete Webhook): Failed run number 0 of 0. Aborting.
+Traceback (most recent call last):
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 161, in network_retry_loop
+    await do_action()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_utils/networkloop.py", line 136, in do_action
+    await action_cb()
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_updater.py", line 686, in bootstrap_del_webhook
+    await self.bot.delete_webhook(drop_pending_updates=drop_pending_updates)
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 1520, in delete_webhook
+    return await super().delete_webhook(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 4934, in delete_webhook
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 712, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 378, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/_bot.py", line 741, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/60d3a82043df48f2af28b67f28e394e7/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.NetworkError: Bad Gateway
+2026-11-09 01:12:41,114 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: Bad Gateway
+2026-11-09 01:12:41,115 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 3/10), reconnecting in 20s. Error: Bad Gateway
