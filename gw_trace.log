@@ -1,9 +1,4 @@
-=== TRACE 2026-11-09T15:16:01Z run 42609707795 ===
-  [MATI ] tokenomix    glm-5.3-flash              tiada tool_calls
-  [HIDUP] groq         openai/gpt-oss-120b        ok
-  [HIDUP] mistral      ministral-14b-latest       ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-09T19:53:55+07:00", "getMe_http": 200, "getMe_saat": 0.327, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-09T15:17:32Z run 42609707795 ===
 2026-11-09 12:54:22,871 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error, scheduling reconnect: Bad Gateway
 2026-11-09 12:54:22,872 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 1/10), reconnecting in 5s. Error: Bad Gateway
 2026-11-09 12:54:42,874 WARNING agent.deadline: [deadline] 'telegram' timed out after 15.0s; task abandoned
@@ -249,3 +244,8 @@ RESULT: teraju sihat
 {"masa": "2026-11-09T22:11:26+07:00", "getMe_http": 200, "getMe_saat": 0.315, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-09T22:13:28+07:00", "getMe_http": 200, "getMe_saat": 0.325, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-09T22:15:29+07:00", "getMe_http": 200, "getMe_saat": 0.352, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-09 15:16:27,947 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
+2026-11-09 15:16:27,947 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
+2026-11-09 15:16:38,269 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-11-09T15:16:43Z denyut tick=140 pid=6840
+{"masa": "2026-11-09T22:17:30+07:00", "getMe_http": 200, "getMe_saat": 0.322, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
