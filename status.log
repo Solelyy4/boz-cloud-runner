@@ -1,7 +1,12 @@
-=== RUN 42665410626 2026-11-09T18:19:40Z ===
+=== RUN 42689758797 2026-11-09T20:08:19Z ===
+!!! GERBANG GAGAL (status=failure) !!!
+Gateway TIDAK dimulakan. Punca: satu atau lebih pautan model MATI
+atau had 429 berpanjangan. Semak langkah 'GERBANG' dalam run ini.
+Bot TIDAK menerima sebarang mesej dalam run ini.
+
 --- peronda (bukti rangkaian runner) ---
-denyut: 20 | sihat: 20 | gagal: 0
-kadar sihat: 100%
+[tiada] status_peronda.jsonl
+tiada data peronda
 
 --- gw.log (60 baris terakhir) ---
 tiada log gateway
