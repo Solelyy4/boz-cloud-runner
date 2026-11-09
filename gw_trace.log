@@ -1,4 +1,4 @@
-=== TRACE 2026-11-09T13:36:51Z run 42609707795 ===
+=== TRACE 2026-11-09T13:38:22Z run 42609707795 ===
 JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7a4c939766da4ade868e6d08ac692ec1/venv/lib/python3.14/site-packages/telegram/__init__.py
 JEJAK-MASUK: 1 fail PTB dijumpai
   PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7a4c939766da4ade868e6d08ac692ec1/venv/lib/python3.14/site-packages/telegram/ext/_application.py
