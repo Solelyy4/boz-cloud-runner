@@ -1,6 +1,4 @@
-=== TRACE 2026-11-09T08:03:44Z run 42566681696 ===
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/ba777be8d66d41a9bd4ecd452e3ed327/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1777, in request
-    raise self._make_status_error_from_response(err.response) from None
+=== TRACE 2026-11-09T08:05:15Z run 42566681696 ===
 openai.BadRequestError: Error code: 400 - {'error': {'message': "Vision is disabled for model 'glm-5.3'.", 'type': 'upstream_error', 'code': 'upstream_error'}}
 {"masa": "2026-11-09T14:08:56+07:00", "getMe_http": 200, "getMe_saat": 0.448, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 [JEJAK-MASUK] process_update id=125652426444736 update_id=825346185
@@ -249,3 +247,5 @@ RESULT: teraju sihat
 2026-11-09 08:02:59,612 WARNING JEJAK: JEJAK BALAS chat=8043910371
 {"masa": "2026-11-09T15:03:23+07:00", "getMe_http": 200, "getMe_saat": 0.497, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-09 08:03:35,551 WARNING JEJAK: JEJAK BALAS chat=8043910371
+2026-11-09 08:04:05,954 WARNING JEJAK: JEJAK BALAS chat=8043910371
+2026-11-09 08:04:36,194 WARNING JEJAK: JEJAK BALAS chat=8043910371
