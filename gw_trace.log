@@ -1,14 +1,4 @@
-=== TRACE 2026-11-10T16:21:47Z run 42826412177 ===
-2026-11-10 13:42:49,301 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3437, started_at=2026-11-10T11:45:24.198521+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-10T12:36:35.939063+00:00 last_mem={'rss_kib': 386184, 'mem_total_kib': 16366640, 'mem_available_kib': 14997640, 'swap_used_kib': 0} suspected_oom=False
-2026-11-10 13:42:49,509 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-10 13:42:49,718 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-jejak-pemanjat: salinan workspace ditampal
-2026-11-10 13:43:00,843 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-10 13:43:04,365 WARNING tools.skills_tool: Skill name collision for 'anti-bot-http-ladder': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/anti-bot-http-ladder/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/anti-bot-http-ladder/SKILL.md
-2026-11-10 13:43:04,584 WARNING tools.skills_tool: Skill name collision for 'blockchain-cli-patterns': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/blockchain-cli-patterns/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/blockchain-cli-patterns/SKILL.md
-2026-11-10 13:43:04,618 WARNING tools.skills_tool: Skill name collision for 'blocked-page-recovery': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/blocked-page-recovery/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/blocked-page-recovery/SKILL.md
-2026-11-10 13:43:04,651 WARNING tools.skills_tool: Skill name collision for 'bounty-autopilot': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/bounty-autopilot/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/bounty-autopilot/SKILL.md
-2026-11-10 13:43:04,833 WARNING tools.skills_tool: Skill name collision for 'captcha-solver': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/captcha-solver/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/captcha-solver/SKILL.md
+=== TRACE 2026-11-10T16:23:19Z run 42826412177 ===
 2026-11-10 13:43:05,462 WARNING tools.skills_tool: Skill name collision for 'evidence-first-report': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/evidence-first-report/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/evidence-first-report/SKILL.md
 2026-11-10 13:43:05,499 WARNING tools.skills_tool: Skill name collision for 'exploitability-analyzer': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/exploitability-analyzer/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/exploitability-analyzer/SKILL.md
 2026-11-10T13:43:05Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
@@ -249,3 +239,13 @@ RESULT: SEMUA MATI — bot TIDAK dapat menjawab
 {"masa": "2026-11-10T23:15:48+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T23:17:48+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T23:19:49+07:00", "getMe_http": 200, "getMe_saat": 0.352, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-10T23:21:50+07:00", "getMe_http": 200, "getMe_saat": 0.372, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-10T16:22:50+0000 ===
+  [MATI ] freeai       qwen-coder                 kunci tiada
+  [MATI ] freeai       mistral                    kunci tiada
+  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
+  [MATI ] nafimods     gpt-oss-120b               kunci tiada
+  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
+  [MATI ] mistral      mistral-small-2603         tiada choices
+RESULT: SEMUA MATI — bot TIDAK dapat menjawab
+2026-11-10T16:23:07Z denyut tick=160 pid=3562
