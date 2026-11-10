@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T04:31:13Z run 42751924120 ===
+=== TRACE 2026-11-10T04:32:45Z run 42751924120 ===
 2026-11-10T03:51:39Z === gateway_jalan mula: run=42751924120 masa_jalan=720m ===
 2026-11-10T03:51:39Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/workspace/plugins/platforms/telegram/adapter.py
@@ -73,3 +73,10 @@ RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
 {"masa": "2026-11-10T11:25:51+07:00", "getMe_http": 200, "getMe_saat": 0.372, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T11:27:52+07:00", "getMe_http": 200, "getMe_saat": 0.347, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T11:29:53+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-10T04:31:48+0000 ===
+  [MATI ] nafimods     llama-3.3-70b              kunci tiada
+  [HIDUP] mistral      mistral-large-4            ok
+  [HIDUP] mistral      ministral-8b-latest        ok
+RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
+{"masa": "2026-11-10T11:31:53+07:00", "getMe_http": 200, "getMe_saat": 0.36, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-10T04:31:55Z denyut tick=40 pid=3412
