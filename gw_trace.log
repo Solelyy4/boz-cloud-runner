@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T05:18:26Z run 42751924120 ===
+=== TRACE 2026-11-10T05:19:57Z run 42751924120 ===
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/workspace/agent/chat_completion_helpers.py", line 3054, in _call_chat_completions
     stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
                                       ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
