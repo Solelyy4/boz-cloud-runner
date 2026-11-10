@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T18:37:59Z run 42875582705 ===
+=== TRACE 2026-11-10T18:39:30Z run 42875582705 ===
 2026-11-10T18:31:54Z === gateway_jalan mula: run=42875582705 masa_jalan=720m ===
 2026-11-10T18:31:55Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bf6f5caed85a415e94d54bb91333818c/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bf6f5caed85a415e94d54bb91333818c/workspace/plugins/platforms/telegram/adapter.py
@@ -41,3 +41,7 @@ RESULT: teraju sihat
 {"masa": "2026-11-11T01:33:56+07:00", "getMe_http": 200, "getMe_saat": 0.301, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-11T01:35:56+07:00", "getMe_http": 200, "getMe_saat": 0.3, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-11T01:37:57+07:00", "getMe_http": 200, "getMe_saat": 0.299, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+[JEJAK-MASUK] process_update id=130843661981392 update_id=825346213
+2026-11-10 18:39:30,090 WARNING JEJAK: JEJAK MASUK update=825346213 msg=982 chat=8043910371 dari=Solelah14 teks='Yoo'
+2026-11-10 18:39:30,294 WARNING gateway.session: gateway.session: routing key 'agent:main:telegram:dm:8043910371' -> 20261108_104219_3ba51832 is ended in state.db but still live in sessions.json; dropping stale entry and recovering/recreating the session (#54878)
+2026-11-10 18:39:30,409 WARNING JEJAK: JEJAK BALAS chat=8043910371
