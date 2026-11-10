@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import urllib.error
@@ -70,18 +71,116 @@ def _senarai_model(url: str, key: str) -> set[str]:
         return set()
 
 
+def _cekal_yaml(config_path: str) -> dict:
+    """Parser config mini — guna bila PyYAML tiada.
+
+    Venv Hermes dalam GitHub Actions kerap TIADA pip DAN tiada PyYAML, jadi
+    gerbang mati sebelum bot menerima satu mesej pun. Fungsi ini hanya perlu
+    faham SUBSET config yang kita tulis sendiri (config.yaml dijana oleh
+    yaml.safe_dump): pemetaan bersarang 2-3 aras, senarai blok `- item`, dan
+    senarai skalar. Ia sengaja tidak menyokong anchor, tag, atau flow-style.
+    """
+    teks = open(config_path, encoding="utf-8").read()
+    akar: dict = {}
+    # tindanan (indent, bekas) — bekas ialah dict atau list
+    tindan: list[tuple[int, object]] = [(-1, akar)]
+    baris_semua = teks.splitlines()
+    # jenis anak ditentukan dengan melihat baris BERMAKNA seterusnya
+    bermakna = [b for b in baris_semua if b.strip() and not b.lstrip().startswith("#")]
+
+    for i, mentah in enumerate(baris_semua):
+        if not mentah.strip() or mentah.lstrip().startswith("#"):
+            continue
+        ind = len(mentah) - len(mentah.lstrip())
+        baris = mentah.strip()
+
+        # buang bekas yang indentnya >= baris ini
+        while len(tindan) > 1 and tindan[-1][0] >= ind:
+            tindan.pop()
+        bekas = tindan[-1][1]
+
+        if baris.startswith("- "):
+            item = baris[2:].strip()
+            if not isinstance(bekas, list):
+                continue
+            # item dict kalau ada "kunci: nilai" (bukan URL)
+            if re.match(r"^[A-Za-z_][\w-]*\s*:", item):
+                k, _, v = item.partition(":")
+                d = {k.strip(): _nilai(v.strip())}
+                bekas.append(d)
+                tindan.append((ind, d))
+            else:
+                bekas.append(_nilai(item))
+            continue
+
+        if ":" not in baris:
+            continue
+        kunci, _, nilai = baris.partition(":")
+        kunci = kunci.strip()
+        if len(kunci) >= 2 and kunci[0] == kunci[-1] and kunci[0] in ("'", '"'):
+            kunci = kunci[1:-1]
+        nilai = nilai.strip()
+
+        if not isinstance(bekas, dict):
+            continue
+        if nilai in ("", "~", "null"):
+            # lihat baris bermakna SETERUSNYA selepas baris ini: kalau lebih
+            # dalam DAN mula "- ", anak ialah list; selain itu dict
+            anak: object = {}
+            jumpa = False
+            for nxt in baris_semua[i+1:]:
+                if not nxt.strip() or nxt.lstrip().startswith("#"):
+                    continue
+                nind = len(nxt) - len(nxt.lstrip())
+                if nind <= ind:
+                    break
+                anak = [] if nxt.strip().startswith("- ") else {}
+                jumpa = True
+                break
+            if not jumpa:
+                anak = {}
+            bekas[kunci] = anak
+            tindan.append((ind, anak))
+        else:
+            bekas[kunci] = _nilai(nilai)
+    return akar
+
+
+def _nilai(v: str):
+    if len(v) >= 2 and v[0] == v[-1] and v[0] in ("'", '"'):
+        return v[1:-1]
+    if v in ("true", "True"):
+        return True
+    if v in ("false", "False"):
+        return False
+    if v in ("null", "~", ""):
+        return None
+    try:
+        return int(v)
+    except ValueError:
+        pass
+    try:
+        return float(v)
+    except ValueError:
+        pass
+    return v
+
+
 def baca_rantaian(config_path: str) -> list[dict]:
     """Baca rantaian DARIPADA config — bukan senarai bertulis tangan."""
+    d = None
     try:
         import yaml
+        d = yaml.safe_load(open(config_path, encoding="utf-8"))
     except ImportError:
-        print("[FAIL] PyYAML tiada — tidak dapat baca config", file=sys.stderr)
-        return []
-    if not os.path.exists(config_path):
+        if not os.path.exists(config_path):
+            print(f"[FAIL] config tiada: {config_path}", file=sys.stderr)
+            return []
+        print("[INFO] PyYAML tiada — guna parser mini terbina", file=sys.stderr)
+        d = _cekal_yaml(config_path)
+    if d is None:
         print(f"[FAIL] config tiada: {config_path}", file=sys.stderr)
         return []
-
-    d = yaml.safe_load(open(config_path, encoding="utf-8"))
     prov = d.get("providers") or {}
     hasil: list[dict] = []
 

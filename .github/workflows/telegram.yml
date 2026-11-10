@@ -172,9 +172,31 @@ jobs:
           # bot menerima satu mesej pun.
           set -a; . home/.env; set +a
           # PyYAML WAJIB sebelum gerbang: sah_model.py baca config.yaml.
-          # Tanpa ini gerbang gagal "[FAIL] PyYAML tiada" dan bot mati sebelum
-          # menerima satu mesej pun — walaupun semua model sihat.
+          # Venv Hermes selalunya TIADA pip (`No module named pip`), jadi
+          # `pip install` gagal senyap dan gerbang mati dengan "PyYAML tiada".
+          # ensurepip dulu, baru pip; kalau kedua-dua gagal, pasang vendor terus.
+          "$PY" -m ensurepip --default-pip 2>&1 | tail -2 || true
           "$PY" -m pip install --quiet --disable-pip-version-check pyyaml 2>&1 | tail -2 || true
+          if ! "$PY" -c "import yaml" 2>/dev/null; then
+            echo "pip gagal — pasang PyYAML secara vendor"
+            SP=$("$PY" -c "import sysconfig;print(sysconfig.get_paths()['purelib'])")
+            "$PY" - "$SP" <<'PYYAML'
+          import sys, os, urllib.request, zipfile, io
+          sp = sys.argv[1]
+          url = "https://files.pythonhosted.org/packages/source/P/PyYAML/PyYAML-6.0.2.tar.gz"
+          data = urllib.request.urlopen(url, timeout=60).read()
+          import tarfile
+          with tarfile.open(fileobj=io.BytesIO(data)) as tf:
+              tf.extractall("/tmp/pyyaml_src")
+          src = "/tmp/pyyaml_src/PyYAML-6.0.2/lib"
+          # yaml ialah pure-python: salin pakej terus ke site-packages
+          import shutil
+          dst = os.path.join(sp, "yaml")
+          shutil.rmtree(dst, ignore_errors=True)
+          shutil.copytree(os.path.join(src, "yaml"), dst)
+          print("vendor yaml ->", dst)
+          PYYAML
+          fi
           "$PY" -c "import yaml; print('yaml OK', yaml.__version__)" || {
             echo "::error::PyYAML gagal dipasang — gerbang tidak boleh dijalankan"; exit 1; }
           "$PY" scripts/sah_model.py
