@@ -1,11 +1,4 @@
-=== TRACE 2026-11-10T06:51:21Z run 42751924120 ===
-    self.result["response"] = _with_stream_emitters(
-                              ~~~~~~~~~~~~~~~~~~~~~^
-        self.agent, lambda: self._call_wire(stream_attempt_id))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/workspace/agent/chat_completion_helpers.py", line 2480, in _with_stream_emitters
-    response = run()
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/workspace/agent/chat_completion_helpers.py", line 3720, in <lambda>
+=== TRACE 2026-11-10T06:52:53Z run 42751924120 ===
     self.agent, lambda: self._call_wire(stream_attempt_id))
                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/workspace/agent/chat_completion_helpers.py", line 3697, in _call_wire
@@ -249,3 +242,10 @@ RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
 {"masa": "2026-11-10T13:46:40+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T13:48:41+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T13:50:41+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-10T06:51:57Z denyut tick=180 pid=3412
+=== JAGA RANTAIAN 2026-11-10T06:52:13+0000 ===
+  [MATI ] nafimods     llama-3.3-70b              kunci tiada
+  [HIDUP] mistral      mistral-large-4            ok
+  [HIDUP] mistral      ministral-8b-latest        ok
+RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
+{"masa": "2026-11-10T13:52:42+07:00", "getMe_http": 200, "getMe_saat": 0.347, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
