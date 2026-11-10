@@ -39,14 +39,24 @@ from __future__ import annotations
 
 import glob
 import os
+import re
 import sys
 
 PENANDA = "# JANGAN-BUANG-BOZ v1"
-SASARAN = "await self._start_polling_once(app, drop_pending_updates=True"
-# Tanpa komen di hujung: panggilan itu berbilang baris dalam sesetengah versi, dan
-# menambah `# ...` selepas hujung baris memutuskan pemanggilan (`'(' was never closed`).
-# Guard sintaks di bawah akan mengundur apa-apa tampalan yang merosakkan fail.
-GANTI = "await self._start_polling_once(app, drop_pending_updates=False"
+# Diukur 11 Nov 2026: corak tunggal yang tepat ("await self._start_polling_once(app,
+# drop_pending_updates=True") melaporkan "corak TIDAK padan (0 tempat)" di runner
+# walaupun kod itu jelas wujud dalam adapter.py. Sebabnya: setiap keluaran Hermes
+# mengubah indentasi/pembalutan baris, dan `str.replace` tidak tahan perubahan itu.
+# Akibatnya tampalan GAGAL SENYAP, `drop_pending_updates=True` kekal, dan setiap kali
+# gateway pulih daripada konflik 409 ia MEMBUANG mesej BOZ yang menunggu.
+# Gejala menipu: `pending_update_count` kekal 0 dan log nampak sihat sepenuhnya.
+#
+# Sekarang: padan REGEX yang tahan indentasi dan berbilang baris, betulkan SETIAP
+# tempat, dan sahkan bilangan penukaran. Kegagalan mesti KETARA, bukan senyap.
+POLA = re.compile(
+    r"(_start_polling_once\s*\(\s*[^()]*?drop_pending_updates\s*=\s*)True",
+    re.S,
+)
 
 
 def cari_adapter() -> list[str]:
@@ -69,12 +79,23 @@ def tampal(path: str) -> str:
         teks = open(path, encoding="utf-8", errors="replace").read()
     except OSError as e:
         return f"BACA GAGAL: {e}"
-    n = teks.count(SASARAN)
+    n = len(POLA.findall(teks))
     if n == 0:
         if PENANDA in teks:
             return "sudah ditampal"
-        return "corak TIDAK padan (0 tempat)"
-    baru = teks.replace(SASARAN, GANTI)
+        # 0 padanan boleh bermakna DUA perkara berbeza. Bezakan supaya operator
+        # tidak panik (atau terlepas pandang) bila membaca log:
+        #   - tiada lagi `drop_pending_updates=True` dalam KOD -> sudah selamat
+        #   - masih ada rujukan tetapi corak tak padan     -> skrip perlu dikemas kini
+        kod_masih_true = [
+            b for b in teks.splitlines()
+            if "drop_pending_updates=True" in b and not b.lstrip().startswith("#")
+        ]
+        if not kod_masih_true:
+            return "selamat: tiada lagi drop_pending_updates=True dalam kod"
+        return (f"corak TIDAK padan: {len(kod_masih_true)} tempat KOD masih "
+                f"drop_pending_updates=True - skrip perlu dikemas kini untuk versi Hermes ini")
+    baru = POLA.sub(r"\1False", teks)
     # Jangan sekali-kali menulis fail yang tidak boleh dikompil — adapter rosak =
     # gateway mati sepenuhnya, jauh lebih buruk daripada mesej hilang.
     try:
@@ -87,6 +108,10 @@ def tampal(path: str) -> str:
             open(simpan, "w", encoding="utf-8", newline="\n").write(teks)
         except OSError:
             pass
+    # Tulis PENANDA supaya penjalanan berikutnya kenal "sudah ditampal" dan tidak
+    # menulis semula fail yang sama berulang kali.
+    if PENANDA not in baru:
+        baru = baru.rstrip("\n") + "\n" + PENANDA + "\n"
     try:
         open(path, "w", encoding="utf-8", newline="\n").write(baru)
     except OSError as e:
