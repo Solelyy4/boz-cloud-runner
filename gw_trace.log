@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T07:55:20Z run 42751924120 ===
+=== TRACE 2026-11-10T07:56:52Z run 42751924120 ===
         completed_response_predicate=lambda value: hasattr(value, "choices"),
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
