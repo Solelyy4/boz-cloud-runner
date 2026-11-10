@@ -1,11 +1,4 @@
-=== TRACE 2026-11-10T06:31:33Z run 42751924120 ===
-    return func(*args, **kwargs)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
-    return self._post(
-           ~~~~~~~~~~^
-        "/chat/completions",
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<53 lines>...
+=== TRACE 2026-11-10T06:33:05Z run 42751924120 ===
         stream_cls=Stream[ChatCompletionChunk],
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
@@ -249,3 +242,10 @@ RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
 {"masa": "2026-11-10T13:26:33+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T13:28:34+07:00", "getMe_http": 200, "getMe_saat": 0.371, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T13:30:35+07:00", "getMe_http": 200, "getMe_saat": 0.341, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-10T06:31:56Z denyut tick=160 pid=3412
+=== JAGA RANTAIAN 2026-11-10T06:32:09+0000 ===
+  [MATI ] nafimods     llama-3.3-70b              kunci tiada
+  [HIDUP] mistral      mistral-large-4            ok
+  [HIDUP] mistral      ministral-8b-latest        ok
+RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
+{"masa": "2026-11-10T13:32:35+07:00", "getMe_http": 200, "getMe_saat": 0.322, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
