@@ -1,251 +1,44 @@
-=== TRACE 2026-11-10T08:15:08Z run 42751924120 ===
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<53 lines>...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.RateLimitError: Error code: 429 - {'object': 'error', 'message': 'Rate limit exceeded', 'type': 'rate_limited', 'param': None, 'code': '1300', 'raw_status_code': 429}
-2026-11-10 04:54:42,493 WARNING agent.conversation_loop: API call failed (attempt 4/4) error_type=RateLimitError thread=hermes-gateway_1:130821667153600 provider=mistral base_url=https://api.mistral.ai/v1/ model=ministral-8b-latest summary=HTTP 429: Rate limit exceeded
-⚠️  Attempt 1/4, not retryable failed: HTTP 400: feature 'reasoning_effort for this model' is not currently supported
-⚠️ Non-retryable error (HTTP 400) — trying fallback...
-⚠️ Model fallback: llama-3.3-70b via custom unavailable (request format rejected); using mistral-large-4 via mistral.
-⚠️  Attempt 1/4 failed: HTTP 429: Rate limit exceeded
-⚠️ Rate limited — switching to fallback provider...
-⚠️ Model fallback: mistral-large-4 via mistral unavailable (rate limit); using ministral-8b-latest via mistral.
-⚠️  Attempt 1/4 failed: HTTP 429: Rate limit exceeded
-⏱️ Rate limited. Waiting 2.7s (attempt 2/4)...
-⚠️  Attempt 2/4 failed: HTTP 429: Rate limit exceeded
-⏱️ Rate limited. Waiting 4.0s (attempt 3/4)...
-⚠️  Attempt 3/4 failed: HTTP 429: Rate limit exceeded
-⏱️ Rate limited. Waiting 8.7s (attempt 4/4)...
-⚠️  Attempt 4/4 failed: HTTP 429: Rate limit exceeded
-❌ Rate limited after 4 retries — HTTP 429: Rate limit exceeded
-   💀 Final error: HTTP 429: Rate limit exceeded
-2026-11-10 04:54:42,495 ERROR agent.conversation_loop: API call failed after 4 retries. HTTP 429: Rate limit exceeded | provider=mistral model=ministral-8b-latest msgs=338 tokens=~179,990
-2026-11-10 04:54:42,544 WARNING JEJAK: JEJAK BALAS chat=8043910371
-2026-11-10 04:55:27,544 WARNING agent.conversation_compression: Configured compression model 'glm-5.3-flash' failed (Error code: 401 - {'error': {'message': 'Invalid API key.', 'type': 'invalid_api_key', 'code': 'invalid_api_key'}}); recovered using the main model.
-{"masa": "2026-11-10T11:56:02+07:00", "getMe_http": 200, "getMe_saat": 0.338, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T11:58:02+07:00", "getMe_http": 200, "getMe_saat": 0.381, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:00:03+07:00", "getMe_http": 200, "getMe_saat": 0.376, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T05:01:52+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-2026-11-10T05:01:55Z denyut tick=70 pid=3412
-{"masa": "2026-11-10T12:02:04+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:04:04+07:00", "getMe_http": 200, "getMe_saat": 0.362, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:06:05+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:08:06+07:00", "getMe_http": 200, "getMe_saat": 0.323, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:10:07+07:00", "getMe_http": 200, "getMe_saat": 0.342, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T05:11:54+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-2026-11-10T05:11:55Z denyut tick=80 pid=3412
-{"masa": "2026-11-10T12:12:07+07:00", "getMe_http": 200, "getMe_saat": 0.382, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:14:08+07:00", "getMe_http": 200, "getMe_saat": 0.325, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:16:09+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:18:09+07:00", "getMe_http": 200, "getMe_saat": 0.364, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:20:10+07:00", "getMe_http": 200, "getMe_saat": 0.344, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T05:21:55+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-2026-11-10T05:21:55Z denyut tick=90 pid=3412
-{"masa": "2026-11-10T12:22:11+07:00", "getMe_http": 200, "getMe_saat": 0.339, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:24:11+07:00", "getMe_http": 200, "getMe_saat": 0.343, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:26:12+07:00", "getMe_http": 200, "getMe_saat": 0.325, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:28:13+07:00", "getMe_http": 200, "getMe_saat": 0.338, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:30:13+07:00", "getMe_http": 200, "getMe_saat": 0.325, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T05:31:56Z denyut tick=100 pid=3412
-=== JAGA RANTAIAN 2026-11-10T05:31:58+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T12:32:14+07:00", "getMe_http": 200, "getMe_saat": 0.352, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:34:15+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:36:16+07:00", "getMe_http": 200, "getMe_saat": 0.379, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:38:16+07:00", "getMe_http": 200, "getMe_saat": 0.338, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:40:17+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T05:41:56Z denyut tick=110 pid=3412
-=== JAGA RANTAIAN 2026-11-10T05:42:01+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T12:42:18+07:00", "getMe_http": 200, "getMe_saat": 0.418, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:44:18+07:00", "getMe_http": 200, "getMe_saat": 0.343, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:46:19+07:00", "getMe_http": 200, "getMe_saat": 0.358, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:48:20+07:00", "getMe_http": 200, "getMe_saat": 0.345, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:50:21+07:00", "getMe_http": 200, "getMe_saat": 0.338, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T05:51:56Z denyut tick=120 pid=3412
-=== JAGA RANTAIAN 2026-11-10T05:52:02+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T12:52:21+07:00", "getMe_http": 200, "getMe_saat": 0.37, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:54:22+07:00", "getMe_http": 200, "getMe_saat": 0.32, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:56:23+07:00", "getMe_http": 200, "getMe_saat": 0.378, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T12:58:23+07:00", "getMe_http": 200, "getMe_saat": 0.34, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:00:24+07:00", "getMe_http": 200, "getMe_saat": 0.37, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T06:01:56Z denyut tick=130 pid=3412
-=== JAGA RANTAIAN 2026-11-10T06:02:04+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T13:02:25+07:00", "getMe_http": 200, "getMe_saat": 0.328, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:04:25+07:00", "getMe_http": 200, "getMe_saat": 0.332, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:06:26+07:00", "getMe_http": 200, "getMe_saat": 0.336, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:08:27+07:00", "getMe_http": 200, "getMe_saat": 0.38, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:10:28+07:00", "getMe_http": 200, "getMe_saat": 0.353, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T06:11:56Z denyut tick=140 pid=3412
-=== JAGA RANTAIAN 2026-11-10T06:12:05+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T13:12:28+07:00", "getMe_http": 200, "getMe_saat": 0.34, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:14:29+07:00", "getMe_http": 200, "getMe_saat": 0.361, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:16:30+07:00", "getMe_http": 200, "getMe_saat": 0.321, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:18:30+07:00", "getMe_http": 200, "getMe_saat": 0.336, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:20:31+07:00", "getMe_http": 200, "getMe_saat": 0.339, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T06:21:56Z denyut tick=150 pid=3412
-=== JAGA RANTAIAN 2026-11-10T06:22:07+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T13:22:32+07:00", "getMe_http": 200, "getMe_saat": 0.388, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:24:32+07:00", "getMe_http": 200, "getMe_saat": 0.344, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:26:33+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:28:34+07:00", "getMe_http": 200, "getMe_saat": 0.371, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:30:35+07:00", "getMe_http": 200, "getMe_saat": 0.341, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T06:31:56Z denyut tick=160 pid=3412
-=== JAGA RANTAIAN 2026-11-10T06:32:09+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T13:32:35+07:00", "getMe_http": 200, "getMe_saat": 0.322, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:34:36+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:36:37+07:00", "getMe_http": 200, "getMe_saat": 0.341, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:38:37+07:00", "getMe_http": 200, "getMe_saat": 0.392, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:40:38+07:00", "getMe_http": 200, "getMe_saat": 0.336, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T06:41:57Z denyut tick=170 pid=3412
-=== JAGA RANTAIAN 2026-11-10T06:42:11+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T13:42:39+07:00", "getMe_http": 200, "getMe_saat": 0.328, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:44:39+07:00", "getMe_http": 200, "getMe_saat": 0.375, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:46:40+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:48:41+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:50:41+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T06:51:57Z denyut tick=180 pid=3412
-=== JAGA RANTAIAN 2026-11-10T06:52:13+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T13:52:42+07:00", "getMe_http": 200, "getMe_saat": 0.347, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:54:43+07:00", "getMe_http": 200, "getMe_saat": 0.32, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:56:44+07:00", "getMe_http": 200, "getMe_saat": 0.344, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T13:58:44+07:00", "getMe_http": 200, "getMe_saat": 0.332, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:00:45+07:00", "getMe_http": 200, "getMe_saat": 0.347, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T07:01:57Z denyut tick=190 pid=3412
-=== JAGA RANTAIAN 2026-11-10T07:02:15+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T14:02:46+07:00", "getMe_http": 200, "getMe_saat": 0.345, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:04:46+07:00", "getMe_http": 200, "getMe_saat": 0.39, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:06:47+07:00", "getMe_http": 200, "getMe_saat": 0.364, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:08:48+07:00", "getMe_http": 200, "getMe_saat": 0.365, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:10:48+07:00", "getMe_http": 200, "getMe_saat": 0.379, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T07:11:57Z denyut tick=200 pid=3412
-=== JAGA RANTAIAN 2026-11-10T07:12:16+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T14:12:49+07:00", "getMe_http": 200, "getMe_saat": 0.347, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:14:50+07:00", "getMe_http": 200, "getMe_saat": 0.338, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:16:51+07:00", "getMe_http": 200, "getMe_saat": 0.365, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:18:51+07:00", "getMe_http": 200, "getMe_saat": 0.331, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:20:52+07:00", "getMe_http": 200, "getMe_saat": 0.408, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T07:21:57Z denyut tick=210 pid=3412
-=== JAGA RANTAIAN 2026-11-10T07:22:19+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T14:22:53+07:00", "getMe_http": 200, "getMe_saat": 0.323, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:24:53+07:00", "getMe_http": 200, "getMe_saat": 0.331, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:26:54+07:00", "getMe_http": 200, "getMe_saat": 0.518, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:28:55+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:30:56+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T07:31:57Z denyut tick=220 pid=3412
-=== JAGA RANTAIAN 2026-11-10T07:32:21+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T14:32:56+07:00", "getMe_http": 200, "getMe_saat": 0.35, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:34:57+07:00", "getMe_http": 200, "getMe_saat": 0.339, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:36:58+07:00", "getMe_http": 200, "getMe_saat": 0.367, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:38:58+07:00", "getMe_http": 200, "getMe_saat": 0.344, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:40:59+07:00", "getMe_http": 200, "getMe_saat": 0.328, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T07:41:57Z denyut tick=230 pid=3412
-=== JAGA RANTAIAN 2026-11-10T07:42:22+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T14:43:00+07:00", "getMe_http": 200, "getMe_saat": 0.335, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:45:01+07:00", "getMe_http": 200, "getMe_saat": 0.376, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:47:01+07:00", "getMe_http": 200, "getMe_saat": 0.362, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:49:02+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:51:03+07:00", "getMe_http": 200, "getMe_saat": 0.332, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T07:51:57Z denyut tick=240 pid=3412
-=== JAGA RANTAIAN 2026-11-10T07:52:25+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T14:53:03+07:00", "getMe_http": 200, "getMe_saat": 0.344, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:55:04+07:00", "getMe_http": 200, "getMe_saat": 0.355, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:57:05+07:00", "getMe_http": 200, "getMe_saat": 0.339, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T14:59:05+07:00", "getMe_http": 200, "getMe_saat": 0.366, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T15:01:06+07:00", "getMe_http": 200, "getMe_saat": 0.327, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T08:01:58Z denyut tick=250 pid=3412
-=== JAGA RANTAIAN 2026-11-10T08:02:27+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T15:03:07+07:00", "getMe_http": 200, "getMe_saat": 0.327, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T15:05:08+07:00", "getMe_http": 200, "getMe_saat": 0.363, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T15:07:08+07:00", "getMe_http": 200, "getMe_saat": 0.344, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T15:09:09+07:00", "getMe_http": 200, "getMe_saat": 0.373, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T15:11:10+07:00", "getMe_http": 200, "getMe_saat": 0.332, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T08:11:58Z denyut tick=260 pid=3412
-=== JAGA RANTAIAN 2026-11-10T08:12:29+0000 ===
-  [MATI ] nafimods     llama-3.3-70b              kunci tiada
-  [HIDUP] mistral      mistral-large-4            ok
-  [HIDUP] mistral      ministral-8b-latest        ok
-RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
-{"masa": "2026-11-10T15:13:10+07:00", "getMe_http": 200, "getMe_saat": 0.391, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-10T08:31:20Z run 42782745466 ===
+2026-11-10T08:29:50Z === gateway_jalan mula: run=42782745466 masa_jalan=720m ===
+2026-11-10T08:29:50Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/aeb7b21dd22d4cbb8a41f58863254942/venv/bin/python
+JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/aeb7b21dd22d4cbb8a41f58863254942/workspace/plugins/platforms/telegram/adapter.py
+=== 2026-11-10T08:29:50Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/aeb7b21dd22d4cbb8a41f58863254942/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/aeb7b21dd22d4cbb8a41f58863254942/venv/lib/python3.14/site-packages/telegram/__init__.py
+JEJAK-MASUK: 1 fail PTB dijumpai
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/aeb7b21dd22d4cbb8a41f58863254942/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  sahkan: penanda=True (bait=85224)
+=== selesai ===
+JANGAN-BUANG: 1 adapter dijumpai
+  corak TIDAK padan (0 tempat) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/aeb7b21dd22d4cbb8a41f58863254942/workspace/plugins/platforms/telegram/adapter.py
+2026-11-10T08:29:50Z peronda rantaian dipasang (pid=3435, semak setiap 10 min)
+2026-11-10T08:29:50Z peronda latar dipasang (pid=3434, denyut 120s)
+2026-11-10T08:29:51Z sesi Telegram lama dibersihkan (cubaan 1) — long-poll kini bebas
+2026-11-10T08:29:51Z --- cubaan 1: mula gateway ---
+2026-11-10T08:29:51Z gateway pid=3463
+=== JAGA RANTAIAN 2026-11-10T08:29:51+0000 ===
+  [MATI ] nafimods     gpt-oss-120b               kunci tiada
+  [MATI ] freeai       qwen-coder                 kunci tiada
+  [MATI ] freeai       mistral                    kunci tiada
+  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
+  [MATI ] nafimods     gpt-oss-120b               kunci tiada
+  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
+  [MATI ] mistral      mistral-small-2603         tiada choices
+RESULT: SEMUA MATI — bot TIDAK dapat menjawab
+{"masa": "2026-11-10T15:29:51+07:00", "getMe_http": 200, "getMe_saat": 0.447, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-10 08:29:54,460 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3412, started_at=2026-11-10T03:51:43.213338+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-10T08:16:56.009557+00:00 last_mem={'rss_kib': 427476, 'mem_total_kib': 16366640, 'mem_available_kib': 14926768, 'swap_used_kib': 0} suspected_oom=False
+2026-11-10 08:29:54,628 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-10 08:29:54,974 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-10 08:29:55,297 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'nafimods' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
+2026-11-10 08:29:55,603 WARNING agent.model_metadata: Could not determine context length for model 'gpt-oss-120b' (base_url=https://keyless-llm.nafimods.workers.dev/v1) — falling back to 256,000 tokens. Set model.context_length in config.yaml to override.
+jejak-pemanjat: salinan workspace ditampal
+2026-11-10 08:30:06,109 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-10T08:30:06Z SAMBUNG OK selepas 15s (bukti: baris 'Connected to Telegram')
+2026-11-10 08:30:07,279 WARNING JEJAK: JEJAK BALAS chat=8043910371
