@@ -283,13 +283,28 @@ def uji(p: dict, key: str) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--config", default="config.yaml")
+    ap.add_argument("--config", default=None,
+                    help="laluan config.yaml (lalai: cari config.yaml atau home/config.yaml)")
     ap.add_argument("--longgar", action="store_true",
                     help="HAD 429 tidak menggagalkan gerbang (kuota sementara, bukan reput)")
     ap.add_argument("--ketat", action="store_true",
                     help="gagalkan juga bila SANADARAN mati, bukan hanya teraju")
     args = ap.parse_args()
 
+    # Laluan config: gerbang dijalankan dari akar repo, tetapi config Hermes
+    # tinggal di home/config.yaml. Cuba senarai calon sebelum menyerah, supaya
+    # gerbang tidak gagal dengan FileNotFoundError: 'config.yaml'.
+    if not args.config:
+        for calon in ("config.yaml", os.path.join("home", "config.yaml"),
+                      os.path.join(os.path.dirname(__file__), "..", "home", "config.yaml")):
+            if os.path.exists(calon):
+                args.config = os.path.normpath(calon)
+                break
+        else:
+            print("[FAIL] config.yaml tidak dijumpai (cuba config.yaml, home/config.yaml)",
+                  file=sys.stderr)
+            return 1
+    print(f"=== SEMAK RANTAIAN MODEL (dibaca dari {args.config}) ===")
     rantaian = baca_rantaian(args.config)
     if not rantaian:
         print("[FAIL] tiada rantaian dalam config", file=sys.stderr)
@@ -304,7 +319,6 @@ def main() -> int:
                   file=sys.stderr)
         return 1
 
-    print(f"=== SEMAK RANTAIAN MODEL (dibaca dari {args.config}) ===")
     tersedia: dict[str, set[str]] = {}
     mati, had = [], []
     for r in rantaian:
