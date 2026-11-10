@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T06:14:48Z run 42751924120 ===
+=== TRACE 2026-11-10T06:16:19Z run 42751924120 ===
         metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/workspace/agent/relay_llm.py", line 331, in __init__
