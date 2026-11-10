@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T12:03:35Z run 42809719039 ===
+=== TRACE 2026-11-10T12:05:07Z run 42809719039 ===
 2026-11-10T11:45:20Z === gateway_jalan mula: run=42809719039 masa_jalan=720m ===
 2026-11-10T11:45:20Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/9e64dcde49944f98b2a82e7426b36c42/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/9e64dcde49944f98b2a82e7426b36c42/workspace/plugins/platforms/telegram/adapter.py
