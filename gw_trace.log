@@ -1,5 +1,4 @@
-=== TRACE 2026-11-10T06:34:36Z run 42751924120 ===
-        stream_cls=Stream[ChatCompletionChunk],
+=== TRACE 2026-11-10T06:36:08Z run 42751924120 ===
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
@@ -249,3 +248,4 @@ RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
   [HIDUP] mistral      ministral-8b-latest        ok
 RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
 {"masa": "2026-11-10T13:32:35+07:00", "getMe_http": 200, "getMe_saat": 0.322, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-10T13:34:36+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
