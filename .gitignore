@@ -5,3 +5,9 @@ bot.log
 evolve.log
 __pycache__/
 *.pyc
+
+# home/ datang dari repo peribadi boz-hermes-home (clone oleh workflow).
+# Kalau home/ di-commit di sini, langkah clone gagal: 'destination path home already exists'.
+home/
+backups/
+*.bak
