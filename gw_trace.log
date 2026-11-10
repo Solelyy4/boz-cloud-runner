@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T15:12:53Z run 42826412177 ===
+=== TRACE 2026-11-10T15:14:24Z run 42826412177 ===
 2026-11-10T13:42:44Z === gateway_jalan mula: run=42826412177 masa_jalan=720m ===
 2026-11-10T13:42:44Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/workspace/plugins/platforms/telegram/adapter.py
@@ -190,3 +190,5 @@ RESULT: SEMUA MATI — bot TIDAK dapat menjawab
   [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
   [MATI ] mistral      mistral-small-2603         tiada choices
 RESULT: SEMUA MATI — bot TIDAK dapat menjawab
+2026-11-10T15:13:06Z denyut tick=90 pid=3562
+{"masa": "2026-11-10T22:13:23+07:00", "getMe_http": 0, "getMe_saat": 1.508, "ok": false, "ralat": "", "pending": 0}
