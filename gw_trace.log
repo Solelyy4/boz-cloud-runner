@@ -1,19 +1,19 @@
-=== TRACE 2026-11-10T12:35:35Z run 42809719039 ===
-2026-11-10T11:45:20Z === gateway_jalan mula: run=42809719039 masa_jalan=720m ===
-2026-11-10T11:45:20Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/9e64dcde49944f98b2a82e7426b36c42/venv/bin/python
-JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/9e64dcde49944f98b2a82e7426b36c42/workspace/plugins/platforms/telegram/adapter.py
-=== 2026-11-10T11:45:20Z mula ===
-JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/9e64dcde49944f98b2a82e7426b36c42/venv/bin/python
-JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/9e64dcde49944f98b2a82e7426b36c42/venv/lib/python3.14/site-packages/telegram/__init__.py
+=== TRACE 2026-11-10T13:44:15Z run 42826412177 ===
+2026-11-10T13:42:44Z === gateway_jalan mula: run=42826412177 masa_jalan=720m ===
+2026-11-10T13:42:44Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/venv/bin/python
+JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/workspace/plugins/platforms/telegram/adapter.py
+=== 2026-11-10T13:42:44Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/venv/lib/python3.14/site-packages/telegram/__init__.py
 JEJAK-MASUK: 1 fail PTB dijumpai
-  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/9e64dcde49944f98b2a82e7426b36c42/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/venv/lib/python3.14/site-packages/telegram/ext/_application.py
   sahkan: penanda=True (bait=85224)
 === selesai ===
 JANGAN-BUANG: 1 adapter dijumpai
-  corak TIDAK padan (0 tempat) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/9e64dcde49944f98b2a82e7426b36c42/workspace/plugins/platforms/telegram/adapter.py
-2026-11-10T11:45:20Z peronda rantaian dipasang (pid=3411, semak setiap 10 min)
-2026-11-10T11:45:20Z peronda latar dipasang (pid=3410, denyut 120s)
-=== JAGA RANTAIAN 2026-11-10T11:45:20+0000 ===
+  corak TIDAK padan (0 tempat) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/workspace/plugins/platforms/telegram/adapter.py
+2026-11-10T13:42:45Z peronda rantaian dipasang (pid=3530, semak setiap 10 min)
+2026-11-10T13:42:45Z peronda latar dipasang (pid=3529, denyut 120s)
+=== JAGA RANTAIAN 2026-11-10T13:42:45+0000 ===
   [MATI ] freeai       qwen-coder                 kunci tiada
   [MATI ] freeai       mistral                    kunci tiada
   [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
@@ -21,10 +21,10 @@ JANGAN-BUANG: 1 adapter dijumpai
   [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
   [MATI ] mistral      mistral-small-2603         tiada choices
 RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T11:45:20Z sesi Telegram lama dibersihkan (cubaan 1) — long-poll kini bebas
-2026-11-10T11:45:20Z --- cubaan 1: mula gateway ---
-2026-11-10T11:45:20Z gateway pid=3437
-{"masa": "2026-11-10T18:45:20+07:00", "getMe_http": 200, "getMe_saat": 0.358, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-10T13:42:45Z sesi Telegram lama dibersihkan (cubaan 1) — long-poll kini bebas
+2026-11-10T13:42:45Z --- cubaan 1: mula gateway ---
+2026-11-10T13:42:45Z gateway pid=3562
+{"masa": "2026-11-10T20:42:45+07:00", "getMe_http": 200, "getMe_saat": 0.361, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -32,90 +32,22 @@ RESULT: SEMUA MATI — bot TIDAK dapat menjawab
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-10 11:45:24,198 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3463, started_at=2026-11-10T08:29:54.460635+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-10T11:04:38.551045+00:00 last_mem={'rss_kib': 390412, 'mem_total_kib': 16366628, 'mem_available_kib': 14979260, 'swap_used_kib': 0} suspected_oom=False
-2026-11-10 11:45:24,389 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-10 11:45:24,548 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-10 13:42:49,301 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3437, started_at=2026-11-10T11:45:24.198521+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-10T12:36:35.939063+00:00 last_mem={'rss_kib': 386184, 'mem_total_kib': 16366640, 'mem_available_kib': 14997640, 'swap_used_kib': 0} suspected_oom=False
+2026-11-10 13:42:49,509 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-10 13:42:49,718 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 jejak-pemanjat: salinan workspace ditampal
-2026-11-10 11:45:35,509 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-10T11:45:35Z SAMBUNG OK selepas 15s (bukti: baris 'Connected to Telegram')
-2026-11-10 11:45:38,652 WARNING tools.skills_tool: Skill name collision for 'anti-bot-http-ladder': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/anti-bot-http-ladder/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/anti-bot-http-ladder/SKILL.md
-2026-11-10 11:45:38,887 WARNING tools.skills_tool: Skill name collision for 'blockchain-cli-patterns': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/blockchain-cli-patterns/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/blockchain-cli-patterns/SKILL.md
-2026-11-10 11:45:38,917 WARNING tools.skills_tool: Skill name collision for 'blocked-page-recovery': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/blocked-page-recovery/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/blocked-page-recovery/SKILL.md
-2026-11-10 11:45:38,948 WARNING tools.skills_tool: Skill name collision for 'bounty-autopilot': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/bounty-autopilot/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/bounty-autopilot/SKILL.md
-2026-11-10 11:45:39,107 WARNING tools.skills_tool: Skill name collision for 'captcha-solver': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/captcha-solver/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/captcha-solver/SKILL.md
-2026-11-10 11:45:39,584 WARNING tools.skills_tool: Skill name collision for 'evidence-first-report': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/evidence-first-report/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/evidence-first-report/SKILL.md
-2026-11-10 11:45:39,615 WARNING tools.skills_tool: Skill name collision for 'exploitability-analyzer': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/exploitability-analyzer/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/exploitability-analyzer/SKILL.md
-2026-11-10 11:45:39,714 WARNING tools.skills_tool: Skill name collision for 'github-grab': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/github-grab/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/software-development/github-grab/SKILL.md
-2026-11-10 11:45:40,469 WARNING tools.skills_tool: Skill name collision for 'smart-contract-audit': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/smart-contract-audit/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/smart-contract-audit/SKILL.md
-2026-11-10 11:45:40,839 WARNING tools.skills_tool: Skill name collision for 'variant-discovery': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/variant-discovery/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/variant-discovery/SKILL.md
-2026-11-10 11:45:41,006 WARNING agent.system_prompt: skills.auto_load: skill(s) not found or disabled, skipped: anti-bot-http-ladder, apple, autonomous-ai-agents, blockchain-cli-patterns, blocked-page-recovery, bounty-autopilot, captcha-solver, creative, devops, email, evidence-first-report, exploitability-analyzer, github-grab, media, note-taking, ops, productivity, research, security, smart-contract-audit, social-media, software-development, telekey-bot-ops, variant-discovery, web, windows-bash-ops
-2026-11-10 11:45:41,067 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'tokenomix' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
-2026-11-10 11:45:43,432 WARNING JEJAK: JEJAK BALAS chat=8043910371
-{"masa": "2026-11-10T18:47:21+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T18:49:22+07:00", "getMe_http": 200, "getMe_saat": 0.324, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T18:51:22+07:00", "getMe_http": 200, "getMe_saat": 0.348, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T18:53:23+07:00", "getMe_http": 200, "getMe_saat": 0.415, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T11:55:20+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-{"masa": "2026-11-10T18:55:24+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T11:55:35Z denyut tick=10 pid=3437
-{"masa": "2026-11-10T18:57:24+07:00", "getMe_http": 200, "getMe_saat": 0.359, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T18:59:25+07:00", "getMe_http": 200, "getMe_saat": 0.411, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:01:26+07:00", "getMe_http": 200, "getMe_saat": 0.351, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:03:27+07:00", "getMe_http": 200, "getMe_saat": 0.33, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T12:05:21+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-{"masa": "2026-11-10T19:05:27+07:00", "getMe_http": 200, "getMe_saat": 0.363, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T12:05:35Z denyut tick=20 pid=3437
-{"masa": "2026-11-10T19:07:28+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:09:30+07:00", "getMe_http": 200, "getMe_saat": 0.414, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:11:31+07:00", "getMe_http": 200, "getMe_saat": 0.357, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:13:31+07:00", "getMe_http": 200, "getMe_saat": 0.414, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T12:15:21+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-{"masa": "2026-11-10T19:15:32+07:00", "getMe_http": 200, "getMe_saat": 0.395, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T12:15:36Z denyut tick=30 pid=3437
-{"masa": "2026-11-10T19:17:33+07:00", "getMe_http": 200, "getMe_saat": 0.344, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:19:34+07:00", "getMe_http": 200, "getMe_saat": 0.331, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:21:34+07:00", "getMe_http": 200, "getMe_saat": 0.384, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:23:35+07:00", "getMe_http": 200, "getMe_saat": 0.343, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T12:25:21+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T12:25:36Z denyut tick=40 pid=3437
-{"masa": "2026-11-10T19:25:36+07:00", "getMe_http": 200, "getMe_saat": 0.356, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:27:36+07:00", "getMe_http": 200, "getMe_saat": 0.348, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:29:37+07:00", "getMe_http": 200, "getMe_saat": 0.369, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:31:38+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T19:33:39+07:00", "getMe_http": 200, "getMe_saat": 0.33, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T12:35:21+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
+2026-11-10 13:43:00,843 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-10 13:43:04,365 WARNING tools.skills_tool: Skill name collision for 'anti-bot-http-ladder': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/anti-bot-http-ladder/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/anti-bot-http-ladder/SKILL.md
+2026-11-10 13:43:04,584 WARNING tools.skills_tool: Skill name collision for 'blockchain-cli-patterns': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/blockchain-cli-patterns/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/blockchain-cli-patterns/SKILL.md
+2026-11-10 13:43:04,618 WARNING tools.skills_tool: Skill name collision for 'blocked-page-recovery': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/blocked-page-recovery/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/blocked-page-recovery/SKILL.md
+2026-11-10 13:43:04,651 WARNING tools.skills_tool: Skill name collision for 'bounty-autopilot': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/bounty-autopilot/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/bounty-autopilot/SKILL.md
+2026-11-10 13:43:04,833 WARNING tools.skills_tool: Skill name collision for 'captcha-solver': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/captcha-solver/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/web/captcha-solver/SKILL.md
+2026-11-10 13:43:05,462 WARNING tools.skills_tool: Skill name collision for 'evidence-first-report': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/evidence-first-report/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/evidence-first-report/SKILL.md
+2026-11-10 13:43:05,499 WARNING tools.skills_tool: Skill name collision for 'exploitability-analyzer': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/exploitability-analyzer/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/exploitability-analyzer/SKILL.md
+2026-11-10T13:43:05Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
+2026-11-10 13:43:05,627 WARNING tools.skills_tool: Skill name collision for 'github-grab': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/github-grab/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/software-development/github-grab/SKILL.md
+2026-11-10 13:43:06,502 WARNING tools.skills_tool: Skill name collision for 'smart-contract-audit': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/smart-contract-audit/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/smart-contract-audit/SKILL.md
+2026-11-10 13:43:06,901 WARNING tools.skills_tool: Skill name collision for 'variant-discovery': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/variant-discovery/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/variant-discovery/SKILL.md
+2026-11-10 13:43:07,086 WARNING agent.system_prompt: skills.auto_load: skill(s) not found or disabled, skipped: anti-bot-http-ladder, apple, autonomous-ai-agents, blockchain-cli-patterns, blocked-page-recovery, bounty-autopilot, captcha-solver, creative, devops, email, evidence-first-report, exploitability-analyzer, github-grab, media, note-taking, ops, productivity, research, security, smart-contract-audit, social-media, software-development, telekey-bot-ops, variant-discovery, web, windows-bash-ops
+2026-11-10 13:43:07,190 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'tokenomix' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
+2026-11-10 13:43:09,752 WARNING JEJAK: JEJAK BALAS chat=8043910371
