@@ -100,8 +100,16 @@ def main() -> int:
                             # hanya kerana ia turut pulang medan `reasoning` (gpt-oss buat
                             # begitu pada setiap jawapan yang sah).
                             isi = ch.get("content")
+                            # Sesetengah model (mistral-large-4) pulang content sebagai
+                            # SENARAI blok [{"type":"text","text":"..."}] dan bukan
+                            # string. Menolaknya sebagai gagal membuang model sihat.
+                            if isinstance(isi, list):
+                                isi = "".join(
+                                    b.get("text", "") if isinstance(b, dict) else str(b)
+                                    for b in isi
+                                )
                             ok = isinstance(isi, str) and isi.strip() != ""
-                            nota = repr(str(isi)[:44]) if ok else f"content={type(isi).__name__}"
+                            nota = repr(str(isi)[:44]) if ok else f"content={type(ch.get('content')).__name__}"
                             if ok and ch.get("reasoning"):
                                 nota += " (ada medan reasoning — normal)"
                     else:
