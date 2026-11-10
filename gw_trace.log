@@ -1,12 +1,4 @@
-=== TRACE 2026-11-10T22:00:32Z run 42878171772 ===
-  [HIDUP] blockrun     nvidia/nemotron-3-ultra-550b ok (teks)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-11T01:58:50+07:00", "getMe_http": 200, "getMe_saat": 0.505, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T02:00:51+07:00", "getMe_http": 200, "getMe_saat": 0.506, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T02:02:52+07:00", "getMe_http": 200, "getMe_saat": 0.46, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-10T22:02:03Z run 42878171772 ===
 {"masa": "2026-11-11T02:04:53+07:00", "getMe_http": 200, "getMe_saat": 0.485, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-11T02:06:54+07:00", "getMe_http": 200, "getMe_saat": 0.497, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-10T19:07:04Z denyut tick=20 pid=4131
@@ -249,3 +241,11 @@ RESULT: TERAJU MATI — 3 sandaran hidup, bot masih menjawab
 2026-11-10T21:57:07Z denyut tick=190 pid=4131
 {"masa": "2026-11-11T04:58:17+07:00", "getMe_http": 200, "getMe_saat": 0.448, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-11T05:00:17+07:00", "getMe_http": 200, "getMe_saat": 0.433, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-10T22:01:34+0000 ===
+  [MATI ] freeai       qwen-coder                 {'error': 'This chat request needs ~100 tokens. You have 10 
+  [MATI ] freeai       mistral                    {'error': 'This chat request needs ~100 tokens. You have 10 
+  [HIDUP] blockrun     nvidia/nemotron-3-ultra-550b ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
+  [MATI ] mistral      mistral-small-2603         tiada choices
+RESULT: TERAJU MATI — 3 sandaran hidup, bot masih menjawab
