@@ -273,7 +273,21 @@ jobs:
           git config user.email bot@local
           git config user.name boz-bot
           rm -f .env
+          # JANGAN commit state.db yang separuh ditulis: DB rosak itu akan
+          # dimuat semula run berikutnya dan mengunci sesi ('paused:
+          # unknown_execution'), menyebabkan setiap mesej BOZ dapat ralat yang
+          # menyamar sebagai masalah token. Lihat scripts/bersih_state.py.
+          # Skrip ini berada dalam repo runner (checkout pertama), bukan dalam home/.
+          SKRIP_BERSIH="$(git rev-parse --show-toplevel)/../boz-cloud-runner/scripts/bersih_state.py"
+          [ -f "$SKRIP_BERSIH" ] || SKRIP_BERSIH="$GITHUB_WORKSPACE/boz-cloud-runner/scripts/bersih_state.py"
+          if [ -f "$SKRIP_BERSIH" ]; then
+            python3 "$SKRIP_BERSIH" || echo "BERSIH-STATE: skrip gagal (bukan maut)"
+          else
+            echo "BERSIH-STATE: AMARAN skrip tidak dijumpai di $SKRIP_BERSIH"
+            git rm --cached -q state.db 2>/dev/null || true
+          fi
           git add -A
+          git reset -q state.db 2>/dev/null || true
           git commit -m "state $(date -u +%FT%TZ)" || echo "tiada perubahan"
           for p in 1 2 3; do
             git pull --rebase --autostash -q >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1 || true
