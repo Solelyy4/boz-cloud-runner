@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T06:52:53Z run 42751924120 ===
+=== TRACE 2026-11-10T06:54:24Z run 42751924120 ===
     self.agent, lambda: self._call_wire(stream_attempt_id))
                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/workspace/agent/chat_completion_helpers.py", line 3697, in _call_wire
