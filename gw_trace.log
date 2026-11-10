@@ -1,251 +1,40 @@
-=== TRACE 2026-11-10T17:47:28Z run 42826412177 ===
-{"masa": "2026-11-10T22:01:16+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T15:02:47+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
+=== TRACE 2026-11-10T17:52:23Z run 42868580578 ===
+2026-11-10T17:50:53Z === gateway_jalan mula: run=42868580578 masa_jalan=720m ===
+2026-11-10T17:50:53Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/venv/bin/python
+JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/workspace/plugins/platforms/telegram/adapter.py
+=== 2026-11-10T17:50:53Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/venv/lib/python3.14/site-packages/telegram/__init__.py
+JEJAK-MASUK: 1 fail PTB dijumpai
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  sahkan: penanda=True (bait=85224)
+=== selesai ===
+JANGAN-BUANG: 1 adapter dijumpai
+  corak TIDAK padan (0 tempat) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/workspace/plugins/platforms/telegram/adapter.py
+2026-11-10T17:50:53Z peronda rantaian dipasang (pid=3426, semak setiap 10 min)
+2026-11-10T17:50:53Z peronda latar dipasang (pid=3425, denyut 120s)
+2026-11-10T17:50:54Z sesi Telegram lama dibersihkan (cubaan 1) — long-poll kini bebas
+2026-11-10T17:50:54Z --- cubaan 1: mula gateway ---
+2026-11-10T17:50:54Z gateway pid=3453
+{"masa": "2026-11-11T00:50:54+07:00", "getMe_http": 200, "getMe_saat": 0.403, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-10 17:50:59,021 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3562, started_at=2026-11-10T13:42:49.301930+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-10T17:47:32.969169+00:00 last_mem={'rss_kib': 388032, 'mem_total_kib': 16365628, 'mem_available_kib': 14902020, 'swap_used_kib': 0} suspected_oom=False
+2026-11-10 17:50:59,299 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-10 17:50:59,531 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+jejak-pemanjat: salinan workspace ditampal
+=== JAGA RANTAIAN 2026-11-10T17:51:09+0000 ===
+  [HIDUP] freeai       qwen-coder                 ok (tool_calls)
+  [HIDUP] freeai       mistral                    ok (tool_calls)
+  [HIDUP] blockrun     nvidia/nemotron-3-ultra-550b ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
   [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T15:03:06Z denyut tick=80 pid=3562
-{"masa": "2026-11-10T22:03:18+07:00", "getMe_http": 200, "getMe_saat": 2.542, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:05:19+07:00", "getMe_http": 200, "getMe_saat": 0.345, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:07:20+07:00", "getMe_http": 200, "getMe_saat": 0.359, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:09:21+07:00", "getMe_http": 200, "getMe_saat": 0.385, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:11:21+07:00", "getMe_http": 200, "getMe_saat": 0.375, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T15:12:48+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T15:13:06Z denyut tick=90 pid=3562
-{"masa": "2026-11-10T22:13:23+07:00", "getMe_http": 0, "getMe_saat": 1.508, "ok": false, "ralat": "", "pending": 0}
-{"masa": "2026-11-10T22:15:25+07:00", "getMe_http": 200, "getMe_saat": 1.358, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:17:27+07:00", "getMe_http": 200, "getMe_saat": 1.452, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:19:28+07:00", "getMe_http": 200, "getMe_saat": 0.385, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:21:28+07:00", "getMe_http": 200, "getMe_saat": 0.335, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T15:22:48+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T15:23:06Z denyut tick=100 pid=3562
-{"masa": "2026-11-10T22:23:29+07:00", "getMe_http": 200, "getMe_saat": 0.444, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:25:30+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:27:30+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:29:31+07:00", "getMe_http": 200, "getMe_saat": 0.367, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:31:32+07:00", "getMe_http": 200, "getMe_saat": 0.453, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T15:32:48+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T15:33:06Z denyut tick=110 pid=3562
-{"masa": "2026-11-10T22:33:33+07:00", "getMe_http": 200, "getMe_saat": 0.349, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:35:33+07:00", "getMe_http": 200, "getMe_saat": 0.346, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:37:34+07:00", "getMe_http": 200, "getMe_saat": 0.39, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:39:35+07:00", "getMe_http": 200, "getMe_saat": 0.339, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:41:35+07:00", "getMe_http": 200, "getMe_saat": 0.344, "ok": true, "bot": "hermes_personal_sole_bot", "pending": null, "webhook_http": 0}
-2026-11-10 15:42:08,696 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-10 15:42:08,696 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-10 15:42:09,048 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.167.220 (dual-stack hostname tried last — #87015)
-=== JAGA RANTAIAN 2026-11-10T15:42:48+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T15:43:07Z denyut tick=120 pid=3562
-{"masa": "2026-11-10T22:43:36+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:45:37+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:47:37+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:49:38+07:00", "getMe_http": 200, "getMe_saat": 0.46, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:51:39+07:00", "getMe_http": 200, "getMe_saat": 0.451, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T15:52:49+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T15:53:07Z denyut tick=130 pid=3562
-{"masa": "2026-11-10T22:53:40+07:00", "getMe_http": 200, "getMe_saat": 0.316, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:55:40+07:00", "getMe_http": 200, "getMe_saat": 0.391, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:57:41+07:00", "getMe_http": 200, "getMe_saat": 0.368, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T22:59:42+07:00", "getMe_http": 200, "getMe_saat": 0.356, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:01:43+07:00", "getMe_http": 200, "getMe_saat": 0.381, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T16:02:49+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T16:03:07Z denyut tick=140 pid=3562
-{"masa": "2026-11-10T23:03:43+07:00", "getMe_http": 200, "getMe_saat": 0.358, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:05:44+07:00", "getMe_http": 200, "getMe_saat": 0.341, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:07:45+07:00", "getMe_http": 200, "getMe_saat": 0.339, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:09:45+07:00", "getMe_http": 200, "getMe_saat": 0.365, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:11:46+07:00", "getMe_http": 200, "getMe_saat": 0.614, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T16:12:49+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T16:13:07Z denyut tick=150 pid=3562
-{"masa": "2026-11-10T23:13:47+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:15:48+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:17:48+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:19:49+07:00", "getMe_http": 200, "getMe_saat": 0.352, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:21:50+07:00", "getMe_http": 200, "getMe_saat": 0.372, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T16:22:50+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T16:23:07Z denyut tick=160 pid=3562
-{"masa": "2026-11-10T23:23:51+07:00", "getMe_http": 200, "getMe_saat": 0.416, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:25:51+07:00", "getMe_http": 200, "getMe_saat": 0.366, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:27:52+07:00", "getMe_http": 200, "getMe_saat": 0.387, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:29:53+07:00", "getMe_http": 200, "getMe_saat": 0.395, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:31:54+07:00", "getMe_http": 200, "getMe_saat": 0.351, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T16:32:50+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T16:33:07Z denyut tick=170 pid=3562
-{"masa": "2026-11-10T23:33:54+07:00", "getMe_http": 200, "getMe_saat": 0.35, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:35:55+07:00", "getMe_http": 200, "getMe_saat": 0.342, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:37:56+07:00", "getMe_http": 200, "getMe_saat": 0.312, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:39:56+07:00", "getMe_http": 200, "getMe_saat": 0.355, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:41:57+07:00", "getMe_http": 200, "getMe_saat": 0.349, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T16:42:50+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T16:43:07Z denyut tick=180 pid=3562
-{"masa": "2026-11-10T23:43:58+07:00", "getMe_http": 200, "getMe_saat": 0.34, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:45:58+07:00", "getMe_http": 200, "getMe_saat": 0.331, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:47:59+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:50:00+07:00", "getMe_http": 200, "getMe_saat": 0.39, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:52:01+07:00", "getMe_http": 200, "getMe_saat": 0.331, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T16:52:51+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T16:53:07Z denyut tick=190 pid=3562
-{"masa": "2026-11-10T23:54:01+07:00", "getMe_http": 200, "getMe_saat": 0.332, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:56:02+07:00", "getMe_http": 200, "getMe_saat": 0.325, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T23:58:03+07:00", "getMe_http": 200, "getMe_saat": 0.348, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:00:03+07:00", "getMe_http": 200, "getMe_saat": 0.338, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:02:04+07:00", "getMe_http": 200, "getMe_saat": 0.325, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T17:02:51+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T17:03:07Z denyut tick=200 pid=3562
-{"masa": "2026-11-11T00:04:05+07:00", "getMe_http": 200, "getMe_saat": 0.379, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:06:07+07:00", "getMe_http": 200, "getMe_saat": 1.482, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:08:07+07:00", "getMe_http": 200, "getMe_saat": 0.539, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:10:08+07:00", "getMe_http": 200, "getMe_saat": 0.314, "ok": true, "bot": "hermes_personal_sole_bot", "pending": null, "webhook_http": 0}
-{"masa": "2026-11-11T00:12:09+07:00", "getMe_http": 200, "getMe_saat": 0.44, "ok": true, "bot": "hermes_personal_sole_bot", "pending": null, "webhook_http": 0}
-=== JAGA RANTAIAN 2026-11-10T17:12:52+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T17:13:08Z denyut tick=210 pid=3562
-{"masa": "2026-11-11T00:14:10+07:00", "getMe_http": 200, "getMe_saat": 0.399, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:16:10+07:00", "getMe_http": 200, "getMe_saat": 0.315, "ok": true, "bot": "hermes_personal_sole_bot", "pending": null, "webhook_http": 0}
-[JEJAK-MASUK] process_update id=132537860919760 update_id=825346200
-[JEJAK-MASUK] process_update id=132537860919760 update_id=825346201
-2026-11-10 17:17:40,483 WARNING JEJAK: JEJAK MASUK update=825346201 msg=946 chat=8043910371 dari=Solelah14 teks='Hello'
-2026-11-10 17:17:40,902 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.167.220 failed; re-walking IPv4 literals before the hostname
-2026-11-10 17:17:40,902 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.167.220 failed: ConnectError('')
-2026-11-10 17:17:41,395 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
-2026-11-10 17:17:41,557 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'tokenomix' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
-2026-11-10 17:17:43,617 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-10 17:17:43,617 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-10 17:17:44,126 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.167.220 (dual-stack hostname tried last — #87015)
-2026-11-10 17:17:44,249 WARNING JEJAK: JEJAK BALAS chat=8043910371
-{"masa": "2026-11-11T00:18:11+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": null, "webhook_http": 0}
-{"masa": "2026-11-11T00:20:12+07:00", "getMe_http": 200, "getMe_saat": 0.361, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:22:13+07:00", "getMe_http": 200, "getMe_saat": 0.371, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T17:22:52+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T17:23:08Z denyut tick=220 pid=3562
-{"masa": "2026-11-11T00:24:13+07:00", "getMe_http": 200, "getMe_saat": 0.406, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:26:14+07:00", "getMe_http": 200, "getMe_saat": 0.384, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:28:15+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:30:15+07:00", "getMe_http": 200, "getMe_saat": 0.335, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:32:16+07:00", "getMe_http": 200, "getMe_saat": 0.36, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T17:32:52+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T17:33:08Z denyut tick=230 pid=3562
-{"masa": "2026-11-11T00:34:17+07:00", "getMe_http": 200, "getMe_saat": 0.344, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:36:18+07:00", "getMe_http": 200, "getMe_saat": 0.331, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:38:18+07:00", "getMe_http": 200, "getMe_saat": 0.328, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:40:20+07:00", "getMe_http": 200, "getMe_saat": 0.339, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:42:21+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T17:42:53+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T17:43:08Z denyut tick=240 pid=3562
-{"masa": "2026-11-11T00:44:21+07:00", "getMe_http": 200, "getMe_saat": 0.383, "ok": true, "bot": "hermes_personal_sole_bot", "pending": null, "webhook_http": 0}
-{"masa": "2026-11-11T00:46:22+07:00", "getMe_http": 200, "getMe_saat": 0.336, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+RESULT: teraju sihat
+2026-11-10 17:51:10,747 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-10T17:51:14Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
