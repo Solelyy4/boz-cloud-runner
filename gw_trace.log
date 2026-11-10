@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T05:06:14Z run 42751924120 ===
+=== TRACE 2026-11-10T05:07:46Z run 42751924120 ===
     self.result["response"] = _with_stream_emitters(
                               ~~~~~~~~~~~~~~~~~~~~~^
         self.agent, lambda: self._call_wire(stream_attempt_id))
