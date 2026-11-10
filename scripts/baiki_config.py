@@ -33,7 +33,18 @@ import sys
 MODEL_LALAI = ("groq", "openai/gpt-oss-120b")
 # Teraju yang TIDAK boleh ditimpa oleh MODEL_LALAI. Diukur: tokenomix/glm-5.3
 # 4/5 tugasan bersekat; mistral-large-4 = model tertinggi akaun (ctx 1M, 1.16s).
-TERAJU_DILINDUNGI = {"tokenomix", "mistral"}
+# Provider keyless (freeai / blockrun / kilo / nafimods) DISENARAIKAN: ia pilihan
+# percuma BOZ, dan menimpanya ke Groq membatalkan keputusan itu setiap run.
+# Kes bot 32k mengajar: penyebab bukan teraju, tetapi SANADAN yang terlalu kecil.
+TERAJU_DILINDUNGI = {
+    "tokenomix",
+    "mistral",
+    "freeai",
+    "blockrun",
+    "kilo",
+    "nafimods",
+    "groq",
+}
 # Teraju yang DILINDUNGI: pilihan BOZ tidak ditimpa. mistral-large-4 = model
 # tertinggi akaun (ctx 1,048,576, 1.16s). Groq hanya lalai bila config kosong.
 TERAJU_PILIHAN_BOZ = {
@@ -46,22 +57,28 @@ TERAJU_PILIHAN_BOZ = {
 # = 32,769 -> HTTP 400 "maximum context length is 32768 tokens", sampai ke Telegram
 # sebagai bot yang tidak boleh menerima mesej "Hello" sekali pun.
 KONTEKS_MINIMUM = 131072
+# Rantaian sandaran. SENGAJA tidak menyenaraikan provider keyless (freeai /
+# blockrun / kilo / nafimods): susunan itu BOZ letak dalam config dan ditulis
+# market-masa oleh peronda. Memaksa senarai sendiri di sini akan MEMUSNAHKAN
+# pilihan BOZ -- itulah regresi yang berlaku sebelum ini.
+# FALLBACK hanya mengandungi provider yang BOZ ada kunci rasmi dan yang terbukti
+# stabil, sebagai jaring apabila rantaian keyless semuanya gagal.
 FALLBACK = [
     # Groq: diukur 1000 permintaan/jam, 8/8 panggilan berturut lulus pada 8 Nov 2026.
     # gpt-oss-120b menggantikan gpt-oss-20b: 20b kerap habiskan kuota pada medan
     # `reasoning` lalu pulangkan content='' (bot menjawab kosong).
     {"provider": "groq", "model": "openai/gpt-oss-120b"},
-    # Mistral: had akaun ketat (200,200,200,429,429,429) tetapi konteks besar dan
-    # masih berguna sebagai peringkat kedua — LEBIH BAIK daripada model 32k.
+    # Mistral: had akaun ketat (200,200,200,429,429,429) tetapi konteks besar,
+    # jadi ia sandaran berguna -- bukan teraju.
     {"provider": "mistral", "model": "ministral-14b-latest"},
     {"provider": "mistral", "model": "ministral-8b-latest"},
     # Tokenomix: provider keempat, sudah tentu wujud dalam config bot BOZ.
     {"provider": "tokenomix", "model": "glm-5.3-flash"},
 ]
-# Mistral: had akaun sangat ketat — diukur 8 Nov 2026: 200,200,200,429,429,429 berturut.
-# Ia BOLEH jadi sandaran terakhir di config, tetapi TIDAK boleh disahkan sebagai wajib:
-# menguji dua kali dalam satu minit sudah cukup untuk mencetuskan 429.
-SANDARAN_TERAKHIR = {"provider": "mistral", "model": "ministral-8b-latest"}
+# Sandaran yang TIDAK ditokok ke dalam rantaian. Dibiarkan sebagai slot nama
+# sahaja supaya kod lama yang merujuknya tidak pecah; nilai sebenar datang dari
+# FALLBACK + pilihan BOZ.
+SANDARAN_TERAKHIR = None
 # Model yang terbukti MATI/reput — jangan sekali-kali masuk fallback.
 MODEL_DILARANG = {
     "open-mistral-nemo",       # TIADA dalam akaun
@@ -210,10 +227,15 @@ def baiki(cfg: dict) -> list[str]:
             )
             continue
         pilihan_boz.append({"provider": pr, "model": md})
-    # Buang pertindihan (jangan ulang sandaran yang sama)
+    # Buang pertindihan (jangan ulang sandaran yang sama).
+    # SANDARAN_TERAKHIR boleh jadi None: hanya nama slot untuk keserasian kod
+    # lama, bukan lagi satu sandaran yang ditokok secara paksa.
+    asas = [dict(x) for x in FALLBACK]
+    if SANDARAN_TERAKHIR:
+        asas.append(dict(SANDARAN_TERAKHIR))
     dilihat = set()
     bersih = []
-    for f in pilihan_boz + [dict(x) for x in FALLBACK] + [dict(SANDARAN_TERAKHIR)]:
+    for f in pilihan_boz + asas:
         k = (f["provider"], f["model"])
         if k in dilihat:
             continue
