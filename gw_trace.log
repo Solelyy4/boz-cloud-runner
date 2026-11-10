@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T14:20:50Z run 42826412177 ===
+=== TRACE 2026-11-10T14:22:22Z run 42826412177 ===
 2026-11-10T13:42:44Z === gateway_jalan mula: run=42826412177 masa_jalan=720m ===
 2026-11-10T13:42:44Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/workspace/plugins/platforms/telegram/adapter.py
@@ -99,3 +99,7 @@ RESULT: SEMUA MATI — bot TIDAK dapat menjawab
 {"masa": "2026-11-10T21:14:58+07:00", "getMe_http": 200, "getMe_saat": 0.497, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T21:16:59+07:00", "getMe_http": 200, "getMe_saat": 0.406, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T21:19:00+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-10T21:21:00+07:00", "getMe_http": 200, "getMe_saat": 0.34, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+[JEJAK-MASUK] process_update id=132537860919760 update_id=825346199
+2026-11-10 14:21:56,571 WARNING JEJAK: JEJAK MASUK update=825346199 msg=943 chat=8043910371 dari=Solelah14 teks='github.com/giienew/exsala-hermes-mod\ngithub.com/giienew/9router-pro\nSaya nak awak install kedua-dua link ni, ini adalah untuk farming provider dan model...'
+2026-11-10 14:21:58,402 WARNING JEJAK: JEJAK BALAS chat=8043910371
