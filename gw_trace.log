@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T05:00:09Z run 42751924120 ===
+=== TRACE 2026-11-10T05:01:40Z run 42751924120 ===
 openai.RateLimitError: Error code: 429 - {'object': 'error', 'message': 'Rate limit exceeded', 'type': 'rate_limited', 'param': None, 'code': '1300', 'raw_status_code': 429}
 2026-11-10 04:54:23,547 WARNING agent.conversation_loop: API call failed (attempt 1/4) error_type=RateLimitError thread=hermes-gateway_1:130821667153600 provider=mistral base_url=https://api.mistral.ai/v1/ model=mistral-large-4 summary=HTTP 429: Rate limit exceeded
 2026-11-10 04:54:23,556 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'tokenomix' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
