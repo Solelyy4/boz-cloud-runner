@@ -202,7 +202,12 @@ jobs:
           fi
           "$PY" -c "import yaml; print('yaml OK', yaml.__version__)" || {
             echo "::error::PyYAML gagal dipasang — gerbang tidak boleh dijalankan"; exit 1; }
-          "$PY" scripts/sah_model.py
+          # --longgar: 429 (kuota sementara) DIMA'AFKAN, bukan digagalkan.
+          # Rantaian kita SENGAJA bermula dengan lapisan keyless dan menamatkan
+          # dengan mistral yang acap kena 429. Tanpa --longgar, satu 429 pada
+          # lapisan terakhir menggagalkan run WALAUPUN teraju + 5 sandaran keyless
+          # semuanya HTTP 200. Kegagalan sebenar (model MATI) masih exit 1.
+          "$PY" scripts/sah_model.py --longgar
           echo "--- ujian rantaian penuh (sembang + tool-calling) ---"
           "$PY" scripts/uji_rantaian.py home/config.yaml
 
