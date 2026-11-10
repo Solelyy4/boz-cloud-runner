@@ -77,7 +77,7 @@ def _hurai(teks: str) -> dict | None:
         return None
 
 
-def baca_rantaian(config_path: str) -> list[tuple[str, str, str]]:
+def baca_rantaian(config_path: str) -> list[tuple[str, str, str, str]]:
     """Pulang [(provider, base_url, model)] dari config. Kosong jika yaml tiada."""
     try:
         import yaml
@@ -94,16 +94,16 @@ def baca_rantaian(config_path: str) -> list[tuple[str, str, str]]:
     m = d.get("model") or {}
     p0 = m.get("provider")
     if p0 and m.get("default"):
-        base = (prov.get(p0) or {}).get("base_url", "")
-        hasil.append((p0, base, m["default"]))
+        pc = prov.get(p0) or {}
+        hasil.append((p0, pc.get("base_url", ""), m["default"], pc.get("api_key_env", "")))
     for f in d.get("fallback_model") or []:
         p = f.get("provider")
-        base = (prov.get(p) or {}).get("base_url", "")
-        hasil.append((p, base, f.get("model")))
-    return [h for h in hasil if all(h)]
+        pc = prov.get(p) or {}
+        hasil.append((p, pc.get("base_url", ""), f.get("model"), pc.get("api_key_env", "")))
+    return [h for h in hasil if all(h[:3])]
 
 
-def uji(base: str, kunci: str, model: str) -> tuple[bool, str]:
+def uji(base: str, kunci: str, model: str, keyless: bool = False) -> tuple[bool, str]:
     payload = {
         "model": model,
         # max_tokens >=200 WAJIB: gpt-oss pulang content kosong jika kecil.
@@ -111,16 +111,24 @@ def uji(base: str, kunci: str, model: str) -> tuple[bool, str]:
         "tools": ALAT,
         "messages": [{"role": "user", "content": "Guna alat terminal untuk senarai fail."}],
     }
+    # KILO (dan sesetengah gateway keyless lain) menolak token dummy dengan
+    # `INVALID_TOKEN`, tetapi menerima permintaan TANPA header Authorization.
+    # Diukur 11 Nov 2026: dengan `Bearer Keyless_dummy` -> INVALID_TOKEN;
+    # tanpa header -> 200 jawapan penuh. Jadi untuk provider keyless kita
+    # hantar permintaan tanpa header, bukan dengan kunci palsu.
+    hujung = ["-H", "Content-Type: application/json"]
+    if not keyless:
+        hujung = ["-H", "Authorization: Bearer " + kunci] + hujung
     try:
         r = subprocess.run(
             ["curl", "-4", "-s", "-m", str(TIMEOUT), "-X", "POST", f"{base}/chat/completions",
-             "-H", f"Authorization: Bearer {kunci}", "-H", "Content-Type: application/json",
              # UA browser WAJIB untuk Tokenomix: Cloudflare membalas `403 error code:
              # 1010` kepada UA curl lalai, dan gateway memaparkannya sebagai
              # `Invalid API key` -- menyalahkan kunci yang sebenarnya betul.
              # Diukur 9 Nov 2026: tanpa baris ini SEMUA 5 model tokenomix dilaporkan
              # MATI sementara panggilan terus dari laptop pulang 200.
              "-H", f"User-Agent: {UA_BROWSER}",
+             *hujung,
              "-d", json.dumps(payload)],
             capture_output=True, text=True, timeout=TIMEOUT + 15,
         )
@@ -131,20 +139,43 @@ def uji(base: str, kunci: str, model: str) -> tuple[bool, str]:
         return False, "tiada respons"
     if "error" in d:
         return False, str(d["error"])[:60]
-    try:
-        ch = d["choices"][0]["message"]
-    except Exception:
+    butir = d.get("choices")
+    if not butir:
         return False, "tiada choices"
-    return bool(ch.get("tool_calls")), "ok" if ch.get("tool_calls") else "tiada tool_calls"
+    ch = butir[0].get("message") or {}
+    # LULUS jika model MEMANGGIL alat (bukti tool-calling bot) ATAU menjawab
+    # dengan teks yang munasabah. Sebelum ini hanya tool_calls dikira lulus,
+    # jadi model yang menjawab betul tanpa memanggil alat dilaporkan MATI
+    # (mistral-small-2603: "tiada choices"/"tiada tool_calls" palsu).
+    if ch.get("tool_calls"):
+        return True, "ok (tool_calls)"
+    kandungan = (ch.get("content") or "").strip()
+    if len(kandungan) >= 2:
+        return True, "ok (teks)"
+    return False, "respons kosong"
 
 
-def kunci_untuk(provider: str) -> str:
+def kunci_untuk(provider: str, api_key_env: str = "") -> str:
     # DIUKUR 9 Nov 2026: `provider` yang tiada dalam peta jatuh ke lalai
     # MISTRAL_API_KEY. Selepas teraju ditukar ke tokenomix, peronda menghantar
     # KUNCI MISTRAL ke api.tokenomixai.com lalu melaporkan `Invalid API key`
     # pada kelima-lima model -- seolah-olah kunci Tokenomix rosak, sedangkan
     # kunci itu betul (uji-tokenomix.yml dari runner: 26 model tersedia).
     # Lalai mesti provider itu SENDIRI, dan kegagalan mesti ketara.
+    #
+    # KEYLESS (freeai / blockrun / kilo / nafimods): config menyatakan
+    # `api_key_env: KEYLESS_DUMMY` atau `''`. Sebelum ini peronda mengabaikan
+    # medan itu dan mencari FREEAI_API_KEY/BLOCKRUN_API_KEY yang memang tidak
+    # wujud -> keempat-empat provider dilaporkan "kunci tiada" lalu dikira MATI,
+    # padahal ia berfungsi tanpa kredensial. Bot BOZ nampak "SEMUA MATI" dan
+    # gagal menjawab, walaupun rangkaiannya sihat.
+    # Hormati api_key_env dahulu; jika kosong/tiada, cuba KEYLESS_DUMMY.
+    nama_calon = []
+    if api_key_env and api_key_env.strip():
+        nama_calon.append(api_key_env.strip())
+    nama_calon.append(provider.upper().replace("-", "_") + "_API_KEY")
+    nama_calon.append("KEYLESS_DUMMY")  # penanda "tiada kredensial diperlukan"
+
     peta = {
         "groq": "GROQ_API_KEY",
         "mistral": "MISTRAL_API_KEY",
@@ -154,23 +185,25 @@ def kunci_untuk(provider: str) -> str:
         "9router-vps": "ROUTER9_API_KEY",
     }
     if provider in peta:
-        nama = peta[provider]
-    else:
-        # Provider baharu tanpa pemetaan -> jangan pinjam kunci provider lain.
-        nama = provider.upper().replace("-", "_") + "_API_KEY"
-    v = os.environ.get(nama, "").strip()
-    if v:
-        return v
+        nama_calon.insert(0, peta[provider])
+
     home = os.environ.get("LOCALAPPDATA", "") + r"\hermes" if os.name == "nt" else os.path.expanduser("~/AppData/Local/hermes")
-    if nama == "ROUTER9_API_KEY":
-        p = os.path.join(home, "secrets", "9router_key.txt")
-        return open(p, encoding="utf-8").read().strip() if os.path.exists(p) else ""
-    p = os.path.join(home, ".env")
-    if os.path.exists(p):
-        for baris in open(p, encoding="utf-8", errors="replace"):
-            baris = baris.strip()
-            if baris.startswith(nama + "="):
-                return baris.split("=", 1)[1].strip().strip('"').strip("'")
+
+    for nama in nama_calon:
+        v = os.environ.get(nama, "").strip()
+        if v:
+            return v
+        if nama == "ROUTER9_API_KEY":
+            p = os.path.join(home, "secrets", "9router_key.txt")
+            if os.path.exists(p):
+                return open(p, encoding="utf-8").read().strip()
+            continue
+        p = os.path.join(home, ".env")
+        if os.path.exists(p):
+            for baris in open(p, encoding="utf-8", errors="replace"):
+                baris = baris.strip()
+                if baris.startswith(nama + "="):
+                    return baris.split("=", 1)[1].strip().strip('"').strip("'")
     return ""
 
 
@@ -181,12 +214,15 @@ def satu_pusingan(config_path: str, beritahu: bool) -> int:
         return 2
 
     status = []
-    for prov, base, model in rantaian:
-        kunci = kunci_untuk(prov)
-        if not kunci:
+    for prov, base, model, ake in rantaian:
+        kunci = kunci_untuk(prov, ake)
+        # Provider keyless: tiada kredensial sebenar. Jangan hantar token dummy
+        # sebagai `Bearer` -- sesetengah gateway (kilo) membalas INVALID_TOKEN.
+        keyless = (not kunci) or kunci == os.environ.get("KEYLESS_DUMMY", "\x00")
+        if not kunci and not keyless:
             status.append((prov, model, False, "kunci tiada"))
             continue
-        ok, sebab = uji(base, kunci, model)
+        ok, sebab = uji(base, kunci, model, keyless=keyless)
         status.append((prov, model, ok, sebab))
 
     # Tanda: teraju gagal? Ada sandaran hidup?
