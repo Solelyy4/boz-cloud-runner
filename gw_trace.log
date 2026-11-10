@@ -1,5 +1,4 @@
-=== TRACE 2026-11-10T04:57:06Z run 42751924120 ===
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
+=== TRACE 2026-11-10T04:58:37Z run 42751924120 ===
     raise self._make_status_error_from_response(err.response) from None
 openai.RateLimitError: Error code: 429 - {'object': 'error', 'message': 'Rate limit exceeded', 'type': 'rate_limited', 'param': None, 'code': '1300', 'raw_status_code': 429}
 2026-11-10 04:54:23,547 WARNING agent.conversation_loop: API call failed (attempt 1/4) error_type=RateLimitError thread=hermes-gateway_1:130821667153600 provider=mistral base_url=https://api.mistral.ai/v1/ model=mistral-large-4 summary=HTTP 429: Rate limit exceeded
@@ -249,3 +248,4 @@ openai.RateLimitError: Error code: 429 - {'object': 'error', 'message': 'Rate li
 2026-11-10 04:54:42,544 WARNING JEJAK: JEJAK BALAS chat=8043910371
 2026-11-10 04:55:27,544 WARNING agent.conversation_compression: Configured compression model 'glm-5.3-flash' failed (Error code: 401 - {'error': {'message': 'Invalid API key.', 'type': 'invalid_api_key', 'code': 'invalid_api_key'}}); recovered using the main model.
 {"masa": "2026-11-10T11:56:02+07:00", "getMe_http": 200, "getMe_saat": 0.338, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-10T11:58:02+07:00", "getMe_http": 200, "getMe_saat": 0.381, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
