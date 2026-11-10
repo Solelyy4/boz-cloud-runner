@@ -1,5 +1,4 @@
-=== TRACE 2026-11-10T05:07:46Z run 42751924120 ===
-    self.result["response"] = _with_stream_emitters(
+=== TRACE 2026-11-10T05:09:17Z run 42751924120 ===
                               ~~~~~~~~~~~~~~~~~~~~~^
         self.agent, lambda: self._call_wire(stream_attempt_id))
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -249,3 +248,4 @@ RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
 {"masa": "2026-11-10T12:02:04+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T12:04:04+07:00", "getMe_http": 200, "getMe_saat": 0.362, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T12:06:05+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-10T12:08:06+07:00", "getMe_http": 200, "getMe_saat": 0.323, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
