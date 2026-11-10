@@ -1,5 +1,4 @@
-=== TRACE 2026-11-10T15:55:39Z run 42826412177 ===
-JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/workspace/plugins/platforms/telegram/adapter.py
+=== TRACE 2026-11-10T15:57:12Z run 42826412177 ===
 === 2026-11-10T13:42:44Z mula ===
 JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/venv/bin/python
 JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/venv/lib/python3.14/site-packages/telegram/__init__.py
@@ -249,3 +248,4 @@ RESULT: SEMUA MATI — bot TIDAK dapat menjawab
 RESULT: SEMUA MATI — bot TIDAK dapat menjawab
 2026-11-10T15:53:07Z denyut tick=130 pid=3562
 {"masa": "2026-11-10T22:53:40+07:00", "getMe_http": 200, "getMe_saat": 0.316, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-10T22:55:40+07:00", "getMe_http": 200, "getMe_saat": 0.391, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
