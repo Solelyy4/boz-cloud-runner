@@ -1,13 +1,4 @@
-=== TRACE 2026-11-10T22:11:13Z run 42878171772 ===
-  [HIDUP] blockrun     nvidia/nemotron-3-ultra-550b ok (teks)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-11T02:08:55+07:00", "getMe_http": 200, "getMe_saat": 0.45, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T02:10:56+07:00", "getMe_http": 200, "getMe_saat": 0.431, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T02:12:57+07:00", "getMe_http": 200, "getMe_saat": 0.502, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T02:14:58+07:00", "getMe_http": 200, "getMe_saat": 0.47, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-10T22:12:44Z run 42878171772 ===
 {"masa": "2026-11-11T02:16:59+07:00", "getMe_http": 200, "getMe_saat": 0.5, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-10T19:17:05Z denyut tick=30 pid=4131
 === JAGA RANTAIAN 2026-11-10T19:18:04+0000 ===
@@ -249,3 +240,12 @@ RESULT: TERAJU MATI — 3 sandaran hidup, bot masih menjawab
 2026-11-10T22:07:07Z denyut tick=200 pid=4131
 {"masa": "2026-11-11T05:08:21+07:00", "getMe_http": 200, "getMe_saat": 0.439, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-11T05:10:22+07:00", "getMe_http": 200, "getMe_saat": 0.514, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-10T22:11:42+0000 ===
+  [MATI ] freeai       qwen-coder                 {'error': 'This chat request needs ~100 tokens. You have 10 
+  [MATI ] freeai       mistral                    {'error': 'This chat request needs ~100 tokens. You have 10 
+  [HIDUP] blockrun     nvidia/nemotron-3-ultra-550b ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
+  [MATI ] mistral      mistral-small-2603         tiada choices
+RESULT: TERAJU MATI — 3 sandaran hidup, bot masih menjawab
+{"masa": "2026-11-11T05:12:23+07:00", "getMe_http": 200, "getMe_saat": 0.505, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
