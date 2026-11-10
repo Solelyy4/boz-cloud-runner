@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T12:05:07Z run 42809719039 ===
+=== TRACE 2026-11-10T12:06:38Z run 42809719039 ===
 2026-11-10T11:45:20Z === gateway_jalan mula: run=42809719039 masa_jalan=720m ===
 2026-11-10T11:45:20Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/9e64dcde49944f98b2a82e7426b36c42/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/9e64dcde49944f98b2a82e7426b36c42/workspace/plugins/platforms/telegram/adapter.py
@@ -69,3 +69,13 @@ RESULT: SEMUA MATI — bot TIDAK dapat menjawab
 {"masa": "2026-11-10T18:59:25+07:00", "getMe_http": 200, "getMe_saat": 0.411, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T19:01:26+07:00", "getMe_http": 200, "getMe_saat": 0.351, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T19:03:27+07:00", "getMe_http": 200, "getMe_saat": 0.33, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-10T12:05:21+0000 ===
+  [MATI ] freeai       qwen-coder                 kunci tiada
+  [MATI ] freeai       mistral                    kunci tiada
+  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
+  [MATI ] nafimods     gpt-oss-120b               kunci tiada
+  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
+  [MATI ] mistral      mistral-small-2603         tiada choices
+RESULT: SEMUA MATI — bot TIDAK dapat menjawab
+{"masa": "2026-11-10T19:05:27+07:00", "getMe_http": 200, "getMe_saat": 0.363, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-10T12:05:35Z denyut tick=20 pid=3437
