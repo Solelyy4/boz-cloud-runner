@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T14:10:10Z run 42826412177 ===
+=== TRACE 2026-11-10T14:11:41Z run 42826412177 ===
 2026-11-10T13:42:44Z === gateway_jalan mula: run=42826412177 masa_jalan=720m ===
 2026-11-10T13:42:44Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/0fc15c0303b342c58c5f981269715b93/workspace/plugins/platforms/telegram/adapter.py
@@ -85,3 +85,4 @@ RESULT: SEMUA MATI — bot TIDAK dapat menjawab
 2026-11-10 14:08:38,843 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
 2026-11-10 14:08:39,163 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.167.220 (dual-stack hostname tried last — #87015)
 {"masa": "2026-11-10T21:08:55+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-10T21:10:56+07:00", "getMe_http": 200, "getMe_saat": 0.359, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
