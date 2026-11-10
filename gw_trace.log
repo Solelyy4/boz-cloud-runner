@@ -1,5 +1,4 @@
-=== TRACE 2026-11-10T10:56:23Z run 42782745466 ===
-
+=== TRACE 2026-11-10T10:57:55Z run 42782745466 ===
 2026-11-10 08:29:54,460 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3412, started_at=2026-11-10T03:51:43.213338+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-10T08:16:56.009557+00:00 last_mem={'rss_kib': 427476, 'mem_total_kib': 16366640, 'mem_available_kib': 14926768, 'swap_used_kib': 0} suspected_oom=False
 2026-11-10 08:29:54,628 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-10 08:29:54,974 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
@@ -249,3 +248,4 @@ RESULT: SEMUA MATI — bot TIDAK dapat menjawab
 2026-11-10 10:51:12,596 WARNING JEJAK: JEJAK BALAS chat=8043910371
 {"masa": "2026-11-10T17:52:55+07:00", "getMe_http": 200, "getMe_saat": 0.486, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T17:54:56+07:00", "getMe_http": 200, "getMe_saat": 0.401, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-10T17:56:56+07:00", "getMe_http": 200, "getMe_saat": 0.408, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
