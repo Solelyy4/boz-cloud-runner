@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T10:53:20Z run 42782745466 ===
+=== TRACE 2026-11-10T10:54:52Z run 42782745466 ===
 └─────────────────────────────────────────────────────────┘
 
 2026-11-10 08:29:54,460 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3412, started_at=2026-11-10T03:51:43.213338+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-10T08:16:56.009557+00:00 last_mem={'rss_kib': 427476, 'mem_total_kib': 16366640, 'mem_available_kib': 14926768, 'swap_used_kib': 0} suspected_oom=False
