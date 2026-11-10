@@ -31,7 +31,16 @@ import sys
 #   Mistral : ~3-4 panggilan lalu 429 berpanjangan (diukur: 200,200,200,429,429,429)
 # Bot mesti diterajui Groq. Mistral hanya sandaran terakhir.
 MODEL_LALAI = ("groq", "openai/gpt-oss-120b")
+# Teraju yang TIDAK boleh ditimpa oleh MODEL_LALAI. Diukur: tokenomix/glm-5.3
+# 4/5 tugasan bersekat; mistral-large-4 = model tertinggi akaun (ctx 1M, 1.16s).
+TERAJU_DILINDUNGI = {"tokenomix", "mistral"}
+# Teraju yang DILINDUNGI: pilihan BOZ tidak ditimpa. mistral-large-4 = model
+# tertinggi akaun (ctx 1,048,576, 1.16s). Groq hanya lalai bila config kosong.
+TERAJU_PILIHAN_BOZ = {
+    ("mistral", "mistral-large-4"),
+}
 FALLBACK = [
+    {"provider": "nafimods", "model": "llama-3.3-70b"},   # PERCUMA, keyless - jaring sebenar
     {"provider": "groq", "model": "openai/gpt-oss-20b"},
 ]
 # Mistral: had akaun sangat ketat — diukur 8 Nov 2026: 200,200,200,429,429,429 berturut.
@@ -43,7 +52,6 @@ MODEL_DILARANG = {
     "open-mistral-nemo",       # TIADA dalam akaun
     "pixtral-12b-latest",      # TIADA dalam akaun
     "mistral-medium-latest",   # 429 rate_limited (fallback #1 lama)
-    "mistral-large-4",         # pulang blok `thinking` -> jawapan pelik
     "qwen/qwen3.8-27b",        # tool-calling tidak stabil (1/2, mereka-reka nama alat)
 }
 KUNCI_WAJIB = ("model", "providers", "platforms", "skills")
@@ -111,6 +119,10 @@ def baiki(cfg: dict) -> list[str]:
         and teraju_asal in prov
         and bool(prov[teraju_asal].get("base_url"))
     )
+    # Pilihan BOZ = pilihan BOZ. Jangan timpa.
+    pasangan = (model.get("provider"), model.get("default"))
+    if pasangan in TERAJU_PILIHAN_BOZ and model.get("provider") in prov:
+        dilindungi = True
     if dilindungi:
         ubah.append(f"model: dikekalkan {teraju_asal}/{model.get('default')} "
                     f"(teraju dilindungi, bukan ditimpa ke {MODEL_LALAI[0]})")
@@ -150,9 +162,35 @@ def baiki(cfg: dict) -> list[str]:
     model_lama = [f.get("model") for f in lama if isinstance(f, dict)]
     # Mistral sebagai sandaran TERAKHIR: ia membantu bila Groq benar-benar mati,
     # tetapi tidak boleh diuji sebagai wajib (429 selepas beberapa panggilan).
-    cfg["fallback_model"] = [dict(f) for f in FALLBACK] + [dict(SANDARAN_TERAKHIR)]
+    # HORMATI PILIHAN BOZ: sandaran dalam config yang ALLAH ada provider sah
+    # dikekalkan dahulu, kemudian barulah rantaian berasas ukuran ditokok.
+    # (Sebelum ini: ditulis semula bulat-bulat -> nafimods keyless percuma hilang.)
+    pilihan_boz = []
+    for f in lama:
+        if not isinstance(f, dict):
+            continue
+        pr, md = f.get("provider"), f.get("model")
+        if not pr or not md:
+            continue
+        if md in MODEL_DILARANG:
+            ubah.append(f"fallback BOZ dibuang (model reput): {pr}/{md}")
+            continue
+        if not (isinstance(prov.get(pr), dict) and prov[pr].get("base_url")):
+            ubah.append(f"fallback BOZ dibuang (provider tiada base_url): {pr}/{md}")
+            continue
+        pilihan_boz.append({"provider": pr, "model": md})
+    # Buang pertindihan (jangan ulang sandaran yang sama)
+    dilihat = set()
+    bersih = []
+    for f in pilihan_boz + [dict(x) for x in FALLBACK] + [dict(SANDARAN_TERAKHIR)]:
+        k = (f["provider"], f["model"])
+        if k in dilihat:
+            continue
+        dilihat.add(k)
+        bersih.append(f)
+    cfg["fallback_model"] = bersih
     ubah.append(
-        f"fallback ditulis semula: {model_lama} -> {[f['model'] for f in cfg['fallback_model']]}"
+        f"fallback: {model_lama} -> {[f['model'] for f in bersih]}"
     )
 
     # --- 4. max_tokens: WAJIB besar untuk model reasoning ---

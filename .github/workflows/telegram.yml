@@ -127,6 +127,9 @@ jobs:
           BOZ_PAT=${{ secrets.BOZ_PAT }}
           ROUTER9_API_KEY=${{ secrets.ROUTER9_API_KEY }}
           BOZ_USER=Solelyy4
+          # Keyless providers (freeai/blockrun) - tiada kredensial sebenar diperlukan,
+          # tetapi Hermes perlu pemboleh ubah ini wujud supaya provider tidak disekat.
+          KEYLESS_DUMMY=not-needed
           EOF
           # Heredoc YAML mengekalkan indentasi -> "  TELEGRAM_..." bukan nama pemboleh ubah.
           sed -i 's/^[[:space:]]*//' home/.env
