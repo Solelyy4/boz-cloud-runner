@@ -1,8 +1,4 @@
-=== TRACE 2026-11-10T10:57:55Z run 42782745466 ===
-2026-11-10 08:29:54,460 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3412, started_at=2026-11-10T03:51:43.213338+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-10T08:16:56.009557+00:00 last_mem={'rss_kib': 427476, 'mem_total_kib': 16366640, 'mem_available_kib': 14926768, 'swap_used_kib': 0} suspected_oom=False
-2026-11-10 08:29:54,628 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-10 08:29:54,974 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-10 08:29:55,297 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'nafimods' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
+=== TRACE 2026-11-10T10:59:26Z run 42782745466 ===
 2026-11-10 08:29:55,603 WARNING agent.model_metadata: Could not determine context length for model 'gpt-oss-120b' (base_url=https://keyless-llm.nafimods.workers.dev/v1) — falling back to 256,000 tokens. Set model.context_length in config.yaml to override.
 jejak-pemanjat: salinan workspace ditampal
 2026-11-10 08:30:06,109 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
@@ -249,3 +245,7 @@ RESULT: SEMUA MATI — bot TIDAK dapat menjawab
 {"masa": "2026-11-10T17:52:55+07:00", "getMe_http": 200, "getMe_saat": 0.486, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T17:54:56+07:00", "getMe_http": 200, "getMe_saat": 0.401, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-10T17:56:56+07:00", "getMe_http": 200, "getMe_saat": 0.408, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+[JEJAK-MASUK] process_update id=138102675756432 update_id=825346197
+2026-11-10 10:58:41,219 WARNING JEJAK: JEJAK MASUK update=825346197 msg=929 chat=8043910371 dari=Solelah14 teks='Awak tengah pakai model apa sekarang?'
+2026-11-10 10:58:56,816 WARNING JEJAK: JEJAK BALAS chat=8043910371
+{"masa": "2026-11-10T17:58:57+07:00", "getMe_http": 200, "getMe_saat": 0.41, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
