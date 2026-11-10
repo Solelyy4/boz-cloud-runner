@@ -1,8 +1,7 @@
-=== RUN 42782745466 2026-11-10T11:05:00Z ===
+=== RUN 42803643998 2026-11-10T11:34:02Z ===
 --- peronda (bukti rangkaian runner) ---
-denyut: 77 | sihat: 76 | gagal: 1
-kadar sihat: 99%
-  GAGAL: 2026-11-10T17:00:31+07:00 HTTP 0 
+denyut: 13 | sihat: 13 | gagal: 0
+kadar sihat: 100%
 
 --- gw.log (60 baris terakhir) ---
 tiada log gateway
