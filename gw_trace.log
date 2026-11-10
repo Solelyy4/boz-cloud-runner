@@ -1,22 +1,22 @@
-=== TRACE 2026-11-10T18:12:15Z run 42868580578 ===
-2026-11-10T17:50:53Z === gateway_jalan mula: run=42868580578 masa_jalan=720m ===
-2026-11-10T17:50:53Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/venv/bin/python
-JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/workspace/plugins/platforms/telegram/adapter.py
-=== 2026-11-10T17:50:53Z mula ===
-JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/venv/bin/python
-JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/venv/lib/python3.14/site-packages/telegram/__init__.py
+=== TRACE 2026-11-10T18:18:13Z run 42873091742 ===
+2026-11-10T18:16:43Z === gateway_jalan mula: run=42873091742 masa_jalan=720m ===
+2026-11-10T18:16:43Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f3bd497dd87f4e87ae1391c37e0e5971/venv/bin/python
+JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f3bd497dd87f4e87ae1391c37e0e5971/workspace/plugins/platforms/telegram/adapter.py
+=== 2026-11-10T18:16:43Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f3bd497dd87f4e87ae1391c37e0e5971/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f3bd497dd87f4e87ae1391c37e0e5971/venv/lib/python3.14/site-packages/telegram/__init__.py
 JEJAK-MASUK: 1 fail PTB dijumpai
-  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f3bd497dd87f4e87ae1391c37e0e5971/venv/lib/python3.14/site-packages/telegram/ext/_application.py
   sahkan: penanda=True (bait=85224)
 === selesai ===
 JANGAN-BUANG: 1 adapter dijumpai
-  corak TIDAK padan (0 tempat) -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/37ab7f9d5a194d039ced9ad225e6ccbb/workspace/plugins/platforms/telegram/adapter.py
-2026-11-10T17:50:53Z peronda rantaian dipasang (pid=3426, semak setiap 10 min)
-2026-11-10T17:50:53Z peronda latar dipasang (pid=3425, denyut 120s)
-2026-11-10T17:50:54Z sesi Telegram lama dibersihkan (cubaan 1) — long-poll kini bebas
-2026-11-10T17:50:54Z --- cubaan 1: mula gateway ---
-2026-11-10T17:50:54Z gateway pid=3453
-{"masa": "2026-11-11T00:50:54+07:00", "getMe_http": 200, "getMe_saat": 0.403, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+  selamat: tiada lagi drop_pending_updates=True dalam kod -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f3bd497dd87f4e87ae1391c37e0e5971/workspace/plugins/platforms/telegram/adapter.py
+2026-11-10T18:16:43Z peronda rantaian dipasang (pid=3441, semak setiap 10 min)
+2026-11-10T18:16:43Z peronda latar dipasang (pid=3440, denyut 120s)
+2026-11-10T18:16:43Z sesi Telegram lama dibersihkan (cubaan 1) — long-poll kini bebas
+2026-11-10T18:16:43Z --- cubaan 1: mula gateway ---
+2026-11-10T18:16:43Z gateway pid=3468
+{"masa": "2026-11-11T01:16:44+07:00", "getMe_http": 200, "getMe_saat": 0.432, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -24,53 +24,17 @@ JANGAN-BUANG: 1 adapter dijumpai
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-10 17:50:59,021 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3562, started_at=2026-11-10T13:42:49.301930+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-10T17:47:32.969169+00:00 last_mem={'rss_kib': 388032, 'mem_total_kib': 16365628, 'mem_available_kib': 14902020, 'swap_used_kib': 0} suspected_oom=False
-2026-11-10 17:50:59,299 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-10 17:50:59,531 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-10 18:16:48,009 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3453, started_at=2026-11-10T17:50:59.021294+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-10T18:13:11.208030+00:00 last_mem={'rss_kib': 385924, 'mem_total_kib': 16365628, 'mem_available_kib': 14946272, 'swap_used_kib': 0} suspected_oom=False
+2026-11-10 18:16:48,224 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-10 18:16:48,401 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+=== JAGA RANTAIAN 2026-11-10T18:16:50+0000 ===
+  [HIDUP] freeai       qwen-coder                 ok (tool_calls)
+  [HIDUP] freeai       mistral                    ok (tool_calls)
+  [HIDUP] blockrun     nvidia/nemotron-3-ultra-550b ok (tool_calls)
+  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
+  [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
+  [MATI ] mistral      mistral-small-2603         tiada choices
+RESULT: teraju sihat
 jejak-pemanjat: salinan workspace ditampal
-=== JAGA RANTAIAN 2026-11-10T17:51:09+0000 ===
-  [HIDUP] freeai       qwen-coder                 ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] blockrun     nvidia/nemotron-3-ultra-550b ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: teraju sihat
-2026-11-10 17:51:10,747 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-10T17:51:14Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
-{"masa": "2026-11-11T00:52:55+07:00", "getMe_http": 200, "getMe_saat": 0.409, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:54:55+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:56:56+07:00", "getMe_http": 200, "getMe_saat": 0.403, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T00:58:57+07:00", "getMe_http": 200, "getMe_saat": 0.4, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T01:00:58+07:00", "getMe_http": 200, "getMe_saat": 0.431, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T18:01:14Z denyut tick=10 pid=3453
-=== JAGA RANTAIAN 2026-11-10T18:01:28+0000 ===
-  [HIDUP] freeai       qwen-coder                 ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] blockrun     nvidia/nemotron-3-ultra-550b ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-11T01:02:59+07:00", "getMe_http": 200, "getMe_saat": 0.425, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T01:05:00+07:00", "getMe_http": 200, "getMe_saat": 0.406, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-[JEJAK-MASUK] process_update id=138210712654928 update_id=825346202
-2026-11-10 18:05:05,020 WARNING JEJAK: JEJAK MASUK update=825346202 msg=955 chat=8043910371 dari=Solelah14 teks='Hello'
-2026-11-10 18:05:05,257 WARNING gateway.session_authority: Session 20261103_063333_48ebf25e paused: unknown_execution
-2026-11-10 18:05:05,265 WARNING JEJAK: JEJAK BALAS chat=8043910371
-[JEJAK-MASUK] process_update id=138210712654928 update_id=825346203
-2026-11-10 18:05:09,017 WARNING JEJAK: JEJAK BALAS chat=8043910371
-2026-11-10 18:05:11,388 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'tokenomix' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
-2026-11-10 18:05:14,042 WARNING JEJAK: JEJAK BALAS chat=8043910371
-{"masa": "2026-11-11T01:07:00+07:00", "getMe_http": 200, "getMe_saat": 0.427, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T01:09:01+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-11T01:11:02+07:00", "getMe_http": 200, "getMe_saat": 0.397, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-10T18:11:14Z denyut tick=20 pid=3453
-=== JAGA RANTAIAN 2026-11-10T18:11:40+0000 ===
-  [HIDUP] freeai       qwen-coder                 ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] blockrun     nvidia/nemotron-3-ultra-550b ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: teraju sihat
+2026-11-10 18:16:59,550 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-10T18:17:04Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
