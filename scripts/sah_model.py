@@ -187,6 +187,8 @@ def main() -> int:
     ap.add_argument("--config", default="config.yaml")
     ap.add_argument("--longgar", action="store_true",
                     help="HAD 429 tidak menggagalkan gerbang (kuota sementara, bukan reput)")
+    ap.add_argument("--ketat", action="store_true",
+                    help="gagalkan juga bila SANADARAN mati, bukan hanya teraju")
     args = ap.parse_args()
 
     rantaian = baca_rantaian(args.config)
@@ -231,8 +233,18 @@ def main() -> int:
             (had if h["had"] else mati).append(r["model"])
 
     if mati:
-        print(f"\nRESULT: {len(mati)} PAUTAN MATI -> {mati}", file=sys.stderr)
-        return 1
+        # Teraju WAJIB hidup — bot tidak boleh berjalan tanpa model utama.
+        # Sandaran yang tiada kunci (cth 9router bila ROUTER9_API_KEY tidak
+        # ditetapkan) BUKAN kegagalan: ia cuma bermakna laluan failover itu tidak
+        # tersedia. Gagalkan run hanya kalau teraju sendiri mati, atau kalau
+        # --ketat diminta (audit penuh).
+        mati_teraju = [r["model"] for r in rantaian
+                       if r["peranan"] == "teraju" and r["model"] in mati]
+        if mati_teraju or args.ketat:
+            print(f"\nRESULT: {len(mati)} PAUTAN MATI -> {mati}", file=sys.stderr)
+            return 1
+        print(f"\nRESULT: {len(mati)} sandaran tidak tersedia -> {mati} "
+              f"(dimaafkan: teraju hidup, --ketat untuk menggagalkan)")
     if had and not args.longgar:
         print(f"\nRESULT: {len(had)} pautan kena HAD 429 sementara -> {had}", file=sys.stderr)
         return 1
