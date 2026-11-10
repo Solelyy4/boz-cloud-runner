@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T06:46:47Z run 42751924120 ===
+=== TRACE 2026-11-10T06:48:19Z run 42751924120 ===
 Traceback (most recent call last):
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3502c3bb908e4b7ab32f3d921d2b0679/workspace/agent/chat_completion_helpers.py", line 3719, in _call
     self.result["response"] = _with_stream_emitters(
