@@ -1,16 +1,4 @@
-=== TRACE 2026-11-10T17:16:58Z run 42826412177 ===
-{"masa": "2026-11-10T21:27:02+07:00", "getMe_http": 200, "getMe_saat": 0.345, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T21:29:03+07:00", "getMe_http": 200, "getMe_saat": 0.373, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-10T21:31:05+07:00", "getMe_http": 200, "getMe_saat": 0.351, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-10T14:32:46+0000 ===
-  [MATI ] freeai       qwen-coder                 kunci tiada
-  [MATI ] freeai       mistral                    kunci tiada
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b kunci tiada
-  [MATI ] nafimods     gpt-oss-120b               kunci tiada
-  [MATI ] kilo         nvidia/nemotron-3-ultra-550b-a55b:free kunci tiada
-  [MATI ] mistral      mistral-small-2603         tiada choices
-RESULT: SEMUA MATI — bot TIDAK dapat menjawab
-2026-11-10T14:33:06Z denyut tick=50 pid=3562
+=== TRACE 2026-11-10T17:18:30Z run 42826412177 ===
 {"masa": "2026-11-10T21:33:06+07:00", "getMe_http": 200, "getMe_saat": 0.492, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-10 14:34:16,749 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.167.220 failed; re-walking IPv4 literals before the hostname
 2026-11-10 14:34:16,749 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.167.220 failed: ConnectError('')
@@ -249,3 +237,15 @@ RESULT: SEMUA MATI — bot TIDAK dapat menjawab
 2026-11-10T17:13:08Z denyut tick=210 pid=3562
 {"masa": "2026-11-11T00:14:10+07:00", "getMe_http": 200, "getMe_saat": 0.399, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-11T00:16:10+07:00", "getMe_http": 200, "getMe_saat": 0.315, "ok": true, "bot": "hermes_personal_sole_bot", "pending": null, "webhook_http": 0}
+[JEJAK-MASUK] process_update id=132537860919760 update_id=825346200
+[JEJAK-MASUK] process_update id=132537860919760 update_id=825346201
+2026-11-10 17:17:40,483 WARNING JEJAK: JEJAK MASUK update=825346201 msg=946 chat=8043910371 dari=Solelah14 teks='Hello'
+2026-11-10 17:17:40,902 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.167.220 failed; re-walking IPv4 literals before the hostname
+2026-11-10 17:17:40,902 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.167.220 failed: ConnectError('')
+2026-11-10 17:17:41,395 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-11-10 17:17:41,557 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'tokenomix' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
+2026-11-10 17:17:43,617 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-10 17:17:43,617 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-11-10 17:17:44,126 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.167.220 (dual-stack hostname tried last — #87015)
+2026-11-10 17:17:44,249 WARNING JEJAK: JEJAK BALAS chat=8043910371
+{"masa": "2026-11-11T00:18:11+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": null, "webhook_http": 0}
