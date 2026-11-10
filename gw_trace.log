@@ -1,4 +1,4 @@
-=== TRACE 2026-11-10T16:27:55Z run 42826412177 ===
+=== TRACE 2026-11-10T16:29:27Z run 42826412177 ===
 2026-11-10 13:43:05,627 WARNING tools.skills_tool: Skill name collision for 'github-grab': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/github-grab/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/software-development/github-grab/SKILL.md
 2026-11-10 13:43:06,502 WARNING tools.skills_tool: Skill name collision for 'smart-contract-audit': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/smart-contract-audit/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/smart-contract-audit/SKILL.md
 2026-11-10 13:43:06,901 WARNING tools.skills_tool: Skill name collision for 'variant-discovery': 2 candidates — /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/variant-discovery/SKILL.md; /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/skills/security/variant-discovery/SKILL.md
