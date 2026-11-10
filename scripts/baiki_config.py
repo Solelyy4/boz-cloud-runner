@@ -39,9 +39,24 @@ TERAJU_DILINDUNGI = {"tokenomix", "mistral"}
 TERAJU_PILIHAN_BOZ = {
     ("mistral", "mistral-large-4"),
 }
+# Had konteks minimum untuk lolos prompt bot BOZ (SOUL + AGENTS + index skill +
+# memori ≈ 30,721 token). Prompt itu mengembang sendiri bila skill bertambah, jadi
+# angka sebenar mesti ada margin — bukan sekadar "cukup hari ini".
+# Bukti kegagalan: llama-3.3-70b (32,768) menerima prompt 30,721 + 2,048 output
+# = 32,769 -> HTTP 400 "maximum context length is 32768 tokens", sampai ke Telegram
+# sebagai bot yang tidak boleh menerima mesej "Hello" sekali pun.
+KONTEKS_MINIMUM = 131072
 FALLBACK = [
-    {"provider": "nafimods", "model": "llama-3.3-70b"},   # PERCUMA, keyless - jaring sebenar
-    {"provider": "groq", "model": "openai/gpt-oss-20b"},
+    # Groq: diukur 1000 permintaan/jam, 8/8 panggilan berturut lulus pada 8 Nov 2026.
+    # gpt-oss-120b menggantikan gpt-oss-20b: 20b kerap habiskan kuota pada medan
+    # `reasoning` lalu pulangkan content='' (bot menjawab kosong).
+    {"provider": "groq", "model": "openai/gpt-oss-120b"},
+    # Mistral: had akaun ketat (200,200,200,429,429,429) tetapi konteks besar dan
+    # masih berguna sebagai peringkat kedua — LEBIH BAIK daripada model 32k.
+    {"provider": "mistral", "model": "ministral-14b-latest"},
+    {"provider": "mistral", "model": "ministral-8b-latest"},
+    # Tokenomix: provider keempat, sudah tentu wujud dalam config bot BOZ.
+    {"provider": "tokenomix", "model": "glm-5.3-flash"},
 ]
 # Mistral: had akaun sangat ketat — diukur 8 Nov 2026: 200,200,200,429,429,429 berturut.
 # Ia BOLEH jadi sandaran terakhir di config, tetapi TIDAK boleh disahkan sebagai wajib:
@@ -177,6 +192,22 @@ def baiki(cfg: dict) -> list[str]:
             continue
         if not (isinstance(prov.get(pr), dict) and prov[pr].get("base_url")):
             ubah.append(f"fallback BOZ dibuang (provider tiada base_url): {pr}/{md}")
+            continue
+        # PENGAWAL KONTEKS: model yang konteksnya < KONTEKS_MINIMUM tidak boleh
+        # menyelesaikan prompt bot BOZ (~30,721 token). Ia bukan sandaran, ia
+        # kegagalan yang menunggu untuk berlaku. Disaring walaupun BOZ tulis
+        # sendiri dalam config — bot yang tidak menerima mesej lebih buruk
+        # daripada sandaran yang sedikit perlahan.
+        ctx = None
+        pconf = prov.get(pr)
+        if isinstance(pconf, dict):
+            mconf = (pconf.get("models") or {}).get(md)
+            if isinstance(mconf, dict):
+                ctx = mconf.get("context_window")
+        if ctx is not None and ctx < KONTEKS_MINIMUM:
+            ubah.append(
+                f"fallback BOZ dibuang (konteks {ctx} < {KONTEKS_MINIMUM}): {pr}/{md}"
+            )
             continue
         pilihan_boz.append({"provider": pr, "model": md})
     # Buang pertindihan (jangan ulang sandaran yang sama)
