@@ -1,4 +1,4 @@
-=== RUN 43045897653 2026-11-11T15:14:34Z ===
+=== RUN 43072704921 2026-11-11T17:57:05Z ===
 !!! GERBANG GAGAL (status=failure) !!!
 Gateway TIDAK dimulakan. Punca: satu atau lebih pautan model MATI
 atau had 429 berpanjangan. Semak langkah 'GERBANG' dalam run ini.
