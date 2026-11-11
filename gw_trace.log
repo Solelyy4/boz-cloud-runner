@@ -1,4 +1,4 @@
-=== TRACE 2026-11-11T18:32:07Z run 43078081394 ===
+=== TRACE 2026-11-11T18:33:38Z run 43078081394 ===
 2026-11-11T18:30:37Z === gateway_jalan mula: run=43078081394 masa_jalan=25m ===
 2026-11-11T18:30:37Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/41b1a954438c4e4d810c2c8d69ec2ee4/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/41b1a954438c4e4d810c2c8d69ec2ee4/workspace/plugins/platforms/telegram/adapter.py
@@ -105,3 +105,4 @@ openai.APIStatusError: Error code: 413 - {'error': {'message': 'Request too larg
 2026-11-11 18:30:47,790 WARNING JEJAK: JEJAK BALAS chat=8043910371
 2026-11-11 18:30:47,871 WARNING JEJAK: JEJAK BALAS chat=8043910371
 jejak-pemanjat: salinan workspace ditampal
+{"masa": "2026-11-12T01:32:38+07:00", "getMe_http": 200, "getMe_saat": 0.279, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
