@@ -1,4 +1,4 @@
-=== TRACE 2026-11-11T09:00:24Z run 42971589694 ===
+=== TRACE 2026-11-11T09:01:56Z run 42971589694 ===
 2026-11-11T06:47:55Z === gateway_jalan mula: run=42971589694 masa_jalan=720m ===
 2026-11-11T06:47:55Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/404148a186974a048ab54e9d1ccf21fa/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/404148a186974a048ab54e9d1ccf21fa/workspace/plugins/platforms/telegram/adapter.py
@@ -220,3 +220,4 @@ RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
   [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
   [MATI ] mistral      mistral-small-2603         tiada choices
 RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
+{"masa": "2026-11-11T16:00:44+07:00", "getMe_http": 200, "getMe_saat": 0.352, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
