@@ -1,4 +1,4 @@
-=== TRACE 2026-11-11T19:28:06Z run 43082531691 ===
+=== TRACE 2026-11-11T19:29:38Z run 43082531691 ===
 2026-11-11T18:59:12Z === gateway_jalan mula: run=43082531691 masa_jalan=30m ===
 2026-11-11T18:59:12Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/6f6a76c2f1c7407e81dc665bf6246ea6/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/6f6a76c2f1c7407e81dc665bf6246ea6/workspace/plugins/platforms/telegram/adapter.py
@@ -136,3 +136,14 @@ RESULT: teraju sihat
 {"masa": "2026-11-12T02:23:20+07:00", "getMe_http": 200, "getMe_saat": 0.274, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-12T02:25:20+07:00", "getMe_http": 200, "getMe_saat": 0.274, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-12T02:27:21+07:00", "getMe_http": 200, "getMe_saat": 0.286, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-12T02:29:22+07:00", "getMe_http": 200, "getMe_saat": 0.336, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-11T19:29:33Z masa jalan tamat -> hentikan gateway BERSIH
+2026-11-11 19:29:33,880 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3614 parent_name=bash loadavg_1m=0.12
+=== JAGA RANTAIAN 2026-11-11T19:29:36+0000 ===
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] freeai       mistral                    ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
+RESULT: teraju sihat
