@@ -63,13 +63,14 @@ KONTEKS_MINIMUM = 131072
 # FALLBACK hanya mengandungi provider yang BOZ ada kunci rasmi dan yang terbukti
 # stabil, sebagai jaring apabila rantaian keyless semuanya gagal.
 FALLBACK = [
-    # Rantaian 100% PERCUMA (arahan BOZ 12 Nov 2026: buang penyedia berbayar).
-    # Semua disahkan HIDUP 12 Nov 2026 dgn curl (elak Cloudflare 1010).
+    # Selaras dgn config bot, disahkan HIDUP pada run 43076168814 (11 Nov 2026).
+    # Model yg 429 berulang (mistral-small-2603) atau tiada tool_calls
+    # (kilo nemotron:free) DIBUANG — ia menggagalkan peronda jaga_rantaian.py.
     {"provider": "groq", "model": "qwen/qwen3.8-27b"},        # 0.37s, konteks 131K
-    {"provider": "mistral", "model": "ministral-14b-latest"},  # 0.97s, konteks 262K
-    {"provider": "nafimods", "model": "or-free"},              # keyless -> OpenRouter free
-    {"provider": "freeai", "model": "mistral"},                # keyless
-    {"provider": "blockrun", "model": "nvidia/nemotron-3-ultra-550b"},  # keyless
+    {"provider": "freeai", "model": "mistral"},                # PASS HTTP 200 tools=1
+    {"provider": "nafimods", "model": "gpt-oss-120b"},         # PASS HTTP 200 tools=1
+    {"provider": "groq", "model": "openai/gpt-oss-120b"},      # groq pautan kedua
+    {"provider": "mistral", "model": "ministral-14b-latest"},   # konteks 262K
 ]
 # Sandaran yang TIDAK ditokok ke dalam rantaian. Dibiarkan sebagai slot nama
 # sahaja supaya kod lama yang merujuknya tidak pecah; nilai sebenar datang dari
