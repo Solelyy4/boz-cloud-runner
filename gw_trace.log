@@ -1,5 +1,4 @@
-=== TRACE 2026-11-11T09:26:19Z run 42971589694 ===
-JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/404148a186974a048ab54e9d1ccf21fa/workspace/plugins/platforms/telegram/adapter.py
+=== TRACE 2026-11-11T09:27:50Z run 42971589694 ===
 === 2026-11-11T06:47:55Z mula ===
 JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/404148a186974a048ab54e9d1ccf21fa/venv/bin/python
 JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/404148a186974a048ab54e9d1ccf21fa/venv/lib/python3.14/site-packages/telegram/__init__.py
@@ -249,3 +248,4 @@ RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
 {"masa": "2026-11-11T16:20:52+07:00", "getMe_http": 200, "getMe_saat": 0.355, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-11T16:22:53+07:00", "getMe_http": 200, "getMe_saat": 0.385, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-11T16:24:53+07:00", "getMe_http": 200, "getMe_saat": 0.403, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-11T16:26:54+07:00", "getMe_http": 200, "getMe_saat": 0.35, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
