@@ -30,14 +30,13 @@ import sys
 #   Groq    : 1000 permintaan/jam, 8/8 panggilan berturut lulus, gpt-oss-120b & 20b 2/2 tools
 #   Mistral : ~3-4 panggilan lalu 429 berpanjangan (diukur: 200,200,200,429,429,429)
 # Bot mesti diterajui Groq. Mistral hanya sandaran terakhir.
-MODEL_LALAI = ("groq", "openai/gpt-oss-120b")
-# Teraju yang TIDAK boleh ditimpa oleh MODEL_LALAI. Diukur: tokenomix/glm-5.3
+MODEL_LALAI = ("groq", "qwen/qwen3.8-27b")
+# Teraju yang TIDAK boleh ditimpa oleh MODEL_LALAI. Diukur: model berbayar
 # 4/5 tugasan bersekat; mistral-large-4 = model tertinggi akaun (ctx 1M, 1.16s).
 # Provider keyless (freeai / blockrun / kilo / nafimods) DISENARAIKAN: ia pilihan
 # percuma BOZ, dan menimpanya ke Groq membatalkan keputusan itu setiap run.
 # Kes bot 32k mengajar: penyebab bukan teraju, tetapi SANADAN yang terlalu kecil.
 TERAJU_DILINDUNGI = {
-    "tokenomix",
     "mistral",
     "freeai",
     "blockrun",
@@ -64,16 +63,13 @@ KONTEKS_MINIMUM = 131072
 # FALLBACK hanya mengandungi provider yang BOZ ada kunci rasmi dan yang terbukti
 # stabil, sebagai jaring apabila rantaian keyless semuanya gagal.
 FALLBACK = [
-    # Groq: diukur 1000 permintaan/jam, 8/8 panggilan berturut lulus pada 8 Nov 2026.
-    # gpt-oss-120b menggantikan gpt-oss-20b: 20b kerap habiskan kuota pada medan
-    # `reasoning` lalu pulangkan content='' (bot menjawab kosong).
-    {"provider": "groq", "model": "openai/gpt-oss-120b"},
-    # Mistral: had akaun ketat (200,200,200,429,429,429) tetapi konteks besar,
-    # jadi ia sandaran berguna -- bukan teraju.
-    {"provider": "mistral", "model": "ministral-14b-latest"},
-    {"provider": "mistral", "model": "ministral-8b-latest"},
-    # Tokenomix: provider keempat, sudah tentu wujud dalam config bot BOZ.
-    {"provider": "tokenomix", "model": "glm-5.3-flash"},
+    # Rantaian 100% PERCUMA (arahan BOZ 12 Nov 2026: buang penyedia berbayar).
+    # Semua disahkan HIDUP 12 Nov 2026 dgn curl (elak Cloudflare 1010).
+    {"provider": "groq", "model": "qwen/qwen3.8-27b"},        # 0.37s, konteks 131K
+    {"provider": "mistral", "model": "ministral-14b-latest"},  # 0.97s, konteks 262K
+    {"provider": "nafimods", "model": "or-free"},              # keyless -> OpenRouter free
+    {"provider": "freeai", "model": "mistral"},                # keyless
+    {"provider": "blockrun", "model": "nvidia/nemotron-3-ultra-550b"},  # keyless
 ]
 # Sandaran yang TIDAK ditokok ke dalam rantaian. Dibiarkan sebagai slot nama
 # sahaja supaya kod lama yang merujuknya tidak pecah; nilai sebenar datang dari
@@ -84,7 +80,8 @@ MODEL_DILARANG = {
     "open-mistral-nemo",       # TIADA dalam akaun
     "pixtral-12b-latest",      # TIADA dalam akaun
     "mistral-medium-latest",   # 429 rate_limited (fallback #1 lama)
-    "qwen/qwen3.8-27b",        # tool-calling tidak stabil (1/2, mereka-reka nama alat)
+    "openai/gpt-oss-20b",      # respons KOSONG diukur 12 Nov 2026
+    "openai/gpt-oss-120b",     # respons KOSONG diukur 12 Nov 2026
 }
 KUNCI_WAJIB = ("model", "providers", "platforms", "skills")
 
@@ -142,7 +139,7 @@ def baiki(cfg: dict) -> list[str]:
     model = cfg.setdefault("model", {})
     prov = cfg.setdefault("providers", {})
     # LINDUNG TERAJU: jika config SUDAH diterajui provider yang dipasang khas
-    # (tokenomix/glm-5.3, diukur 4/5 tugasan bersekat) dan kuncinya ada, JANGAN
+    # (model berbayar, diukur 4/5 tugasan bersekat) dan kuncinya ada, JANGAN
     # timpa. Skrip ini dulu memaksa groq lalu memusnahkan rantaian baharu pada
     # setiap run -- gateway mula dengan model yang menolak tugasan BOZ.
     teraju_asal = model.get("provider")
@@ -175,10 +172,6 @@ def baiki(cfg: dict) -> list[str]:
     if "groq" not in prov:
         prov["groq"] = {"base_url": "https://api.groq.com/openai/v1", "api_key_env": "GROQ_API_KEY"}
         ubah.append("providers.groq ditambah")
-    if "tokenomix" not in prov:
-        prov["tokenomix"] = {"base_url": "https://api.tokenomixai.com/v1",
-                             "api_key_env": "TOKENOMIX_API_KEY"}
-        ubah.append("providers.tokenomix ditambah")
     # Provider yatim (menunjuk base_url kosong) mematikan setiap giliran yang
     # jatuh ke sandaran itu. Buang supaya rantaian hanya menyenaraikan yang sah.
     for nama in [k for k, v in list(prov.items())
