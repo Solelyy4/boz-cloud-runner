@@ -1,4 +1,4 @@
-=== TRACE 2026-11-11T08:58:53Z run 42971589694 ===
+=== TRACE 2026-11-11T09:00:24Z run 42971589694 ===
 2026-11-11T06:47:55Z === gateway_jalan mula: run=42971589694 masa_jalan=720m ===
 2026-11-11T06:47:55Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/404148a186974a048ab54e9d1ccf21fa/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/404148a186974a048ab54e9d1ccf21fa/workspace/plugins/platforms/telegram/adapter.py
@@ -212,3 +212,11 @@ RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
 {"masa": "2026-11-11T15:56:43+07:00", "getMe_http": 200, "getMe_saat": 0.362, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-11T08:58:12Z denyut tick=130 pid=3424
 {"masa": "2026-11-11T15:58:44+07:00", "getMe_http": 200, "getMe_saat": 0.361, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-11T09:00:10+0000 ===
+  [MATI ] freeai       qwen-coder                 Daily limit reached
+  [MATI ] freeai       mistral                    Daily limit reached
+  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b {'message': 'Free model capacity exhausted — retry shortly, 
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
+  [MATI ] mistral      mistral-small-2603         tiada choices
+RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
