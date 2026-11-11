@@ -1,4 +1,4 @@
-=== TRACE 2026-11-11T12:12:25Z run 42971589694 ===
+=== TRACE 2026-11-11T12:13:56Z run 42971589694 ===
   [MATI ] blockrun     nvidia/nemotron-3-ultra-550b {'message': 'Free model capacity exhausted — retry shortly, 
   [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
   [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
