@@ -1,5 +1,4 @@
-=== TRACE 2026-11-11T12:13:56Z run 42971589694 ===
-  [MATI ] blockrun     nvidia/nemotron-3-ultra-550b {'message': 'Free model capacity exhausted — retry shortly, 
+=== TRACE 2026-11-11T12:15:28Z run 42971589694 ===
   [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
   [HIDUP] kilo         nvidia/nemotron-3-ultra-550b-a55b:free ok (tool_calls)
   [MATI ] mistral      mistral-small-2603         tiada choices
@@ -249,3 +248,4 @@ RESULT: TERAJU MATI — 1 sandaran hidup, bot masih menjawab
 RESULT: TERAJU MATI — 2 sandaran hidup, bot masih menjawab
 {"masa": "2026-11-11T19:09:58+07:00", "getMe_http": 200, "getMe_saat": 0.356, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-11T19:11:58+07:00", "getMe_http": 200, "getMe_saat": 0.37, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-11T19:13:59+07:00", "getMe_http": 200, "getMe_saat": 0.369, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
