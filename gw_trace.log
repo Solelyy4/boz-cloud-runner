@@ -1,11 +1,4 @@
-=== TRACE 2026-11-12T22:49:36Z run 43303841590 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-13T05:00:46+07:00", "getMe_http": 200, "getMe_saat": 0.488, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12 22:00:49,095 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+=== TRACE 2026-11-12T22:51:07Z run 43303841590 ===
 2026-11-12 22:00:50,258 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
 2026-11-12 22:00:50,261 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
 2026-11-12T22:00:54Z ralat fatal adapter dikesan -> mula semula
@@ -249,3 +242,10 @@ RESULT: teraju sihat
 2026-11-12T22:46:24Z jeda 300s sebelum cubaan berikut
 {"masa": "2026-11-13T05:47:08+07:00", "getMe_http": 200, "getMe_saat": 0.496, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T05:49:09+07:00", "getMe_http": 200, "getMe_saat": 0.425, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-12T22:51:01+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (teks)
+RESULT: teraju sihat
