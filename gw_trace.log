@@ -1,119 +1,33 @@
-=== TRACE 2026-11-12T03:59:12Z run 43107907669 ===
-2026-11-12T01:02:36Z denyut tick=180 pid=3452
-{"masa": "2026-11-12T08:03:28+07:00", "getMe_http": 200, "getMe_saat": 0.409, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T01:04:09+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T08:05:28+07:00", "getMe_http": 200, "getMe_saat": 0.397, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:07:29+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:09:30+07:00", "getMe_http": 200, "getMe_saat": 0.397, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:11:31+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T01:12:36Z denyut tick=190 pid=3452
-{"masa": "2026-11-12T08:13:32+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T01:14:14+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T08:15:33+07:00", "getMe_http": 200, "getMe_saat": 0.418, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:17:33+07:00", "getMe_http": 200, "getMe_saat": 0.412, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:19:34+07:00", "getMe_http": 200, "getMe_saat": 0.423, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:21:35+07:00", "getMe_http": 200, "getMe_saat": 0.407, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T01:22:36Z denyut tick=200 pid=3452
-{"masa": "2026-11-12T08:23:36+07:00", "getMe_http": 200, "getMe_saat": 0.462, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T01:24:19+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-12T08:25:37+07:00", "getMe_http": 200, "getMe_saat": 0.4, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:27:38+07:00", "getMe_http": 200, "getMe_saat": 0.404, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:29:38+07:00", "getMe_http": 200, "getMe_saat": 0.422, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:31:39+07:00", "getMe_http": 200, "getMe_saat": 0.401, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T01:32:36Z denyut tick=210 pid=3452
-{"masa": "2026-11-12T08:33:40+07:00", "getMe_http": 200, "getMe_saat": 0.399, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T01:34:23+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T08:35:41+07:00", "getMe_http": 200, "getMe_saat": 0.402, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:37:42+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:39:42+07:00", "getMe_http": 200, "getMe_saat": 0.406, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:41:43+07:00", "getMe_http": 200, "getMe_saat": 0.471, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T01:42:36Z denyut tick=220 pid=3452
-{"masa": "2026-11-12T08:43:44+07:00", "getMe_http": 200, "getMe_saat": 0.4, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T01:44:28+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T08:45:45+07:00", "getMe_http": 200, "getMe_saat": 0.402, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:47:46+07:00", "getMe_http": 200, "getMe_saat": 0.416, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:49:47+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:51:47+07:00", "getMe_http": 200, "getMe_saat": 0.399, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T01:52:36Z denyut tick=230 pid=3452
-{"masa": "2026-11-12T08:53:48+07:00", "getMe_http": 200, "getMe_saat": 0.401, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T01:54:33+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (teks)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T08:55:49+07:00", "getMe_http": 200, "getMe_saat": 0.424, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:57:50+07:00", "getMe_http": 200, "getMe_saat": 0.4, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T08:59:51+07:00", "getMe_http": 200, "getMe_saat": 0.399, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:01:51+07:00", "getMe_http": 200, "getMe_saat": 0.402, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T02:02:36Z denyut tick=240 pid=3452
-{"masa": "2026-11-12T09:03:52+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T02:04:38+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-12T09:05:53+07:00", "getMe_http": 200, "getMe_saat": 0.4, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:07:54+07:00", "getMe_http": 200, "getMe_saat": 0.406, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:09:55+07:00", "getMe_http": 200, "getMe_saat": 0.402, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:11:56+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T02:12:37Z denyut tick=250 pid=3452
-{"masa": "2026-11-12T09:13:56+07:00", "getMe_http": 200, "getMe_saat": 0.405, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T02:14:43+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T09:15:57+07:00", "getMe_http": 200, "getMe_saat": 0.397, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:17:58+07:00", "getMe_http": 200, "getMe_saat": 0.451, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:19:59+07:00", "getMe_http": 200, "getMe_saat": 0.402, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:22:00+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T02:22:37Z denyut tick=260 pid=3452
-{"masa": "2026-11-12T09:24:01+07:00", "getMe_http": 200, "getMe_saat": 0.462, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T02:24:54+0000 ===
+=== TRACE 2026-11-12T13:12:35Z run 43224503073 ===
+2026-11-12T13:11:05Z === gateway_jalan mula: run=43224503073 masa_jalan=720m ===
+2026-11-12T13:11:05Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c26a7cdf7b9e499694c704eb6bc86490/venv/bin/python
+JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c26a7cdf7b9e499694c704eb6bc86490/workspace/plugins/platforms/telegram/adapter.py
+=== 2026-11-12T13:11:05Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c26a7cdf7b9e499694c704eb6bc86490/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c26a7cdf7b9e499694c704eb6bc86490/venv/lib/python3.14/site-packages/telegram/__init__.py
+JEJAK-MASUK: 1 fail PTB dijumpai
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c26a7cdf7b9e499694c704eb6bc86490/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  sahkan: penanda=True (bait=85224)
+=== selesai ===
+JANGAN-BUANG: 1 adapter dijumpai
+  selamat: tiada lagi drop_pending_updates=True dalam kod -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c26a7cdf7b9e499694c704eb6bc86490/workspace/plugins/platforms/telegram/adapter.py
+2026-11-12T13:11:05Z peronda rantaian dipasang (pid=3493, semak setiap 10 min)
+2026-11-12T13:11:05Z peronda latar dipasang (pid=3492, denyut 120s)
+2026-11-12T13:11:05Z sesi Telegram lama dibersihkan (cubaan 1) — long-poll kini bebas
+2026-11-12T13:11:05Z --- cubaan 1: mula gateway ---
+2026-11-12T13:11:05Z gateway pid=3523
+{"masa": "2026-11-12T20:11:05+07:00", "getMe_http": 200, "getMe_saat": 0.272, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-12 13:11:10,153 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3451, started_at=2026-11-12T04:02:25.236322+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-12T07:35:11.657691+00:00 last_mem={'rss_kib': 305584, 'mem_total_kib': 16366640, 'mem_available_kib': 15038384, 'swap_used_kib': 0} suspected_oom=False
+2026-11-12 13:11:10,379 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-12 13:11:10,565 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+=== JAGA RANTAIAN 2026-11-12T13:11:13+0000 ===
   [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
   [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
   [HIDUP] freeai       mistral                    ok (tool_calls)
@@ -121,131 +35,14 @@ RESULT: teraju sihat
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [HIDUP] mistral      ministral-14b-latest       ok (teks)
 RESULT: teraju sihat
-{"masa": "2026-11-12T09:26:01+07:00", "getMe_http": 200, "getMe_saat": 0.401, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:28:02+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:30:03+07:00", "getMe_http": 200, "getMe_saat": 0.419, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:32:04+07:00", "getMe_http": 200, "getMe_saat": 0.403, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T02:32:37Z denyut tick=270 pid=3452
-{"masa": "2026-11-12T09:34:05+07:00", "getMe_http": 200, "getMe_saat": 0.403, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T02:35:07+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (teks)
-RESULT: teraju sihat
-{"masa": "2026-11-12T09:36:06+07:00", "getMe_http": 200, "getMe_saat": 0.433, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:38:06+07:00", "getMe_http": 200, "getMe_saat": 0.41, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:40:07+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:42:08+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T02:42:37Z denyut tick=280 pid=3452
-{"masa": "2026-11-12T09:44:09+07:00", "getMe_http": 200, "getMe_saat": 0.401, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T02:45:12+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-12T09:46:10+07:00", "getMe_http": 200, "getMe_saat": 0.4, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:48:10+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:50:11+07:00", "getMe_http": 200, "getMe_saat": 0.4, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:52:12+07:00", "getMe_http": 200, "getMe_saat": 0.402, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T02:52:37Z denyut tick=290 pid=3452
-{"masa": "2026-11-12T09:54:13+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T02:55:19+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T09:56:14+07:00", "getMe_http": 200, "getMe_saat": 0.403, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T09:58:15+07:00", "getMe_http": 200, "getMe_saat": 0.428, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:00:15+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:02:16+07:00", "getMe_http": 200, "getMe_saat": 0.4, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T03:02:37Z denyut tick=300 pid=3452
-{"masa": "2026-11-12T10:04:17+07:00", "getMe_http": 200, "getMe_saat": 0.412, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T03:05:25+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-12T10:06:18+07:00", "getMe_http": 200, "getMe_saat": 0.397, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:08:19+07:00", "getMe_http": 200, "getMe_saat": 0.428, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:10:20+07:00", "getMe_http": 200, "getMe_saat": 0.408, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:12:20+07:00", "getMe_http": 200, "getMe_saat": 0.403, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T03:12:37Z denyut tick=310 pid=3452
-{"masa": "2026-11-12T10:14:21+07:00", "getMe_http": 200, "getMe_saat": 0.453, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T03:15:32+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (teks)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T10:16:22+07:00", "getMe_http": 200, "getMe_saat": 0.405, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:18:23+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:20:24+07:00", "getMe_http": 200, "getMe_saat": 0.411, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:22:24+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T03:22:38Z denyut tick=320 pid=3452
-{"masa": "2026-11-12T10:24:25+07:00", "getMe_http": 200, "getMe_saat": 0.401, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T03:25:39+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T10:26:26+07:00", "getMe_http": 200, "getMe_saat": 0.415, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:28:27+07:00", "getMe_http": 200, "getMe_saat": 0.402, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:30:28+07:00", "getMe_http": 200, "getMe_saat": 0.395, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:32:29+07:00", "getMe_http": 200, "getMe_saat": 0.404, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T03:32:38Z denyut tick=330 pid=3452
-{"masa": "2026-11-12T10:34:29+07:00", "getMe_http": 200, "getMe_saat": 0.399, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T03:35:48+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] freeai       mistral                    ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (teks)
-RESULT: teraju sihat
-{"masa": "2026-11-12T10:36:30+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:38:31+07:00", "getMe_http": 200, "getMe_saat": 0.406, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:40:32+07:00", "getMe_http": 200, "getMe_saat": 0.403, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:42:33+07:00", "getMe_http": 200, "getMe_saat": 0.418, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T03:42:38Z denyut tick=340 pid=3452
-{"masa": "2026-11-12T10:44:33+07:00", "getMe_http": 200, "getMe_saat": 0.397, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T03:45:52+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (teks)
-  [MATI ] freeai       mistral                    Daily limit reached
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T10:46:34+07:00", "getMe_http": 200, "getMe_saat": 0.399, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:48:35+07:00", "getMe_http": 200, "getMe_saat": 0.457, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:50:36+07:00", "getMe_http": 200, "getMe_saat": 0.401, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:52:37+07:00", "getMe_http": 200, "getMe_saat": 0.395, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T03:52:38Z denyut tick=350 pid=3452
-{"masa": "2026-11-12T10:54:38+07:00", "getMe_http": 200, "getMe_saat": 0.409, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T03:55:56+0000 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] freeai       mistral                    Daily limit reached
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-12T10:56:38+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-12T10:58:39+07:00", "getMe_http": 200, "getMe_saat": 0.41, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-12 13:11:15,473 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-12 13:11:15,474 WARNING gateway.run: ✗ telegram failed to connect
+2026-11-12 13:11:16,572 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-12 13:11:16,573 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
+jejak-pemanjat: salinan workspace ditampal
+2026-11-12 13:11:46,755 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-12 13:11:46,787 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-12 13:11:47,247 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-12T13:11:50Z SAMBUNG OK selepas 45s (bukti: baris 'Connected to Telegram')
+2026-11-12 13:11:51,648 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-12 13:12:17,439 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
