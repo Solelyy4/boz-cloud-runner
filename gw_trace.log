@@ -1,4 +1,4 @@
-=== TRACE 2026-11-12T13:30:50Z run 43224503073 ===
+=== TRACE 2026-11-12T13:32:22Z run 43224503073 ===
 2026-11-12T13:11:05Z === gateway_jalan mula: run=43224503073 masa_jalan=720m ===
 2026-11-12T13:11:05Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c26a7cdf7b9e499694c704eb6bc86490/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c26a7cdf7b9e499694c704eb6bc86490/workspace/plugins/platforms/telegram/adapter.py
@@ -161,3 +161,21 @@ RESULT: teraju sihat
 2026-11-12 13:29:10,792 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-12T20:29:11+07:00", "getMe_http": 200, "getMe_saat": 0.29, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-12 13:29:56,566 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-12 13:30:52,332 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+{"masa": "2026-11-12T20:31:11+07:00", "getMe_http": 200, "getMe_saat": 0.394, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-12T13:31:23+0000 ===
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] freeai       mistral                    ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [MATI ] mistral      ministral-14b-latest       tiada choices
+RESULT: teraju sihat
+2026-11-12 13:31:47,936 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
+2026-11-12 13:31:58,108 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-12 13:31:59,206 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
+2026-11-12 13:31:59,210 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
+2026-11-12T13:32:06Z ralat fatal adapter dikesan -> mula semula
+2026-11-12 13:32:06,375 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3474 parent_name=bash loadavg_1m=0.18
+2026-11-12T13:32:11Z === cubaan 4 tamat: rc=1 ===
+2026-11-12T13:32:11Z jeda 80s sebelum cubaan berikut
