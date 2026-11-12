@@ -1,13 +1,4 @@
-=== TRACE 2026-11-12T23:30:46Z run 43303841590 ===
-2026-11-12 22:25:58,411 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-12 22:26:53,750 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
-{"masa": "2026-11-13T05:26:59+07:00", "getMe_http": 200, "getMe_saat": 0.425, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12 22:27:04,672 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-12 22:27:05,833 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-12 22:27:05,836 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-12T22:27:09Z ralat fatal adapter dikesan -> mula semula
-2026-11-12 22:27:09,719 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.13
-2026-11-12T22:27:14Z === cubaan 14 tamat: rc=1 ===
+=== TRACE 2026-11-12T23:32:17Z run 43303841590 ===
 2026-11-12T22:27:14Z jeda 280s sebelum cubaan berikut
 {"masa": "2026-11-13T05:29:00+07:00", "getMe_http": 200, "getMe_saat": 0.501, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 === JAGA RANTAIAN 2026-11-12T22:30:51+0000 ===
@@ -249,3 +240,12 @@ RESULT: teraju sihat
 {"masa": "2026-11-13T06:25:26+07:00", "getMe_http": 200, "getMe_saat": 0.423, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T06:27:27+07:00", "getMe_http": 200, "getMe_saat": 0.434, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T06:29:28+07:00", "getMe_http": 200, "getMe_saat": 0.553, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-12T23:31:10Z denyut tick=20 pid=12385
+{"masa": "2026-11-13T06:31:29+07:00", "getMe_http": 200, "getMe_saat": 0.422, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-12T23:31:31+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (teks)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
+RESULT: teraju sihat
