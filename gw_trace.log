@@ -1,5 +1,4 @@
-=== TRACE 2026-11-12T23:26:11Z run 43303841590 ===
-{"masa": "2026-11-13T05:24:58+07:00", "getMe_http": 200, "getMe_saat": 0.427, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-12T23:27:43Z run 43303841590 ===
 2026-11-12 22:25:02,151 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-12 22:25:58,411 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-12 22:26:53,750 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 {"masa": "2026-11-13T06:21:24+07:00", "getMe_http": 200, "getMe_saat": 0.431, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T06:23:25+07:00", "getMe_http": 200, "getMe_saat": 0.469, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T06:25:26+07:00", "getMe_http": 200, "getMe_saat": 0.423, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-13T06:27:27+07:00", "getMe_http": 200, "getMe_saat": 0.434, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
