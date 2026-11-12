@@ -1,6 +1,4 @@
-=== TRACE 2026-11-12T21:45:05Z run 43303841590 ===
-2026-11-12 21:06:40,242 WARNING gateway.run: ✗ telegram failed to connect
-2026-11-12 21:06:41,410 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+=== TRACE 2026-11-12T21:46:37Z run 43303841590 ===
 2026-11-12 21:06:41,411 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
 2026-11-12 21:07:11,463 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-12 21:07:11,503 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
@@ -249,3 +247,5 @@ RESULT: teraju sihat
 2026-11-12 21:45:00,147 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
 2026-11-12T21:45:04Z ralat fatal adapter dikesan -> mula semula
 2026-11-12 21:45:04,080 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.09
+2026-11-12T21:45:09Z === cubaan 9 tamat: rc=1 ===
+2026-11-12T21:45:09Z jeda 180s sebelum cubaan berikut
