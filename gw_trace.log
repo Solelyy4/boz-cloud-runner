@@ -1,5 +1,4 @@
-=== TRACE 2026-11-12T21:58:49Z run 43303841590 ===
-2026-11-12 21:19:05,222 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+=== TRACE 2026-11-12T22:00:20Z run 43303841590 ===
 2026-11-12 21:19:05,222 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
 2026-11-12 21:19:05,222 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
 2026-11-12 21:19:05,225 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-12 21:58:00,294 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-13T04:58:45+07:00", "getMe_http": 200, "getMe_saat": 0.486, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-12 21:58:46,522 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-12 21:59:42,809 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
