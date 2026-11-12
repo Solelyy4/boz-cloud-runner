@@ -1,15 +1,4 @@
-=== TRACE 2026-11-12T23:09:25Z run 43303841590 ===
-2026-11-12T22:18:04Z ralat fatal adapter dikesan -> mula semula
-2026-11-12 22:18:04,590 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.07
-2026-11-12T22:18:09Z === cubaan 13 tamat: rc=1 ===
-2026-11-12T22:18:09Z jeda 260s sebelum cubaan berikut
-{"masa": "2026-11-13T05:18:55+07:00", "getMe_http": 200, "getMe_saat": 0.429, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T22:20:48+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
+=== TRACE 2026-11-12T23:10:56Z run 43303841590 ===
 RESULT: teraju sihat
 {"masa": "2026-11-13T05:20:56+07:00", "getMe_http": 200, "getMe_saat": 0.529, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-12T22:22:29Z --- cubaan 14: mula gateway ---
@@ -249,3 +238,14 @@ RESULT: teraju sihat
 2026-11-12T23:05:55Z jeda 300s sebelum cubaan berikut
 {"masa": "2026-11-13T06:07:18+07:00", "getMe_http": 200, "getMe_saat": 0.423, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T06:09:19+07:00", "getMe_http": 200, "getMe_saat": 0.482, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-12T23:10:55Z --- cubaan 19: mula gateway ---
+2026-11-12T23:10:55Z gateway pid=12385
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-12 23:10:56,682 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-12 23:10:56,788 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
