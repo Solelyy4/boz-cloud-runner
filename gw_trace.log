@@ -1,7 +1,4 @@
-=== TRACE 2026-11-12T21:42:02Z run 43303841590 ===
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
-
+=== TRACE 2026-11-12T21:43:34Z run 43303841590 ===
 2026-11-12 21:06:34,760 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-12 21:06:34,859 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-12 21:06:35,022 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
@@ -249,3 +246,6 @@ RESULT: teraju sihat
 2026-11-12T21:41:04Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
 2026-11-12 21:41:07,801 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-12 21:41:34,067 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-12 21:42:10,297 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+{"masa": "2026-11-13T04:42:38+07:00", "getMe_http": 200, "getMe_saat": 0.484, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-12 21:42:56,563 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
