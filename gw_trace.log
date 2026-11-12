@@ -1,6 +1,4 @@
-=== TRACE 2026-11-12T21:20:42Z run 43303841590 ===
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
+=== TRACE 2026-11-12T21:22:13Z run 43303841590 ===
 
 === JAGA RANTAIAN 2026-11-12T20:50:16+0000 ===
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
@@ -249,3 +247,5 @@ RESULT: teraju sihat
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [HIDUP] mistral      ministral-14b-latest       ok (teks)
 RESULT: teraju sihat
+2026-11-12 21:20:51,735 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-12 21:21:38,066 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
