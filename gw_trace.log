@@ -1,4 +1,4 @@
-=== TRACE 2026-11-12T23:15:31Z run 43303841590 ===
+=== TRACE 2026-11-12T23:17:02Z run 43303841590 ===
 2026-11-12 22:22:31,359 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
 2026-11-12 22:22:36,616 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-12 22:22:36,617 WARNING gateway.run: ✗ telegram failed to connect
