@@ -1,4 +1,4 @@
-=== TRACE 2026-11-12T23:52:07Z run 43303841590 ===
+=== TRACE 2026-11-12T23:53:39Z run 43303841590 ===
 2026-11-12 22:32:01,789 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-12 22:32:01,790 WARNING gateway.run: ✗ telegram failed to connect
 2026-11-12 22:32:02,959 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
