@@ -1,5 +1,4 @@
-=== TRACE 2026-11-12T23:06:22Z run 43303841590 ===
-2026-11-12 22:18:00,565 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
+=== TRACE 2026-11-12T23:07:53Z run 43303841590 ===
 2026-11-12 22:18:00,568 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
 2026-11-12T22:18:04Z ralat fatal adapter dikesan -> mula semula
 2026-11-12 22:18:04,590 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.07
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-12 23:05:50,242 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.06
 2026-11-12T23:05:55Z === cubaan 18 tamat: rc=1 ===
 2026-11-12T23:05:55Z jeda 300s sebelum cubaan berikut
+{"masa": "2026-11-13T06:07:18+07:00", "getMe_http": 200, "getMe_saat": 0.423, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
