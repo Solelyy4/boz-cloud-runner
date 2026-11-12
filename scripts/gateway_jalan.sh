@@ -168,8 +168,12 @@ bunuh_gateway() {
 # Itu menamatkan sesi hantu di pelayan Telegram serta-merta, jadi gateway
 # memperoleh long-poll secara eksklusif sejak saat pertama.
 bersih_sesi_telegram() {
+  # Telegram menyimpan sesi long-poll ~5 minit. 5 cubaan x 10s (versi lama) TIDAK
+  # cukup bila dua run bertindih — gateway kedua kalah dan kekal bisu walaupun
+  # getMe pulang 200. Diperkuat: 20 cubaan x 15s = 5 minit, cukup untuk sesi
+  # hantu mati sendiri di pelayan Telegram.
   local i
-  for i in 1 2 3 4 5; do
+  for i in $(seq 1 20); do
     local hasil
     hasil=$(curl -4 -s -m 15 -X POST \
       "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates" \
@@ -180,11 +184,18 @@ bersih_sesi_telegram() {
         log "sesi Telegram lama dibersihkan (cubaan $i) — long-poll kini bebas"
         return 0 ;;
       *409*)
-        log "sesi hantu masih dipegang (cubaan $i/5), tunggu 10s"
-        sleep 10 ;;
+        if [ "$i" = "20" ]; then
+          log "AMARAN: sesi hantu kekal selepas 5 minit — ada bot LAIN memakai token ini?"
+        else
+          log "sesi hantu masih dipegang (cubaan $i/20), tunggu 15s"
+        fi
+        sleep 15 ;;
+      *'Too Many Requests'*|*429*)
+        log "rate-limit Telegram semasa bersih sesi (cubaan $i/20), tunggu 20s"
+        sleep 20 ;;
       *)
-        log "bersih sesi: jawapan tidak dijangka (cubaan $i), teruskan"
-        return 0 ;;
+        log "bersih sesi: jawapan tidak dijangka (cubaan $i) — cuba lagi"
+        sleep 10 ;;
     esac
   done
   log "AMARAN: sesi hantu tidak dapat dibersihkan — gateway mungkin kena konflik semula"
