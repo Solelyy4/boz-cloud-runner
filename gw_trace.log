@@ -1,4 +1,4 @@
-=== TRACE 2026-11-13T16:10:39Z run 43458869579 ===
+=== TRACE 2026-11-13T16:12:10Z run 43458869579 ===
 2026-11-13T16:06:05Z === gateway_jalan mula: run=43458869579 masa_jalan=720m ===
 2026-11-13T16:06:05Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c376d9bc65dd4013ac9cd38608baaa50/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c376d9bc65dd4013ac9cd38608baaa50/workspace/plugins/platforms/telegram/adapter.py
@@ -57,3 +57,18 @@ jejak-pemanjat: salinan workspace ditampal
 2026-11-13 16:09:17,370 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-13T23:10:09+07:00", "getMe_http": 200, "getMe_saat": 1.411, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-13 16:10:13,464 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 16:11:08,931 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
+2026-11-13 16:11:19,553 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 16:11:20,687 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
+2026-11-13 16:11:20,690 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
+2026-11-13T16:11:27Z ralat fatal adapter dikesan -> mula semula
+2026-11-13 16:11:27,206 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3390 parent_name=bash loadavg_1m=0.06
+2026-11-13T16:11:32Z === cubaan 1 tamat: rc=1 ===
+2026-11-13T16:11:32Z jeda 20s sebelum cubaan berikut
+2026-11-13T16:11:52Z --- cubaan 2: mula gateway ---
+2026-11-13T16:11:52Z cubaan semula -> bunuh gateway yatim dahulu, kemudian bersihkan sesi
+2026-11-13T16:11:52Z cubaan semula -> bersihkan sesi Telegram dahulu
+2026-11-13T16:11:52Z webhook diperiksa/dipadam (long-poll tidak dirampas)
+2026-11-13T16:11:53Z sesi Telegram lama dibersihkan (cubaan 1) — long-poll kini bebas
+2026-11-13T16:11:53Z jeda 35s supaya sesi probe luput sebelum gateway menyambung
+{"masa": "2026-11-13T23:12:10+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
