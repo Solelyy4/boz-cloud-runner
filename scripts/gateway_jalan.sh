@@ -168,79 +168,37 @@ bunuh_gateway() {
 # Itu menamatkan sesi hantu di pelayan Telegram serta-merta, jadi gateway
 # memperoleh long-poll secara eksklusif sejak saat pertama.
 bersih_sesi_telegram() {
-  # Telegram menyimpan sesi long-poll ~5 minit. 5 cubaan x 10s (versi lama) TIDAK
-  # cukup bila dua run bertindih — gateway kedua kalah dan kekal bisu walaupun
-  # getMe pulang 200. Diperkuat: 20 cubaan x 15s = 5 minit, cukup untuk sesi
-  # hantu mati sendiri di pelayan Telegram.
+  # PELAJARAN MAHAL (13 Nov 2026) — fungsi ini SEKARANG TIDAK DIPANGGIL semasa
+  # permulaan biasa. Sebabnya, dengan bukti:
   #
-  # TAMBAHAN (13 Nov 2026): webhook yang tertinggal juga merampas long-poll.
-  # Kita padamkannya dulu (deleteWebhook drop_pending_updates=false supaya mesej
-  # BOZ yang belum dibaca TIDAK hilang), baru bersihkan sesi getUpdates.
+  #   probe-serentak semasa bot HIDUP: bebas=16, konflik=0 (4 minit).
+  #   probe-longpoll semasa bot MATI : bebas=6,  konflik=0.
+  #   -> TIADA pesaing, tiada sesi hantu. Bot satu-satunya pemegang token.
   #
-  # PENTING — jangan longgok probe selepas pembersihan:
-  # Panggilan `getUpdates` KITA SENDIRI mencipta sesi di pelayan Telegram yang
-  # mengambil ~30-60s untuk luput. Bukti 13 Nov 2026 15:59: pembersihan pulang
-  # "long-poll kini bebas" pada 15:59:11, gateway mula 15:59:11, dan konflik
-  # pertama datang 15:59:54 — 43 saat kemudian. Diperkuat dengan jeda nyah-andaian
-  # selepas kejayaan supaya sesi yang KITA cipta sendiri tidak dianggap sebagai
-  # "sesi hantu" oleh gateway.
-  local i
+  #   Tetapi gw_trace.log SENTIASA menunjukkan 'polling conflict (1/5..5/5)'.
+  #   Punca: setiap `getUpdates` yang KITA panggil dalam fungsi ini mencipta sesi
+  #   baharu yang bertahan ~30-60s. Gateway menyambung selepas itu, lalu di-409
+  #   oleh sesi yang kita sendiri baru cipta. Kita menyebabkan konflik yang kita
+  #   cuba baiki.
+  #
+  # Jadi: cukup deleteWebhook (membuang webhook yang merampas long-poll) + jeda.
+  # Hanya panggil getUpdates bila benar-benar perlu (lihat panggilan di bawah).
   local hasil_wh
-  # PENTING — drop_pending_updates=true, BUKAN false.
-  #
-  # Ini penemuan muktamad 13 Nov 2026. Dokumentasi dalam kod Hermes sendiri
-  # (adapter.py, ulasan #75017) menyatakan sebabnya:
-  #   "drop_pending_updates=True makes Telegram terminate any other getUpdates
-  #    session for this token (zombie or our own prior retry); without it each
-  #    retry is immediately 409'd."
-  # Dengan `false`, sesi hantu KEKAL di pelayan Telegram dan gateway baharu
-  # sentiasa di-409 — itulah yang berlaku berulang dalam gw_trace.log.
-  #
-  # Kos: mesej BOZ yang BELUM dibaca semasa peralihan hilang. Itu lebih baik
-  # daripada bot yang kelihatan hidup tetapi bisu sepenuh hari. Pergantian run
-  # kini dua kali sehari sahaja, jadi risiko ini kecil.
+  # drop_pending_updates=true: menurut kod Hermes sendiri (#75017), inilah yang
+  # menamatkan sesi getUpdates lain bagi token ini. Tanpa ia, setiap cubaan
+  # di-409 serta-merta.
   hasil_wh=$(curl -4 -s -m 15 -X POST \
     "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/deleteWebhook" \
     -H "Content-Type: application/json" \
     -d '{"drop_pending_updates":true}' 2>/dev/null)
   case "$hasil_wh" in
-    *'"ok":true'*) log "webhook dipadam + sesi getUpdates lama DITAMATKAN (drop_pending_updates=true)" ;;
+    *'"ok":true'*) log "webhook dipadam + sesi lama ditamatkan (drop_pending_updates=true)" ;;
     *) log "AMARAN: deleteWebhook tidak pulang ok — teruskan (mungkin memang tiada webhook)" ;;
   esac
-
-  for i in $(seq 1 20); do
-    local hasil
-    # timeout=-1 + limit=1: Telegram sendiri menamatkan sesi getUpdates lain bagi
-    # token ini (menurut dokumentasi Bot API, timeout negatif membatalkan long-poll
-    # yang sedang berjalan). Ini jauh lebih berkesan daripada menunggu 5 minit.
-    hasil=$(curl -4 -s -m 15 -X POST \
-      "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates" \
-      -H "Content-Type: application/json" \
-      -d '{"offset":-1,"timeout":-1,"limit":1}' 2>/dev/null)
-    case "$hasil" in
-      *'ok":true'*)
-        log "sesi Telegram lama dibersihkan (cubaan $i) — long-poll kini bebas"
-        # Jeda nyah-andaian: sesi yang BARU KITA cipta perlu luput sebelum gateway
-        # menyambung, jika tidak gateway menuduhnya "sesi hantu" dan kena 409.
-        log "jeda 35s supaya sesi probe luput sebelum gateway menyambung"
-        sleep 35
-        return 0 ;;
-      *409*|*'Conflict'*)
-        if [ "$i" = "20" ]; then
-          log "AMARAN: sesi hantu kekal selepas 5 minit — ada bot LAIN memakai token ini?"
-        else
-          log "sesi hantu masih dipegang (cubaan $i/20), tunggu 15s"
-        fi
-        sleep 15 ;;
-      *'Too Many Requests'*|*429*)
-        log "rate-limit Telegram semasa bersih sesi (cubaan $i/20), tunggu 20s"
-        sleep 20 ;;
-      *)
-        log "bersih sesi: jawapan tidak dijangka (cubaan $i) — cuba lagi"
-        sleep 10 ;;
-    esac
-  done
-  log "AMARAN: sesi hantu tidak dapat dibersihkan — gateway mungkin kena konflik semula"
+  # Jeda supaya sesi yang baru ditamatkan benar-benar luput sebelum gateway mula.
+  # JANGAN probe getUpdates di sini — itu mencipta sesi baharu (lihat nota di atas).
+  log "jeda 40s supaya sesi lama luput sebelum gateway menyambung"
+  sleep 40
   return 0
 }
 
@@ -297,11 +255,22 @@ while true; do
   # bisu walaupun "Connected to Telegram (polling mode)" tercetak.
   # Bukti sebenar 13 Nov 2026 15:47-15:48: cubaan 2 mula gateway, sambung OK,
   # kemudian serta-merta 'polling conflict (1/5)'.
+  # WAJIB. Sebelum ini pembersihan hanya dijalankan SEKALI di atas fail. Bila
+  # gateway mati dan cubaan ini memulakannya semula, sesi long-poll lama masih
+  # dipegang di pelayan Telegram -> getUpdates di-409 -> adapter PARKED -> bot
+  # bisu walaupun "Connected to Telegram (polling mode)" tercetak.
+  #
+  # PEMBETULAN PENTING (13 Nov 2026, bukti probe-serentak):
+  #   Probe SERENTAK semasa bot hidup: bebas=16, konflik=0 selama 4 minit.
+  #   Bermakna TIADA pesaing langsung. Konflik dalam log datang daripada
+  #   PEMBERSIHAN KITA SENDIRI: setiap panggilan getUpdates mencipta sesi baharu
+  #   yang bertahan ~30-60s, lalu gateway menyambung dan di-409 oleh sesi itu.
+  #
+  # Jadi: JANGAN bersih sesi pada setiap cubaan semula. Dalam satu runner yang
+  # sama, gateway baharu menggantikan yang lama dengan cepat; Probe getUpdates
+  # hanya merosakkan keadaan. Cukup: bunuh yatim, jeda, mula.
   if [ "$cubaan" -gt 1 ]; then
-    log "cubaan semula -> bunuh gateway yatim dahulu, kemudian bersihkan sesi"
-    # Gateway lama mungkin masih hidup walaupun PID kita sudah mati (proses anak).
-    # Pola carian dibataskan pada baris arahan gateway Hermes SAHAJA, dan skrip ini
-    # dikecualikan (ia tidak mengandungi 'hermes gateway run' dalam argv-nya).
+    log "cubaan semula -> bunuh gateway yatim, jeda, kemudian mula (TANPA probe getUpdates)"
     for p in $(ps -eo pid,args 2>/dev/null \
         | grep -F "sys.argv=['hermes','gateway','run']" \
         | grep -v grep | awk '{print $1}'); do
@@ -312,8 +281,10 @@ while true; do
         kill -9 "$p" 2>/dev/null || true
       fi
     done
-    log "cubaan semula -> bersihkan sesi Telegram dahulu"
-    bersih_sesi_telegram
+    # Jeda ini menggantikan probe: cukup untuk Telegram melepaskan sesi gateway
+    # yang baru dibunuh. Tiada getUpdates -> tiada sesi baharu -> tiada 409 palsu.
+    log "jeda 45s untuk Telegram melepaskan sesi gateway lama"
+    sleep 45
   fi
 
   # LONG-POLL TUNGGAL. Tiada proses lain menyentuh getUpdates.
