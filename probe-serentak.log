@@ -1,0 +1,29 @@
+=== PROBE SERENTAK 2026-11-13T16:34:08Z run 43463997809 ===
+tempoh: 240s
+
+--- A. adakah bot lain dalam GitHub Actions memakai token ini? ---
+  boz-cloud-runner: tiada run aktif
+  boz-hermes-home: tiada run aktif
+  boz-bridge: tiada run aktif
+  boz-lab-node: tiada run aktif
+
+--- B. getUpdates setiap 15s selama 240s ---
+    ok=true  -> bebas | 409 -> ADA pesaing
+  [1] 16:34:11 bebas
+  [2] 16:34:26 bebas
+  [3] 16:34:42 bebas
+  [4] 16:34:57 bebas
+  [5] 16:35:13 bebas
+  [6] 16:35:29 bebas
+  [7] 16:35:45 bebas
+  [8] 16:36:00 bebas
+  [9] 16:36:16 bebas
+  [10] 16:36:31 bebas
+  [11] 16:36:47 bebas
+  [12] 16:37:02 bebas
+  [13] 16:37:18 bebas
+  [14] 16:37:33 bebas
+  [15] 16:37:48 bebas
+  [16] 16:38:04 bebas
+
+RINGKASAN: bebas=16 konflik=0
