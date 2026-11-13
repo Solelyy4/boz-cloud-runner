@@ -1,6 +1,4 @@
-=== TRACE 2026-11-13T10:00:36Z run 43401574237 ===
-RESULT: teraju sihat
-2026-11-13T09:30:21Z sesi Telegram lama dibersihkan (cubaan 2) — long-poll kini bebas
+=== TRACE 2026-11-13T10:02:07Z run 43401574237 ===
 2026-11-13T09:30:21Z --- cubaan 1: mula gateway ---
 2026-11-13T09:30:21Z gateway pid=3441
 ┌─────────────────────────────────────────────────────────┐
@@ -249,3 +247,5 @@ RESULT: teraju sihat
   [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
 RESULT: teraju sihat
 {"masa": "2026-11-13T17:00:28+07:00", "getMe_http": 200, "getMe_saat": 0.323, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 10:00:56,792 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 10:01:42,680 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
