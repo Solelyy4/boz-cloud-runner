@@ -1,5 +1,4 @@
-=== TRACE 2026-11-13T00:02:48Z run 43303841590 ===
-{"masa": "2026-11-13T05:35:02+07:00", "getMe_http": 200, "getMe_saat": 0.485, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-13T00:04:20Z run 43303841590 ===
 2026-11-12 22:35:23,550 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-12 22:36:18,900 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
 2026-11-12 22:36:29,878 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
@@ -249,3 +248,4 @@ RESULT: teraju sihat
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [HIDUP] mistral      ministral-14b-latest       ok (teks)
 RESULT: teraju sihat
+{"masa": "2026-11-13T07:03:45+07:00", "getMe_http": 200, "getMe_saat": 0.48, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
