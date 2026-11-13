@@ -1,6 +1,4 @@
-=== TRACE 2026-11-13T17:33:48Z run 43470508562 ===
-    self.result["response"] = _with_stream_emitters(
-                              ~~~~~~~~~~~~~~~~~~~~~^
+=== TRACE 2026-11-13T17:35:19Z run 43470508562 ===
         self.agent, lambda: self._call_wire(stream_attempt_id))
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 2480, in _with_stream_emitters
@@ -249,3 +247,5 @@ NADI OK: 1794591093 (masa epoch ditulis dan disahkan)
 NADI OK: 1794591138 (masa epoch ditulis dan disahkan)
 NADI OK: 1794591190 (masa epoch ditulis dan disahkan)
 {"masa": "2026-11-14T00:33:36+07:00", "getMe_http": 200, "getMe_saat": 0.363, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1794591236 (masa epoch ditulis dan disahkan)
+NADI OK: 1794591282 (masa epoch ditulis dan disahkan)
