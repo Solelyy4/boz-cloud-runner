@@ -28,6 +28,7 @@ Idempotent: jalan dua kali, tampalan kedua diabaikan.
 import glob
 import io
 import os
+import re
 import sys
 
 CALON = []
@@ -117,15 +118,18 @@ KAEDAH_BAHARU = '''    async def _rebuild_app_for_retry(self, app_lama):
 
 PANGGILAN_LAMA = '''            self._polling_conflict_recovery_generation = expected_generation
             try:
-                await self._start_polling_once(app, drop_pending_updates=True, error_callback=self._polling_error_callback_ref)'''
+                await self._start_polling_once(app, drop_pending_updates=False, error_callback=self._polling_error_callback_ref)'''
 
 PANGGILAN_BAHARU = '''            self._polling_conflict_recovery_generation = expected_generation
             try:
                 # TAMPALAN BOZ: bina semula app supaya koneksi getUpdates benar-benar baharu.
+                # BUKTI 13 Nov 2026: tanpa ini, setiap cubaan semula guna app SAMA -> sisa
+                # sesi lama di pelayan Telegram -> 409 berulang -> cubaan 5/5 habis ->
+                # adapter PARKED -> bot BISU (walaupun nadi sihat dan mesej sampai).
                 app_baru = await self._rebuild_app_for_retry(app)
                 if app_baru is not None:
                     app = app_baru
-                await self._start_polling_once(app, drop_pending_updates=True, error_callback=self._polling_error_callback_ref)'''
+                await self._start_polling_once(app, drop_pending_updates=False, error_callback=self._polling_error_callback_ref)'''
 
 JANGKAR_KAEDAH = '''    async def _handle_polling_conflict(self, error: Exception) -> None:'''
 
@@ -139,8 +143,34 @@ def tampal(laluan):
         print("TAMPALAN GAGAL: jangkar _handle_polling_conflict tidak dijumpai")
         return False
     if PANGGILAN_LAMA not in asal:
-        print("TAMPALAN GAGAL: corak panggilan _start_polling_once tidak sepadan")
-        return False
+        # KORANG TIDAK PADAN: versi Hermes berubah dan tampalan ini gagal SENYAP.
+        # BUKTI 13 Nov 2026 — inilah yang memastikan bot kekal bisu:
+        #     TAMPALAN GAGAL: corak panggilan _start_polling_once tidak sepadan
+        #     AMARAN: tampal_409 gagal (bukan ralat maut)
+        #     -> setiap cubaan semula guna app SAMA -> 409 berulang -> PARKED.
+        #
+        # Jadi jangan bergantung pada satu corak literal. Cari panggilan itu
+        # dalam blok _handle_polling_conflict dengan regex yang tahan perubahan
+        # kecil (jarak, nama, drop_pending_updates true/false).
+        m = re.search(
+            r"(\s*self\._polling_conflict_recovery_generation = expected_generation\s*\n"
+            r"\s*try:\s*\n)"
+            r"(\s*await self\._start_polling_once\(\s*app,\s*"
+            r"drop_pending_updates\s*=\s*(?:True|False)\s*,\s*"
+            r"error_callback\s*=\s*self\._polling_error_callback_ref\s*\))",
+            asal)
+        if not m:
+            print("TAMPALAN GAGAL: corak panggilan _start_polling_once tidak sepadan")
+            return False
+        sisipan = (
+            "\n                # TAMPALAN BOZ: bina semula app supaya koneksi getUpdates baharu.\n"
+            "                app_baru = await self._rebuild_app_for_retry(app)\n"
+            "                if app_baru is not None:\n"
+            "                    app = app_baru")
+        baharu = asal[:m.end(1)] + sisipan + asal[m.start(2):]
+        io.open(laluan, "w", encoding="utf-8", newline="\n").write(baharu)
+        print("TAMPALAN: dipasang melalui corak fleksibel (regex)")
+        return True
 
     baharu = asal.replace(JANGKAR_KAEDAH, KAEDAH_BAHARU + JANGKAR_KAEDAH, 1)
     baharu = baharu.replace(PANGGILAN_LAMA, PANGGILAN_BAHARU, 1)
