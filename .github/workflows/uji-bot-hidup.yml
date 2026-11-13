@@ -37,7 +37,11 @@ jobs:
       - name: Hantar mesej + tangkap keadaan
         env:
           TOK: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          CHAT: ${{ secrets.BOZ_CHAT_ID }}
+          # Chat ID BOZ: TIADA sebagai secret (disemak: gh secret list tidak
+          # menyenaraikannya), jadi hardcode seperti yang dipakai telegram.yml
+          # baris 324. Kalau tidak, JSON jadi chat_id:,text:"" dan Telegram
+          # membalas "Bad Request: message text is empty" - ujian palsu-gagal.
+          CHAT: "8043910371"
           MESEJ: ${{ inputs.mesej }}
         run: |
           set +e
@@ -61,11 +65,12 @@ jobs:
           esac
 
           echo "--- 3. hantar mesej ujian ---" | tee -a "$OUT"
-          echo "mesej: $MESEJ" | tee -a "$OUT"
+          echo "mesej: ${MESEJ}" | tee -a "$OUT"
+          echo "chat: ${CHAT}" | tee -a "$OUT"
           R=$(curl -sS -m 25 -X POST "https://api.telegram.org/bot${TOK}/sendMessage" \
               -H "Content-Type: application/json" \
               -d "{\"chat_id\":${CHAT},\"text\":\"${MESEJ}\"}" 2>&1)
-          echo "$R" | head -c 400 | tee -a "$OUT"; echo | tee -a "$OUT"
+          echo "$R" | head -c 500 | tee -a "$OUT"; echo | tee -a "$OUT"
           MSGID=$(echo "$R" | grep -o '"message_id":[0-9]*' | head -1 | cut -d: -f2)
           echo "message_id: ${MSGID:-TIADA}" | tee -a "$OUT"
 
