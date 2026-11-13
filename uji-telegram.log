@@ -1,0 +1,14 @@
+=== UJI TELEGRAM TERUS 2026-11-13T19:41:41Z run 43494585516 ===
+BOT   : @hermes_personal_sole_bot (id 8952729999)
+webhook: dipadam, baris gilir dikosongkan
+HANTAR: ok=True message_id=1137
+MENDENGAR 120s — balas dalam Telegram sekarang...
+  dengar HTTP 409: {"ok":false,"error_code":409,"description":"Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"}
+  dengar HTTP 409: {"ok":false,"error_code":409,"description":"Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"}
+  dengar HTTP 409: {"ok":false,"error_code":409,"description":"Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"}
+  dengar HTTP 409: {"ok":false,"error_code":409,"description":"Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"}
+  TERIMA update_id=825346264 chat=8043910371 teks='Yooo'
+  dengar HTTP 409: {"ok":false,"error_code":409,"description":"Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"}
+
+RINGKASAN: 1 diterima -> ['Yooo']
+VERDICT: Telegram SEHAT dua hala. Masalah = kod Hermes/gerbang.
