@@ -217,15 +217,30 @@ bersih_sesi_telegram() {
   # Jadi: cukup deleteWebhook (membuang webhook yang merampas long-poll) + jeda.
   # Hanya panggil getUpdates bila benar-benar perlu (lihat panggilan di bawah).
   local hasil_wh
-  # drop_pending_updates=true: menurut kod Hermes sendiri (#75017), inilah yang
-  # menamatkan sesi getUpdates lain bagi token ini. Tanpa ia, setiap cubaan
-  # di-409 serta-merta.
+  # drop_pending_updates=FALSE — JANGAN BUANG MESEJ BOZ.
+  #
+  # BUKTI 13 Nov 2026 (bot BISU selama berjam-jam walaupun semua penunjuk hijau):
+  #   dulu: {"drop_pending_updates":true}
+  #   kesan: setiap boot gateway MEMBUANG SEMUA update yang menunggu, iaitu mesej
+  #          BOZ yang belum diproses. Kerana bot boot berulang (successor.yml
+  #          menghidupkan semula nod setiap ~5 minit), setiap mesej dibuang
+  #          sebelum sempat diproses.
+  #
+  #   Yang kita lihat dan salah tafsir:
+  #     pending_update_count sentiasa 0   -> nampak "sihat"
+  #     'Connected to Telegram (polling)' -> nampak "bersambung"
+  #     getMe 200                          -> nampak "hidup"
+  #     tetapi TIADA mesej sampai ke handler, selama-lamanya.
+  #
+  # Webhook masih dipadam (itu yang membebaskan long-poll); yang berubah hanya
+  # sama ada mesej menunggu dibuang. FALSE = mesej BOZ terselamat dan diproses
+  # apabila gateway mula polling.
   hasil_wh=$(curl -4 -s -m 15 -X POST \
     "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/deleteWebhook" \
     -H "Content-Type: application/json" \
-    -d '{"drop_pending_updates":true}' 2>/dev/null)
+    -d '{"drop_pending_updates":false}' 2>/dev/null)
   case "$hasil_wh" in
-    *'"ok":true'*) log "webhook dipadam + sesi lama ditamatkan (drop_pending_updates=true)" ;;
+    *'"ok":true'*) log "webhook dipadam (mesej menunggu DIPELIHARA, drop_pending_updates=false)" ;;
     *) log "AMARAN: deleteWebhook tidak pulang ok — teruskan (mungkin memang tiada webhook)" ;;
   esac
   # Jeda supaya sesi yang baru ditamatkan benar-benar luput sebelum gateway mula.
