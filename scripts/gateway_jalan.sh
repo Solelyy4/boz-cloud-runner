@@ -92,6 +92,32 @@ if [ -f scripts/jangan_buang.py ]; then
     echo "AMARAN: jangan_buang gagal (bukan ralat maut)" | tee -a "$GW_LOG"
 fi
 
+# ---------- TAMPAL KONFLIK 409: bina semula app pada cubaan semula ----------
+#
+# BUKTI 13 Nov 2026 (corak yang berulang SETIAP kali diuji):
+#     [1] 409 CONFLICT  [2] ok=true  [3] 409  [4] ok  [5] 409  [6] ok ...
+#     RINGKASAN: 409=4  ok=4   (8 cubaan, corak SAMA TEPAT setiap run)
+#
+# Corak berselang-seli yang tetap ini bukan dua proses berbeza (nod sudah mati,
+# tiada getUpdates dari luar). Ia SATU proses yang memulakan semula poll pada
+# APPLICATION YANG SAMA: PTB menyimpan koneksi getUpdates di dalam Application,
+# jadi sisa sesi lama di pelayan Telegram masih dikaitkan dengan kita -> 409.
+#
+# Langkah 'TAMPAL KONFLIK 409' dalam telegram.yml menjalankan skrip ini dengan
+# HERMES_HOME="$PWD/home" — tetapi workspace sebenar berada di bawah
+# home/installs/<hash>/environments/<hash>/workspace. Skrip tidak menemui
+# adapter lalu TIDAK menampal apa-apa, dan kegagalannya ditelan `|| echo`.
+# Bukti: gw_trace.log mempunyai 'JEJAK ditampal' dan 'peronda dipasang', tetapi
+# TIADA satu baris pun daripada tampal_409.
+#
+# Di sini HERMES_HOME ialah home sebenar (jejak/jangan_buang berjaya di atas),
+# jadi tampalan akhirnya sampai ke adapter yang BETUL. Dipasang SEBELUM gateway
+# dimulakan, supaya cubaan semula pertama sudah memakai app baharu.
+if [ -f scripts/tampal_409.py ]; then
+  HERMES_HOME="$HERMES_HOME" "$GWPY" scripts/tampal_409.py 2>&1 | tee -a "$GW_LOG" || \
+    echo "AMARAN: tampal_409 gagal (bukan ralat maut)" | tee -a "$GW_LOG"
+fi
+
 # ---------- NADI: jangan biar nod pengganti merampas token Telegram ----------
 #
 # PUNCA KONFLIK 409 YANG SEBENAR (dibuktikan 13 Nov 2026):
