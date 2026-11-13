@@ -92,6 +92,29 @@ if [ -f scripts/jangan_buang.py ]; then
     echo "AMARAN: jangan_buang gagal (bukan ralat maut)" | tee -a "$GW_LOG"
 fi
 
+# ---------- NADI: jangan biar nod pengganti merampas token Telegram ----------
+#
+# PUNCA KONFLIK 409 YANG SEBENAR (dibuktikan 13 Nov 2026):
+#   Repo Solelyy4/boz-lab-node menjalankan telekey/standby.sh — PENUNGGU yang
+#   memerhati nadi di gist. Logiknya:
+#       nadi muda (<180s)  -> nod senyap, PC yang poll Telegram
+#       nadi basi (>180s)  -> nod AMBIL ALIH poll Telegram (telekey.py, token SAMA)
+#   Nadi pada 16:56 UTC berumur 120,481 saat = 33.5 JAM, jadi nod percaya PC
+#   sudah mati dan merampas token. Bot awan poll token yang sama -> 409.
+#   ensure_cloud.sh (cron 15 minit) melihat gateway mati -> mula semula -> 409
+#   lagi -> gelung abadi. Bot bisu sepenuhnya.
+#
+#   Tiada sesiapa menulis nadi itu sebelum ini — hanya pembaca yang wujud.
+#   Kita jadi penulisnya: selagi gateway ini hidup, nadi dikemas kini, jadi nod
+#   kekal senyap seperti yang direka.
+(
+  # Jalan setiap 45s (had nod 180s: 4x margin). Gagal tidak maut — sekurang-
+  # kurangnya bot sendiri masih hidup walaupun nod merampas.
+  "$GWPY" scripts/tulis_nadi.py --loop 45 >> "$GW_LOG" 2>&1
+) &
+NADI_PID=$!
+log "penulis nadi dipasang (pid=$NADI_PID, setiap 45s)"
+
 # ---------- peronda latar: keadaan rangkaian sebenar, tanpa getUpdates ----------
 (
   # Guna GWPY (venv Hermes), BUKAN python3 sistem. Di runner Ubuntu, python3 sistem
