@@ -1,12 +1,9 @@
-=== RUN 43401574237 2026-11-13T15:07:56Z ===
+=== RUN 43456820377 2026-11-13T15:59:59Z ===
 --- peronda (bukti rangkaian runner) ---
-denyut: 168 | sihat: 163 | gagal: 5
-kadar sihat: 97%
-  GAGAL: 2026-11-13T17:20:38+07:00 HTTP 0 
-  GAGAL: 2026-11-13T19:11:23+07:00 HTTP 0 
-  GAGAL: 2026-11-13T19:15:28+07:00 HTTP 0 
-  GAGAL: 2026-11-13T21:00:28+07:00 HTTP 0 
-  GAGAL: 2026-11-13T21:18:43+07:00 HTTP 0 
+denyut: 3 | sihat: 3 | gagal: 0
+kadar sihat: 100%
 
+--- gerbang balasan (bukti pasang) ---
+{"penapis_dimuat": true, "chat": "8043910371", "sapaan_dipotong": "Yo BOZ. Aku di sini — nak buat apa?", "tugasan_dikekalkan": "SIAP: 31 rekod -> bing=6\nhttps://news.google.com/rss/x", "stat": {"diperiksa": 2, "dipotong": 1, "diluluskan": 1, "ralat": 0}}
 --- gw.log (60 baris terakhir) ---
 tiada log gateway
