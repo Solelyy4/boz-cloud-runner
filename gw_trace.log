@@ -1,4 +1,4 @@
-=== TRACE 2026-11-13T18:31:08Z run 43477957169 ===
+=== TRACE 2026-11-13T18:32:40Z run 43477957169 ===
 2026-11-13T18:00:37Z === gateway_jalan mula: run=43477957169 masa_jalan=720m ===
 2026-11-13T18:00:37Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a6bf1ce61d7840448f8c485e11029a32/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a6bf1ce61d7840448f8c485e11029a32/workspace/plugins/platforms/telegram/adapter.py
@@ -140,3 +140,8 @@ NADI OK: 1794594617 (git push, tanpa REST API)
 RESULT: teraju sihat
 {"masa": "2026-11-14T01:31:00+07:00", "getMe_http": 200, "getMe_saat": 0.476, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 NADI OK: 1794594663 (git push, tanpa REST API)
+2026-11-13 18:31:08,756 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13T18:31:39Z denyut tick=30 pid=3631
+NADI OK: 1794594710 (git push, tanpa REST API)
+2026-11-13 18:32:04,922 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
+NADI OK: 1794594756 (git push, tanpa REST API)
