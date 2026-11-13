@@ -1,7 +1,4 @@
-=== TRACE 2026-11-13T14:36:12Z run 43401574237 ===
-2026-11-13T13:44:25Z === cubaan 30 tamat: rc=1 ===
-2026-11-13T13:44:25Z jeda 300s sebelum cubaan berikut
-{"masa": "2026-11-13T20:46:22+07:00", "getMe_http": 200, "getMe_saat": 0.338, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-13T14:37:43Z run 43401574237 ===
 {"masa": "2026-11-13T20:48:22+07:00", "getMe_http": 200, "getMe_saat": 0.343, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-13T13:49:25Z --- cubaan 31: mula gateway ---
 2026-11-13T13:49:25Z gateway pid=18962
@@ -249,3 +246,6 @@ RESULT: teraju sihat
 2026-11-13T14:35:05Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
 2026-11-13 14:35:08,998 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-13 14:35:34,921 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 14:36:13,262 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+{"masa": "2026-11-13T21:36:53+07:00", "getMe_http": 200, "getMe_saat": 0.342, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 14:36:59,363 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
