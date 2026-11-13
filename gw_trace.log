@@ -1,12 +1,4 @@
-=== TRACE 2026-11-13T14:31:38Z run 43401574237 ===
-2026-11-13 13:39:36,474 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 13:39:36,563 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
-2026-11-13 13:39:36,563 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 13:39:36,563 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 13:39:36,565 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 13:39:36,565 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 13:39:41,503 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 13:39:41,504 WARNING gateway.run: ✗ telegram failed to connect
+=== TRACE 2026-11-13T14:33:09Z run 43401574237 ===
 2026-11-13 13:39:43,499 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-13 13:39:43,499 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
 2026-11-13 13:40:13,543 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
@@ -249,3 +241,11 @@ RESULT: teraju sihat
 2026-11-13T14:29:25Z === cubaan 34 tamat: rc=1 ===
 2026-11-13T14:29:25Z jeda 300s sebelum cubaan berikut
 {"masa": "2026-11-13T21:30:49+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-13T14:32:42+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
+RESULT: teraju sihat
+{"masa": "2026-11-13T21:32:51+07:00", "getMe_http": 200, "getMe_saat": 1.505, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
