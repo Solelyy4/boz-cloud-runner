@@ -15,7 +15,16 @@ name: telegram-hermes
 
 on:
   schedule:
-    - cron: "13 * * * *"
+    # DUA kali sehari sahaja, dan masa_jalan (720m = 12j) sepadan dengan jarak cron
+    # supaya run baharu bermula SELEPAS run lama keluar bersih.
+    #
+    # SEJARAH (13 Nov 2026): cron `13 * * * *` (setiap jam) mencetuskan kerja
+    # penjadualan tanpa guna — run baru hanya MENUNGGU concurrency, tetapi setiap
+    # peralihan tetap meninggalkan sesi long-poll di pelayan Telegram ~5 minit.
+    # Gateway baharu menyambung, menang getMe, tetapi getUpdates di-409 oleh sesi
+    # hantu -> adapter PARKED -> bot bisu walaupun kelihatan HIDUP.
+    # Diperhatikan: BOZ hantar 'hi', bot lambat/gagal menjawab.
+    - cron: "13 8,20 * * *"
   workflow_dispatch:
     inputs:
       masa_jalan:

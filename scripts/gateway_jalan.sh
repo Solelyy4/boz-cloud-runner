@@ -172,7 +172,21 @@ bersih_sesi_telegram() {
   # cukup bila dua run bertindih — gateway kedua kalah dan kekal bisu walaupun
   # getMe pulang 200. Diperkuat: 20 cubaan x 15s = 5 minit, cukup untuk sesi
   # hantu mati sendiri di pelayan Telegram.
+  #
+  # TAMBAHAN (13 Nov 2026): webhook yang tertinggal juga merampas long-poll.
+  # Kita padamkannya dulu (deleteWebhook drop_pending_updates=false supaya mesej
+  # BOZ yang belum dibaca TIDAK hilang), baru bersihkan sesi getUpdates.
   local i
+  local hasil_wh
+  hasil_wh=$(curl -4 -s -m 15 -X POST \
+    "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/deleteWebhook" \
+    -H "Content-Type: application/json" \
+    -d '{"drop_pending_updates":false}' 2>/dev/null)
+  case "$hasil_wh" in
+    *'"ok":true'*) log "webhook diperiksa/dipadam (long-poll tidak dirampas)" ;;
+    *) log "AMARAN: deleteWebhook tidak pulang ok — teruskan (mungkin memang tiada webhook)" ;;
+  esac
+
   for i in $(seq 1 20); do
     local hasil
     hasil=$(curl -4 -s -m 15 -X POST \
@@ -180,10 +194,10 @@ bersih_sesi_telegram() {
       -H "Content-Type: application/json" \
       -d '{"offset":-1,"timeout":0,"limit":1}' 2>/dev/null)
     case "$hasil" in
-      *'"ok":true'*)
+      *'ok":true'*)
         log "sesi Telegram lama dibersihkan (cubaan $i) — long-poll kini bebas"
         return 0 ;;
-      *409*)
+      *409*|*'Conflict'*)
         if [ "$i" = "20" ]; then
           log "AMARAN: sesi hantu kekal selepas 5 minit — ada bot LAIN memakai token ini?"
         else
