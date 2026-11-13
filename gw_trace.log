@@ -1,25 +1,4 @@
-=== TRACE 2026-11-13T02:09:20Z run 43303841590 ===
-    ...<6 lines>...
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3f3204f5644f431ab030eda7b3128866/venv/lib/python3.14/site-packages/telegram/_bot.py", line 741, in _do_post
-    result = await request.post(
-             ^^^^^^^^^^^^^^^^^^^
-    ...<6 lines>...
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3f3204f5644f431ab030eda7b3128866/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 198, in post
-    result = await self._request_wrapper(
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<7 lines>...
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3f3204f5644f431ab030eda7b3128866/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
-    raise exception
-telegram.error.NetworkError: Bad Gateway
-2026-11-13 01:13:18,591 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: Bad Gateway
-2026-11-13 01:13:18,591 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 2/10), reconnecting in 10s. Error: Bad Gateway
-2026-11-13 01:13:58,593 WARNING agent.deadline: [deadline] 'telegram' timed out after 30.0s; task abandoned
+=== TRACE 2026-11-13T02:10:51Z run 43303841590 ===
 2026-11-13 01:13:58,593 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: timed out after 30s (telegram)
 2026-11-13 01:13:58,593 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 3/10), reconnecting in 20s. Error: timed out after 30s (telegram)
 2026-11-13 01:14:48,596 WARNING agent.deadline: [deadline] 'telegram' timed out after 30.0s; task abandoned
@@ -249,3 +228,24 @@ RESULT: teraju sihat
 2026-11-13T02:05:17Z jeda 300s sebelum cubaan berikut
 {"masa": "2026-11-13T09:05:18+07:00", "getMe_http": 200, "getMe_saat": 0.425, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T09:07:19+07:00", "getMe_http": 200, "getMe_saat": 0.426, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-13T09:09:20+07:00", "getMe_http": 200, "getMe_saat": 0.481, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13T02:10:17Z --- cubaan 24: mula gateway ---
+2026-11-13T02:10:17Z gateway pid=20310
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-13 02:10:19,235 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-13 02:10:19,338 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-13 02:10:19,507 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-13 02:10:19,507 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 02:10:19,507 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 02:10:19,509 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 02:10:19,509 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 02:10:24,756 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 02:10:24,756 WARNING gateway.run: ✗ telegram failed to connect
+2026-11-13 02:10:25,903 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 02:10:25,904 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
