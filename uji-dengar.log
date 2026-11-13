@@ -1,0 +1,31 @@
+=== UJI DENGAR 2026-11-13T19:28:37Z run 43492540719 ===
+Masa mula: 19:28:37 UTC / 02:28:37 WIB
+
+BOT: id=8952729999 username=@hermes_personal_sole_bot nama='NEXORA AI'
+WEBHOOK: url='' pending=0
+offset: tiada update lama (baris gilir kosong)
+
+>>> MENDENGAR 4 MINIT. Taip apa-apa dalam Telegram SEKARANG. <<<
+
+  [1] *** TERIMA update_id=825346260 jenis=['message'] dari=Solelah14 chat=8043910371 teks='Hello'
+  [2] (tiada update, 25s lalu, baki 217s)
+  [3] (tiada update, 25s lalu, baki 191s)
+  [4] (tiada update, 25s lalu, baki 166s)
+  [5] (tiada update, 25s lalu, baki 140s)
+  [6] (tiada update, 25s lalu, baki 115s)
+  [7] (tiada update, 25s lalu, baki 90s)
+  [8] (tiada update, 25s lalu, baki 64s)
+  [9] *** TERIMA update_id=825346261 jenis=['message'] dari=Solelah14 chat=8043910371 teks='yoooo'
+  [10] *** TERIMA update_id=825346262 jenis=['message'] dari=Solelah14 chat=8043910371 teks='Bsbsj'
+  [11] *** TERIMA update_id=825346263 jenis=['message'] dari=Solelah14 chat=8043910371 teks='Hahaja'
+  [12] (tiada update, 25s lalu, baki 28s)
+  [13] (tiada update, 25s lalu, baki 3s)
+
+=== RINGKASAN ===
+update diterima : 4
+  409 konflik   : 0
+  jawapan lain  : 0
+  mesej         : ['Hello', 'yoooo', 'Bsbsj', 'Hahaja']
+
+VERDICT: Telegram + token SEHAT, mesej SAMPAI.
+  -> Masalah bot awan ada di DALAM proses Hermes.
