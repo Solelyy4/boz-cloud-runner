@@ -1,13 +1,30 @@
-=== TRACE 2026-11-13T02:47:27Z run 43303841590 ===
-2026-11-13 01:55:23,506 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13T01:55:27Z ralat fatal adapter dikesan -> mula semula
-2026-11-13 01:55:27,508 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.07
-2026-11-13T01:55:32Z === cubaan 22 tamat: rc=1 ===
-2026-11-13T01:55:32Z jeda 300s sebelum cubaan berikut
-{"masa": "2026-11-13T08:57:14+07:00", "getMe_http": 200, "getMe_saat": 0.482, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T08:59:15+07:00", "getMe_http": 200, "getMe_saat": 0.429, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13T02:00:32Z --- cubaan 23: mula gateway ---
-2026-11-13T02:00:32Z gateway pid=19734
+=== TRACE 2026-11-13T09:31:40Z run 43401574237 ===
+2026-11-13T09:30:10Z === gateway_jalan mula: run=43401574237 masa_jalan=720m ===
+2026-11-13T09:30:10Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a90e599c46264caea0ee9883dab94d15/venv/bin/python
+JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a90e599c46264caea0ee9883dab94d15/workspace/plugins/platforms/telegram/adapter.py
+=== 2026-11-13T09:30:10Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a90e599c46264caea0ee9883dab94d15/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a90e599c46264caea0ee9883dab94d15/venv/lib/python3.14/site-packages/telegram/__init__.py
+JEJAK-MASUK: 1 fail PTB dijumpai
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a90e599c46264caea0ee9883dab94d15/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  sahkan: penanda=True (bait=85224)
+=== selesai ===
+JANGAN-BUANG: 1 adapter dijumpai
+  selamat: tiada lagi drop_pending_updates=True dalam kod -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a90e599c46264caea0ee9883dab94d15/workspace/plugins/platforms/telegram/adapter.py
+2026-11-13T09:30:10Z peronda rantaian dipasang (pid=3396, semak setiap 10 min)
+2026-11-13T09:30:10Z peronda latar dipasang (pid=3395, denyut 120s)
+2026-11-13T09:30:10Z bersih sesi: jawapan tidak dijangka (cubaan 1) — cuba lagi
+{"masa": "2026-11-13T16:30:11+07:00", "getMe_http": 200, "getMe_saat": 0.493, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-13T09:30:12+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [MATI ] mistral      ministral-14b-latest       tiada choices
+RESULT: teraju sihat
+2026-11-13T09:30:21Z sesi Telegram lama dibersihkan (cubaan 2) — long-poll kini bebas
+2026-11-13T09:30:21Z --- cubaan 1: mula gateway ---
+2026-11-13T09:30:21Z gateway pid=3441
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -15,237 +32,21 @@
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-13 02:00:33,910 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 02:00:34,018 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 02:00:34,170 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
-2026-11-13 02:00:34,170 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 02:00:34,171 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 02:00:34,173 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 02:00:34,173 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 02:00:39,485 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:00:39,485 WARNING gateway.run: ✗ telegram failed to connect
-2026-11-13 02:00:40,657 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:00:40,657 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
-2026-11-13 02:01:10,707 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 02:01:10,737 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 02:01:11,447 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-13T02:01:12Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
-2026-11-13 02:01:16,075 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-{"masa": "2026-11-13T09:01:16+07:00", "getMe_http": 200, "getMe_saat": 0.422, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:01:42,372 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:02:18,618 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-=== JAGA RANTAIAN 2026-11-13T02:02:31+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-2026-11-13 02:03:04,849 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-{"masa": "2026-11-13T09:03:17+07:00", "getMe_http": 200, "getMe_saat": 0.481, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:04:01,075 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:04:56,438 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
-2026-11-13 02:05:07,314 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:05:08,476 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13 02:05:08,479 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13T02:05:12Z ralat fatal adapter dikesan -> mula semula
-2026-11-13 02:05:12,635 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.10
-2026-11-13T02:05:17Z === cubaan 23 tamat: rc=1 ===
-2026-11-13T02:05:17Z jeda 300s sebelum cubaan berikut
-{"masa": "2026-11-13T09:05:18+07:00", "getMe_http": 200, "getMe_saat": 0.425, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T09:07:19+07:00", "getMe_http": 200, "getMe_saat": 0.426, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T09:09:20+07:00", "getMe_http": 200, "getMe_saat": 0.481, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13T02:10:17Z --- cubaan 24: mula gateway ---
-2026-11-13T02:10:17Z gateway pid=20310
-┌─────────────────────────────────────────────────────────┐
-│           ☤ Hermes Gateway Starting...                 │
-├─────────────────────────────────────────────────────────┤
-│  Messaging platforms + cron scheduler                    │
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
-
-2026-11-13 02:10:19,235 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 02:10:19,338 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 02:10:19,507 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
-2026-11-13 02:10:19,507 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 02:10:19,507 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 02:10:19,509 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 02:10:19,509 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 02:10:24,756 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:10:24,756 WARNING gateway.run: ✗ telegram failed to connect
-2026-11-13 02:10:25,903 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:10:25,904 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
-2026-11-13 02:10:55,954 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 02:10:55,997 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 02:10:56,804 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-13T02:10:57Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
-2026-11-13 02:11:01,448 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-{"masa": "2026-11-13T09:11:21+07:00", "getMe_http": 200, "getMe_saat": 0.483, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:11:27,684 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:12:03,924 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-=== JAGA RANTAIAN 2026-11-13T02:12:38+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (teks)
-RESULT: teraju sihat
-2026-11-13 02:12:50,100 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-{"masa": "2026-11-13T09:13:22+07:00", "getMe_http": 200, "getMe_saat": 0.482, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:13:46,373 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:14:41,733 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
-2026-11-13 02:14:52,612 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:14:53,761 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13 02:14:53,764 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13T02:14:57Z ralat fatal adapter dikesan -> mula semula
-2026-11-13 02:14:57,765 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.10
-2026-11-13T02:15:02Z === cubaan 24 tamat: rc=1 ===
-2026-11-13T02:15:02Z jeda 300s sebelum cubaan berikut
-{"masa": "2026-11-13T09:15:23+07:00", "getMe_http": 200, "getMe_saat": 0.426, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T09:17:23+07:00", "getMe_http": 200, "getMe_saat": 0.487, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T09:19:25+07:00", "getMe_http": 200, "getMe_saat": 0.525, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13T02:20:02Z --- cubaan 25: mula gateway ---
-2026-11-13T02:20:02Z gateway pid=20843
-┌─────────────────────────────────────────────────────────┐
-│           ☤ Hermes Gateway Starting...                 │
-├─────────────────────────────────────────────────────────┤
-│  Messaging platforms + cron scheduler                    │
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
-
-2026-11-13 02:20:04,237 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 02:20:04,355 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 02:20:04,519 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
-2026-11-13 02:20:04,519 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 02:20:04,520 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 02:20:04,522 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 02:20:04,522 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 02:20:09,711 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:20:09,711 WARNING gateway.run: ✗ telegram failed to connect
-2026-11-13 02:20:10,879 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:20:10,879 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
-2026-11-13 02:20:40,936 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 02:20:40,966 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 02:20:41,677 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-13T02:20:42Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
-2026-11-13 02:20:46,311 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:21:12,497 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-{"masa": "2026-11-13T09:21:25+07:00", "getMe_http": 200, "getMe_saat": 0.425, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:21:48,873 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:22:35,165 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-=== JAGA RANTAIAN 2026-11-13T02:22:41+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-13T09:23:26+07:00", "getMe_http": 200, "getMe_saat": 0.487, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:23:31,333 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:24:26,767 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
-2026-11-13 02:24:37,540 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:24:38,707 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13 02:24:38,710 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13T02:24:42Z ralat fatal adapter dikesan -> mula semula
-2026-11-13 02:24:42,897 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.08
-2026-11-13T02:24:47Z === cubaan 25 tamat: rc=1 ===
-2026-11-13T02:24:47Z jeda 300s sebelum cubaan berikut
-{"masa": "2026-11-13T09:25:27+07:00", "getMe_http": 200, "getMe_saat": 0.484, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T09:27:28+07:00", "getMe_http": 200, "getMe_saat": 0.507, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T09:29:29+07:00", "getMe_http": 200, "getMe_saat": 0.425, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13T02:29:47Z --- cubaan 26: mula gateway ---
-2026-11-13T02:29:47Z gateway pid=21334
-┌─────────────────────────────────────────────────────────┐
-│           ☤ Hermes Gateway Starting...                 │
-├─────────────────────────────────────────────────────────┤
-│  Messaging platforms + cron scheduler                    │
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
-
-2026-11-13 02:29:49,492 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 02:29:49,786 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 02:29:49,791 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
-2026-11-13 02:29:49,791 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 02:29:49,791 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 02:29:49,793 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 02:29:49,793 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 02:29:55,369 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:29:55,370 WARNING gateway.run: ✗ telegram failed to connect
-2026-11-13 02:29:56,518 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:29:56,519 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
-2026-11-13 02:30:26,570 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 02:30:26,611 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 02:30:27,416 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-13T02:30:27Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
-2026-11-13 02:30:32,000 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:30:58,265 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-{"masa": "2026-11-13T09:31:30+07:00", "getMe_http": 200, "getMe_saat": 0.443, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:31:34,488 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:32:20,747 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-=== JAGA RANTAIAN 2026-11-13T02:32:44+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-2026-11-13 02:33:16,975 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-{"masa": "2026-11-13T09:33:31+07:00", "getMe_http": 200, "getMe_saat": 0.509, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:34:12,341 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
-2026-11-13 02:34:23,139 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:34:24,282 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13 02:34:24,285 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13T02:34:28Z ralat fatal adapter dikesan -> mula semula
-2026-11-13 02:34:28,026 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.04
-2026-11-13T02:34:33Z === cubaan 26 tamat: rc=1 ===
-2026-11-13T02:34:33Z jeda 300s sebelum cubaan berikut
-{"masa": "2026-11-13T09:35:32+07:00", "getMe_http": 200, "getMe_saat": 0.423, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T09:37:33+07:00", "getMe_http": 200, "getMe_saat": 0.485, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13T02:39:33Z --- cubaan 27: mula gateway ---
-2026-11-13T02:39:33Z gateway pid=21905
-┌─────────────────────────────────────────────────────────┐
-│           ☤ Hermes Gateway Starting...                 │
-├─────────────────────────────────────────────────────────┤
-│  Messaging platforms + cron scheduler                    │
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
-
-2026-11-13 02:39:34,574 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 02:39:34,692 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 02:39:34,838 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
-2026-11-13 02:39:34,838 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 02:39:34,838 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 02:39:34,841 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 02:39:34,841 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-{"masa": "2026-11-13T09:39:34+07:00", "getMe_http": 200, "getMe_saat": 0.5, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:39:40,084 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:39:40,085 WARNING gateway.run: ✗ telegram failed to connect
-2026-11-13 02:39:41,233 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:39:41,233 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
-2026-11-13 02:40:11,287 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 02:40:11,331 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 02:40:12,040 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-13T02:40:13Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
-2026-11-13 02:40:16,663 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:40:42,943 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:41:19,168 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-{"masa": "2026-11-13T09:41:35+07:00", "getMe_http": 200, "getMe_saat": 0.493, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:42:05,334 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-=== JAGA RANTAIAN 2026-11-13T02:42:47+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-2026-11-13 02:43:01,595 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-{"masa": "2026-11-13T09:43:36+07:00", "getMe_http": 200, "getMe_saat": 0.48, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 02:43:56,962 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
-2026-11-13 02:44:07,905 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 02:44:09,067 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13 02:44:09,070 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13T02:44:13Z ralat fatal adapter dikesan -> mula semula
-2026-11-13 02:44:13,155 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.04
-2026-11-13T02:44:18Z === cubaan 27 tamat: rc=1 ===
-2026-11-13T02:44:18Z jeda 300s sebelum cubaan berikut
-{"masa": "2026-11-13T09:45:37+07:00", "getMe_http": 200, "getMe_saat": 0.425, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 09:30:25,021 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-13 09:30:25,187 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+jejak-pemanjat: salinan workspace ditampal
+2026-11-13 09:30:25,841 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-13 09:30:25,841 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 09:30:25,841 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 09:30:25,843 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 09:30:25,843 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 09:30:32,489 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 09:30:32,490 WARNING gateway.run: ✗ telegram failed to connect
+2026-11-13 09:30:33,607 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 09:30:33,608 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
+2026-11-13 09:31:03,758 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-13 09:31:03,826 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-13 09:31:04,413 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-13T09:31:06Z SAMBUNG OK selepas 45s (bukti: baris 'Connected to Telegram')
+2026-11-13 09:31:08,889 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 09:31:34,801 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
