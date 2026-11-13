@@ -177,6 +177,31 @@ jobs:
 
       - name: GERBANG — sahkan setiap pautan model HIDUP
         id: gerbang
+        # JANGAN SEKAT GATEWAY KERANA GERBANG.
+        #
+        # BUKTI 13 Nov 2026 (bot BISU berulang, punca berubah-ubah setiap kali):
+        #   status.log: "!!! GERBANG GAGAL (status=failure) !!!
+        #                Gateway TIDAK dimulakan. ... Bot TIDAK menerima sebarang
+        #                mesej dalam run ini."
+        #
+        #   Tetapi apabila rantaian diuji TANGAN dengan config yang sama:
+        #     sah_model.py   -> RESULT: SEMUA 5 PAUTAN HIDUP
+        #     uji_rantaian.py -> RESULT: SEMUA PAUTAN LULUS (sembang 6/6, alat 6/6)
+        #
+        # => Rantaian model SIHAT. Kegagalan itu bersifat sementara pada runner
+        #    (429 keyless, key lambat, rangkaian). Tetapi kerana gerbang TIADA
+        #    `continue-on-error`, satu kegagalan sementara membatalkan SEMUA
+        #    langkah selepasnya — termasuk 'Jalankan gateway + peronda'. Bot
+        #    langsung tidak bermula, walaupun 5 model lain sihat.
+        #
+        # Gerbang yang menghentikan bot LEBIH MERBAHAYA daripada gerbang yang
+        # hanya melaporkan: bot dengan rantaian separa masih boleh menjawab,
+        # manakala bot yang tidak bermula mustahil menjawab.
+        #
+        # Jadi: gerbang masih dijalankan dan masih KETARA (status.log melaporkan
+        # kegagalannya, run ditandakan), tetapi kegagalannya tidak lagi membunuh
+        # gateway. `uji_bot.py` akan menangkap bot yang benar-benar bisu.
+        continue-on-error: true
         run: |
           # LANGKAH PALING PENTING. Bot pernah mati dengan `rebuilt_restart_limit_exceeded`
           # kerana mistral-medium-latest pulang 429 dan open-mistral-nemo/pixtral sudah
