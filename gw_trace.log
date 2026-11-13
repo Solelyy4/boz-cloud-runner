@@ -1,8 +1,4 @@
-=== TRACE 2026-11-13T17:42:57Z run 43470508562 ===
-    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
-           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 2938, in _open_chat_stream
-    return request_client.chat.completions.create(**stream_kwargs)
+=== TRACE 2026-11-13T17:44:29Z run 43470508562 ===
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
     return func(*args, **kwargs)
@@ -249,3 +245,7 @@ NADI GAGAL: HTTP 403 Forbidden
 2026-11-13 17:42:02,267 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 NADI GAGAL: HTTP 403 Forbidden
 2026-11-13 17:42:48,320 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+NADI GAGAL: HTTP 403 Forbidden
+{"masa": "2026-11-14T00:43:40+07:00", "getMe_http": 200, "getMe_saat": 0.519, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 17:43:44,424 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+NADI GAGAL: HTTP 403 Forbidden
