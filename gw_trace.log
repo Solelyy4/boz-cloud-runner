@@ -1,6 +1,4 @@
-=== TRACE 2026-11-13T10:06:41Z run 43401574237 ===
-2026-11-13 09:35:06,483 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.19
-2026-11-13T09:35:11Z === cubaan 1 tamat: rc=1 ===
+=== TRACE 2026-11-13T10:08:12Z run 43401574237 ===
 2026-11-13T09:35:11Z jeda 20s sebelum cubaan berikut
 2026-11-13T09:35:31Z --- cubaan 2: mula gateway ---
 2026-11-13T09:35:31Z gateway pid=3883
@@ -249,3 +247,5 @@ RESULT: teraju sihat
 2026-11-13 10:06:35,524 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-13T10:06:37Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
 2026-11-13 10:06:39,978 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 10:07:05,865 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 10:07:41,741 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
