@@ -1,0 +1,13 @@
+=== UJI SEBENAR 2026-11-13T19:22:46Z run 43491620458 ===
+
+TUJUAN: sahkan mesej SAMPAI ke long-poll bila hanya KITA memegangnya.
+Kalau ini berjaya, maka masalahnya BUKAN Telegram dan BUKAN token,
+tetapi di dalam proses gateway Hermes (handler/gerbang balasan).
+
+offset permulaan: None (update lama: 0)
+mendengar 90s (long-poll timeout=25)...
+HANTAR: ok=True message_id=1132
+
+RINGKASAN: 0 mesej diterima -> []
+VERDICT: mesej TIDAK sampai walaupun kita satu-satunya pendengar.
+  -> Periksa token/chat id/rangkaian runner.
