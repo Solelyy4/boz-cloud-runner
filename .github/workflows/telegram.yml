@@ -314,6 +314,17 @@ jobs:
               echo "--- peronda (bukti rangkaian runner) ---"
               "$PY" scripts/peronda_telegram.py --sejarah status_peronda.jsonl 2>/dev/null || echo "tiada data peronda"
               echo
+              # Bukti gerbang balasan HIDUP dalam run ini. Tanpa baris ini, satu-satunya
+              # cara sahkan gerbang ialah tunggu run 12 jam tamat — BOZ tak patut tunggu.
+              if [ -f /tmp/gerbang_bukti.json ]; then
+                echo "--- gerbang balasan (bukti pasang) ---"
+                cat /tmp/gerbang_bukti.json
+                echo
+              else
+                echo "--- gerbang balasan: TIADA BUKTI /tmp/gerbang_bukti.json ---"
+                echo "    Langkah 'GERBANG BALASAN' mungkin tidak berjalan. Semak run."
+                echo
+              fi
               echo "--- gw.log (60 baris terakhir) ---"
               tail -n 60 /tmp/gw_akhir.log 2>/dev/null || echo "tiada log gateway"
             } > status.log
