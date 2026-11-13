@@ -1,0 +1,159 @@
+name: uji-sebenar-bot
+
+# SOALAN TUNGGAL YANG BELUM TERJAWAB:
+# Bot polling, model sihat, nadi kekal — tetapi `pending` SELALU 0 dan tiada
+# 'JEJAK MASUK'. Adakah update sampai ke handler sama sekali?
+#
+# Punca yang sudah DIBUKTIKAN dan DIBETULKAN (13 Nov 2026):
+#   1. nadi mati kerana API had (403)      -> tukar git push       [selesai]
+#   2. drop_pending_updates=true buang msg -> tukar false          [selesai]
+#   3. tampal_409 tidak pernah dipasang    -> pindah ke gateway    [selesai]
+#   4. gerbang bunuh gateway               -> continue-on-error    [selesai]
+#
+# Yang TINGGAL: bukti sama ada mesej masuk ke bot. Semua logtill kini hanya
+# menunjukkan SEBELUM dan SELEPAS, bukan pemprosesan.
+#
+# UJIAN INI: jalankan bot DI DALAM workflow ini, hantar mesej melalui API, dan
+# catat apa yang berlaku pada mesej itu — dengan log gateway ARAS DEBUG supaya
+# setiap update kelihatan.
+#
+# Ia SENGAJA berjalan bersendirian (bot lain dimatikan dahulu) supaya tiada 409.
+on:
+  workflow_dispatch:
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Sediakan kunci Telegram sahaja (cukup untuk ujian ini)
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          set -e
+          mkdir -p /tmp/uji
+          echo "TOKEN_LEN=${#TOKEN}"
+          # 1) Matikan bot lain supaya kita satu-satunya pemegang long-poll.
+          curl -s -m 20 -X POST "https://api.telegram.org/bot${TOKEN}/deleteWebhook" \
+            -H "Content-Type: application/json" -d '{"drop_pending_updates":false}'
+          echo
+          echo "2) Bersihkan baris gilir supaya ujian bermula dari sifar (sengaja:"
+          echo "   kita MESTI tahu sama ada mesej baharu sampai, bukan yang lama)."
+          curl -s -m 20 "https://api.telegram.org/bot${TOKEN}/getUpdates?offset=-1&timeout=0" \
+            | head -c 200
+          echo
+
+      - name: Tulis klien long-poll sendiri dan dengar 90s
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: "8043910371"
+        run: |
+          set +e
+          OUT=uji-sebenar.log
+          {
+            echo "=== UJI SEBENAR $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
+            echo
+            echo "TUJUAN: sahkan mesej SAMPAI ke long-poll bila hanya KITA memegangnya."
+            echo "Kalau ini berjaya, maka masalahnya BUKAN Telegram dan BUKAN token,"
+            echo "tetapi di dalam proses gateway Hermes (handler/gerbang balasan)."
+            echo
+
+            python3 - <<'PY'
+          import json, os, threading, time, urllib.request
+
+          TOKEN = os.environ["TOKEN"]
+          CHAT = os.environ["CHAT"]
+          API = f"https://api.telegram.org/bot{TOKEN}"
+
+          def call(method, payload=None, timeout=45):
+              url = f"{API}/{method}"
+              data = json.dumps(payload or {}).encode()
+              req = urllib.request.Request(url, data=data,
+                                           headers={"Content-Type": "application/json"})
+              with urllib.request.urlopen(req, timeout=timeout) as r:
+                  return json.loads(r.read().decode())
+
+          # 1) buang sebarang update lama supaya kita tahu apa yang BAHARU
+          off = None
+          try:
+              r = call("getUpdates", {"offset": -1, "timeout": 0, "limit": 1}, timeout=20)
+              ups = r.get("result") or []
+              if ups:
+                  off = ups[-1]["update_id"] + 1
+              print(f"offset permulaan: {off} (update lama: {len(ups)})")
+          except Exception as e:
+              print("amaran ambil offset:", e)
+
+          # 2) hantar mesej ujian SELEPAS kita mula mendengar
+          hasil = {}
+          def hantar():
+              time.sleep(3)  # biar long-poll benar-benar mula dahulu
+              try:
+                  r = call("sendMessage", {"chat_id": CHAT,
+                                           "text": "UJIAN SEBENAR: balas 'sampai'"}, timeout=30)
+                  hasil["ok"] = r.get("ok")
+                  hasil["mid"] = (r.get("result") or {}).get("message_id")
+                  print(f"HANTAR: ok={hasil.get('ok')} message_id={hasil.get('mid')}")
+              except Exception as e:
+                  print("HANTAR gagal:", e)
+
+          threading.Thread(target=hantar, daemon=True).start()
+
+          # 3) dengar 90s dengan long-poll panjang (sama seperti bot sebenar)
+          print("mendengar 90s (long-poll timeout=25)...")
+          jumpa = []
+          tamat = time.time() + 90
+          while time.time() < tamat:
+              try:
+                  r = call("getUpdates", {"offset": off, "timeout": 25, "limit": 10}, timeout=40)
+              except Exception as e:
+                  print("  dengar ralat:", e)
+                  time.sleep(2)
+                  continue
+              if r.get("ok") is not True:
+                  # 409 bermakna ada pemegang lain — rekod dan teruskan
+                  print(f"  jawapan bukan ok: {str(r)[:160]}")
+                  time.sleep(3)
+                  continue
+              ups = r.get("result") or []
+              for u in ups:
+                  off = u["update_id"] + 1
+                  m = (u.get("message") or {})
+                  txt = m.get("text", "")
+                  jumpa.append(txt)
+                  print(f"  TERIMA update_id={u['update_id']} teks={txt!r}")
+                  # balas supaya bukti dua hala
+                  try:
+                      call("sendMessage", {"chat_id": CHAT, "text": f"sampai: {txt}"}, timeout=20)
+                      print("  BALAS dihantar")
+                  except Exception as e:
+                      print("  BALAS gagal:", e)
+
+          print()
+          print(f"RINGKASAN: {len(jumpa)} mesej diterima -> {jumpa}")
+          if jumpa:
+              print("VERDICT: Telegram + token SEHAT. Mesej SAMPAI.")
+              print("  -> Masalah bot awan ada di DALAM proses Hermes, bukan sambungan.")
+          else:
+              print("VERDICT: mesej TIDAK sampai walaupun kita satu-satunya pendengar.")
+              print("  -> Periksa token/chat id/rangkaian runner.")
+          PY
+          } > "$OUT" 2>&1
+
+          cat "$OUT"
+          git config user.email bot@local
+          git config user.name bot
+          git add -f "$OUT"
+          git commit -qm "uji sebenar$GITHUB_RUN_ID" || true
+          for i in 1 2 3; do
+            git push origin HEAD:master && break
+            git fetch origin master -q; git rebase origin/master -q || true; sleep 3
+          done
