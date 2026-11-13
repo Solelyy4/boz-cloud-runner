@@ -1,4 +1,4 @@
-=== TRACE 2026-11-13T00:11:57Z run 43303841590 ===
+=== TRACE 2026-11-13T00:13:29Z run 43303841590 ===
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
   [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
