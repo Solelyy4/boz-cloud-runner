@@ -1,14 +1,4 @@
-=== TRACE 2026-11-13T14:04:12Z run 43401574237 ===
-2026-11-13 13:14:42,172 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
-2026-11-13 13:14:56,019 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 13:14:57,158 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13 13:14:57,161 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13T13:14:59Z ralat fatal adapter dikesan -> mula semula
-2026-11-13 13:14:59,702 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.32
-2026-11-13T13:15:04Z === cubaan 27 tamat: rc=1 ===
-2026-11-13T13:15:04Z jeda 300s sebelum cubaan berikut
-{"masa": "2026-11-13T20:16:09+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T20:18:11+07:00", "getMe_http": 200, "getMe_saat": 2.523, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-13T14:05:44Z run 43401574237 ===
 2026-11-13T13:20:04Z --- cubaan 28: mula gateway ---
 2026-11-13T13:20:04Z gateway pid=17330
 ┌─────────────────────────────────────────────────────────┐
@@ -249,3 +239,13 @@ RESULT: teraju sihat
   [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
 RESULT: teraju sihat
 {"masa": "2026-11-13T21:02:33+07:00", "getMe_http": 200, "getMe_saat": 3.58, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 14:04:19,027 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 14:04:27,107 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.167.220 failed; re-walking IPv4 literals before the hostname
+2026-11-13 14:04:27,108 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.167.220 failed: ConnectError('')
+2026-11-13 14:04:27,440 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+{"masa": "2026-11-13T21:04:34+07:00", "getMe_http": 200, "getMe_saat": 0.335, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 14:04:41,068 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.167.220 failed; re-walking IPv4 literals before the hostname
+2026-11-13 14:04:41,068 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.167.220 failed: ConnectError('')
+2026-11-13 14:04:45,553 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-11-13 14:04:45,554 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 14:05:21,478 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
