@@ -176,6 +176,14 @@ bersih_sesi_telegram() {
   # TAMBAHAN (13 Nov 2026): webhook yang tertinggal juga merampas long-poll.
   # Kita padamkannya dulu (deleteWebhook drop_pending_updates=false supaya mesej
   # BOZ yang belum dibaca TIDAK hilang), baru bersihkan sesi getUpdates.
+  #
+  # PENTING — jangan longgok probe selepas pembersihan:
+  # Panggilan `getUpdates` KITA SENDIRI mencipta sesi di pelayan Telegram yang
+  # mengambil ~30-60s untuk luput. Bukti 13 Nov 2026 15:59: pembersihan pulang
+  # "long-poll kini bebas" pada 15:59:11, gateway mula 15:59:11, dan konflik
+  # pertama datang 15:59:54 — 43 saat kemudian. Diperkuat dengan jeda nyah-andaian
+  # selepas kejayaan supaya sesi yang KITA cipta sendiri tidak dianggap sebagai
+  # "sesi hantu" oleh gateway.
   local i
   local hasil_wh
   hasil_wh=$(curl -4 -s -m 15 -X POST \
@@ -196,6 +204,10 @@ bersih_sesi_telegram() {
     case "$hasil" in
       *'ok":true'*)
         log "sesi Telegram lama dibersihkan (cubaan $i) — long-poll kini bebas"
+        # Jeda nyah-andaian: sesi yang BARU KITA cipta perlu luput sebelum gateway
+        # menyambung, jika tidak gateway menuduhnya "sesi hantu" dan kena 409.
+        log "jeda 35s supaya sesi probe luput sebelum gateway menyambung"
+        sleep 35
         return 0 ;;
       *409*|*'Conflict'*)
         if [ "$i" = "20" ]; then
