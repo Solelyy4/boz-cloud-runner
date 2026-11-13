@@ -1,36 +1,36 @@
-=== TRACE 2026-11-13T20:07:34Z run 43496593292 ===
-2026-11-13T19:56:56Z === gateway_jalan mula: run=43496593292 masa_jalan=720m ===
-2026-11-13T19:56:56Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/bin/python
-JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/plugins/platforms/telegram/adapter.py
-=== 2026-11-13T19:56:56Z mula ===
-JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/bin/python
-JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/lib/python3.14/site-packages/telegram/__init__.py
+=== TRACE 2026-11-13T20:11:57Z run 43498722028 ===
+2026-11-13T20:10:27Z === gateway_jalan mula: run=43498722028 masa_jalan=720m ===
+2026-11-13T20:10:27Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/007beb7c9c8b4e3785954ac4aaf05f57/venv/bin/python
+JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/007beb7c9c8b4e3785954ac4aaf05f57/workspace/plugins/platforms/telegram/adapter.py
+=== 2026-11-13T20:10:27Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/007beb7c9c8b4e3785954ac4aaf05f57/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/007beb7c9c8b4e3785954ac4aaf05f57/venv/lib/python3.14/site-packages/telegram/__init__.py
 JEJAK-MASUK: 1 fail PTB dijumpai
-  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/007beb7c9c8b4e3785954ac4aaf05f57/venv/lib/python3.14/site-packages/telegram/ext/_application.py
   sahkan: penanda=True (bait=85224)
 === selesai ===
 JANGAN-BUANG: 1 adapter dijumpai
-  selamat: tiada lagi drop_pending_updates=True dalam kod -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/plugins/platforms/telegram/adapter.py
+  selamat: tiada lagi drop_pending_updates=True dalam kod -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/007beb7c9c8b4e3785954ac4aaf05f57/workspace/plugins/platforms/telegram/adapter.py
 adapter: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
 TAMPALAN GAGAL: corak panggilan _start_polling_once tidak sepadan
 AMARAN: tampal_409 gagal (bukan ralat maut)
-2026-11-13T19:56:56Z penulis nadi dipasang (pid=3654, setiap 45s)
-2026-11-13T19:56:56Z peronda rantaian dipasang (pid=3659, semak setiap 10 min)
-2026-11-13T19:56:56Z peronda latar dipasang (pid=3658, denyut 120s)
-2026-11-13T19:56:56Z webhook dipadam (mesej menunggu DIPELIHARA, drop_pending_updates=false)
-2026-11-13T19:56:56Z jeda 40s supaya sesi lama luput sebelum gateway menyambung
-{"masa": "2026-11-14T02:56:56+07:00", "getMe_http": 200, "getMe_saat": 0.332, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1794599816 (git push, tanpa REST API)
-=== JAGA RANTAIAN 2026-11-13T19:56:58+0000 ===
+2026-11-13T20:10:27Z penulis nadi dipasang (pid=3651, setiap 45s)
+2026-11-13T20:10:27Z peronda rantaian dipasang (pid=3656, semak setiap 10 min)
+2026-11-13T20:10:27Z peronda latar dipasang (pid=3655, denyut 120s)
+2026-11-13T20:10:27Z webhook dipadam (mesej menunggu DIPELIHARA, drop_pending_updates=false)
+2026-11-13T20:10:27Z jeda 40s supaya sesi lama luput sebelum gateway menyambung
+{"masa": "2026-11-14T03:10:27+07:00", "getMe_http": 200, "getMe_saat": 0.479, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1794600627 (git push, tanpa REST API)
+=== JAGA RANTAIAN 2026-11-13T20:10:29+0000 ===
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [MATI ] mistral      ministral-14b-latest       tiada choices
 RESULT: teraju sihat
 jejak-pemanjat: salinan workspace ditampal
-2026-11-13T19:57:36Z --- cubaan 1: mula gateway ---
-2026-11-13T19:57:36Z gateway pid=3747
+2026-11-13T20:11:07Z --- cubaan 1: mula gateway ---
+2026-11-13T20:11:07Z gateway pid=3714
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -38,165 +38,14 @@ jejak-pemanjat: salinan workspace ditampal
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-13 19:57:41,609 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3477, started_at=2026-11-13T19:37:22.935930+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-13T19:54:04.658779+00:00 last_mem={'rss_kib': 300324, 'mem_total_kib': 16366640, 'mem_available_kib': 15069148, 'swap_used_kib': 0} suspected_oom=False
-2026-11-13 19:57:41,867 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 19:57:42,097 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 19:57:43,009 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
-2026-11-13 19:57:43,009 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 19:57:43,009 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 19:57:43,013 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 19:57:43,013 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-NADI OK: 1794599862 (git push, tanpa REST API)
-2026-11-13 19:57:53,089 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-13T19:57:56Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
-NADI OK: 1794599908 (git push, tanpa REST API)
-{"masa": "2026-11-14T02:58:57+07:00", "getMe_http": 200, "getMe_saat": 0.325, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1794599954 (git push, tanpa REST API)
-NADI OK: 1794600000 (git push, tanpa REST API)
-NADI OK: 1794600046 (git push, tanpa REST API)
-{"masa": "2026-11-14T03:00:58+07:00", "getMe_http": 200, "getMe_saat": 0.361, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1794600093 (git push, tanpa REST API)
-NADI OK: 1794600139 (git push, tanpa REST API)
-{"masa": "2026-11-14T03:02:59+07:00", "getMe_http": 200, "getMe_saat": 0.315, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1794600185 (git push, tanpa REST API)
-NADI OK: 1794600231 (git push, tanpa REST API)
-NADI OK: 1794600277 (git push, tanpa REST API)
-[JEJAK-MASUK] process_update id=129836422944464 update_id=825346265
-2026-11-13 20:04:45,976 WARNING JEJAK: JEJAK MASUK update=825346265 msg=1140 chat=8043910371 dari=Solelah14 teks='SAHIH'
-2026-11-13 20:04:46,181 WARNING gateway.session: gateway.session: routing key 'agent:main:telegram:dm:8043910371' -> 20261113_173108_fb742fb1 is ended in state.db but still live in sessions.json; dropping stale entry and recovering/recreating the session (#54878)
-2026-11-13 20:04:46,266 WARNING JEJAK: JEJAK BALAS chat=8043910371
-2026-11-13 20:04:47,591 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 20:04:47,592 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 20:04:47,595 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 20:04:47,595 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 20:04:48,796 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 400 - {'error': {'message': '`reasoning_effort` must be one of `low`, `medium`, or `high`', 'type': 'invalid_request_error'}}
-Traceback (most recent call last):
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 3719, in _call
-    self.result["response"] = _with_stream_emitters(
-                              ~~~~~~~~~~~~~~~~~~~~~^
-        self.agent, lambda: self._call_wire(stream_attempt_id))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 2480, in _with_stream_emitters
-    response = run()
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 3720, in <lambda>
-    self.agent, lambda: self._call_wire(stream_attempt_id))
-                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 3697, in _call_wire
-    return self._call_chat_completions(stream_attempt_id)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 3054, in _call_chat_completions
-    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
-                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<2 lines>...
-        completed_response_predicate=lambda value: hasattr(value, "choices"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/relay_llm.py", line 331, in __init__
-    self._start_unmanaged(request)
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/relay_llm.py", line 337, in _start_unmanaged
-    raw_stream = self._stream_factory(request)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 3045, in _open_stream
-    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
-           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 2938, in _open_chat_stream
-    return request_client.chat.completions.create(**stream_kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
-    return func(*args, **kwargs)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
-    return self._post(
-           ~~~~~~~~~~^
-        "/chat/completions",
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<53 lines>...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.BadRequestError: Error code: 400 - {'error': {'message': '`reasoning_effort` must be one of `low`, `medium`, or `high`', 'type': 'invalid_request_error'}}
-⚠️  openai/gpt-oss-120b rejects reasoning effort medium — using the route's default until the route changes, retrying...
-2026-11-13 20:04:48,807 WARNING agent.conversation_loop: Reasoning-effort recovery: dropping reasoning config for openai/gpt-oss-120b
-2026-11-13 20:04:48,912 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 32105, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
-Traceback (most recent call last):
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 3719, in _call
-    self.result["response"] = _with_stream_emitters(
-                              ~~~~~~~~~~~~~~~~~~~~~^
-        self.agent, lambda: self._call_wire(stream_attempt_id))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 2480, in _with_stream_emitters
-    response = run()
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 3720, in <lambda>
-    self.agent, lambda: self._call_wire(stream_attempt_id))
-                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 3697, in _call_wire
-    return self._call_chat_completions(stream_attempt_id)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 3054, in _call_chat_completions
-    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
-                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<2 lines>...
-        completed_response_predicate=lambda value: hasattr(value, "choices"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/relay_llm.py", line 331, in __init__
-    self._start_unmanaged(request)
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/relay_llm.py", line 337, in _start_unmanaged
-    raw_stream = self._stream_factory(request)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 3045, in _open_stream
-    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
-           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/agent/chat_completion_helpers.py", line 2938, in _open_chat_stream
-    return request_client.chat.completions.create(**stream_kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
-    return func(*args, **kwargs)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
-    return self._post(
-           ~~~~~~~~~~^
-        "/chat/completions",
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<53 lines>...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.APIStatusError: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 32105, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
-2026-11-13 20:04:48,918 WARNING agent.conversation_loop: API call failed (attempt 1/4) error_type=APIStatusError thread=hermes-gateway_1:129836886689472 provider=custom base_url=https://api.groq.com/openai/v1 model=openai/gpt-oss-120b summary=HTTP 413: Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 32105, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/
-🗜️ Compacting context — summarizing earlier conversation so I can continue...
-⚠️  Attempt 1/4 failed: HTTP 413: Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 32105, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/
-⚠️  Request payload too large — compression attempt 1/6...
-❌ Payload too large and cannot compress further.
-   💡 Try /new to start a fresh conversation, or /compress to retry compression.
-2026-11-13 20:04:48,946 ERROR agent.conversation_loop: 413 payload too large. Cannot compress further.
-2026-11-13 20:04:48,947 WARNING JEJAK: JEJAK BALAS chat=8043910371
-2026-11-13 20:04:49,012 WARNING JEJAK: JEJAK BALAS chat=8043910371
-{"masa": "2026-11-14T03:04:59+07:00", "getMe_http": 200, "getMe_saat": 0.325, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1794600323 (git push, tanpa REST API)
-NADI OK: 1794600370 (git push, tanpa REST API)
-NADI OK: 1794600416 (git push, tanpa REST API)
-{"masa": "2026-11-14T03:07:00+07:00", "getMe_http": 200, "getMe_saat": 0.366, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-13T20:07:01+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
+2026-11-13 20:11:11,870 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3747, started_at=2026-11-13T19:57:41.609430+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-13T20:07:53.399345+00:00 last_mem={'rss_kib': 377136, 'mem_total_kib': 16366640, 'mem_available_kib': 14990988, 'swap_used_kib': 0} suspected_oom=False
+2026-11-13 20:11:12,080 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-13 20:11:12,290 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-13 20:11:12,992 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-13 20:11:12,992 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 20:11:12,992 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 20:11:12,994 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 20:11:12,994 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+NADI OK: 1794600673 (git push, tanpa REST API)
+2026-11-13 20:11:23,744 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-13T20:11:27Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
