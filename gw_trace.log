@@ -1,5 +1,4 @@
-=== TRACE 2026-11-13T00:47:01Z run 43303841590 ===
-2026-11-12 22:46:15,984 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
+=== TRACE 2026-11-13T00:48:33Z run 43303841590 ===
 2026-11-12T22:46:19Z ralat fatal adapter dikesan -> mula semula
 2026-11-12 22:46:19,977 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3397 parent_name=bash loadavg_1m=0.12
 2026-11-12T22:46:24Z === cubaan 16 tamat: rc=1 ===
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 {"masa": "2026-11-13T07:42:03+07:00", "getMe_http": 200, "getMe_saat": 0.427, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T07:44:04+07:00", "getMe_http": 200, "getMe_saat": 0.484, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T07:46:05+07:00", "getMe_http": 200, "getMe_saat": 0.483, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-13T07:48:06+07:00", "getMe_http": 200, "getMe_saat": 0.587, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
