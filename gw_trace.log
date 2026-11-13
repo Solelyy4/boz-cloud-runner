@@ -1,4 +1,4 @@
-=== TRACE 2026-11-13T10:18:51Z run 43401574237 ===
+=== TRACE 2026-11-13T10:20:23Z run 43401574237 ===
 2026-11-13 09:40:58,420 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
 2026-11-13 09:40:58,421 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
 2026-11-13 09:40:58,422 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
