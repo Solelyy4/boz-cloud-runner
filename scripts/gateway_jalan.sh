@@ -108,9 +108,19 @@ fi
 #   Kita jadi penulisnya: selagi gateway ini hidup, nadi dikemas kini, jadi nod
 #   kekal senyap seperti yang direka.
 (
-  # Jalan setiap 45s (had nod 180s: 4x margin). Gagal tidak maut — sekurang-
-  # kurangnya bot sendiri masih hidup walaupun nod merampas.
-  "$GWPY" scripts/tulis_nadi.py --loop 45 >> "$GW_LOG" 2>&1
+  # VERSI 2 (13 Nov 2026): tulis melalui GIT PUSH, bukan REST API.
+  #
+  # Versi 1 menulis gist melalui REST API dan MATI dengan:
+  #     NADI GAGAL: HTTP 403 Forbidden   (x4)
+  #     gh api /rate_limit -> "API rate limit exceeded for user ID 330849825"
+  # BOZ_PAT berkongsi had 5000/jam dengan workflow, ensure_cloud.sh (cron 15m),
+  # penjejak trace (90s), dan peronda. Ia habis; nadi mati; nod rampas token;
+  # bot awan 409; adapter PARKED; BOT BISU.
+  #
+  # Versi 2: tulis fail NADI dalam repo kerja -> git push (had berasingan) ->
+  # raw.githubusercontent.com (CDN, tiada had API) -> nod baca < 180s -> senyap.
+  # Gist kekal sebagai sandaran dalam skrip itu sendiri.
+  "$GWPY" scripts/tulis_nadi.py --repo "$PWD" --loop 45 >> "$GW_LOG" 2>&1
 ) &
 NADI_PID=$!
 log "penulis nadi dipasang (pid=$NADI_PID, setiap 45s)"

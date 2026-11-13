@@ -1,125 +1,165 @@
 #!/usr/bin/env python3
-"""Tulis nadi (heartbeat) supaya nod pengganti TAHU bot awan masih hidup.
+"""Tulis nadi (heartbeat) supaya nod pengganti kekal senyap — rintang had API.
 
-PUNCA KONFLIK 409 YANG SEBENAR (dibuktikan 13 Nov 2026, bukan andaian):
+KENAPA DITULIS SEMULA (13 Nov 2026, bukti sebenar):
 
-  Repo `Solelyy4/boz-lab-node` menjalankan `telekey/standby.sh` — PENUNGGU
-  yang memerhati nadi PC di gist:
-      HB_URL = https://gist.githubusercontent.com/Solelyy4/d5cdf07.../raw/alive
-      FRESH  = 180 saat
+  Versi pertama menulis terus ke gist melalui GitHub REST API. Berfungsi
+  sebentar, kemudian MATI dengan:
+      NADI GAGAL: HTTP 403 Forbidden     (x4 dalam gw_trace.log)
 
-  Logiknya (komen dalam fail itu sendiri):
-      PC hidup  (<180s)  -> nod senyap, PC yang poll Telegram
-      PC senyap (>180s)  -> nod AMBIL ALIH poll Telegram
+  Punca sebenar (bukan tekaan):
+      gh api /rate_limit -> "API rate limit exceeded for user ID 330849825"
 
-  Bukti nadi pada 13 Nov 2026 16:56 UTC:
-      nadi mentah  = 1794468509
-      sekarang     = 1794588990
-      umur nadi    = 120,481 saat = 33.5 JAM   (had ialah 180 saat)
+  BOZ_PAT ialah Personal Access Token. Setiap panggilan REST API kepadanya
+  dikira dalam had 5000/jam YANG SAMA dengan semua kegunaan lain: workflow,
+  ensure_cloud.sh (cron 15 minit), penjejak trace (setiap 90s), peronda, dan
+  nadi ini. Ia habis dengan cepat.
 
-  Jadi nod percaya "PC mati sejak 33 jam" lalu merampas token Telegram.
-  Bot awan (boz-cloud-runner) poll TOKEN YANG SAMA -> kedua-dua 409.
-  `ensure_cloud.sh` (cron setiap 15 minit) melihat gateway mati lalu memulakan
-  semula -> 409 lagi -> GELUNG ABADI. Bot bisu selama-lamanya.
+  Bila nadi gagal -> nadi basi -> nod boz-lab-node (telekey/standby.sh)
+  percaya PC sudah mati -> merampas TELEGRAM_BOT_TOKEN -> bot awan dapat 409
+  -> adapter PARKED -> BOT BISU.
 
-  SIAPA YANG SEPATUTNYA MENULIS NADI? Tiada sesiapa. Grep seluruh laptop dan
-  repo mendapati hanya `standby.sh` MEMBACA nadi; tiada penulis wujud. Reka
-  bentuk itu tidak pernah dilengkapkan.
+  Bukti yang dikutip serentak:
+      umur nadi            = 291 saat   (had nod: 180s)
+      NADI GAGAL 403       = 4 kali
+      pending (peronda)    = 0          (bot tidak pernah terima update)
+      long-poll SEBELUM    = BEBAS      (tiada pemegang)
+      long-poll SELEPAS    = BEBAS      (bot memang tidak polling)
 
-  Pembaikan: skrip ini menulis nadi semasa gateway awan hidup, jadi nod melihat
-  PC "hidup" dan kekal senyap — seperti yang direka.
-
-SENSI MASA: ditulis setiap 60s (had nod ialah 180s, jadi ada 3x margin).
+PENDEKATAN BAHARU — TIADA REST API LANGSUNG:
+  Nadi ditulis ke fail dalam repo kerja, kemudian dipush melalui protokol GIT
+  (bukan REST). Git push tidak berkongsi had 5000/jam itu, dan runner sudah
+  punya kelayakan git (clone dibuat dengan BOZ_PAT).
+  Nod membaca fail melalui raw.githubusercontent.com yang disajikan CDN — juga
+  tiada had API.
 
 Guna:
-    python tulis_nadi.py            # tulis sekali (untuk ujian)
-    python tulis_nadi.py --loop 60  # tulis berulang (mod gateway)
+    python tulis_nadi.py --repo /path/ke/repo            # sekali
+    python tulis_nadi.py --repo /path/ke/repo --loop 45  # berterusan
 """
 import argparse
 import json
 import os
+import subprocess
 import sys
 import time
 import urllib.error
 import urllib.request
 
-# Gist yang diperhatikan oleh standby.sh. Sama seperti HB_URL dalam fail itu.
+# Fail nadi dalam repo kerja. Nod membacanya melalui raw.githubusercontent.com:
+#   https://raw.githubusercontent.com/Solelyy4/boz-cloud-runner/master/NADI
+FAIL_NADI = "NADI"
+
+# Fallback gist (untuk kes nod masih menunjuk ke sana). Dipakai hanya bila
+# git push gagal, supaya sekurang-kurangnya satu saluran tetap hidup.
 GIST_ID = "d5cdf07feb91d5d89337476d2f9db7ae"
-FAIL_NADI = "alive"
-API = "https://api.github.com/gists/%s" % GIST_ID
 
 
-def token_github():
-    """Cari token GitHub. BOZ_PAT dahulu (gist ini milik BOZ), kemudian GITHUB_TOKEN."""
+def _token():
     for nama in ("BOZ_PAT", "GH_TOKEN", "GITHUB_TOKEN", "GITHUB_PAT"):
-        nilai = os.environ.get(nama, "").strip()
-        if nilai:
-            return nilai
+        v = os.environ.get(nama, "").strip()
+        if v:
+            return v
     return ""
 
 
-def tulis_nadi(tok):
-    """Kemas kini gist dengan masa epoch semasa. Pulang True bila berjaya."""
+def _gist_fallback(masa):
+    """Cuba gist sebagai saluran kedua. Tidak maut (gist boleh kena had API)."""
+    tok = _token()
     if not tok:
-        print("NADI GAGAL: tiada token GitHub (BOZ_PAT / GITHUB_TOKEN)")
         return False
-    masa = str(int(time.time()))
-    muatan = json.dumps({
-        "files": {
-            FAIL_NADI: {"content": masa}
-        }
-    }).encode("utf-8")
-    req = urllib.request.Request(API, data=muatan, method="PATCH")
+    muatan = json.dumps({"files": {"alive": {"content": masa}}}).encode()
+    req = urllib.request.Request(
+        "https://api.github.com/gists/%s" % GIST_ID, data=muatan, method="PATCH")
     req.add_header("Authorization", "Bearer %s" % tok)
     req.add_header("Accept", "application/vnd.github+json")
     req.add_header("Content-Type", "application/json")
-    req.add_header("User-Agent", "boz-nadi/1.0")
+    req.add_header("User-Agent", "boz-nadi/2.0")
     try:
-        with urllib.request.urlopen(req, timeout=20) as resp:
-            kod = resp.status
-            body = json.loads(resp.read().decode("utf-8", "replace"))
-        # Sahkan nilai benar-benar tersimpan (bukan sekadar HTTP 200).
-        disimpan = ""
-        files = body.get("files") or {}
-        if FAIL_NADI in files:
-            disimpan = (files[FAIL_NADI].get("content") or "").strip()
-        if disimpan == masa:
-            print("NADI OK: %s (masa epoch ditulis dan disahkan)" % masa)
+        with urllib.request.urlopen(req, timeout=20) as r:
+            body = json.loads(r.read().decode("utf-8", "replace"))
+        if (body.get("files", {}).get("alive", {}).get("content") or "").strip() == masa:
+            print("NADI gist: OK (saluran kedua)")
             return True
-        print("NADI AMARAN: HTTP %s tetapi kandungan tidak sepadan (disimpan=%r)" % (kod, disimpan))
+        print("NADI gist: kandungan tidak sepadan")
         return False
     except urllib.error.HTTPError as e:
-        print("NADI GAGAL: HTTP %s %s" % (e.code, e.reason))
+        print("NADI gist gagal: HTTP %s (bukan maut)" % e.code)
         return False
     except Exception as e:
-        print("NADI GAGAL: %s" % e)
+        print("NADI gist gagal: %s (bukan maut)" % e)
         return False
+
+
+def tulis_nadi(repo):
+    """Tulis masa epoch ke fail nadi dan push melalui git. True bila berjaya."""
+    laluan = os.path.join(repo, FAIL_NADI)
+    masa = str(int(time.time()))
+    try:
+        with open(laluan, "w", encoding="utf-8", newline="\n") as f:
+            f.write(masa + "\n")
+    except Exception as e:
+        print("NADI GAGAL: tidak dapat tulis %s: %s" % (laluan, e))
+        return _gist_fallback(masa)
+
+    # Sahkan fail di disk sebenar (read-after-write).
+    try:
+        with open(laluan, encoding="utf-8") as f:
+            balik = f.read().strip()
+    except Exception as e:
+        print("NADI GAGAL: tidak dapat baca semula: %s" % e)
+        return _gist_fallback(masa)
+    if balik != masa:
+        print("NADI GAGAL: kandungan tidak sepadan (tulis=%s baca=%s)" % (masa, balik))
+        return _gist_fallback(masa)
+
+    subprocess.run(["git", "-C", repo, "add", "-f", FAIL_NADI], capture_output=True)
+    subprocess.run(
+        ["git", "-C", repo, "-c", "user.email=bot@local", "-c", "user.name=bot",
+         "commit", "-q", "-m", "nadi %s" % masa],
+        capture_output=True)
+
+    for _ in range(3):
+        r = subprocess.run(["git", "-C", repo, "push", "origin", "HEAD:master"],
+                           capture_output=True, text=True)
+        if r.returncode == 0:
+            print("NADI OK: %s (git push, tanpa REST API)" % masa)
+            return True
+        # Hujung jauh mungkin bergerak (penjejak trace push setiap 90s).
+        subprocess.run(["git", "-C", repo, "fetch", "origin", "master", "-q"],
+                       capture_output=True)
+        subprocess.run(["git", "-C", repo, "rebase", "-q", "origin/master"],
+                       capture_output=True)
+        time.sleep(3)
+
+    print("NADI GAGAL: git push tidak berjaya selepas 3 cubaan")
+    return _gist_fallback(masa)
 
 
 def main():
-    p = argparse.ArgumentParser(description="Tulis nadi BOZ supaya nod pengganti kekal senyap.")
+    p = argparse.ArgumentParser(
+        description="Tulis nadi BOZ melalui git push (rintang had REST API).")
+    p.add_argument("--repo", default=os.getcwd(), help="Direktori repo kerja")
     p.add_argument("--loop", type=int, default=0,
-                   help="Selang saat antara tulisan (0 = tulis sekali sahaja). Cadangan 60.")
+                   help="Selang saat antara tulisan (0 = sekali). Cadangan 45.")
     p.add_argument("--maks", type=int, default=0,
-                   help="Berhenti selepas N tulisan (0 = tiada had). Untuk ujian.")
+                   help="Berhenti selepas N tulisan (0 = tiada had).")
     a = p.parse_args()
 
-    tok = token_github()
-    if not tok:
-        print("NADI GAGAL: tiada token. Set BOZ_PAT atau GITHUB_TOKEN.")
+    if not os.path.isdir(os.path.join(a.repo, ".git")):
+        print("NADI GAGAL: %s bukan repo git" % a.repo)
         return 1
 
     if a.loop <= 0:
-        return 0 if tulis_nadi(tok) else 1
+        return 0 if tulis_nadi(a.repo) else 1
 
     n = 0
     while True:
-        ok = tulis_nadi(tok)
+        ok = tulis_nadi(a.repo)
         n += 1
         if a.maks and n >= a.maks:
             return 0 if ok else 1
-        # Jeda walaupun gagal: cuba semula setiap selang. Nodi mungkin tidak
-        # terjangkau sementara (rangkaian), tetapi nadi basi = nod rampas token.
+        # Jeda walaupun gagal: nadi basi = nod merampas token. Cuba lagi.
         time.sleep(a.loop)
 
 
