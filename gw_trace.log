@@ -1,6 +1,4 @@
-=== TRACE 2026-11-13T14:45:20Z run 43401574237 ===
-2026-11-13T13:54:10Z jeda 300s sebelum cubaan berikut
-{"masa": "2026-11-13T20:54:26+07:00", "getMe_http": 200, "getMe_saat": 0.394, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-13T14:46:52Z run 43401574237 ===
 {"masa": "2026-11-13T20:56:27+07:00", "getMe_http": 200, "getMe_saat": 0.435, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T20:58:28+07:00", "getMe_http": 200, "getMe_saat": 0.377, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-13T13:59:10Z --- cubaan 32: mula gateway ---
@@ -249,3 +247,5 @@ RESULT: teraju sihat
 2026-11-13 14:44:54,315 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-13T21:44:57+07:00", "getMe_http": 200, "getMe_saat": 0.326, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-13 14:45:20,240 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 14:45:56,279 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 14:46:42,212 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
