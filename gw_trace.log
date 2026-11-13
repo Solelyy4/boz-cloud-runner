@@ -1,4 +1,4 @@
-=== TRACE 2026-11-13T09:51:27Z run 43401574237 ===
+=== TRACE 2026-11-13T09:52:59Z run 43401574237 ===
 2026-11-13T09:30:10Z === gateway_jalan mula: run=43401574237 masa_jalan=720m ===
 2026-11-13T09:30:10Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a90e599c46264caea0ee9883dab94d15/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a90e599c46264caea0ee9883dab94d15/workspace/plugins/platforms/telegram/adapter.py
@@ -196,3 +196,24 @@ RESULT: teraju sihat
 2026-11-13 09:51:21,840 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.11
 2026-11-13T09:51:26Z === cubaan 4 tamat: rc=1 ===
 2026-11-13T09:51:26Z jeda 80s sebelum cubaan berikut
+{"masa": "2026-11-13T16:52:23+07:00", "getMe_http": 200, "getMe_saat": 0.341, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13T09:52:46Z --- cubaan 5: mula gateway ---
+2026-11-13T09:52:46Z gateway pid=5254
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-13 09:52:48,505 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-13 09:52:48,630 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-13 09:52:48,750 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-13 09:52:48,750 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 09:52:48,750 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 09:52:48,752 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 09:52:48,753 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 09:52:54,837 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 09:52:54,837 WARNING gateway.run: ✗ telegram failed to connect
+2026-11-13 09:52:55,987 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 09:52:55,988 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
