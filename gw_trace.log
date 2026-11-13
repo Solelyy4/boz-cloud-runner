@@ -1,37 +1,4 @@
-=== TRACE 2026-11-13T01:31:13Z run 43303841590 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-{"masa": "2026-11-13T06:11:20+07:00", "getMe_http": 200, "getMe_saat": 0.503, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T06:13:21+07:00", "getMe_http": 200, "getMe_saat": 0.491, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T06:15:22+07:00", "getMe_http": 200, "getMe_saat": 0.425, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T06:17:23+07:00", "getMe_http": 200, "getMe_saat": 0.488, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T06:19:24+07:00", "getMe_http": 200, "getMe_saat": 0.43, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T23:21:10Z denyut tick=10 pid=12385
-=== JAGA RANTAIAN 2026-11-12T23:21:17+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (teks)
-RESULT: teraju sihat
-{"masa": "2026-11-13T06:21:24+07:00", "getMe_http": 200, "getMe_saat": 0.431, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T06:23:25+07:00", "getMe_http": 200, "getMe_saat": 0.469, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T06:25:26+07:00", "getMe_http": 200, "getMe_saat": 0.423, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T06:27:27+07:00", "getMe_http": 200, "getMe_saat": 0.434, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T06:29:28+07:00", "getMe_http": 200, "getMe_saat": 0.553, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-12T23:31:10Z denyut tick=20 pid=12385
-{"masa": "2026-11-13T06:31:29+07:00", "getMe_http": 200, "getMe_saat": 0.422, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-12T23:31:31+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (teks)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
+=== TRACE 2026-11-13T01:32:45Z run 43303841590 ===
 {"masa": "2026-11-13T06:33:30+07:00", "getMe_http": 200, "getMe_saat": 0.424, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T06:35:31+07:00", "getMe_http": 200, "getMe_saat": 0.486, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T06:37:32+07:00", "getMe_http": 200, "getMe_saat": 0.483, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
@@ -249,3 +216,36 @@ RESULT: teraju sihat
 {"masa": "2026-11-13T08:26:59+07:00", "getMe_http": 200, "getMe_saat": 0.494, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T08:29:00+07:00", "getMe_http": 200, "getMe_saat": 0.48, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T08:31:01+07:00", "getMe_http": 200, "getMe_saat": 0.483, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13T01:31:17Z --- cubaan 20: mula gateway ---
+2026-11-13T01:31:17Z gateway pid=18109
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-13 01:31:18,540 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-13 01:31:18,648 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-13 01:31:18,804 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-13 01:31:18,804 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 01:31:18,804 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 01:31:18,807 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 01:31:18,808 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 01:31:24,055 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 01:31:24,056 WARNING gateway.run: ✗ telegram failed to connect
+2026-11-13 01:31:25,204 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 01:31:25,205 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
+2026-11-13 01:31:55,309 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-13 01:31:55,351 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-13 01:31:56,160 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-13T01:31:57Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
+2026-11-13 01:32:00,741 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+=== JAGA RANTAIAN 2026-11-13T01:32:22+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
+RESULT: teraju sihat
+2026-11-13 01:32:26,957 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
