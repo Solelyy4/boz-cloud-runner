@@ -1,5 +1,4 @@
-=== TRACE 2026-11-13T14:40:46Z run 43401574237 ===
-2026-11-13 13:49:26,548 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+=== TRACE 2026-11-13T14:42:18Z run 43401574237 ===
 2026-11-13 13:49:26,661 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-13 13:49:26,794 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
 2026-11-13 13:49:26,794 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-13 14:39:05,745 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.13
 2026-11-13T14:39:10Z === cubaan 35 tamat: rc=1 ===
 2026-11-13T14:39:10Z jeda 300s sebelum cubaan berikut
+{"masa": "2026-11-13T21:40:55+07:00", "getMe_http": 200, "getMe_saat": 0.368, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
