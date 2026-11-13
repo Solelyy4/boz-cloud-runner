@@ -1,0 +1,78 @@
+name: probe-longpoll
+
+# SIAPA MEMEGANG LONG-POLL BOT?
+#
+# Masalah: gw_trace.log menunjukkan 'Telegram polling conflict' berulang walaupun
+# hanya SATU run telegram-hermes aktif. Sesi hantu sahaja tidak menerangkan
+# konflik yang berlarutan >5 minit.
+#
+# Workflow ini menjawab SATU soalan dengan bukti: adakah sesi lain benar-benar
+# memegang getUpdates token ini? Ia dijalankan BERASINGAN daripada bot (bot tidak
+# berjalan serentak) supaya jawapannya bersih.
+#
+# Baca hasil di probe-longpoll.log dalam repo.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tanya Telegram siapa pegang long-poll
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          set +e
+          OUT=probe-longpoll.log
+          {
+            echo "=== PROBE LONG-POLL $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
+            echo
+
+            echo "--- 1. getMe (token sah?) ---"
+            curl -s -m 15 "https://api.telegram.org/bot${TOKEN}/getMe" | head -c 250
+            echo; echo
+
+            echo "--- 2. getWebhookInfo (webhook merampas long-poll?) ---"
+            curl -s -m 15 "https://api.telegram.org/bot${TOKEN}/getWebhookInfo" | head -c 500
+            echo; echo
+
+            echo "--- 3. getUpdates offset=-1 timeout=0 (6 cubaan, 10s jarak) ---"
+            echo "    ok=true  -> TIADA sesi lain; long-poll bebas"
+            echo "    409      -> ADA sesi lain memegang long-poll SEKARANG"
+            echo
+            konflik=0
+            for i in $(seq 1 6); do
+              H=$(curl -s -m 20 -X POST \
+                "https://api.telegram.org/bot${TOKEN}/getUpdates" \
+                -H "Content-Type: application/json" \
+                -d '{"offset":-1,"timeout":0,"limit":1}' 2>&1)
+              MASA=$(date -u +%T)
+              case "$H" in
+                *'"ok":true'*) echo "  [$i] $MASA ok=true  -> bebas" ;;
+                *409*|*Conflict*) echo "  [$i] $MASA 409 CONFLICT -> sesi lain pegang"; konflik=$((konflik+1)) ;;
+                *) echo "  [$i] $MASA jawapan lain: $(echo "$H" | head -c 120)" ;;
+              esac
+              [ "$i" -lt 6 ] && sleep 10
+            done
+            echo
+            echo "JUMLAH KONFLIK: $konflik / 6"
+            if [ "$konflik" -gt 0 ]; then
+              echo "VERDICT: ADA proses/bot LAIN memakai token ini."
+              echo "         Ia perlu dimatikan — bot awan tidak akan stabil selagi ia hidup."
+            else
+              echo "VERDICT: TIADA sesi lain. Konflik dalam gw_trace.log datang daripada"
+              echo "         peralihan run (sesi lama belum luput) — pembersihan sesi mencukupi."
+            fi
+          } > "$OUT" 2>&1
+
+          cat "$OUT"
+          git config user.email bot@local
+          git config user.name bot
+          git add -f "$OUT"
+          git commit -qm "probe longpoll $GITHUB_RUN_ID" || true
+          git push origin HEAD:master || true
