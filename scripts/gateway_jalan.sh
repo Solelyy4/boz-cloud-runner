@@ -263,6 +263,31 @@ while true; do
   MARK=$(wc -l < "$GW_LOG" 2>/dev/null || echo 0)
   log "--- cubaan $cubaan: mula gateway ---"
 
+  # WAJIB. Sebelum ini pembersihan hanya dijalankan SEKALI di atas fail. Bila
+  # gateway mati dan cubaan ini memulakannya semula, sesi long-poll lama masih
+  # dipegang di pelayan Telegram -> getUpdates di-409 -> adapter PARKED -> bot
+  # bisu walaupun "Connected to Telegram (polling mode)" tercetak.
+  # Bukti sebenar 13 Nov 2026 15:47-15:48: cubaan 2 mula gateway, sambung OK,
+  # kemudian serta-merta 'polling conflict (1/5)'.
+  if [ "$cubaan" -gt 1 ]; then
+    log "cubaan semula -> bunuh gateway yatim dahulu, kemudian bersihkan sesi"
+    # Gateway lama mungkin masih hidup walaupun PID kita sudah mati (proses anak).
+    # Pola carian dibataskan pada baris arahan gateway Hermes SAHAJA, dan skrip ini
+    # dikecualikan (ia tidak mengandungi 'hermes gateway run' dalam argv-nya).
+    for p in $(ps -eo pid,args 2>/dev/null \
+        | grep -F "sys.argv=['hermes','gateway','run']" \
+        | grep -v grep | awk '{print $1}'); do
+      if [ "$p" != "$$" ] && [ "$p" != "$GW_PID" ]; then
+        log "bunuh gateway yatim pid=$p"
+        kill -TERM "$p" 2>/dev/null || true
+        sleep 3
+        kill -9 "$p" 2>/dev/null || true
+      fi
+    done
+    log "cubaan semula -> bersihkan sesi Telegram dahulu"
+    bersih_sesi_telegram
+  fi
+
   # LONG-POLL TUNGGAL. Tiada proses lain menyentuh getUpdates.
   PYTHONUNBUFFERED=1 "$GWPY" -c \
     "import sys; from hermes_cli.main import main; sys.argv=['hermes','gateway','run']; main()" \
