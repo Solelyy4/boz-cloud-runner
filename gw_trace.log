@@ -1,7 +1,4 @@
-=== TRACE 2026-11-13T10:08:12Z run 43401574237 ===
-2026-11-13T09:35:11Z jeda 20s sebelum cubaan berikut
-2026-11-13T09:35:31Z --- cubaan 2: mula gateway ---
-2026-11-13T09:35:31Z gateway pid=3883
+=== TRACE 2026-11-13T10:09:43Z run 43401574237 ===
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -249,3 +246,6 @@ RESULT: teraju sihat
 2026-11-13 10:06:39,978 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-13 10:07:05,865 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-13 10:07:41,741 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 10:08:27,615 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+{"masa": "2026-11-13T17:08:31+07:00", "getMe_http": 200, "getMe_saat": 0.33, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 10:09:23,501 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
