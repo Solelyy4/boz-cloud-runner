@@ -1,7 +1,4 @@
-=== TRACE 2026-11-13T01:23:36Z run 43303841590 ===
-│  Messaging platforms + cron scheduler                    │
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
+=== TRACE 2026-11-13T01:25:08Z run 43303841590 ===
 
 2026-11-12 23:10:56,682 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-12 23:10:56,788 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
@@ -249,3 +246,6 @@ telegram.error.NetworkError: Bad Gateway
 RESULT: teraju sihat
 2026-11-13 01:22:55,114 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-13T08:22:58+07:00", "getMe_http": 200, "getMe_saat": 0.482, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 01:23:41,336 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 01:24:37,568 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+{"masa": "2026-11-13T08:24:58+07:00", "getMe_http": 200, "getMe_saat": 0.5, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
