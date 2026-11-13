@@ -263,9 +263,17 @@ jobs:
           h2 = g.tapis_keluar("8043910371", k2)
           assert "news.google.com" in h2, "pautan hasil carian SEPATUTNYA dikekalkan"
           print("OK: tugasan carian -> pautan hasil dikekalkan")
+          # Tulis bukti ke fail supaya laporan run boleh menunjukkan gerbang HIDUP.
+          import json
+          with open("/tmp/gerbang_bukti.json", "w") as f:
+              json.dump({"penapis_dimuat": True, "chat": g._AKTIF,
+                         "sapaan_dipotong": h, "tugasan_dikekalkan": h2[:60],
+                         "stat": g.STAT}, f, ensure_ascii=False)
           UJIG
           )
           echo "GERBANG BALASAN AKTIF"
+          echo "--- bukti gerbang ---"
+          cat /tmp/gerbang_bukti.json 2>/dev/null || echo "tiada bukti"
 
       - name: Jalankan gateway + peronda
         env:
