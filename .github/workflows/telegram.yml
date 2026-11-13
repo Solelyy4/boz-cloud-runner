@@ -217,6 +217,56 @@ jobs:
             "python-telegram-bot[socks,http2]>=21" ddgs httpx pyyaml 2>&1 | tail -3 || true
           "$PY" -c "import telegram, ddgs, httpx, yaml; print('telegram', telegram.__version__, '| ddgs, httpx, yaml OK')"
 
+      - name: GERBANG BALASAN + PROMPT BERSIH (pasang pada adapter)
+        run: |
+          # BOZ (13 Nov 2026): "bila saya mesej je telegram bot, ia terus keluarkan
+          # link github, arahan, dan ayat panjang-panjang walaupun saya tak suruh."
+          #
+          # Dua punca, dua pembaikan, KEDUA-DUANYA dijalankan di sini:
+          #   1. channel_prompts lama menyenaraikan CONTOH ARAHAN (bridge.py, fetch2.py,
+          #      pautan) -> model kecil meniru contoh itu. prompt_bot.py --apply
+          #      menulis prompt bersih (0 pautan, 0 arahan terminal) ke config.
+          #   2. Tiada apa memeriksa mesej KELUAR. pasang_gerbang.py menanam penapis
+          #      jenis-mesej di dalam adapter.send() + handle_message().
+          # Kedua-dua langkah GAGAL KERAS kalau tidak berjaya — jangan senyap.
+          export HERMES_HOME="$PWD/home"
+          export BOZ_RUNNER_DIR="$PWD"
+          echo "=== 1/3 prompt bersih ==="
+          "$PY" scripts/prompt_bot.py --apply home/config.yaml
+
+          echo "=== 2/3 tanam gerbang pada adapter ==="
+          ADAPTER=$(find "$HERMES_HOME" -path "*plugins/platforms/telegram/adapter.py" | head -1)
+          if [ -z "$ADAPTER" ]; then
+            echo "::error::adapter.py Telegram tidak dijumpai — gerbang tidak boleh dipasang"; exit 1
+          fi
+          echo "adapter: $ADAPTER"
+          "$PY" scripts/pasang_gerbang.py --adapter "$ADAPTER" || {
+            echo "::error::gerbang GAGAL ditanam pada adapter"; exit 1; }
+
+          echo "=== 3/3 salin penapis + uji ==="
+          ADIR=$(dirname "$ADAPTER")
+          cp scripts/_boz_gerbang.py scripts/balas_pantas.py "$ADIR/"
+          echo "penapis disalin ke $ADIR"
+          "$PY" scripts/balas_pantas.py --uji
+          echo "--- uji gerbang dalam konteks adapter sebenar ---"
+          ( cd "$ADIR" && "$PY" - <<'UJIG'
+          import _boz_gerbang as g
+          assert g._src_periksa is not None, "penapis TIDAK dimuat -> gerbang mati"
+          g.set_masuk("hi")
+          k = "Berikut langkah:\n1. Pergi ke https://github.com/x/y\n2. Klik Settings"
+          h = g.tapis_keluar("8043910371", k)
+          assert "github" not in h, f"pautan TIDAK dibuang: {h!r}"
+          assert len(h) < 80, f"balasan masih panjang: {len(h)}a"
+          print(f"OK: 'hi' + tutorial(88a) -> {h!r}")
+          g.set_masuk("cari berita AI")
+          k2 = "SIAP: 31 rekod -> bing=6\nhttps://news.google.com/rss/x"
+          h2 = g.tapis_keluar("8043910371", k2)
+          assert "news.google.com" in h2, "pautan hasil carian SEPATUTNYA dikekalkan"
+          print("OK: tugasan carian -> pautan hasil dikekalkan")
+          UJIG
+          )
+          echo "GERBANG BALASAN AKTIF"
+
       - name: Jalankan gateway + peronda
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
