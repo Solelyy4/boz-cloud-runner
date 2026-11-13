@@ -1,0 +1,88 @@
+name: probe-serentak
+
+# TANGKAP PENCURI TOKEN — semasa bot HIDUP.
+#
+# Probe sebelum ini dijalankan BILA BOT MATI, jadi ia pulang 0/6 konflik. Itu
+# membuktikan tiada sesi hantu semasa bot mati, tetapi TIDAK membuktikan apa-apa
+# tentang saat gateway menyambung.
+#
+# Workflow ini dijalankan SEKALI dengan input `saat` supaya kita boleh memulakannya
+# SERENTAK dengan gateway (cron 2 minit), lalu menangkap sama ada sesi lain muncul
+# tepat pada saat gateway mula.
+#
+# Ia juga menyenaraikan setiap workflow run yang aktif merentas SEMUA repo BOZ,
+# supaya kita tahu sama ada repo LAIN menjalankan bot dengan token yang sama.
+on:
+  workflow_dispatch:
+    inputs:
+      saat:
+        description: "Berapa saat probe berjalan"
+        required: false
+        default: "180"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Kesan sesi pesaing
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SAAT: ${{ inputs.saat }}
+        run: |
+          set +e
+          OUT=probe-serentak.log
+          {
+            echo "=== PROBE SERENTAK $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
+            echo "tempoh: ${SAAT}s"
+            echo
+
+            echo "--- A. adakah bot lain dalam GitHub Actions memakai token ini? ---"
+            for repo in boz-cloud-runner boz-hermes-home boz-bridge boz-lab-node; do
+              R=$(curl -s -m 15 -H "Authorization: Bearer ${GH_TOKEN}" \
+                "https://api.github.com/repos/Solelyy4/${repo}/actions/runs?status=in_progress&per_page=10")
+              N=$(echo "$R" | grep -o '"name":"[^"]*"' | sort -u | tr '\n' ' ')
+              echo "  ${repo}: ${N:-tiada run aktif}"
+            done
+            echo
+
+            echo "--- B. getUpdates setiap 15s selama ${SAAT}s ---"
+            echo "    ok=true  -> bebas | 409 -> ADA pesaing"
+            i=0
+            konflik=0
+            bebas=0
+            HAD=$(( SAAT / 15 ))
+            while [ "$i" -lt "$HAD" ]; do
+              i=$(( i + 1 ))
+              H=$(curl -s -m 10 -X POST \
+                "https://api.telegram.org/bot${TOKEN}/getUpdates" \
+                -H "Content-Type: application/json" \
+                -d '{"offset":-1,"timeout":0,"limit":1}' 2>&1)
+              MASA=$(date -u +%T)
+              case "$H" in
+                *'"ok":true'*) bebas=$((bebas+1)); echo "  [$i] $MASA bebas" ;;
+                *409*|*Conflict*) konflik=$((konflik+1)); echo "  [$i] $MASA 409 PESAING" ;;
+                *) echo "  [$i] $MASA lain: $(echo "$H" | head -c 100)" ;;
+              esac
+              sleep 15
+            done
+            echo
+            echo "RINGKASAN: bebas=$bebas konflik=$konflik"
+          } > "$OUT" 2>&1
+
+          cat "$OUT"
+          git config user.email bot@local
+          git config user.name bot
+          git add -f "$OUT"
+          git commit -qm "probe serentak $GITHUB_RUN_ID" || true
+          for p in 1 2 3; do
+            git fetch origin master -q || true
+            git rebase origin/master -q || true
+            git push origin HEAD:master && break
+            sleep 5
+          done || true
