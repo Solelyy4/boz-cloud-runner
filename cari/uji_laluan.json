@@ -1,0 +1,26 @@
+{
+ "ts": "2026-11-13T14:45:23+00:00",
+ "laluan": {
+  "ddg": "HIDUP (1.4s)",
+  "bing": "HIDUP (0.4s)",
+  "google": "KOSONG (0.2s)",
+  "mojeek": "KOSONG (0.8s)",
+  "searx": "KOSONG (3.0s)",
+  "brave": "KOSONG (0.9s)",
+  "wikipedia": "HIDUP (0.6s)",
+  "hn": "HIDUP (1.0s)",
+  "news": "HIDUP (0.3s)",
+  "youtube": "HIDUP (2.4s)",
+  "reddit": "HIDUP (0.9s)",
+  "bluesky": "KOSONG (0.9s)",
+  "github": "HIDUP (0.6s)",
+  "mastodon": "HIDUP (4.6s)",
+  "x": "KOSONG (3.4s)",
+  "instagram": "HIDUP (1.1s)",
+  "tiktok": "KOSONG (0.9s)",
+  "threads": "HIDUP (0.9s)",
+  "telegram": "HIDUP (1.0s)",
+  "jina": "KOSONG (0.5s)"
+ },
+ "hidup": 12
+}

@@ -226,6 +226,36 @@ jobs:
             "python-telegram-bot[socks,http2]>=21" ddgs httpx pyyaml 2>&1 | tail -3 || true
           "$PY" -c "import telegram, ddgs, httpx, yaml; print('telegram', telegram.__version__, '| ddgs, httpx, yaml OK')"
 
+      - name: TAMPAL KONFLIK 409 (bina semula app pada cubaan semula)
+        run: |
+          # BOZ (13 Nov 2026) — pembaikan PUNCA AKAR untuk bot BISU.
+          #
+          # Gejala: gw_trace.log menunjukkan 'Connected to Telegram (polling mode)'
+          # diikuti 'polling conflict (1/5..5/5)' sehingga adapter PARKED. Bot
+          # kelihatan hidup (getMe 200) tetapi TIDAK menerima mesej 200s, kemudian
+          # mati. Semua mesej BOZ hilang.
+          #
+          # Diagnostik yang dijalankan (bukan andaian):
+          #   probe-serentak (bot HIDUP, 4 minit) : bebas=16, konflik=0
+          #   probe-longpoll (bot MATI)           : bebas=6,  konflik=0
+          # => TIADA proses lain memegang token. Peserta konflik ialah SESI KITA.
+          #
+          # Punca dalam Hermes: _handle_polling_conflict() menghentikan updater lalu
+          # memanggil _start_polling_once(app, ...) pada APPLICATION YANG SAMA. PTB
+          # menyimpan koneksi getUpdates dalam Application, jadi sisa sesi lama di
+          # pelayan Telegram masih dikaitkan dengan kita -> 409 berulang -> fatal.
+          #
+          # Pembaikan: tampal _rebuild_app_for_retry() supaya app dibina semula
+          # (koneksi baharu sepenuhnya) sebelum cubaan semula.
+          #
+          # Gagal keras: kalau tampalan tidak dipasang, kita biarkan saja (bot masih
+          # boleh pulih sendiri melalui cubaan 1..5). Jangan gagalkan run.
+          export HERMES_HOME="$PWD/home"
+          echo "=== tampal pembaikan 409 ==="
+          "$PY" scripts/tampal_409.py || echo "AMARAN: tampalan 409 tidak dipasang (run diteruskan)"
+          echo "=== bukti dalam fail ==="
+          grep -rn "_rebuild_app_for_retry" "$HERMES_HOME" 2>/dev/null | head -3 || echo "tiada padanan"
+
       - name: GERBANG BALASAN + PROMPT BERSIH (pasang pada adapter)
         run: |
           # BOZ (13 Nov 2026): "bila saya mesej je telegram bot, ia terus keluarkan

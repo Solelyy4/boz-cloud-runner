@@ -1,0 +1,274 @@
+name: telegram-hermes
+
+# REKA BENTUK BERSIH — 8 Nov 2026
+#
+# Setiap keputusan di bawah menjawab satu kegagalan yang DISAHKAN, bukan andaian.
+# Baca komen sebelum ubah apa-apa; setiap satu ada bukti di belakangnya.
+#
+# PERATURAN EMAS (tiga sahaja):
+#   1. Hanya gateway menyentuh getUpdates. Tiada langkah lain boleh panggil getUpdates —
+#      ia merampas long-poll, mencetuskan 409, dan mematikan adapter.
+#   2. Model + fallback MESTI disahkan hidup SEBELUM gateway mula. Gagal = berhenti keras.
+#      Bot yang "hidup tetapi mustahil menjawab" lebih buruk daripada bot mati.
+#   3. satu run sahaja. cancel-in-progress: false. Dispatch berulang = membunuh bot sendiri
+#      (sejarah: 12 run `cancelled` berturut pada 7 Nov 2026).
+
+on:
+  schedule:
+    - cron: "13 * * * *"
+  workflow_dispatch:
+    inputs:
+      masa_jalan:
+        description: "Minit bot dijalankan sebelum berhenti bersih (lalai 720)"
+        required: false
+        default: "720"
+
+permissions:
+  contents: write
+
+# JANGAN tukar kepada true.
+# Dengan false, run baharu MENUNGGU giliran; bot kekal hidup sepanjang hari.
+concurrency:
+  group: telegram-hermes
+  cancel-in-progress: false
+
+env:
+  PYTHONUNBUFFERED: "1"
+  PYTHONIOENCODING: "utf-8"
+  HERMES_NO_UPDATE_CHECK: "1"
+  # IPv6 gagal di runner (curl -6 -> 000). Paksa IPv4.
+  HERMES_TELEGRAM_FORCE_IPV4: "1"
+  # Timeout sambungan. 8s terlalu ketat: adapter json-stream tergantung >8s lalu gagal
+  # dengan ralat KOSONG yang mengelirukan sebagai rangkaian mati.
+  HERMES_TELEGRAM_HTTP_CONNECT_TIMEOUT: "20"
+  HERMES_TELEGRAM_HTTP_READ_TIMEOUT: "30"
+
+jobs:
+  jalankan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 800
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Ambil home Hermes (repo peribadi)
+        run: |
+          git clone --depth 1 \
+            "https://x-access-token:${{ secrets.BOZ_PAT }}@github.com/Solelyy4/boz-hermes-home.git" home
+          echo "fail home: $(ls home | wc -l)"
+          wc -c home/config.yaml home/SOUL.md home/AGENTS.md
+
+      - name: Pasang Hermes (skrip rasmi)
+        run: |
+          # `pip install hermes-agent` berhenti pada 0.19.0 (LAMA) dan
+          # `pip install git+...` DISEKAT oleh reka bentuk Hermes.
+          # Satu-satunya jalan yang berfungsi: scripts/install.sh rasmi.
+          set +e
+          curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh -o /tmp/h-install.sh
+          if [ ! -s /tmp/h-install.sh ]; then
+            git clone --depth 1 https://github.com/NousResearch/hermes-agent.git /tmp/ha
+            cp /tmp/ha/scripts/install.sh /tmp/h-install.sh
+          fi
+          chmod +x /tmp/h-install.sh 2>/dev/null
+          HERMES_HOME="$PWD/home" HERMES_INSTALL_CHANNEL=stable bash /tmp/h-install.sh --non-interactive 2>&1 | tail -20
+          set -e
+          export PATH="$HOME/.local/bin:$PATH"
+          # install.sh tamat dengan "no dependency environment is committed" — venv belum
+          # dipautkan. Tanpa pembaikan ini semua langkah berikut gagal 'command not found'.
+          hermes pm repair 2>&1 | tail -5 || true
+          hermes pm install 2>&1 | tail -5 || true
+          hermes --version
+
+      - name: Cari venv Hermes (WAJIB, jangan guna python sistem)
+        run: |
+          PY=""
+          for cand in "$PWD"/home/installs/*/environments/*/venv/bin/python; do
+            [ -x "$cand" ] || continue
+            if "$cand" -c "import hermes_cli" 2>/dev/null; then PY="$cand"; break; fi
+          done
+          if [ -z "$PY" ]; then echo "::error::venv Hermes tidak dijumpai"; exit 1; fi
+          echo "PY=$PY" >> "$GITHUB_ENV"
+          echo "venv: $PY"
+          "$PY" --version
+
+      - name: Bypass guardrail Hermes (gagal KERAS kalau tidak aktif)
+        run: |
+          # Bot cloud berjalan dengan guardrail ASAL tanpa langkah ini: threat scanner,
+          # skill install guard, terminal hardline, file deny-glob, env blocklist.
+          # MESTI guna python venv — patch menulis sitecustomize.py ke site-packages
+          # python yang MENJALANKAN skrip. Python salah = patch "success", tiada kesan.
+          export HERMES_HOME="$PWD/home"
+          export PATH="$HOME/.local/bin:$PATH"
+          echo "python patch: $PY"
+          set +e
+          "$PY" scripts/apply_patches.py 2>&1 | tail -30
+          set -e
+          SP=$("$PY" -c "import sys;print([p for p in sys.path if 'site-packages' in p][0])")
+          if [ ! -f "$SP/sitecustomize.py" ]; then
+            echo "::error::sitecustomize TIDAK wujud di $SP — bypass tidak aktif"
+            exit 1
+          fi
+          FAIL=$("$PY" scripts/apply_patches.py --check 2>&1 | grep -c "\[FAIL\]" || echo 0)
+          PASS=$("$PY" scripts/apply_patches.py --check 2>&1 | grep -c "\[PASS\]" || echo 0)
+          echo "PASS=$PASS FAIL=$FAIL"
+          if [ "$FAIL" -gt 0 ]; then echo "::error::$FAIL komponen gagal"; exit 1; fi
+          echo "GUARDRAIL BYPASS AKTIF ($PASS komponen)"
+
+      - name: Tulis .env (tanpa indentasi — heredoc mengikut indent blok run)
+        run: |
+          cat > home/.env <<'EOF'
+          TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_ALLOWED_USERS=8043910371
+          MISTRAL_API_KEY=${{ secrets.MISTRAL_API_KEY }}
+          GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
+          BOZ_PAT=${{ secrets.BOZ_PAT }}
+          ROUTER9_API_KEY=${{ secrets.ROUTER9_API_KEY }}
+          BOZ_USER=Solelyy4
+          EOF
+          # Heredoc YAML mengekalkan indentasi -> "  TELEGRAM_..." bukan nama pemboleh ubah.
+          sed -i 's/^[[:space:]]*//' home/.env
+          echo "kunci dalam .env:"
+          cut -d= -f1 home/.env
+
+      - name: Sahkan kunci (gagal KETARA, bukan senyap)
+        run: |
+          # Kunci kosong = bot HIDUP tetapi mustahil menjawab. Kegagalan senyap itulah
+          # yang membuat operator mengejar rangkaian berjam-jam.
+          for K in TELEGRAM_BOT_TOKEN MISTRAL_API_KEY GROQ_API_KEY; do
+            V=$(grep -m1 "^$K=" home/.env | cut -d= -f2-)
+            if [ -z "$V" ]; then echo "::error::$K KOSONG"; exit 1; fi
+            if [ "${#V}" -lt 20 ]; then echo "::error::$K terlalu pendek (${#V})"; exit 1; fi
+            echo "  $K ada (${#V} aksara, ${V:0:6}...)"
+          done
+
+      - name: Baiki config (kekalkan skills/prompt, buang model reput)
+        run: |
+          # scripts/baiki_config.py: salin .bak -> edit dengan YAML parser -> sahkan
+          # saiz + kunci penting -> pulih dari .bak kalau rosak.
+          # JANGAN ganti dengan sed. Sejarah: sed menjadikan config 4,458 bait -> 45 bait.
+          export HERMES_HOME="$PWD/home"
+          cp -n home/config.yaml home/config.yaml.github.bak || true
+          WC_ASAL=$(wc -c < home/config.yaml)
+          echo "config asal: $WC_ASAL bait"
+          "$PY" scripts/baiki_config.py home/config.yaml
+          WC_AKHIR=$(wc -c < home/config.yaml)
+          echo "config akhir: $WC_AKHIR bait"
+          if [ "$WC_AKHIR" -lt 3000 ]; then echo "::error::config rosak ($WC_AKHIR bait)"; exit 1; fi
+          # reasoning_effort berperingkat -> HTTP 400 pada model kecil.
+          if grep -qE '^\s*reasoning_effort:\s*(false|low|medium|high)\s*$' home/config.yaml; then
+            echo "::error::reasoning_effort berperingkat masih ada — akan 400"; exit 1
+          fi
+          echo "config disahkan"
+
+      - name: GERBANG — sahkan setiap pautan model HIDUP
+        id: gerbang
+        run: |
+          # LANGKAH PALING PENTING. Bot pernah mati dengan `rebuilt_restart_limit_exceeded`
+          # kerana mistral-medium-latest pulang 429 dan open-mistral-nemo/pixtral sudah
+          # TIADA dalam akaun. Gerbang ini menjadikan kegagalan itu kelihatan SEBELUM
+          # bot menerima satu mesej pun.
+          set -a; . home/.env; set +a
+          # PyYAML WAJIB sebelum gerbang: sah_model.py baca config.yaml.
+          # Venv Hermes selalunya TIADA pip (`No module named pip`), jadi
+          # `pip install` gagal senyap dan gerbang mati dengan "PyYAML tiada".
+          # ensurepip dulu, baru pip; kalau kedua-dua gagal, pasang vendor terus.
+          "$PY" -m ensurepip --default-pip 2>&1 | tail -2 || true
+          "$PY" -m pip install --quiet --disable-pip-version-check pyyaml 2>&1 | tail -2 || true
+          if ! "$PY" -c "import yaml" 2>/dev/null; then
+            echo "pip gagal — pasang PyYAML secara vendor"
+            SP=$("$PY" -c "import sysconfig;print(sysconfig.get_paths()['purelib'])")
+            "$PY" - "$SP" <<'PYYAML'
+          import sys, os, urllib.request, zipfile, io
+          sp = sys.argv[1]
+          url = "https://files.pythonhosted.org/packages/source/P/PyYAML/PyYAML-6.0.2.tar.gz"
+          data = urllib.request.urlopen(url, timeout=60).read()
+          import tarfile
+          with tarfile.open(fileobj=io.BytesIO(data)) as tf:
+              tf.extractall("/tmp/pyyaml_src")
+          src = "/tmp/pyyaml_src/PyYAML-6.0.2/lib"
+          # yaml ialah pure-python: salin pakej terus ke site-packages
+          import shutil
+          dst = os.path.join(sp, "yaml")
+          shutil.rmtree(dst, ignore_errors=True)
+          shutil.copytree(os.path.join(src, "yaml"), dst)
+          print("vendor yaml ->", dst)
+          PYYAML
+          fi
+          "$PY" -c "import yaml; print('yaml OK', yaml.__version__)" || {
+            echo "::error::PyYAML gagal dipasang — gerbang tidak boleh dijalankan"; exit 1; }
+          "$PY" scripts/sah_model.py
+          echo "--- ujian rantaian penuh (sembang + tool-calling) ---"
+          "$PY" scripts/uji_rantaian.py home/config.yaml
+
+      - name: Pasang bergantung dalam venv
+        run: |
+          "$PY" -m pip install --quiet --disable-pip-version-check \
+            "python-telegram-bot[socks,http2]>=21" ddgs httpx pyyaml 2>&1 | tail -3 || true
+          "$PY" -c "import telegram, ddgs, httpx, yaml; print('telegram', telegram.__version__, '| ddgs, httpx, yaml OK')"
+
+      - name: Jalankan gateway + peronda
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          ROUTER9_API_KEY: ${{ secrets.ROUTER9_API_KEY }}
+          BOZ_PAT: ${{ secrets.BOZ_PAT }}
+          BOZ_CHAT_ID: "8043910371"
+          MASA_JALAN: ${{ inputs.masa_jalan || '720' }}
+        run: |
+          export HERMES_HOME="$PWD/home"
+          export PATH="$HOME/.local/bin:$PATH"
+          chmod +x scripts/gateway_jalan.sh
+          bash scripts/gateway_jalan.sh
+
+      - name: Lapor keadaan ke repo (jujur, bukan tekaan)
+        if: always()
+        continue-on-error: true
+        env:
+          GERBANG: ${{ steps.gerbang.outcome }}
+        run: |
+          for p in 1 2 3; do
+            git fetch origin master -q >/dev/null 2>&1 || true
+            git checkout -q -B status-tmp origin/master >/dev/null 2>&1 || true
+            {
+              echo "=== RUN $GITHUB_RUN_ID $(date -u +%FT%TZ) ==="
+              # Kalau GERBANG gagal, gateway TIDAK PERNAH mula. Tanpa baris ini,
+              # status.log kosong membuatkan bot nampak "tiada log" dan punca sebenar
+              # (model mati) hilang selama berjam-jam.
+              if [ "${GERBANG:-}" != "success" ]; then
+                echo "!!! GERBANG GAGAL (status=${GERBANG:-tidak-dijalankan}) !!!"
+                echo "Gateway TIDAK dimulakan. Punca: satu atau lebih pautan model MATI"
+                echo "atau had 429 berpanjangan. Semak langkah 'GERBANG' dalam run ini."
+                echo "Bot TIDAK menerima sebarang mesej dalam run ini."
+                echo
+              fi
+              echo "--- peronda (bukti rangkaian runner) ---"
+              "$PY" scripts/peronda_telegram.py --sejarah status_peronda.jsonl 2>/dev/null || echo "tiada data peronda"
+              echo
+              echo "--- gw.log (60 baris terakhir) ---"
+              tail -n 60 /tmp/gw_akhir.log 2>/dev/null || echo "tiada log gateway"
+            } > status.log
+            git add -f status.log
+            git -c user.email=bot@local -c user.name=bot commit -qm "status $GITHUB_RUN_ID" >/dev/null 2>&1 || true
+            if git push origin HEAD:master >/dev/null 2>&1; then echo "laporan di-push"; break; fi
+            sleep 5
+          done
+
+      - name: Simpan state ke repo peribadi
+        if: always()
+        continue-on-error: true
+        run: |
+          cd home
+          git config user.email bot@local
+          git config user.name boz-bot
+          rm -f .env
+          git add -A
+          git commit -m "state $(date -u +%FT%TZ)" || echo "tiada perubahan"
+          for p in 1 2 3; do
+            git pull --rebase --autostash -q >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1 || true
+            if git push origin HEAD:master >/dev/null 2>&1; then echo "state push ok"; break; fi
+            sleep 5
+          done
