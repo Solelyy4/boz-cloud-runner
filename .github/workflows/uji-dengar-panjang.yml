@@ -1,0 +1,151 @@
+name: uji-dengar-panjang
+
+# SOALAN TERAKHIR YANG PERLU DIJAWAB:
+# Bot boleh HANTAR (sendMessage ok, message_id diterima) tetapi TIDAK PERNAH
+# menerima. Ujian sebelum ini menghantar bot->chat lalu menunggu chat->bot —
+# tetapi TIADA SESIAPA menaip di Telegram semasa ujian itu.
+#
+# Ujian ini: kita pegang long-poll selama 4 MINIT dan cetak SETIAP update yang
+# sampai, termasuk yang bukan mesej (edited_message, callback, my_chat_member).
+# Kalau update sampai -> Telegram + token SEHAT, masalahnya dalam Hermes.
+# Kalau tiada -> kita sahkan bahawa TIADA mesej dihantar ke bot semasa ujian,
+# dan minta BOZ taip sendiri ketika ia berjalan.
+on:
+  workflow_dispatch:
+
+jobs:
+  dengar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dengar long-poll 4 minit
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          set +e
+          OUT=uji-dengar.log
+          {
+            echo "=== UJI DENGAR $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
+            echo "Masa mula: $(date -u +%H:%M:%S) UTC / $(TZ=Asia/Jakarta date +%H:%M:%S) WIB"
+            echo
+
+            python3 - <<'PY'
+          import json, os, time, urllib.request, urllib.error
+
+          TOKEN = os.environ["TOKEN"]
+          API = f"https://api.telegram.org/bot{TOKEN}"
+
+          def call(method, payload=None, timeout=45):
+              req = urllib.request.Request(
+                  f"{API}/{method}",
+                  data=json.dumps(payload or {}).encode(),
+                  headers={"Content-Type": "application/json"})
+              with urllib.request.urlopen(req, timeout=timeout) as r:
+                  return json.loads(r.read().decode())
+
+          # Whoami + webhook state (bukti konteks)
+          try:
+              me = call("getMe")
+              b = me.get("result", {})
+              print(f"BOT: id={b.get('id')} username=@{b.get('username')} nama={b.get('first_name')!r}")
+          except Exception as e:
+              print("getMe gagal:", e)
+          try:
+              wh = call("getWebhookInfo").get("result", {})
+              print(f"WEBHOOK: url={wh.get('url')!r} pending={wh.get('pending_update_count')}")
+          except Exception as e:
+              print("getWebhookInfo gagal:", e)
+
+          # Buang update lama supaya kita tahu apa yang BAHARU
+          off = None
+          try:
+              r = call("getUpdates", {"offset": -1, "timeout": 0, "limit": 1}, timeout=20)
+              ups = r.get("result") or []
+              if ups:
+                  off = ups[-1]["update_id"] + 1
+                  print(f"offset: {off} (buang {len(ups)} update lama)")
+              else:
+                  print("offset: tiada update lama (baris gilir kosong)")
+          except Exception as e:
+              print("ambil offset gagal:", e)
+
+          print()
+          print(">>> MENDENGAR 4 MINIT. Taip apa-apa dalam Telegram SEKARANG. <<<")
+          print()
+
+          jumpa, konflik, lain = [], 0, 0
+          tamat = time.time() + 240
+          n = 0
+          while time.time() < tamat:
+              n += 1
+              baki = int(tamat - time.time())
+              try:
+                  r = call("getUpdates", {"offset": off, "timeout": 25, "limit": 20}, timeout=45)
+              except urllib.error.HTTPError as e:
+                  body = ""
+                  try: body = e.read().decode()[:200]
+                  except Exception: pass
+                  print(f"  [{n}] HTTP {e.code}: {body}")
+                  if e.code == 409:
+                      konflik += 1
+                  time.sleep(3)
+                  continue
+              except Exception as e:
+                  print(f"  [{n}] ralat: {e}")
+                  time.sleep(2)
+                  continue
+
+              if not r.get("ok"):
+                  print(f"  [{n}] bukan ok: {str(r)[:200]}")
+                  lain += 1
+                  time.sleep(3)
+                  continue
+
+              ups = r.get("result") or []
+              if not ups:
+                  print(f"  [{n}] (tiada update, 25s lalu, baki {baki}s)")
+                  continue
+              for u in ups:
+                  off = u["update_id"] + 1
+                  jenis = [k for k in u.keys() if k != "update_id"]
+                  m = u.get("message") or u.get("edited_message") or {}
+                  dari = (m.get("from") or {}).get("username") or (m.get("from") or {}).get("id")
+                  chat = (m.get("chat") or {}).get("id")
+                  teks = m.get("text", "")
+                  jumpa.append(teks)
+                  print(f"  [{n}] *** TERIMA update_id={u['update_id']} jenis={jenis} "
+                        f"dari={dari} chat={chat} teks={teks!r}")
+
+          print()
+          print(f"=== RINGKASAN ===")
+          print(f"update diterima : {len(jumpa)}")
+          print(f"  409 konflik   : {konflik}")
+          print(f"  jawapan lain  : {lain}")
+          print(f"  mesej         : {jumpa}")
+          print()
+          if jumpa:
+              print("VERDICT: Telegram + token SEHAT, mesej SAMPAI.")
+              print("  -> Masalah bot awan ada di DALAM proses Hermes.")
+          elif konflik:
+              print("VERDICT: ada PENGGANGGU memegang long-poll (409).")
+              print("  -> Matikan pesaing, ulang ujian.")
+          else:
+              print("VERDICT: tiada update sepanjang 4 minit ini.")
+              print("  -> Sama ada tiada siapa taip, atau mesej disekat.")
+              print("  -> Ujian ini sah HANYA jika BOZ taip semasa ia berjalan.")
+          PY
+          } > "$OUT" 2>&1
+
+          cat "$OUT"
+          git config user.email bot@local
+          git config user.name bot
+          git add -f "$OUT"
+          git commit -qm "uji dengar $GITHUB_RUN_ID" || true
+          for i in 1 2 3; do
+            git push origin HEAD:master && break
+            git fetch origin master -q; git rebase origin/master -q || true; sleep 3
+          done
