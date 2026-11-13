@@ -1,12 +1,4 @@
-=== TRACE 2026-11-13T11:50:11Z run 43401574237 ===
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-2026-11-13T11:02:32Z --- cubaan 14: mula gateway ---
-2026-11-13T11:02:32Z gateway pid=9656
-┌─────────────────────────────────────────────────────────┐
+=== TRACE 2026-11-13T11:51:43Z run 43401574237 ===
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
 │  Messaging platforms + cron scheduler                    │
@@ -249,3 +241,11 @@ RESULT: teraju sihat
 2026-11-13T11:47:08Z jeda 300s sebelum cubaan berikut
 {"masa": "2026-11-13T18:47:14+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T18:49:15+07:00", "getMe_http": 200, "getMe_saat": 0.451, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-13T18:51:15+07:00", "getMe_http": 200, "getMe_saat": 0.36, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-13T11:51:23+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (teks)
+RESULT: teraju sihat
