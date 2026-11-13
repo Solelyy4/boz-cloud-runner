@@ -1,5 +1,4 @@
-=== TRACE 2026-11-13T10:34:04Z run 43401574237 ===
-2026-11-13T09:53:26Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
+=== TRACE 2026-11-13T10:35:36Z run 43401574237 ===
 2026-11-13 09:53:32,322 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-13 09:53:58,246 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-13T16:54:24+07:00", "getMe_http": 200, "getMe_saat": 0.506, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-13 10:32:52,568 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.21
 2026-11-13T10:32:57Z === cubaan 10 tamat: rc=1 ===
 2026-11-13T10:32:57Z jeda 200s sebelum cubaan berikut
+{"masa": "2026-11-13T17:34:43+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
