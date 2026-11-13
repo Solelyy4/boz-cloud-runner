@@ -1,10 +1,4 @@
-=== TRACE 2026-11-13T17:41:26Z run 43470508562 ===
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/relay_llm.py", line 331, in __init__
-    self._start_unmanaged(request)
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/relay_llm.py", line 337, in _start_unmanaged
-    raw_stream = self._stream_factory(request)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3045, in _open_stream
+=== TRACE 2026-11-13T17:42:57Z run 43470508562 ===
     return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
            ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 2938, in _open_chat_stream
@@ -249,3 +243,9 @@ NADI GAGAL: HTTP 403 Forbidden
 NADI GAGAL: HTTP 403 Forbidden
 NADI GAGAL: HTTP 403 Forbidden
 2026-11-13 17:41:00,112 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 17:41:26,151 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+NADI GAGAL: HTTP 403 Forbidden
+{"masa": "2026-11-14T00:41:39+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 17:42:02,267 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+NADI GAGAL: HTTP 403 Forbidden
+2026-11-13 17:42:48,320 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
