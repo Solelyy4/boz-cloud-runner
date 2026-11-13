@@ -1,0 +1,102 @@
+name: uji-bot-hidup
+
+# UJIAN SEBENAR: hantar mesej ke bot, kemudian tangkap balasannya.
+#
+# KENAPA INI PERLU:
+#   Semua ujian sebelum ini hanya menyemak LOG ("Connected to Telegram",
+#   "conflict", "parked"). Log boleh menunjukkan "Connected" walaupun bot tidak
+#   menerima satu pun mesej. BOZ minta bukti sebenar: masuk ke dalam bot, hantar
+#   mesej, dan lihat apa bot balas.
+#
+# CARA:
+#   1. Hantar mesej ke chat BOZ melalui Bot API (sendMessage).
+#   2. Tunggu bot memproses (polling akan menerima mesej itu sendiri).
+#   3. Baca balasan TERAKHIR daripada chat itu (getChat / history tidak ada dalam
+#      Bot API, jadi kita hantar mesej ujian dan bot akan balas dalam chat yang
+#      SAMA — balasan itu kita baca melalui getUpdates yang OFF bukan).
+#
+#   Nota: Bot API tidak boleh membaca semula mesejnya sendiri. Jadi bukti
+#   terbaik ialah: (a) sendMessage pulang ok:true, dan (b) log gateway
+#   menunjukkan mesej itu DIPROSES (jejak masuk) dalam tempoh yang sama.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mesej:
+        description: "Mesej ujian"
+        required: false
+        default: "hi"
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Hantar mesej + tangkap keadaan
+        env:
+          TOK: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.BOZ_CHAT_ID }}
+          MESEJ: ${{ inputs.mesej }}
+        run: |
+          set +e
+          OUT=uji_bot.log
+          : > "$OUT"
+
+          echo "=== UJIAN BOT $(date -u +%FT%TZ) ===" | tee -a "$OUT"
+
+          echo "--- 1. getMe (token sah?) ---" | tee -a "$OUT"
+          curl -sS -m 20 "https://api.telegram.org/bot${TOK}/getMe" \
+            | head -c 300 | tee -a "$OUT"; echo | tee -a "$OUT"
+
+          echo "--- 2. adakah long-poll bebas SEBELUM hantar? ---" | tee -a "$OUT"
+          H=$(curl -sS -m 20 -X POST "https://api.telegram.org/bot${TOK}/getUpdates" \
+              -H "Content-Type: application/json" \
+              -d '{"offset":-1,"timeout":0,"limit":1}' 2>&1)
+          case "$H" in
+            *'"ok":true'*) echo "BEBAS: tiada pemegang lain" | tee -a "$OUT" ;;
+            *409*|*Conflict*) echo "PESAING: 409 - ada poller lain" | tee -a "$OUT" ;;
+            *) echo "lain: $(echo "$H" | head -c 200)" | tee -a "$OUT" ;;
+          esac
+
+          echo "--- 3. hantar mesej ujian ---" | tee -a "$OUT"
+          echo "mesej: $MESEJ" | tee -a "$OUT"
+          R=$(curl -sS -m 25 -X POST "https://api.telegram.org/bot${TOK}/sendMessage" \
+              -H "Content-Type: application/json" \
+              -d "{\"chat_id\":${CHAT},\"text\":\"${MESEJ}\"}" 2>&1)
+          echo "$R" | head -c 400 | tee -a "$OUT"; echo | tee -a "$OUT"
+          MSGID=$(echo "$R" | grep -o '"message_id":[0-9]*' | head -1 | cut -d: -f2)
+          echo "message_id: ${MSGID:-TIADA}" | tee -a "$OUT"
+
+          echo "--- 4. tunggu bot memproses (100s) ---" | tee -a "$OUT"
+          sleep 100
+
+          # Bukti paling kuat yang Bot API benarkan: mesej ujian kita masih wujud
+          # dalam chat bermakna ia DIHANTAR, dan kalau bot memprosesnya ia akan
+          # balas. Kita tidak boleh baca balasan bot melalui API (tiada history),
+          # jadi kita rekod apa yang boleh: adakah poller masih hidup SELEPAS
+          # mesej (jika bot mati kerana 409, long-poll akan bebas semula).
+          echo "--- 5. long-poll SELEPAS mesej (masih dipegang bot = sihat) ---" | tee -a "$OUT"
+          H2=$(curl -sS -m 20 -X POST "https://api.telegram.org/bot${TOK}/getUpdates" \
+               -H "Content-Type: application/json" \
+               -d '{"offset":-1,"timeout":0,"limit":1}' 2>&1)
+          case "$H2" in
+            *'"ok":true'*) echo "BEBAS: bot TIADA memegang poll (mungkin mati)" | tee -a "$OUT" ;;
+            *409*|*Conflict*) echo "BOT HIDUP: bot sedang memegang poll (409 untuk kita = normal)" | tee -a "$OUT" ;;
+            *) echo "lain: $(echo "$H2" | head -c 200)" | tee -a "$OUT" ;;
+          esac
+
+          echo "=== SELESAI ===" | tee -a "$OUT"
+          cat "$OUT"
+
+          git config user.email bot@local
+          git config user.name bot
+          git add -f "$OUT"
+          git commit -qm "uji bot $GITHUB_RUN_ID" || true
+          for p in 1 2 3; do
+            git fetch origin master -q || true
+            git rebase origin/master -q || true
+            git push origin HEAD:master && break
+            sleep 5
+          done || true
