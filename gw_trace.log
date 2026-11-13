@@ -1,5 +1,4 @@
-=== TRACE 2026-11-13T10:58:26Z run 43401574237 ===
-{"masa": "2026-11-13T17:16:35+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-13T10:59:57Z run 43401574237 ===
 2026-11-13 10:17:25,199 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
 2026-11-13 10:17:35,573 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-13 10:17:36,688 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-13 10:58:07,934 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.14
 2026-11-13T10:58:12Z === cubaan 13 tamat: rc=1 ===
 2026-11-13T10:58:12Z jeda 260s sebelum cubaan berikut
+{"masa": "2026-11-13T17:58:53+07:00", "getMe_http": 200, "getMe_saat": 0.385, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
