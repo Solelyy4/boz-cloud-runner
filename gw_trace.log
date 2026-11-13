@@ -1,4 +1,4 @@
-=== TRACE 2026-11-13T14:20:58Z run 43401574237 ===
+=== TRACE 2026-11-13T14:22:29Z run 43401574237 ===
 2026-11-13 13:29:51,442 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-13 13:29:51,460 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
 2026-11-13 13:29:51,460 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
