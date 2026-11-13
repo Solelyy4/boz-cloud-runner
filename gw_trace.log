@@ -1,4 +1,4 @@
-=== TRACE 2026-11-13T20:06:03Z run 43496593292 ===
+=== TRACE 2026-11-13T20:07:34Z run 43496593292 ===
 2026-11-13T19:56:56Z === gateway_jalan mula: run=43496593292 masa_jalan=720m ===
 2026-11-13T19:56:56Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/59f6b51aba0d4f6ebb404fa45171331d/workspace/plugins/platforms/telegram/adapter.py
@@ -190,3 +190,13 @@ openai.APIStatusError: Error code: 413 - {'error': {'message': 'Request too larg
 2026-11-13 20:04:49,012 WARNING JEJAK: JEJAK BALAS chat=8043910371
 {"masa": "2026-11-14T03:04:59+07:00", "getMe_http": 200, "getMe_saat": 0.325, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 NADI OK: 1794600323 (git push, tanpa REST API)
+NADI OK: 1794600370 (git push, tanpa REST API)
+NADI OK: 1794600416 (git push, tanpa REST API)
+{"masa": "2026-11-14T03:07:00+07:00", "getMe_http": 200, "getMe_saat": 0.366, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-13T20:07:01+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
+RESULT: teraju sihat
