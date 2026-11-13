@@ -1,5 +1,4 @@
-=== TRACE 2026-11-13T12:26:45Z run 43401574237 ===
-2026-11-13T11:37:13Z ralat fatal adapter dikesan -> mula semula
+=== TRACE 2026-11-13T12:28:17Z run 43401574237 ===
 2026-11-13 11:37:13,432 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.05
 2026-11-13T11:37:18Z === cubaan 17 tamat: rc=1 ===
 2026-11-13T11:37:18Z jeda 300s sebelum cubaan berikut
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-13 12:26:14,068 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.24
 2026-11-13T12:26:19Z === cubaan 22 tamat: rc=1 ===
 2026-11-13T12:26:19Z jeda 300s sebelum cubaan berikut
+{"masa": "2026-11-13T19:27:35+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
