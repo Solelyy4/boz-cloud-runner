@@ -130,8 +130,13 @@ def tampal(path: str) -> str:
     if m:
         teks = teks[:m.end()] + "\n" + SUNTIK_BALAS + teks[m.end() + 1:]
         ok_b = True
-    m = _re.search(r"^        app\.add_handler\(TelegramMessageHandler\(filters\.TEXT.*\)$",
-                   teks, _re.M)
+    # BUKTI 13 Nov 2026: corak lama tidak padan kerana kod sebenar berakhir dengan "))"
+    # (add_handler(TelegramMessageHandler(filters.TEXT & ~filters.COMMAND, self._handle_text_message)))
+    # Akibatnya daftar=False -> penjejak TIDAK dipasang pada pendaftaran handler, jadi
+    # kita buta tentang sama ada handler benar-benar didaftarkan. Corak baharu tahan variasi.
+    m = _re.search(
+        r"^(\s*)app\.add_handler\(\s*TelegramMessageHandler\(\s*filters\.TEXT[^\n]*?\)\s*\)\s*$",
+        teks, _re.M)
     if m:
         teks = teks[:m.end()] + "\n" + SUNTIK_DAFTAR + teks[m.end() + 1:]
         ok_d = True

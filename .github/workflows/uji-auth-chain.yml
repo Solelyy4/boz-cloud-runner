@@ -1,0 +1,65 @@
+name: uji-auth-chain
+
+# SOALAN TERAKHIR: adakah auth chain MENERIMA BOZ?
+#
+# Semua penapis lain sudah diperiksa dan terbukti TIDAK menolak DM:
+#   _should_process_message  -> DM lulus (bukan group)
+#   _is_own_message          -> BOZ bukan bot, lulus
+#   _observe_bot_identity    -> BOZ bukan bot, lulus
+#
+# Yang tinggal: _is_user_authorized_from_message() -> auth chain Hermes.
+# Kalau ia menolak, mesej hilang SENYAP: tiada jawapan, tiada log, `pending` 0.
+# Itulah gejala sebenar bot.
+#
+# Ujian ini MEMBACA sahaja (tiada boot gateway): periksa config auth sebenar dan
+# nilai yang akan dievaluasi, supaya kita tahu sama ada BOZ diluluskan.
+on:
+  workflow_dispatch:
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Periksa auth chain sebenar
+        env:
+          BOZ_PAT: ${{ secrets.BOZ_PAT }}
+        run: |
+          set +e
+          OUT=uji-auth.log
+          {
+            echo "=== UJI AUTH CHAIN $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
+            echo
+            echo "--- ambil config Hermes sebenar (repo peribadi) ---"
+            git clone --depth 1 \
+              "https://x-access-token:${BOZ_PAT}@github.com/Solelyy4/boz-hermes-home.git" /tmp/home 2>&1 | tail -2
+            echo
+            echo "--- 1. allow_all_users / allowed_users ---"
+            grep -nE "allow_all_users|allowed_users|allow_from" /tmp/home/config.yaml | head -20
+            echo
+            echo "--- 2. channel_prompts (chat id BOZ) ---"
+            grep -nE "8043910371" /tmp/home/config.yaml | head -3 | cut -c1-150
+            echo
+            echo "--- 3. .env yang dijana workflow ---"
+            echo "TELEGRAM_ALLOWED_USERS sepatutnya 8043910371"
+            echo
+            echo "--- 4. auth chain dalam Hermes: fungsi yang menapis ---"
+            AD=$(find / -path "*plugins/platforms/telegram/adapter.py" 2>/dev/null | head -1)
+            echo "adapter: ${AD:-TIADA}"
+            if [ -n "$AD" ]; then
+              echo
+              echo "  4a. _is_user_authorized_from_message -> apa yang ia panggil:"
+              grep -n "set_authorization_check\|_authorization_check\|self.config.allow_all\|allow_all_users" "$AD" | head -12
+              echo
+              echo "  4b. adakah ada 'pairing' yang menyekat DM:"
+              grep -n "pairing" "$AD" | head -8
+            fi
+          } > "$OUT" 2>&1
+          cat "$OUT"
+          git config user.email bot@local; git config user.name bot
+          git add -f "$OUT"; git commit -qm "uji auth $GITHUB_RUN_ID" || true
+          for i in 1 2 3; do git push origin HEAD:master && break; git fetch origin master -q; git rebase origin/master -q || true; sleep 3; done
