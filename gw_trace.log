@@ -1,6 +1,4 @@
-=== TRACE 2026-11-13T10:55:23Z run 43401574237 ===
-2026-11-13 10:13:09,902 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
-2026-11-13 10:13:39,944 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+=== TRACE 2026-11-13T10:56:55Z run 43401574237 ===
 2026-11-13 10:13:40,004 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-13 10:13:40,546 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-13T10:13:42Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
@@ -249,3 +247,5 @@ RESULT: teraju sihat
 2026-11-13 10:54:38,342 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-13T17:54:52+07:00", "getMe_http": 200, "getMe_saat": 0.357, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-13 10:55:14,286 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 10:56:00,400 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+{"masa": "2026-11-13T17:56:52+07:00", "getMe_http": 200, "getMe_saat": 0.349, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
