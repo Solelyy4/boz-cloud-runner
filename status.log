@@ -1,11 +1,6 @@
-=== RUN 43493523353 2026-11-13T19:54:20Z ===
-!!! GERBANG GAGAL (status=failure) !!!
-Gateway TIDAK dimulakan. Punca: satu atau lebih pautan model MATI
-atau had 429 berpanjangan. Semak langkah 'GERBANG' dalam run ini.
-Bot TIDAK menerima sebarang mesej dalam run ini.
-
+=== RUN 43496593292 2026-11-13T20:07:52Z ===
 --- peronda (bukti rangkaian runner) ---
-denyut: 9 | sihat: 9 | gagal: 0
+denyut: 6 | sihat: 6 | gagal: 0
 kadar sihat: 100%
 
 --- gerbang balasan (bukti pasang) ---
