@@ -1,9 +1,15 @@
-=== RUN 43476109716 2026-11-13T17:57:16Z ===
---- peronda (bukti rangkaian runner) ---
-denyut: 4 | sihat: 4 | gagal: 0
-kadar sihat: 100%
+=== RUN 43487287995 2026-11-13T18:57:43Z ===
+!!! GERBANG GAGAL (status=failure) !!!
+Gateway TIDAK dimulakan. Punca: satu atau lebih pautan model MATI
+atau had 429 berpanjangan. Semak langkah 'GERBANG' dalam run ini.
+Bot TIDAK menerima sebarang mesej dalam run ini.
 
---- gerbang balasan (bukti pasang) ---
-{"penapis_dimuat": true, "chat": "8043910371", "sapaan_dipotong": "Yo BOZ. Aku di sini — nak buat apa?", "tugasan_dikekalkan": "SIAP: 31 rekod -> bing=6\nhttps://news.google.com/rss/x", "stat": {"diperiksa": 2, "dipotong": 1, "diluluskan": 1, "ralat": 0}}
+--- peronda (bukti rangkaian runner) ---
+[tiada] status_peronda.jsonl
+tiada data peronda
+
+--- gerbang balasan: TIADA BUKTI /tmp/gerbang_bukti.json ---
+    Langkah 'GERBANG BALASAN' mungkin tidak berjalan. Semak run.
+
 --- gw.log (60 baris terakhir) ---
 tiada log gateway
