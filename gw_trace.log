@@ -1,25 +1,4 @@
-=== TRACE 2026-11-13T14:52:57Z run 43401574237 ===
-2026-11-13 13:59:18,048 WARNING gateway.run: ✗ telegram failed to connect
-2026-11-13 13:59:19,190 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 13:59:19,191 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
-2026-11-13 13:59:49,235 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 13:59:49,355 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 13:59:50,039 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-13T13:59:50Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
-2026-11-13 13:59:54,501 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 14:00:16,418 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-13 14:00:16,418 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-13 14:00:20,857 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.167.220 (dual-stack hostname tried last — #87015)
-2026-11-13 14:00:20,858 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-{"masa": "2026-11-13T21:00:28+07:00", "getMe_http": 0, "getMe_saat": 0.44, "ok": false, "ralat": "", "pending": 0}
-2026-11-13 14:01:20,501 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
-2026-11-13 14:01:20,502 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
-2026-11-13 14:01:20,820 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.167.220 (dual-stack hostname tried last — #87015)
-=== JAGA RANTAIAN 2026-11-13T14:02:27+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+=== TRACE 2026-11-13T14:54:29Z run 43401574237 ===
   [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
 RESULT: teraju sihat
 {"masa": "2026-11-13T21:02:33+07:00", "getMe_http": 200, "getMe_saat": 3.58, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
@@ -249,3 +228,24 @@ RESULT: teraju sihat
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [HIDUP] mistral      ministral-14b-latest       ok (teks)
 RESULT: teraju sihat
+{"masa": "2026-11-13T21:53:01+07:00", "getMe_http": 200, "getMe_saat": 0.326, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13T14:53:55Z --- cubaan 37: mula gateway ---
+2026-11-13T14:53:55Z gateway pid=23051
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-13 14:53:57,316 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-13 14:53:57,515 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-13 14:53:57,534 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-13 14:53:57,534 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 14:53:57,534 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 14:53:57,536 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 14:53:57,536 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 14:54:02,591 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 14:54:02,592 WARNING gateway.run: ✗ telegram failed to connect
+2026-11-13 14:54:03,710 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 14:54:03,710 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
