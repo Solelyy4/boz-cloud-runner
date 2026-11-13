@@ -1,13 +1,4 @@
-=== TRACE 2026-11-13T11:56:17Z run 43401574237 ===
-2026-11-13 11:07:17,642 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13 11:07:17,645 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
-2026-11-13T11:08:13Z ralat fatal adapter dikesan -> mula semula
-2026-11-13 11:08:13,063 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.07
-2026-11-13T11:08:18Z === cubaan 14 tamat: rc=1 ===
-2026-11-13T11:08:18Z jeda 280s sebelum cubaan berikut
-{"masa": "2026-11-13T18:08:59+07:00", "getMe_http": 200, "getMe_saat": 0.52, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-{"masa": "2026-11-13T18:11:00+07:00", "getMe_http": 200, "getMe_saat": 0.321, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-13T11:11:02+0000 ===
+=== TRACE 2026-11-13T11:57:48Z run 43401574237 ===
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
   [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
@@ -249,3 +240,12 @@ RESULT: teraju sihat
 2026-11-13 11:54:39,993 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-13T18:55:17+07:00", "getMe_http": 200, "getMe_saat": 0.341, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-13 11:55:35,951 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 11:56:31,480 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
+2026-11-13 11:56:41,892 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'. Original error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 11:56:43,005 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
+2026-11-13 11:56:43,007 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
+2026-11-13T11:56:48Z ralat fatal adapter dikesan -> mula semula
+2026-11-13 11:56:48,678 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.03
+2026-11-13T11:56:53Z === cubaan 19 tamat: rc=1 ===
+2026-11-13T11:56:53Z jeda 300s sebelum cubaan berikut
+{"masa": "2026-11-13T18:57:18+07:00", "getMe_http": 200, "getMe_saat": 0.346, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
