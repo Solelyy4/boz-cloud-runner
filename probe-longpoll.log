@@ -1,0 +1,22 @@
+=== PROBE LONG-POLL 2026-11-13T16:01:06Z run 43458382983 ===
+
+--- 1. getMe (token sah?) ---
+{"ok":true,"result":{"id":8952729999,"is_bot":true,"first_name":"NEXORA AI","username":"hermes_personal_sole_bot","can_join_groups":true,"can_read_all_group_messages":false,"supports_inline_queries":false,"supports_guest_queries":false,"can_connect_t
+
+--- 2. getWebhookInfo (webhook merampas long-poll?) ---
+{"ok":true,"result":{"url":"","has_custom_certificate":false,"pending_update_count":0,"allowed_updates":["message","edited_message","channel_post","edited_channel_post","inline_query","chosen_inline_result","callback_query","shipping_query","pre_checkout_query","poll","poll_answer","my_chat_member","chat_member","chat_join_request","chat_boost","removed_chat_boost","message_reaction","message_reaction_count","business_connection","business_message","edited_business_message","deleted_business_mes
+
+--- 3. getUpdates offset=-1 timeout=0 (6 cubaan, 10s jarak) ---
+    ok=true  -> TIADA sesi lain; long-poll bebas
+    409      -> ADA sesi lain memegang long-poll SEKARANG
+
+  [1] 16:01:07 ok=true  -> bebas
+  [2] 16:01:18 ok=true  -> bebas
+  [3] 16:01:28 ok=true  -> bebas
+  [4] 16:01:38 ok=true  -> bebas
+  [5] 16:01:49 ok=true  -> bebas
+  [6] 16:01:59 ok=true  -> bebas
+
+JUMLAH KONFLIK: 0 / 6
+VERDICT: TIADA sesi lain. Konflik dalam gw_trace.log datang daripada
+         peralihan run (sesi lama belum luput) — pembersihan sesi mencukupi.
