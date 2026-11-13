@@ -1,251 +1,52 @@
-=== TRACE 2026-11-13T17:44:29Z run 43470508562 ===
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
-    return func(*args, **kwargs)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
-    return self._post(
-           ~~~~~~~~~~^
-        "/chat/completions",
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<53 lines>...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.BadRequestError: Error code: 400 - {'error': {'message': '`reasoning_effort` must be one of `low`, `medium`, or `high`', 'type': 'invalid_request_error'}}
-⚠️  openai/gpt-oss-120b rejects reasoning effort medium — using the route's default until the route changes, retrying...
-2026-11-13 17:30:11,343 WARNING agent.conversation_loop: Reasoning-effort recovery: dropping reasoning config for openai/gpt-oss-120b
-2026-11-13 17:30:11,558 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 32155, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
-Traceback (most recent call last):
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3719, in _call
-    self.result["response"] = _with_stream_emitters(
-                              ~~~~~~~~~~~~~~~~~~~~~^
-        self.agent, lambda: self._call_wire(stream_attempt_id))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 2480, in _with_stream_emitters
-    response = run()
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3720, in <lambda>
-    self.agent, lambda: self._call_wire(stream_attempt_id))
-                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3697, in _call_wire
-    return self._call_chat_completions(stream_attempt_id)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3054, in _call_chat_completions
-    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
-                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<2 lines>...
-        completed_response_predicate=lambda value: hasattr(value, "choices"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/relay_llm.py", line 331, in __init__
-    self._start_unmanaged(request)
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/relay_llm.py", line 337, in _start_unmanaged
-    raw_stream = self._stream_factory(request)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3045, in _open_stream
-    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
-           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 2938, in _open_chat_stream
-    return request_client.chat.completions.create(**stream_kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
-    return func(*args, **kwargs)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
-    return self._post(
-           ~~~~~~~~~~^
-        "/chat/completions",
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<53 lines>...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.APIStatusError: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 32155, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
-2026-11-13 17:30:11,564 WARNING agent.conversation_loop: API call failed (attempt 1/4) error_type=APIStatusError thread=hermes-gateway_1:137719250413248 provider=custom base_url=https://api.groq.com/openai/v1 model=openai/gpt-oss-120b summary=HTTP 413: Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 32155, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/
-🗜️ Compacting context — summarizing earlier conversation so I can continue...
-⚠️  Attempt 1/4 failed: HTTP 413: Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 32155, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/
-⚠️  Request payload too large — compression attempt 1/6...
-❌ Payload too large and cannot compress further.
-   💡 Try /new to start a fresh conversation, or /compress to retry compression.
-2026-11-13 17:30:11,593 ERROR agent.conversation_loop: 413 payload too large. Cannot compress further.
-2026-11-13 17:30:11,595 WARNING JEJAK: JEJAK BALAS chat=8043910371
-2026-11-13 17:30:11,655 WARNING JEJAK: JEJAK BALAS chat=8043910371
-NADI OK: 1794591047 (masa epoch ditulis dan disahkan)
-[JEJAK-MASUK] process_update id=137718933640912 update_id=825346257
-[JEJAK-MASUK] process_update id=137718933640912 update_id=825346258
-[JEJAK-MASUK] process_update id=137718933640912 update_id=825346259
-2026-11-13 17:31:07,011 WARNING JEJAK: JEJAK MASUK update=825346259 msg=1121 chat=8043910371 dari=Solelah14 teks='Hello'
-2026-11-13 17:31:07,215 WARNING JEJAK: JEJAK BALAS chat=8043910371
-2026-11-13 17:31:07,821 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 17:31:07,821 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 17:31:07,825 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-13 17:31:07,825 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-13 17:31:08,489 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 400 - {'error': {'message': '`reasoning_effort` must be one of `low`, `medium`, or `high`', 'type': 'invalid_request_error'}}
-Traceback (most recent call last):
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3719, in _call
-    self.result["response"] = _with_stream_emitters(
-                              ~~~~~~~~~~~~~~~~~~~~~^
-        self.agent, lambda: self._call_wire(stream_attempt_id))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 2480, in _with_stream_emitters
-    response = run()
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3720, in <lambda>
-    self.agent, lambda: self._call_wire(stream_attempt_id))
-                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3697, in _call_wire
-    return self._call_chat_completions(stream_attempt_id)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3054, in _call_chat_completions
-    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
-                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<2 lines>...
-        completed_response_predicate=lambda value: hasattr(value, "choices"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/relay_llm.py", line 331, in __init__
-    self._start_unmanaged(request)
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/relay_llm.py", line 337, in _start_unmanaged
-    raw_stream = self._stream_factory(request)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3045, in _open_stream
-    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
-           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 2938, in _open_chat_stream
-    return request_client.chat.completions.create(**stream_kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
-    return func(*args, **kwargs)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
-    return self._post(
-           ~~~~~~~~~~^
-        "/chat/completions",
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<53 lines>...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.BadRequestError: Error code: 400 - {'error': {'message': '`reasoning_effort` must be one of `low`, `medium`, or `high`', 'type': 'invalid_request_error'}}
-⚠️  openai/gpt-oss-120b rejects reasoning effort medium — using the route's default until the route changes, retrying...
-2026-11-13 17:31:08,494 WARNING agent.conversation_loop: Reasoning-effort recovery: dropping reasoning config for openai/gpt-oss-120b
-2026-11-13 17:31:08,769 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 31859, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
-Traceback (most recent call last):
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3719, in _call
-    self.result["response"] = _with_stream_emitters(
-                              ~~~~~~~~~~~~~~~~~~~~~^
-        self.agent, lambda: self._call_wire(stream_attempt_id))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 2480, in _with_stream_emitters
-    response = run()
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3720, in <lambda>
-    self.agent, lambda: self._call_wire(stream_attempt_id))
-                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3697, in _call_wire
-    return self._call_chat_completions(stream_attempt_id)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3054, in _call_chat_completions
-    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
-                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<2 lines>...
-        completed_response_predicate=lambda value: hasattr(value, "choices"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/relay_llm.py", line 331, in __init__
-    self._start_unmanaged(request)
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/relay_llm.py", line 337, in _start_unmanaged
-    raw_stream = self._stream_factory(request)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 3045, in _open_stream
-    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
-           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/workspace/agent/chat_completion_helpers.py", line 2938, in _open_chat_stream
-    return request_client.chat.completions.create(**stream_kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 298, in wrapper
-    return func(*args, **kwargs)
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
-    return self._post(
-           ~~~~~~~~~~^
-        "/chat/completions",
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<53 lines>...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1375, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/079fc4d498104bad90c182d27569695a/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1148, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.APIStatusError: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 31859, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
-2026-11-13 17:31:08,774 WARNING agent.conversation_loop: API call failed (attempt 1/4) error_type=APIStatusError thread=hermes-gateway_1:137719250413248 provider=custom base_url=https://api.groq.com/openai/v1 model=openai/gpt-oss-120b summary=HTTP 413: Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 31859, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/
-🗜️ Compacting context — summarizing earlier conversation so I can continue...
-⚠️  Attempt 1/4 failed: HTTP 413: Request too large for model `openai/gpt-oss-120b` in organization `org_01m5qa3qxaehhbbnj2xqm2qk74` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 31859, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/
-⚠️  Request payload too large — compression attempt 1/6...
-❌ Payload too large and cannot compress further.
-   💡 Try /new to start a fresh conversation, or /compress to retry compression.
-2026-11-13 17:31:08,789 ERROR agent.conversation_loop: 413 payload too large. Cannot compress further.
-2026-11-13 17:31:08,789 WARNING JEJAK: JEJAK BALAS chat=8043910371
-2026-11-13 17:31:08,824 WARNING JEJAK: JEJAK BALAS chat=8043910371
-NADI OK: 1794591093 (masa epoch ditulis dan disahkan)
-{"masa": "2026-11-14T00:31:35+07:00", "getMe_http": 200, "getMe_saat": 0.362, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1794591138 (masa epoch ditulis dan disahkan)
-NADI OK: 1794591190 (masa epoch ditulis dan disahkan)
-{"masa": "2026-11-14T00:33:36+07:00", "getMe_http": 200, "getMe_saat": 0.363, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1794591236 (masa epoch ditulis dan disahkan)
-NADI OK: 1794591282 (masa epoch ditulis dan disahkan)
-NADI OK: 1794591328 (masa epoch ditulis dan disahkan)
-{"masa": "2026-11-14T00:35:37+07:00", "getMe_http": 200, "getMe_saat": 0.547, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-13T17:35:38+0000 ===
+=== TRACE 2026-11-13T17:51:06Z run 43476109716 ===
+2026-11-13T17:49:35Z === gateway_jalan mula: run=43476109716 masa_jalan=720m ===
+2026-11-13T17:49:35Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd6226d735324636a7db0b81621fa076/venv/bin/python
+JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd6226d735324636a7db0b81621fa076/workspace/plugins/platforms/telegram/adapter.py
+=== 2026-11-13T17:49:35Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd6226d735324636a7db0b81621fa076/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd6226d735324636a7db0b81621fa076/venv/lib/python3.14/site-packages/telegram/__init__.py
+JEJAK-MASUK: 1 fail PTB dijumpai
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd6226d735324636a7db0b81621fa076/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  sahkan: penanda=True (bait=85224)
+=== selesai ===
+JANGAN-BUANG: 1 adapter dijumpai
+  selamat: tiada lagi drop_pending_updates=True dalam kod -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd6226d735324636a7db0b81621fa076/workspace/plugins/platforms/telegram/adapter.py
+2026-11-13T17:49:36Z penulis nadi dipasang (pid=3646, setiap 45s)
+2026-11-13T17:49:36Z peronda rantaian dipasang (pid=3651, semak setiap 10 min)
+2026-11-13T17:49:36Z peronda latar dipasang (pid=3650, denyut 120s)
+2026-11-13T17:49:36Z webhook dipadam + sesi lama ditamatkan (drop_pending_updates=true)
+2026-11-13T17:49:36Z jeda 40s supaya sesi lama luput sebelum gateway menyambung
+{"masa": "2026-11-14T00:49:36+07:00", "getMe_http": 200, "getMe_saat": 0.45, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1794592176 (git push, tanpa REST API)
+=== JAGA RANTAIAN 2026-11-13T17:49:38+0000 ===
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
   [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
+  [MATI ] mistral      ministral-14b-latest       tiada choices
 RESULT: teraju sihat
-NADI OK: 1794591374 (masa epoch ditulis dan disahkan)
-2026-11-13T17:36:28Z denyut tick=20 pid=3775
-NADI OK: 1794591420 (masa epoch ditulis dan disahkan)
-{"masa": "2026-11-14T00:37:37+07:00", "getMe_http": 200, "getMe_saat": 0.362, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1794591465 (masa epoch ditulis dan disahkan)
-NADI GAGAL: HTTP 403 Forbidden
-NADI GAGAL: HTTP 403 Forbidden
-{"masa": "2026-11-14T00:39:38+07:00", "getMe_http": 200, "getMe_saat": 0.358, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: HTTP 403 Forbidden
-NADI GAGAL: HTTP 403 Forbidden
-2026-11-13 17:41:00,112 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 17:41:26,151 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-NADI GAGAL: HTTP 403 Forbidden
-{"masa": "2026-11-14T00:41:39+07:00", "getMe_http": 200, "getMe_saat": 0.398, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 17:42:02,267 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-NADI GAGAL: HTTP 403 Forbidden
-2026-11-13 17:42:48,320 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-NADI GAGAL: HTTP 403 Forbidden
-{"masa": "2026-11-14T00:43:40+07:00", "getMe_http": 200, "getMe_saat": 0.519, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 17:43:44,424 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-NADI GAGAL: HTTP 403 Forbidden
+jejak-pemanjat: salinan workspace ditampal
+2026-11-13T17:50:16Z --- cubaan 1: mula gateway ---
+2026-11-13T17:50:16Z gateway pid=3714
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-13 17:50:22,012 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-13 17:50:22,235 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-13 17:50:23,196 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-13 17:50:23,196 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 17:50:23,197 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-13 17:50:23,199 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-13 17:50:23,200 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+NADI OK: 1794592222 (git push, tanpa REST API)
+2026-11-13 17:50:29,288 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 17:50:29,289 WARNING gateway.run: ✗ telegram failed to connect
+2026-11-13 17:50:30,479 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 17:50:30,480 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
+2026-11-13 17:51:00,691 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-13 17:51:00,721 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-13 17:51:02,059 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
