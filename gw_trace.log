@@ -1,5 +1,4 @@
-=== TRACE 2026-11-13T01:05:19Z run 43303841590 ===
-2026-11-12 22:51:26,523 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+=== TRACE 2026-11-13T01:06:50Z run 43303841590 ===
 2026-11-12 22:51:26,683 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
 2026-11-12 22:51:26,683 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
 2026-11-12 22:51:26,684 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 RESULT: teraju sihat
 {"masa": "2026-11-13T08:02:12+07:00", "getMe_http": 200, "getMe_saat": 0.485, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 {"masa": "2026-11-13T08:04:13+07:00", "getMe_http": 200, "getMe_saat": 0.483, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-13T08:06:14+07:00", "getMe_http": 200, "getMe_saat": 0.447, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
