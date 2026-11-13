@@ -1,7 +1,4 @@
-=== TRACE 2026-11-13T10:23:25Z run 43401574237 ===
-2026-11-13 09:46:43,196 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 09:46:43,305 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 09:46:43,399 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+=== TRACE 2026-11-13T10:24:56Z run 43401574237 ===
 2026-11-13 09:46:43,399 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
 2026-11-13 09:46:43,400 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
 2026-11-13 09:46:43,401 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
@@ -249,3 +246,6 @@ RESULT: teraju sihat
 2026-11-13 10:22:12,317 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-13T17:22:39+07:00", "getMe_http": 200, "getMe_saat": 0.384, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-13 10:22:58,340 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 10:23:55,389 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+{"masa": "2026-11-13T17:24:39+07:00", "getMe_http": 200, "getMe_saat": 0.34, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 10:24:50,941 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
