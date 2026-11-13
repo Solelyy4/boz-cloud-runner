@@ -85,7 +85,22 @@ def cari_adapter(home: str) -> list[str]:
     return found
 
 
+def _normalisasi(path: str) -> str:
+    """Tukar laluan gaya MSYS (/c/Users/x) -> Windows (C:/Users/x).
+
+    GitHub Actions guna Linux (tiada isu), tetapi bila skrip diuji di Windows
+    melalui bash, `find` pulang /c/Users/... yang Python native TIDAK faham ->
+    FileNotFoundError. Normalisasi di sini supaya satu skrip jalan di kedua-dua OS.
+    """
+    if re.match(r"^/[a-zA-Z]/", path):
+        return path[1].upper() + ":" + path[2:]
+    return path
+
+
 def tanam(path: str) -> str:
+    path = _normalisasi(path)
+    if not os.path.isfile(path):
+        return f"GAGAL: fail tidak wujud: {path}"
     txt = io.open(path, encoding="utf-8").read()
     asal = txt
     status: list[str] = []
