@@ -1,5 +1,4 @@
-=== TRACE 2026-11-13T13:07:52Z run 43401574237 ===
-{"masa": "2026-11-13T19:19:30+07:00", "getMe_http": 200, "getMe_saat": 1.487, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== TRACE 2026-11-13T13:09:23Z run 43401574237 ===
 {"masa": "2026-11-13T19:21:31+07:00", "getMe_http": 200, "getMe_saat": 0.325, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-13T12:21:33Z --- cubaan 22: mula gateway ---
 2026-11-13T12:21:33Z gateway pid=14051
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-13T13:05:19Z === cubaan 26 tamat: rc=1 ===
 2026-11-13T13:05:19Z jeda 300s sebelum cubaan berikut
 {"masa": "2026-11-13T20:05:50+07:00", "getMe_http": 200, "getMe_saat": 0.51, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-13T20:07:51+07:00", "getMe_http": 200, "getMe_saat": 0.327, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
