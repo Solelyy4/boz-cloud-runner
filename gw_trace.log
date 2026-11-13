@@ -1,7 +1,4 @@
-=== TRACE 2026-11-13T17:38:23Z run 43470508562 ===
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<2 lines>...
-        completed_response_predicate=lambda value: hasattr(value, "choices"),
+=== TRACE 2026-11-13T17:39:54Z run 43470508562 ===
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -249,3 +246,6 @@ NADI OK: 1794591374 (masa epoch ditulis dan disahkan)
 NADI OK: 1794591420 (masa epoch ditulis dan disahkan)
 {"masa": "2026-11-14T00:37:37+07:00", "getMe_http": 200, "getMe_saat": 0.362, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 NADI OK: 1794591465 (masa epoch ditulis dan disahkan)
+NADI GAGAL: HTTP 403 Forbidden
+NADI GAGAL: HTTP 403 Forbidden
+{"masa": "2026-11-14T00:39:38+07:00", "getMe_http": 200, "getMe_saat": 0.358, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
