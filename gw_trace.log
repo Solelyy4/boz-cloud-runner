@@ -1,5 +1,4 @@
-=== TRACE 2026-11-13T12:57:13Z run 43401574237 ===
-2026-11-13 12:06:43,818 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.26
+=== TRACE 2026-11-13T12:58:44Z run 43401574237 ===
 2026-11-13T12:06:48Z === cubaan 20 tamat: rc=1 ===
 2026-11-13T12:06:48Z jeda 300s sebelum cubaan berikut
 {"masa": "2026-11-13T19:07:21+07:00", "getMe_http": 200, "getMe_saat": 0.338, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-13T12:55:34Z === cubaan 25 tamat: rc=1 ===
 2026-11-13T12:55:34Z jeda 300s sebelum cubaan berikut
 {"masa": "2026-11-13T19:55:45+07:00", "getMe_http": 200, "getMe_saat": 0.33, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+{"masa": "2026-11-13T19:57:47+07:00", "getMe_http": 200, "getMe_saat": 1.454, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
