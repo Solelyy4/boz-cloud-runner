@@ -1,7 +1,4 @@
-=== TRACE 2026-11-13T11:24:19Z run 43401574237 ===
-{"masa": "2026-11-13T17:38:44+07:00", "getMe_http": 200, "getMe_saat": 0.341, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-2026-11-13 10:38:49,479 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-11-13 10:39:45,389 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+=== TRACE 2026-11-13T11:25:50Z run 43401574237 ===
 2026-11-13 10:40:40,937 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Updater made no getUpdates progress and is not running
 {"masa": "2026-11-13T17:40:45+07:00", "getMe_http": 200, "getMe_saat": 0.348, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 === JAGA RANTAIAN 2026-11-13T10:40:51+0000 ===
@@ -249,3 +246,6 @@ RESULT: teraju sihat
 2026-11-13T11:23:28Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
 2026-11-13 11:23:31,040 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2026-11-13 11:23:56,947 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 11:24:32,872 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+{"masa": "2026-11-13T18:25:06+07:00", "getMe_http": 200, "getMe_saat": 0.392, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 11:25:18,787 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
