@@ -1,8 +1,4 @@
-=== TRACE 2026-11-13T14:08:47Z run 43401574237 ===
-
-2026-11-13 13:20:06,135 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-13 13:20:06,322 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-13 13:20:06,340 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+=== TRACE 2026-11-13T14:10:18Z run 43401574237 ===
 2026-11-13 13:20:06,340 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
 2026-11-13 13:20:06,341 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
 2026-11-13 13:20:06,342 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
@@ -249,3 +245,7 @@ RESULT: teraju sihat
 2026-11-13 14:08:10,782 ERROR gateway.run: Fatal telegram adapter error (telegram_polling_conflict): Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
 2026-11-13 14:08:10,785 ERROR gateway.run: telegram is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway is DEGRADED — it serves local clients and cron with no messaging platform. telegram_polling_conflict: Telegram polling could not recover after 5 retries (200s total wait). The previous gateway session is still held open on Telegram's servers, or another process is using the same bot token. To recover: ensure no other Hermes or OpenClaw instance is running with this token, then restart the gateway with 'hermes gateway restart'.
 {"masa": "2026-11-13T21:08:35+07:00", "getMe_http": 200, "getMe_saat": 0.329, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13T14:08:50Z ralat fatal adapter dikesan -> mula semula
+2026-11-13 14:08:50,379 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.19
+2026-11-13T14:08:55Z === cubaan 32 tamat: rc=1 ===
+2026-11-13T14:08:55Z jeda 300s sebelum cubaan berikut
