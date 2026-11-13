@@ -1,5 +1,4 @@
-=== TRACE 2026-11-13T10:11:14Z run 43401574237 ===
-2026-11-13 09:35:39,280 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+=== TRACE 2026-11-13T10:12:46Z run 43401574237 ===
 2026-11-13 09:35:39,281 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution; platforms whose plugin may still register are queued for background retry.
 2026-11-13 09:36:09,327 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
 2026-11-13 09:36:09,375 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
@@ -249,3 +248,4 @@ RESULT: teraju sihat
 2026-11-13 10:10:37,209 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=3376 parent_name=bash loadavg_1m=0.06
 2026-11-13T10:10:42Z === cubaan 7 tamat: rc=1 ===
 2026-11-13T10:10:42Z jeda 140s sebelum cubaan berikut
+{"masa": "2026-11-13T17:12:33+07:00", "getMe_http": 200, "getMe_saat": 0.386, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
