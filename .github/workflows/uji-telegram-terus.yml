@@ -1,0 +1,103 @@
+name: uji-telegram-terus
+
+# UJIAN TERUS: sahkan sama ada token+chat BOZ boleh hantar DAN terima, tanpa
+# laluan penuh Hermes (elak 12 minit boot setiap kali).
+#
+# Diuji: bot hantar -> dapat message_id; kemudian dengar 2 minit -> tangkap
+# sebarang update. Ini memisahkan "rangkaian/token/chat" daripada "kod Hermes".
+on:
+  workflow_dispatch:
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Hantar + dengar + lapor
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          set +e
+          OUT=uji-telegram.log
+          {
+            echo "=== UJI TELEGRAM TERUS $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
+            python3 - <<'PY'
+          import json, os, time, urllib.request, urllib.error
+
+          T = os.environ["TOKEN"]
+          API = f"https://api.telegram.org/bot{T}"
+          CHAT = "8043910371"
+
+          def call(m, p=None, t=45):
+              req = urllib.request.Request(f"{API}/{m}", data=json.dumps(p or {}).encode(),
+                                           headers={"Content-Type": "application/json"})
+              with urllib.request.urlopen(req, timeout=t) as r:
+                  return json.loads(r.read().decode())
+
+          # 1. Siapa bot
+          me = call("getMe").get("result", {})
+          print(f"BOT   : @{me.get('username')} (id {me.get('id')})")
+
+          # 2. Buang webhook + kosongkan baris gilir lama
+          call("deleteWebhook", {"drop_pending_updates": True})
+          print("webhook: dipadam, baris gilir dikosongkan")
+          time.sleep(1)
+
+          # 3. Hantar dari bot ke chat BOZ
+          try:
+              r = call("sendMessage", {"chat_id": CHAT,
+                                       "text": "UJI: bot boleh hantar. Balas apa-apa."})
+              mid = (r.get("result") or {}).get("message_id")
+              print(f"HANTAR: ok={r.get('ok')} message_id={mid}")
+          except urllib.error.HTTPError as e:
+              print(f"HANTAR: GAGAL HTTP {e.code} -> {e.read().decode()[:300]}")
+              print("VERDICT: chat_id SALAH atau bot disekat BOZ.")
+              raise SystemExit(0)
+
+          # 4. Dengar 2 minit
+          print("MENDENGAR 120s — balas dalam Telegram sekarang...")
+          off = None
+          try:
+              ups = (call("getUpdates", {"offset": -1, "timeout": 0, "limit": 1}, 20).get("result") or [])
+              off = ups[-1]["update_id"] + 1 if ups else None
+          except Exception:
+              pass
+
+          jumpa = []
+          tamat = time.time() + 120
+          while time.time() < tamat:
+              try:
+                  r = call("getUpdates", {"offset": off, "timeout": 25, "limit": 20}, 45)
+              except urllib.error.HTTPError as e:
+                  print(f"  dengar HTTP {e.code}: {e.read().decode()[:150]}")
+                  time.sleep(3); continue
+              except Exception as e:
+                  print(f"  dengar ralat: {e}"); time.sleep(2); continue
+              if not r.get("ok"):
+                  print(f"  bukan ok: {str(r)[:150]}"); time.sleep(2); continue
+              for u in (r.get("result") or []):
+                  off = u["update_id"] + 1
+                  m = u.get("message") or u.get("edited_message") or {}
+                  txt = m.get("text", "")
+                  cid = (m.get("chat") or {}).get("id")
+                  jumpa.append(txt)
+                  print(f"  TERIMA update_id={u['update_id']} chat={cid} teks={txt!r}")
+
+          print()
+          print(f"RINGKASAN: {len(jumpa)} diterima -> {jumpa}")
+          if jumpa:
+              print("VERDICT: Telegram SEHAT dua hala. Masalah = kod Hermes/gerbang.")
+          else:
+              print("VERDICT: bot HANTAR berjaya tetapi TIADA balasan diterima.")
+              print("  -> Mesej BOZ mungkin tidak sampai semasa ujian,")
+              print("     ATAU bot menerima tetapi tiada balasan dihantar.")
+          PY
+          } > "$OUT" 2>&1
+          cat "$OUT"
+          git config user.email bot@local; git config user.name bot
+          git add -f "$OUT"; git commit -qm "uji telegram $GITHUB_RUN_ID" || true
+          for i in 1 2 3; do git push origin HEAD:master && break; git fetch origin master -q; git rebase origin/master -q || true; sleep 3; done
