@@ -186,21 +186,37 @@ bersih_sesi_telegram() {
   # "sesi hantu" oleh gateway.
   local i
   local hasil_wh
+  # PENTING — drop_pending_updates=true, BUKAN false.
+  #
+  # Ini penemuan muktamad 13 Nov 2026. Dokumentasi dalam kod Hermes sendiri
+  # (adapter.py, ulasan #75017) menyatakan sebabnya:
+  #   "drop_pending_updates=True makes Telegram terminate any other getUpdates
+  #    session for this token (zombie or our own prior retry); without it each
+  #    retry is immediately 409'd."
+  # Dengan `false`, sesi hantu KEKAL di pelayan Telegram dan gateway baharu
+  # sentiasa di-409 — itulah yang berlaku berulang dalam gw_trace.log.
+  #
+  # Kos: mesej BOZ yang BELUM dibaca semasa peralihan hilang. Itu lebih baik
+  # daripada bot yang kelihatan hidup tetapi bisu sepenuh hari. Pergantian run
+  # kini dua kali sehari sahaja, jadi risiko ini kecil.
   hasil_wh=$(curl -4 -s -m 15 -X POST \
     "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/deleteWebhook" \
     -H "Content-Type: application/json" \
-    -d '{"drop_pending_updates":false}' 2>/dev/null)
+    -d '{"drop_pending_updates":true}' 2>/dev/null)
   case "$hasil_wh" in
-    *'"ok":true'*) log "webhook diperiksa/dipadam (long-poll tidak dirampas)" ;;
+    *'"ok":true'*) log "webhook dipadam + sesi getUpdates lama DITAMATKAN (drop_pending_updates=true)" ;;
     *) log "AMARAN: deleteWebhook tidak pulang ok — teruskan (mungkin memang tiada webhook)" ;;
   esac
 
   for i in $(seq 1 20); do
     local hasil
+    # timeout=-1 + limit=1: Telegram sendiri menamatkan sesi getUpdates lain bagi
+    # token ini (menurut dokumentasi Bot API, timeout negatif membatalkan long-poll
+    # yang sedang berjalan). Ini jauh lebih berkesan daripada menunggu 5 minit.
     hasil=$(curl -4 -s -m 15 -X POST \
       "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates" \
       -H "Content-Type: application/json" \
-      -d '{"offset":-1,"timeout":0,"limit":1}' 2>/dev/null)
+      -d '{"offset":-1,"timeout":-1,"limit":1}' 2>/dev/null)
     case "$hasil" in
       *'ok":true'*)
         log "sesi Telegram lama dibersihkan (cubaan $i) — long-poll kini bebas"
