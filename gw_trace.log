@@ -1,13 +1,4 @@
-=== TRACE 2026-11-13T02:01:43Z run 43303841590 ===
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3f3204f5644f431ab030eda7b3128866/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 1520, in delete_webhook
-    return await super().delete_webhook(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<6 lines>...
-    )
-    ^
-  File "/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/3f3204f5644f431ab030eda7b3128866/venv/lib/python3.14/site-packages/telegram/_bot.py", line 4934, in delete_webhook
-    return await self._post(
-           ^^^^^^^^^^^^^^^^^
+=== TRACE 2026-11-13T02:03:14Z run 43303841590 ===
     ...<7 lines>...
     )
     ^
@@ -249,3 +240,12 @@ RESULT: teraju sihat
 2026-11-13 02:01:16,075 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-13T09:01:16+07:00", "getMe_http": 200, "getMe_saat": 0.422, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-13 02:01:42,372 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 02:02:18,618 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+=== JAGA RANTAIAN 2026-11-13T02:02:31+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
+RESULT: teraju sihat
+2026-11-13 02:03:04,849 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
