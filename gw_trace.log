@@ -1,4 +1,4 @@
-=== TRACE 2026-11-13T16:09:07Z run 43458869579 ===
+=== TRACE 2026-11-13T16:10:39Z run 43458869579 ===
 2026-11-13T16:06:05Z === gateway_jalan mula: run=43458869579 masa_jalan=720m ===
 2026-11-13T16:06:05Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c376d9bc65dd4013ac9cd38608baaa50/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c376d9bc65dd4013ac9cd38608baaa50/workspace/plugins/platforms/telegram/adapter.py
@@ -54,3 +54,6 @@ jejak-pemanjat: salinan workspace ditampal
 2026-11-13 16:07:55,045 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 {"masa": "2026-11-13T23:08:07+07:00", "getMe_http": 200, "getMe_saat": 0.397, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 2026-11-13 16:08:31,144 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-11-13 16:09:17,370 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (4/5) — previous session still held open on Telegram's servers. Waiting 50s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+{"masa": "2026-11-13T23:10:09+07:00", "getMe_http": 200, "getMe_saat": 1.411, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-13 16:10:13,464 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (5/5) — previous session still held open on Telegram's servers. Waiting 60s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
