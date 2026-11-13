@@ -1,4 +1,4 @@
-=== TRACE 2026-11-13T00:36:21Z run 43303841590 ===
+=== TRACE 2026-11-13T00:37:53Z run 43303841590 ===
 2026-11-12 22:42:18,035 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
 2026-11-12 22:42:18,743 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-12T22:42:19Z SAMBUNG OK selepas 40s (bukti: baris 'Connected to Telegram')
