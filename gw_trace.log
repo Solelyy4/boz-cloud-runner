@@ -1,4 +1,4 @@
-=== TRACE 2026-11-13T18:18:55Z run 43477957169 ===
+=== TRACE 2026-11-13T18:20:27Z run 43477957169 ===
 2026-11-13T18:00:37Z === gateway_jalan mula: run=43477957169 masa_jalan=720m ===
 2026-11-13T18:00:37Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a6bf1ce61d7840448f8c485e11029a32/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a6bf1ce61d7840448f8c485e11029a32/workspace/plugins/platforms/telegram/adapter.py
@@ -85,3 +85,13 @@ NADI OK: 1794593810 (git push, tanpa REST API)
 NADI OK: 1794593856 (git push, tanpa REST API)
 NADI OK: 1794593902 (git push, tanpa REST API)
 {"masa": "2026-11-14T01:18:52+07:00", "getMe_http": 0, "getMe_saat": 1.662, "ok": false, "ralat": "", "pending": 0}
+2026-11-13 18:19:18,964 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+NADI GAGAL: git push tidak berjaya selepas 3 cubaan
+NADI gist: OK (saluran kedua)
+2026-11-13 18:19:42,271 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-11-13 18:19:42,271 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-11-13 18:19:46,307 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.167.220 (dual-stack hostname tried last — #87015)
+2026-11-13 18:19:46,307 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+NADI GAGAL: git push tidak berjaya selepas 3 cubaan
+NADI gist: OK (saluran kedua)
+2026-11-13 18:20:23,098 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
