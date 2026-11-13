@@ -1,0 +1,100 @@
+name: uji-poll-nyata
+
+# SOALAN TUNGGAL: adakah bot awan BENAR-BENAR memegang long-poll?
+#
+# BUKTI 13 Nov 2026 yang menimbulkan keraguan:
+#   - gw_trace.log: 'Connected to Telegram (polling mode)' tercetak
+#   - getMe: 200, token sah, bot=NEXORA AI
+#   - pending_update_count: 0 SELAMANYA (mesej dihantar, tetap 0)
+#   - jejak_masuk.log: penjejak DIPASANG pada PTB, tetapi TIADA 'JEJAK MASUK'
+#   - probe-longpoll: 6/6 'ok=true' SEMASA bot dikatakan hidup
+#
+# Cara ujian ini berbeza daripada probe-longpoll:
+#   probe-longpoll bertanya "ada sesi lain?" -> jawapan 'bebas' boleh mengelirukan
+#   kerana getUpdates timeout=0 memintas celah antara kitaran long-poll bot.
+#
+# Ujian ini bertanya terus: JIKA saya pegang long-poll dengan timeout panjang
+# (25s), adakah Telegram memberi saya mesej? Kalau bot BENAR-BENAR polling,
+# Telegram tolak saya dengan 409 kerana hanya SATU long-poll dibenarkan.
+#
+#   409  -> bot memang polling (jadi masalahnya di hilir: pemprosesan/balasan)
+#   ok   -> bot TIDAK polling (masalahnya di hulu: adapter tidak mula polling)
+#
+# Workflow ini dijalankan BERASINGAN daripada bot supaya jawapannya bersih.
+on:
+  workflow_dispatch:
+
+jobs:
+  uji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Uji siapa benar-benar memegang long-poll
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          set +e
+          OUT=uji-poll.log
+          {
+            echo "=== UJI POLL NYATA $(date -u +%FT%TZ) run $GITHUB_RUN_ID ==="
+            echo
+            echo "--- 1. token sah? ---"
+            curl -s -m 15 "https://api.telegram.org/bot${TOKEN}/getMe" | head -c 200
+            echo; echo
+
+            echo "--- 2. webhook info ---"
+            curl -s -m 15 "https://api.telegram.org/bot${TOKEN}/getWebhookInfo" \
+              | grep -o '"url":"[^"]*","has_custom_certificate":[a-z]*,"pending_update_count":[0-9]*'
+            echo
+
+            echo "--- 3. UJIAN PENENTU: getUpdates timeout=25 (8 cubaan) ---"
+            echo "    409 -> bot MEMANG polling (masalah di hilir)"
+            echo "    ok  -> bot TIDAK polling (masalah di hulu)"
+            echo
+            konflik=0
+            bebas=0
+            for i in $(seq 1 8); do
+              T0=$(date +%s)
+              R=$(curl -s -m 40 -X POST \
+                "https://api.telegram.org/bot${TOKEN}/getUpdates" \
+                -H "Content-Type: application/json" \
+                -d '{"offset": -1, "timeout": 25, "limit": 1}' 2>&1)
+              T1=$(date +%s)
+              D=$((T1-T0))
+              case "$R" in
+                *'Conflict'*|*'"error_code":409'*)
+                  echo "  [$i] 409 CONFLICT selepas ${D}s -> bot MEMANG polling"; konflik=$((konflik+1)) ;;
+                *'"ok":true'*)
+                  echo "  [$i] ok=true selepas ${D}s -> bot TIDAK polling (kita dapat poll)"; bebas=$((bebas+1)) ;;
+                *)
+                  echo "  [$i] selepas ${D}s jawapan lain: $(echo "$R" | head -c 140)" ;;
+              esac
+              sleep 3
+            done
+            echo
+            echo "RINGKASAN: 409=$konflik  ok=$bebas  (8 cubaan)"
+            echo
+            if [ "$konflik" -ge 5 ]; then
+              echo "VERDICT: Bot MEMANG memegang long-poll."
+              echo "  -> Masalahnya di HILIR, bukan sambungan."
+              echo "  -> Periksa pemprosesan update: gerbang/handler/balasan."
+            elif [ "$bebas" -ge 5 ]; then
+              echo "VERDICT: Bot TIDAK memegang long-poll."
+              echo "  -> 'Connected to Telegram' adalah PALSU (log sahaja)."
+              echo "  -> Periksa sebab adapter tidak mula polling."
+            else
+              echo "VERDICT: Bercampur (bot polling berselang-seli)."
+              echo "  -> Long-poll putus-putus: periksa kestabilan rangkaian runner."
+            fi
+          } > "$OUT" 2>&1
+
+          cat "$OUT"
+          git config user.email bot@local
+          git config user.name bot
+          git add -f "$OUT"
+          git commit -qm "uji poll nyata $GITHUB_RUN_ID" || true
+          git push origin HEAD:master || true
