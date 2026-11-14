@@ -1,7 +1,4 @@
-=== TRACE 2026-11-14T16:26:41Z run 43607786050 ===
-adapter: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
-TAMPALAN GAGAL: corak panggilan _start_polling_once tidak sepadan
-AMARAN: tampal_409 gagal (bukan ralat maut)
+=== TRACE 2026-11-14T16:28:12Z run 43607786050 ===
 2026-11-14T15:02:51Z penulis nadi dipasang (pid=3421, setiap 45s)
 2026-11-14T15:02:51Z peronda rantaian dipasang (pid=3426, semak setiap 10 min)
 2026-11-14T15:02:51Z peronda latar dipasang (pid=3425, denyut 120s)
@@ -249,3 +246,6 @@ NADI OK: 1794673480 (git push, tanpa REST API)
 NADI OK: 1794673526 (git push, tanpa REST API)
 {"masa": "2026-11-14T23:25:34+07:00", "getMe_http": 200, "getMe_saat": 0.551, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 NADI OK: 1794673573 (git push, tanpa REST API)
+NADI OK: 1794673619 (git push, tanpa REST API)
+{"masa": "2026-11-14T23:27:35+07:00", "getMe_http": 200, "getMe_saat": 0.446, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1794673665 (git push, tanpa REST API)
