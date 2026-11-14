@@ -1,6 +1,4 @@
-=== TRACE 2026-11-14T16:41:56Z run 43607786050 ===
-2026-11-14 15:03:47,598 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-14T15:03:51Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
+=== TRACE 2026-11-14T16:43:27Z run 43607786050 ===
 NADI OK: 1794668663 (git push, tanpa REST API)
 {"masa": "2026-11-14T22:04:52+07:00", "getMe_http": 200, "getMe_saat": 0.446, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 NADI OK: 1794668709 (git push, tanpa REST API)
@@ -249,3 +247,5 @@ NADI OK: 1794674404 (git push, tanpa REST API)
 NADI OK: 1794674451 (git push, tanpa REST API)
 NADI OK: 1794674497 (git push, tanpa REST API)
 {"masa": "2026-11-14T23:41:41+07:00", "getMe_http": 200, "getMe_saat": 0.435, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1794674543 (git push, tanpa REST API)
+NADI OK: 1794674589 (git push, tanpa REST API)
