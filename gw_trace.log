@@ -1,10 +1,4 @@
-=== TRACE 2026-11-14T16:22:06Z run 43607786050 ===
-2026-11-14T15:02:50Z === gateway_jalan mula: run=43607786050 masa_jalan=720m ===
-2026-11-14T15:02:50Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/1e34b72874d147f292fd6dd223d45997/venv/bin/python
-JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/1e34b72874d147f292fd6dd223d45997/workspace/plugins/platforms/telegram/adapter.py
-=== 2026-11-14T15:02:50Z mula ===
-JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/1e34b72874d147f292fd6dd223d45997/venv/bin/python
-JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/1e34b72874d147f292fd6dd223d45997/venv/lib/python3.14/site-packages/telegram/__init__.py
+=== TRACE 2026-11-14T16:23:38Z run 43607786050 ===
 JEJAK-MASUK: 1 fail PTB dijumpai
   PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/1e34b72874d147f292fd6dd223d45997/venv/lib/python3.14/site-packages/telegram/ext/_application.py
   sahkan: penanda=True (bait=85224)
@@ -245,3 +239,13 @@ NADI OK: 1794673203 (git push, tanpa REST API)
 NADI OK: 1794673249 (git push, tanpa REST API)
 {"masa": "2026-11-14T23:21:31+07:00", "getMe_http": 200, "getMe_saat": 0.459, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 NADI OK: 1794673295 (git push, tanpa REST API)
+NADI OK: 1794673342 (git push, tanpa REST API)
+NADI OK: 1794673388 (git push, tanpa REST API)
+=== JAGA RANTAIAN 2026-11-14T16:23:23+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
+RESULT: teraju sihat
+{"masa": "2026-11-14T23:23:33+07:00", "getMe_http": 200, "getMe_saat": 0.494, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
