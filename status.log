@@ -1,7 +1,9 @@
-=== RUN 43777562036 2026-11-16T05:57:38Z ===
+=== RUN 43860882467 2026-11-16T17:48:10Z ===
 --- peronda (bukti rangkaian runner) ---
-denyut: 178 | sihat: 178 | gagal: 0
-kadar sihat: 100%
+denyut: 177 | sihat: 175 | gagal: 2
+kadar sihat: 99%
+  GAGAL: 2026-11-16T22:14:52+07:00 HTTP 0 
+  GAGAL: 2026-11-16T22:39:04+07:00 HTTP 0 
 
 --- gerbang balasan (bukti pasang) ---
 {"penapis_dimuat": true, "chat": "8043910371", "sapaan_dipotong": "Yo BOZ. Aku di sini — nak buat apa?", "tugasan_dikekalkan": "SIAP: 31 rekod -> bing=6\nhttps://news.google.com/rss/x", "stat": {"diperiksa": 2, "dipotong": 1, "diluluskan": 1, "ralat": 0}}
