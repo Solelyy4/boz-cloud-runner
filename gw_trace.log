@@ -1,13 +1,4 @@
-=== TRACE 2026-11-18T17:46:48Z run 44356154082 ===
-=== selesai ===
-JANGAN-BUANG: 1 adapter dijumpai
-  selamat: tiada lagi drop_pending_updates=True dalam kod -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/02c096a275234f1e9a697d782a39e734/workspace/plugins/platforms/telegram/adapter.py
-adapter: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
-TAMPALAN GAGAL: corak panggilan _start_polling_once tidak sepadan
-AMARAN: tampal_409 gagal (bukan ralat maut)
-2026-11-18T17:17:48Z penulis nadi dipasang (pid=3708, setiap 45s)
-2026-11-18T17:17:48Z peronda rantaian dipasang (pid=3713, semak setiap 10 min)
-2026-11-18T17:17:48Z peronda latar dipasang (pid=3712, denyut 120s)
+=== TRACE 2026-11-18T17:48:20Z run 44356154082 ===
 2026-11-18T17:17:49Z webhook dipadam (mesej menunggu DIPELIHARA, drop_pending_updates=false)
 2026-11-18T17:17:49Z jeda 40s supaya sesi lama luput sebelum gateway menyambung
 {"masa": "2026-11-19T00:17:49+07:00", "getMe_http": 200, "getMe_saat": 0.52, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
@@ -249,3 +240,12 @@ NADI OK: 1795023892 (git push, tanpa REST API)
 NADI OK: 1795023938 (git push, tanpa REST API)
 {"masa": "2026-11-19T00:46:22+07:00", "getMe_http": 200, "getMe_saat": 0.463, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 NADI OK: 1795023984 (git push, tanpa REST API)
+NADI OK: 1795024030 (git push, tanpa REST API)
+NADI OK: 1795024077 (git push, tanpa REST API)
+=== JAGA RANTAIAN 2026-11-18T17:48:15+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (teks)
+RESULT: teraju sihat
