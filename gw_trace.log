@@ -1,15 +1,4 @@
-=== TRACE 2026-11-18T17:57:29Z run 44356154082 ===
-│  Press Ctrl+C to stop                                   │
-└─────────────────────────────────────────────────────────┘
-
-2026-11-18 17:18:34,902 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3529, started_at=2026-11-18T02:27:26.718216+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-18T08:24:39.884912+00:00 last_mem={'rss_kib': 317968, 'mem_total_kib': 16366640, 'mem_available_kib': 15007240, 'swap_used_kib': 0} suspected_oom=False
-2026-11-18 17:18:35,176 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-18 17:18:35,382 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-18 17:18:36,419 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
-2026-11-18 17:18:36,420 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-18 17:18:36,421 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-18 17:18:36,424 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-18 17:18:36,425 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+=== TRACE 2026-11-18T17:59:01Z run 44356154082 ===
 NADI OK: 1795022315 (git push, tanpa REST API)
 2026-11-18 17:18:46,818 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-18T17:18:49Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
@@ -249,3 +238,14 @@ NADI OK: 1795024540 (git push, tanpa REST API)
 {"masa": "2026-11-19T00:56:27+07:00", "getMe_http": 200, "getMe_saat": 0.503, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 NADI OK: 1795024586 (git push, tanpa REST API)
 NADI OK: 1795024633 (git push, tanpa REST API)
+NADI OK: 1795024681 (git push, tanpa REST API)
+=== JAGA RANTAIAN 2026-11-18T17:58:22+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (teks)
+RESULT: teraju sihat
+{"masa": "2026-11-19T00:58:28+07:00", "getMe_http": 200, "getMe_saat": 0.431, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1795024727 (git push, tanpa REST API)
+2026-11-18T17:58:50Z denyut tick=40 pid=3801
