@@ -1,4 +1,4 @@
-=== TRACE 2026-11-20T17:15:01Z run 44778265089 ===
+=== TRACE 2026-11-20T17:16:33Z run 44778265089 ===
 2026-11-20T16:58:13Z === gateway_jalan mula: run=44778265089 masa_jalan=720m ===
 2026-11-20T16:58:13Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd38c236f91041858c5e54689ea22c97/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd38c236f91041858c5e54689ea22c97/workspace/plugins/platforms/telegram/adapter.py
@@ -118,3 +118,6 @@ NADI OK: 1795194824 (git push, tanpa REST API)
 NADI OK: 1795194870 (git push, tanpa REST API)
 2026-11-20 17:14:44,154 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connect attempt 2/8 interrupted by CancelledError — propagating
 2026-11-20 17:14:44,156 WARNING gateway.run: Reconnect telegram error: telegram connect timed out after 30s, next retry in 300s
+NADI OK: 1795194916 (git push, tanpa REST API)
+NADI OK: 1795194962 (git push, tanpa REST API)
+{"masa": "2026-11-21T00:16:22+07:00", "getMe_http": 200, "getMe_saat": 7.736, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
