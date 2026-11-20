@@ -1,4 +1,4 @@
-=== TRACE 2026-11-20T17:07:22Z run 44778265089 ===
+=== TRACE 2026-11-20T17:08:54Z run 44778265089 ===
 2026-11-20T16:58:13Z === gateway_jalan mula: run=44778265089 masa_jalan=720m ===
 2026-11-20T16:58:13Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd38c236f91041858c5e54689ea22c97/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd38c236f91041858c5e54689ea22c97/workspace/plugins/platforms/telegram/adapter.py
@@ -85,3 +85,14 @@ NADI OK: 1795194313 (git push, tanpa REST API)
 NADI OK: 1795194360 (git push, tanpa REST API)
 {"masa": "2026-11-21T00:06:24+07:00", "getMe_http": 502, "getMe_saat": 15.919, "ok": false, "ralat": "{\"ok\":false,\"error_code\":502,\"description\":\"Bad Gateway\"}", "pending": null, "webhook_http": 502}
 NADI OK: 1795194406 (git push, tanpa REST API)
+NADI OK: 1795194452 (git push, tanpa REST API)
+NADI OK: 1795194498 (git push, tanpa REST API)
+=== JAGA RANTAIAN 2026-11-20T17:08:24+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (teks)
+RESULT: teraju sihat
+2026-11-20 17:08:43,916 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-20 17:08:43,961 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
