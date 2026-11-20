@@ -1,4 +1,4 @@
-=== TRACE 2026-11-20T17:11:57Z run 44778265089 ===
+=== TRACE 2026-11-20T17:13:29Z run 44778265089 ===
 2026-11-20T16:58:13Z === gateway_jalan mula: run=44778265089 masa_jalan=720m ===
 2026-11-20T16:58:13Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd38c236f91041858c5e54689ea22c97/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd38c236f91041858c5e54689ea22c97/workspace/plugins/platforms/telegram/adapter.py
@@ -106,3 +106,6 @@ NADI OK: 1795194591 (git push, tanpa REST API)
 NADI OK: 1795194638 (git push, tanpa REST API)
 NADI OK: 1795194684 (git push, tanpa REST API)
 {"masa": "2026-11-21T00:11:27+07:00", "getMe_http": 502, "getMe_saat": 15.93, "ok": false, "ralat": "{\"ok\":false,\"error_code\":502,\"description\":\"Bad Gateway\"}", "pending": null, "webhook_http": 502}
+2026-11-20T17:12:09Z denyut tick=10 pid=3686
+NADI OK: 1795194731 (git push, tanpa REST API)
+NADI OK: 1795194777 (git push, tanpa REST API)
