@@ -1,4 +1,4 @@
-=== TRACE 2026-11-20T17:19:36Z run 44778265089 ===
+=== TRACE 2026-11-20T17:21:07Z run 44778265089 ===
 2026-11-20T16:58:13Z === gateway_jalan mula: run=44778265089 masa_jalan=720m ===
 2026-11-20T16:58:13Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd38c236f91041858c5e54689ea22c97/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/bd38c236f91041858c5e54689ea22c97/workspace/plugins/platforms/telegram/adapter.py
@@ -133,3 +133,13 @@ NADI OK: 1795195101 (git push, tanpa REST API)
   [HIDUP] mistral      ministral-14b-latest       ok (teks)
 RESULT: teraju sihat
 NADI OK: 1795195148 (git push, tanpa REST API)
+2026-11-20 17:19:44,397 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-20 17:19:44,448 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-20 17:19:45,718 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+NADI OK: 1795195194 (git push, tanpa REST API)
+2026-11-20 17:20:15,822 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands FAILED for scope BotCommandScopeDefault: Timed out
+{"masa": "2026-11-21T00:20:24+07:00", "getMe_http": 200, "getMe_saat": 0.475, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1795195241 (git push, tanpa REST API)
+2026-11-20 17:20:46,140 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands FAILED for scope BotCommandScopeAllPrivateChats: Timed out
+2026-11-20 17:20:57,395 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error, scheduling reconnect: Bad Gateway
+2026-11-20 17:20:57,396 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 1/10), reconnecting in 5s. Error: Bad Gateway
