@@ -1,17 +1,12 @@
-=== RUN 44778265089 2026-11-20T22:56:09Z ===
+=== RUN 44850295445 2026-11-21T07:27:53Z ===
+!!! GERBANG GAGAL (status=failure) !!!
+Gateway TIDAK dimulakan. Punca: satu atau lebih pautan model MATI
+atau had 429 berpanjangan. Semak langkah 'GERBANG' dalam run ini.
+Bot TIDAK menerima sebarang mesej dalam run ini.
+
 --- peronda (bukti rangkaian runner) ---
-denyut: 175 | sihat: 164 | gagal: 11
-kadar sihat: 94%
-  GAGAL: 2026-11-21T00:01:02+07:00 HTTP 502 {"ok":false,"error_code":502,"description":"Bad Gateway"}
-  GAGAL: 2026-11-21T00:03:34+07:00 HTTP 502 {"ok":false,"error_code":502,"description":"Bad Gateway"}
-  GAGAL: 2026-11-21T00:06:24+07:00 HTTP 502 {"ok":false,"error_code":502,"description":"Bad Gateway"}
-  GAGAL: 2026-11-21T00:08:55+07:00 HTTP 502 {"ok":false,"error_code":502,"description":"Bad Gateway"}
-  GAGAL: 2026-11-21T00:11:27+07:00 HTTP 502 {"ok":false,"error_code":502,"description":"Bad Gateway"}
-  GAGAL: 2026-11-21T00:13:59+07:00 HTTP 502 {"ok":false,"error_code":502,"description":"Bad Gateway"}
-  GAGAL: 2026-11-21T03:09:47+07:00 HTTP 0 
-  GAGAL: 2026-11-21T03:12:27+07:00 HTTP 0 
-  GAGAL: 2026-11-21T03:14:49+07:00 HTTP 0 
-  GAGAL: 2026-11-21T03:16:55+07:00 HTTP 0 
+denyut: 178 | sihat: 178 | gagal: 0
+kadar sihat: 100%
 
 --- gerbang balasan (bukti pasang) ---
 {"penapis_dimuat": true, "chat": "8043910371", "sapaan_dipotong": "Yo BOZ. Aku di sini — nak buat apa?", "tugasan_dikekalkan": "SIAP: 31 rekod -> bing=6\nhttps://news.google.com/rss/x", "stat": {"diperiksa": 2, "dipotong": 1, "diluluskan": 1, "ralat": 0}}
