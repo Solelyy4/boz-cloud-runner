@@ -1,251 +1,51 @@
-=== TRACE 2026-11-21T22:07:22Z run 44922777314 ===
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T03:54:55+07:00", "getMe_http": 200, "getMe_saat": 0.277, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T03:56:55+07:00", "getMe_http": 200, "getMe_saat": 0.265, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T03:58:56+07:00", "getMe_http": 200, "getMe_saat": 0.301, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-2026-11-21T21:00:37Z denyut tick=290 pid=3836
-{"masa": "2026-11-22T04:00:56+07:00", "getMe_http": 200, "getMe_saat": 0.276, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-=== JAGA RANTAIAN 2026-11-21T21:02:26+0000 ===
+=== TRACE 2026-11-22T00:22:57Z run 44966022907 ===
+2026-11-22T00:21:27Z === gateway_jalan mula: run=44966022907 masa_jalan=720m ===
+2026-11-22T00:21:27Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a2dfaa120717428dbe4b4051fdf64d6f/venv/bin/python
+JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a2dfaa120717428dbe4b4051fdf64d6f/workspace/plugins/platforms/telegram/adapter.py
+=== 2026-11-22T00:21:27Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a2dfaa120717428dbe4b4051fdf64d6f/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a2dfaa120717428dbe4b4051fdf64d6f/venv/lib/python3.14/site-packages/telegram/__init__.py
+JEJAK-MASUK: 1 fail PTB dijumpai
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a2dfaa120717428dbe4b4051fdf64d6f/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  sahkan: penanda=True (bait=85224)
+=== selesai ===
+JANGAN-BUANG: 1 adapter dijumpai
+  selamat: tiada lagi drop_pending_updates=True dalam kod -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a2dfaa120717428dbe4b4051fdf64d6f/workspace/plugins/platforms/telegram/adapter.py
+adapter: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
+TAMPALAN GAGAL: corak panggilan _start_polling_once tidak sepadan
+AMARAN: tampal_409 gagal (bukan ralat maut)
+2026-11-22T00:21:27Z penulis nadi dipasang (pid=3534, setiap 45s)
+2026-11-22T00:21:27Z peronda rantaian dipasang (pid=3539, semak setiap 10 min)
+2026-11-22T00:21:27Z peronda latar dipasang (pid=3538, denyut 120s)
+2026-11-22T00:21:27Z webhook dipadam (mesej menunggu DIPELIHARA, drop_pending_updates=false)
+2026-11-22T00:21:27Z jeda 40s supaya sesi lama luput sebelum gateway menyambung
+{"masa": "2026-11-22T07:21:27+07:00", "getMe_http": 200, "getMe_saat": 0.395, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1795306887 (git push, tanpa REST API)
+=== JAGA RANTAIAN 2026-11-22T00:21:29+0000 ===
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
   [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (teks)
+  [MATI ] mistral      ministral-14b-latest       tiada choices
 RESULT: teraju sihat
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:02:57+07:00", "getMe_http": 200, "getMe_saat": 0.26, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:04:58+07:00", "getMe_http": 200, "getMe_saat": 0.285, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:06:58+07:00", "getMe_http": 200, "getMe_saat": 0.276, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:08:59+07:00", "getMe_http": 200, "getMe_saat": 0.288, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-2026-11-21T21:10:37Z denyut tick=300 pid=3836
-{"masa": "2026-11-22T04:10:59+07:00", "getMe_http": 200, "getMe_saat": 0.259, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-=== JAGA RANTAIAN 2026-11-21T21:12:31+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (teks)
-RESULT: teraju sihat
-{"masa": "2026-11-22T04:13:00+07:00", "getMe_http": 200, "getMe_saat": 0.276, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:15:01+07:00", "getMe_http": 200, "getMe_saat": 0.619, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:17:01+07:00", "getMe_http": 200, "getMe_saat": 0.295, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:19:02+07:00", "getMe_http": 200, "getMe_saat": 0.262, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-2026-11-21T21:20:38Z denyut tick=310 pid=3836
-{"masa": "2026-11-22T04:21:03+07:00", "getMe_http": 200, "getMe_saat": 0.289, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-=== JAGA RANTAIAN 2026-11-21T21:22:35+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (teks)
-RESULT: teraju sihat
-{"masa": "2026-11-22T04:23:03+07:00", "getMe_http": 200, "getMe_saat": 0.261, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:25:04+07:00", "getMe_http": 200, "getMe_saat": 0.276, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:27:05+07:00", "getMe_http": 200, "getMe_saat": 0.318, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:29:05+07:00", "getMe_http": 200, "getMe_saat": 0.26, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-2026-11-21T21:30:38Z denyut tick=320 pid=3836
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:31:06+07:00", "getMe_http": 200, "getMe_saat": 0.258, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-=== JAGA RANTAIAN 2026-11-21T21:32:39+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (teks)
-RESULT: teraju sihat
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:33:06+07:00", "getMe_http": 200, "getMe_saat": 0.268, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:35:07+07:00", "getMe_http": 200, "getMe_saat": 0.266, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:37:07+07:00", "getMe_http": 200, "getMe_saat": 0.273, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:39:08+07:00", "getMe_http": 200, "getMe_saat": 0.309, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-2026-11-21T21:40:38Z denyut tick=330 pid=3836
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:41:08+07:00", "getMe_http": 200, "getMe_saat": 0.264, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-=== JAGA RANTAIAN 2026-11-21T21:42:44+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (tool_calls)
-RESULT: teraju sihat
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:43:09+07:00", "getMe_http": 200, "getMe_saat": 0.262, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:45:10+07:00", "getMe_http": 200, "getMe_saat": 0.262, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:47:10+07:00", "getMe_http": 200, "getMe_saat": 0.261, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:49:11+07:00", "getMe_http": 200, "getMe_saat": 0.268, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-2026-11-21T21:50:38Z denyut tick=340 pid=3836
-{"masa": "2026-11-22T04:51:11+07:00", "getMe_http": 200, "getMe_saat": 0.265, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-=== JAGA RANTAIAN 2026-11-21T21:52:49+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (teks)
-RESULT: teraju sihat
-{"masa": "2026-11-22T04:53:12+07:00", "getMe_http": 200, "getMe_saat": 0.298, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:55:12+07:00", "getMe_http": 200, "getMe_saat": 0.264, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:57:13+07:00", "getMe_http": 200, "getMe_saat": 0.261, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T04:59:13+07:00", "getMe_http": 200, "getMe_saat": 0.267, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-2026-11-21T22:00:38Z denyut tick=350 pid=3836
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T05:01:14+07:00", "getMe_http": 200, "getMe_saat": 0.258, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-=== JAGA RANTAIAN 2026-11-21T22:02:55+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] mistral      ministral-14b-latest       ok (teks)
-RESULT: teraju sihat
-{"masa": "2026-11-22T05:03:15+07:00", "getMe_http": 200, "getMe_saat": 0.281, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T05:05:15+07:00", "getMe_http": 200, "getMe_saat": 0.267, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-NADI GAGAL: git push tidak berjaya selepas 3 cubaan
-NADI gist: OK (saluran kedua)
-{"masa": "2026-11-22T05:07:16+07:00", "getMe_http": 200, "getMe_saat": 0.258, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+jejak-pemanjat: salinan workspace ditampal
+2026-11-22T00:22:08Z --- cubaan 1: mula gateway ---
+2026-11-22T00:22:08Z gateway pid=3601
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+2026-11-22 00:22:12,732 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3836, started_at=2026-11-21T16:10:18.412466+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-21T22:07:01.861932+00:00 last_mem={'rss_kib': 329688, 'mem_total_kib': 16366632, 'mem_available_kib': 14993572, 'swap_used_kib': 0} suspected_oom=False
+2026-11-22 00:22:12,956 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-22 00:22:13,306 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-11-22 00:22:13,990 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-22 00:22:13,990 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-22 00:22:13,991 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-22 00:22:13,994 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-22 00:22:13,995 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+NADI OK: 1795306933 (git push, tanpa REST API)
+2026-11-22 00:22:24,479 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-22T00:22:28Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
