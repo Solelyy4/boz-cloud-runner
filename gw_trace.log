@@ -1,4 +1,4 @@
-=== TRACE 2026-11-22T16:56:58Z run 45042627356 ===
+=== TRACE 2026-11-22T16:58:29Z run 45042627356 ===
 2026-11-22T16:15:53Z === gateway_jalan mula: run=45042627356 masa_jalan=720m ===
 2026-11-22T16:15:53Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/ffd4acd0979b4028a04585246da2397b/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/ffd4acd0979b4028a04585246da2397b/workspace/plugins/platforms/telegram/adapter.py
@@ -153,3 +153,6 @@ NADI OK: 1795366552 (git push, tanpa REST API)
 RESULT: teraju sihat
 NADI OK: 1795366598 (git push, tanpa REST API)
 2026-11-22T16:56:54Z denyut tick=40 pid=3541
+NADI OK: 1795366644 (git push, tanpa REST API)
+{"masa": "2026-11-22T23:58:06+07:00", "getMe_http": 200, "getMe_saat": 0.296, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1795366691 (git push, tanpa REST API)
