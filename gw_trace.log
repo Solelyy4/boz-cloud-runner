@@ -1,4 +1,4 @@
-=== TRACE 2026-11-22T00:41:17Z run 44966022907 ===
+=== TRACE 2026-11-22T00:42:49Z run 44966022907 ===
 2026-11-22T00:21:27Z === gateway_jalan mula: run=44966022907 masa_jalan=720m ===
 2026-11-22T00:21:27Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a2dfaa120717428dbe4b4051fdf64d6f/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/a2dfaa120717428dbe4b4051fdf64d6f/workspace/plugins/platforms/telegram/adapter.py
@@ -95,3 +95,17 @@ NADI OK: 1795308045 (git push, tanpa REST API)
 2026-11-22 00:41:04,917 WARNING agent.deadline: [deadline] 'telegram' timed out after 30.0s; task abandoned
 2026-11-22 00:41:04,918 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: timed out after 30s (telegram)
 2026-11-22 00:41:04,918 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 2/10), reconnecting in 10s. Error: timed out after 30s (telegram)
+NADI OK: 1795308091 (git push, tanpa REST API)
+=== JAGA RANTAIAN 2026-11-22T00:41:42+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (teks)
+RESULT: teraju sihat
+2026-11-22 00:41:44,921 WARNING agent.deadline: [deadline] 'telegram' timed out after 30.0s; task abandoned
+2026-11-22 00:41:44,921 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling reconnect failed: timed out after 30s (telegram)
+2026-11-22 00:41:44,921 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram network error (attempt 3/10), reconnecting in 20s. Error: timed out after 30s (telegram)
+{"masa": "2026-11-22T07:41:55+07:00", "getMe_http": 0, "getMe_saat": 20.001, "ok": false, "ralat": "", "pending": null, "webhook_http": 0}
+NADI OK: 1795308137 (git push, tanpa REST API)
+2026-11-22T00:42:28Z denyut tick=20 pid=3601
