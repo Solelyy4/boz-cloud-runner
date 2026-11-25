@@ -1,4 +1,4 @@
-=== TRACE 2026-11-25T04:33:28Z run 45540597163 ===
+=== TRACE 2026-11-25T04:34:59Z run 45540597163 ===
 2026-11-25T03:34:05Z === gateway_jalan mula: run=45540597163 masa_jalan=720m ===
 2026-11-25T03:34:05Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7b5769c3ccf640c5931babfe0255b271/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7b5769c3ccf640c5931babfe0255b271/workspace/plugins/platforms/telegram/adapter.py
@@ -194,3 +194,13 @@ NADI OK: 1795581109 (git push, tanpa REST API)
 {"masa": "2026-11-25T11:32:22+07:00", "getMe_http": 200, "getMe_saat": 0.262, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
 NADI OK: 1795581155 (git push, tanpa REST API)
 NADI OK: 1795581201 (git push, tanpa REST API)
+NADI OK: 1795581248 (git push, tanpa REST API)
+{"masa": "2026-11-25T11:34:23+07:00", "getMe_http": 200, "getMe_saat": 0.277, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+=== JAGA RANTAIAN 2026-11-25T04:34:49+0000 ===
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
+  [HIDUP] nafimods     gpt-oss-120b               ok (tool_calls)
+  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
+  [HIDUP] mistral      ministral-14b-latest       ok (teks)
+RESULT: teraju sihat
+NADI OK: 1795581294 (git push, tanpa REST API)
