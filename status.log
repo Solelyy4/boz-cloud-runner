@@ -1,11 +1,11 @@
-=== RUN 45677079279 2026-11-26T00:37:53Z ===
+=== RUN 45744834144 2026-11-26T08:48:33Z ===
 !!! GERBANG GAGAL (status=failure) !!!
 Gateway TIDAK dimulakan. Punca: satu atau lebih pautan model MATI
 atau had 429 berpanjangan. Semak langkah 'GERBANG' dalam run ini.
 Bot TIDAK menerima sebarang mesej dalam run ini.
 
 --- peronda (bukti rangkaian runner) ---
-denyut: 179 | sihat: 179 | gagal: 0
+denyut: 178 | sihat: 178 | gagal: 0
 kadar sihat: 100%
 
 --- gerbang balasan (bukti pasang) ---
