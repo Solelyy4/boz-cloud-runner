@@ -1,27 +1,27 @@
-=== TRACE 2026-11-26T19:33:03Z run 45875564292 ===
-2026-11-26T18:25:56Z === gateway_jalan mula: run=45875564292 masa_jalan=720m ===
-2026-11-26T18:25:56Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e468c95e8f024b5dbfff76b192699063/venv/bin/python
-JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e468c95e8f024b5dbfff76b192699063/workspace/plugins/platforms/telegram/adapter.py
-=== 2026-11-26T18:25:56Z mula ===
-JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e468c95e8f024b5dbfff76b192699063/venv/bin/python
-JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e468c95e8f024b5dbfff76b192699063/venv/lib/python3.14/site-packages/telegram/__init__.py
+=== TRACE 2026-11-27T02:53:43Z run 45930600359 ===
+2026-11-27T02:52:12Z === gateway_jalan mula: run=45930600359 masa_jalan=720m ===
+2026-11-27T02:52:12Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f13553957ba04fadb89f4930d4f1f597/venv/bin/python
+JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f13553957ba04fadb89f4930d4f1f597/workspace/plugins/platforms/telegram/adapter.py
+=== 2026-11-27T02:52:12Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f13553957ba04fadb89f4930d4f1f597/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f13553957ba04fadb89f4930d4f1f597/venv/lib/python3.14/site-packages/telegram/__init__.py
 JEJAK-MASUK: 1 fail PTB dijumpai
-  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e468c95e8f024b5dbfff76b192699063/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f13553957ba04fadb89f4930d4f1f597/venv/lib/python3.14/site-packages/telegram/ext/_application.py
   sahkan: penanda=True (bait=85224)
 === selesai ===
 JANGAN-BUANG: 1 adapter dijumpai
-  selamat: tiada lagi drop_pending_updates=True dalam kod -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/e468c95e8f024b5dbfff76b192699063/workspace/plugins/platforms/telegram/adapter.py
+  selamat: tiada lagi drop_pending_updates=True dalam kod -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f13553957ba04fadb89f4930d4f1f597/workspace/plugins/platforms/telegram/adapter.py
 adapter: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/hermes-agent/plugins/platforms/telegram/adapter.py
 TAMPALAN GAGAL: corak panggilan _start_polling_once tidak sepadan
 AMARAN: tampal_409 gagal (bukan ralat maut)
-2026-11-26T18:25:57Z penulis nadi dipasang (pid=3462, setiap 45s)
-2026-11-26T18:25:57Z peronda rantaian dipasang (pid=3467, semak setiap 10 min)
-2026-11-26T18:25:57Z peronda latar dipasang (pid=3466, denyut 120s)
-2026-11-26T18:25:57Z webhook dipadam (mesej menunggu DIPELIHARA, drop_pending_updates=false)
-2026-11-26T18:25:57Z jeda 40s supaya sesi lama luput sebelum gateway menyambung
-{"masa": "2026-11-27T01:25:57+07:00", "getMe_http": 200, "getMe_saat": 0.373, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795717557 (git push, tanpa REST API)
-=== JAGA RANTAIAN 2026-11-26T18:25:58+0000 ===
+2026-11-27T02:52:12Z penulis nadi dipasang (pid=3725, setiap 45s)
+2026-11-27T02:52:12Z peronda rantaian dipasang (pid=3730, semak setiap 10 min)
+2026-11-27T02:52:13Z peronda latar dipasang (pid=3729, denyut 120s)
+2026-11-27T02:52:13Z webhook dipadam (mesej menunggu DIPELIHARA, drop_pending_updates=false)
+2026-11-27T02:52:13Z jeda 40s supaya sesi lama luput sebelum gateway menyambung
+{"masa": "2026-11-27T09:52:13+07:00", "getMe_http": 200, "getMe_saat": 0.445, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1795747933 (git push, tanpa REST API)
+=== JAGA RANTAIAN 2026-11-27T02:52:15+0000 ===
   [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
   [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
   [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
@@ -29,8 +29,8 @@ NADI OK: 1795717557 (git push, tanpa REST API)
   [MATI ] mistral      ministral-14b-latest       tiada choices
 RESULT: teraju sihat
 jejak-pemanjat: salinan workspace ditampal
-2026-11-26T18:26:37Z --- cubaan 1: mula gateway ---
-2026-11-26T18:26:37Z gateway pid=3526
+2026-11-27T02:52:53Z --- cubaan 1: mula gateway ---
+2026-11-27T02:52:53Z gateway pid=3788
 ┌─────────────────────────────────────────────────────────┐
 │           ☤ Hermes Gateway Starting...                 │
 ├─────────────────────────────────────────────────────────┤
@@ -38,180 +38,14 @@ jejak-pemanjat: salinan workspace ditampal
 │  Press Ctrl+C to stop                                   │
 └─────────────────────────────────────────────────────────┘
 
-2026-11-26 18:26:41,647 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3571, started_at=2026-11-26T02:51:24.886749+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-26T08:48:08.704710+00:00 last_mem={'rss_kib': 330300, 'mem_total_kib': 16365616, 'mem_available_kib': 14920808, 'swap_used_kib': 0} suspected_oom=False
-2026-11-26 18:26:41,839 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-11-26 18:26:41,980 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-11-26 18:26:42,753 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
-2026-11-26 18:26:42,753 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-26 18:26:42,754 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-2026-11-26 18:26:42,756 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
-2026-11-26 18:26:42,757 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
-NADI OK: 1795717603 (git push, tanpa REST API)
-2026-11-26 18:26:52,967 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-11-26T18:26:57Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
-NADI OK: 1795717649 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:27:58+07:00", "getMe_http": 200, "getMe_saat": 0.339, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795717695 (git push, tanpa REST API)
-NADI OK: 1795717742 (git push, tanpa REST API)
-NADI OK: 1795717788 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:29:58+07:00", "getMe_http": 200, "getMe_saat": 0.331, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795717834 (git push, tanpa REST API)
-NADI OK: 1795717881 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:31:59+07:00", "getMe_http": 200, "getMe_saat": 0.365, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795717927 (git push, tanpa REST API)
-NADI OK: 1795717973 (git push, tanpa REST API)
-NADI OK: 1795718020 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:34:00+07:00", "getMe_http": 200, "getMe_saat": 0.334, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795718066 (git push, tanpa REST API)
-NADI OK: 1795718112 (git push, tanpa REST API)
-NADI OK: 1795718158 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:36:00+07:00", "getMe_http": 200, "getMe_saat": 0.328, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-=== JAGA RANTAIAN 2026-11-26T18:36:01+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-NADI OK: 1795718204 (git push, tanpa REST API)
-2026-11-26T18:36:57Z denyut tick=10 pid=3526
-NADI OK: 1795718250 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:38:01+07:00", "getMe_http": 200, "getMe_saat": 0.357, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795718297 (git push, tanpa REST API)
-NADI OK: 1795718343 (git push, tanpa REST API)
-NADI OK: 1795718389 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:40:02+07:00", "getMe_http": 200, "getMe_saat": 0.396, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795718435 (git push, tanpa REST API)
-NADI OK: 1795718482 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:42:02+07:00", "getMe_http": 200, "getMe_saat": 0.331, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795718528 (git push, tanpa REST API)
-NADI OK: 1795718574 (git push, tanpa REST API)
-NADI OK: 1795718620 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:44:03+07:00", "getMe_http": 200, "getMe_saat": 0.489, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795718667 (git push, tanpa REST API)
-NADI OK: 1795718713 (git push, tanpa REST API)
-NADI OK: 1795718759 (git push, tanpa REST API)
-=== JAGA RANTAIAN 2026-11-26T18:46:03+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-27T01:46:04+07:00", "getMe_http": 200, "getMe_saat": 0.397, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795718805 (git push, tanpa REST API)
-2026-11-26T18:46:57Z denyut tick=20 pid=3526
-NADI OK: 1795718852 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:48:05+07:00", "getMe_http": 200, "getMe_saat": 0.336, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795718898 (git push, tanpa REST API)
-NADI OK: 1795718944 (git push, tanpa REST API)
-NADI OK: 1795718991 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:50:05+07:00", "getMe_http": 200, "getMe_saat": 0.338, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795719037 (git push, tanpa REST API)
-NADI OK: 1795719083 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:52:06+07:00", "getMe_http": 200, "getMe_saat": 0.433, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795719129 (git push, tanpa REST API)
-NADI OK: 1795719176 (git push, tanpa REST API)
-NADI OK: 1795719222 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:54:07+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795719268 (git push, tanpa REST API)
-NADI OK: 1795719314 (git push, tanpa REST API)
-NADI OK: 1795719360 (git push, tanpa REST API)
-=== JAGA RANTAIAN 2026-11-26T18:56:06+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-27T01:56:08+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795719406 (git push, tanpa REST API)
-2026-11-26T18:56:57Z denyut tick=30 pid=3526
-NADI OK: 1795719453 (git push, tanpa REST API)
-{"masa": "2026-11-27T01:58:08+07:00", "getMe_http": 200, "getMe_saat": 0.346, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795719499 (git push, tanpa REST API)
-NADI OK: 1795719545 (git push, tanpa REST API)
-NADI OK: 1795719591 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:00:09+07:00", "getMe_http": 200, "getMe_saat": 0.365, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795719638 (git push, tanpa REST API)
-NADI OK: 1795719684 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:02:10+07:00", "getMe_http": 200, "getMe_saat": 0.337, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795719731 (git push, tanpa REST API)
-NADI OK: 1795719777 (git push, tanpa REST API)
-NADI OK: 1795719823 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:04:10+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795719870 (git push, tanpa REST API)
-NADI OK: 1795719916 (git push, tanpa REST API)
-NADI OK: 1795719962 (git push, tanpa REST API)
-=== JAGA RANTAIAN 2026-11-26T19:06:08+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-27T02:06:11+07:00", "getMe_http": 200, "getMe_saat": 0.392, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795720008 (git push, tanpa REST API)
-2026-11-26T19:06:58Z denyut tick=40 pid=3526
-NADI OK: 1795720055 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:08:12+07:00", "getMe_http": 200, "getMe_saat": 0.319, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795720101 (git push, tanpa REST API)
-NADI OK: 1795720148 (git push, tanpa REST API)
-NADI OK: 1795720194 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:10:13+07:00", "getMe_http": 200, "getMe_saat": 0.363, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795720240 (git push, tanpa REST API)
-NADI OK: 1795720287 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:12:13+07:00", "getMe_http": 200, "getMe_saat": 0.336, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795720333 (git push, tanpa REST API)
-NADI OK: 1795720379 (git push, tanpa REST API)
-NADI OK: 1795720425 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:14:14+07:00", "getMe_http": 200, "getMe_saat": 0.353, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795720471 (git push, tanpa REST API)
-NADI OK: 1795720518 (git push, tanpa REST API)
-NADI OK: 1795720564 (git push, tanpa REST API)
-=== JAGA RANTAIAN 2026-11-26T19:16:10+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-27T02:16:15+07:00", "getMe_http": 200, "getMe_saat": 0.928, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795720610 (git push, tanpa REST API)
-2026-11-26T19:16:58Z denyut tick=50 pid=3526
-NADI OK: 1795720656 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:18:16+07:00", "getMe_http": 200, "getMe_saat": 0.392, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795720703 (git push, tanpa REST API)
-NADI OK: 1795720749 (git push, tanpa REST API)
-NADI OK: 1795720795 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:20:17+07:00", "getMe_http": 200, "getMe_saat": 0.339, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795720841 (git push, tanpa REST API)
-NADI OK: 1795720888 (git push, tanpa REST API)
-NADI OK: 1795720934 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:22:17+07:00", "getMe_http": 200, "getMe_saat": 0.328, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795720980 (git push, tanpa REST API)
-NADI OK: 1795721027 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:24:18+07:00", "getMe_http": 200, "getMe_saat": 0.379, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795721073 (git push, tanpa REST API)
-NADI OK: 1795721119 (git push, tanpa REST API)
-NADI OK: 1795721165 (git push, tanpa REST API)
-=== JAGA RANTAIAN 2026-11-26T19:26:12+0000 ===
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [HIDUP] groq         qwen/qwen3.8-27b           ok (tool_calls)
-  [MATI ] nafimods     gpt-oss-120b               {'message': 'all keyless providers failed: ovh: HTTP 429 {\n
-  [HIDUP] groq         openai/gpt-oss-120b        ok (tool_calls)
-  [MATI ] mistral      ministral-14b-latest       tiada choices
-RESULT: teraju sihat
-{"masa": "2026-11-27T02:26:19+07:00", "getMe_http": 200, "getMe_saat": 0.341, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795721211 (git push, tanpa REST API)
-2026-11-26T19:26:58Z denyut tick=60 pid=3526
-NADI OK: 1795721258 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:28:20+07:00", "getMe_http": 200, "getMe_saat": 0.333, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795721304 (git push, tanpa REST API)
-NADI OK: 1795721350 (git push, tanpa REST API)
-NADI OK: 1795721396 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:30:20+07:00", "getMe_http": 200, "getMe_saat": 0.349, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
-NADI OK: 1795721443 (git push, tanpa REST API)
-NADI OK: 1795721489 (git push, tanpa REST API)
-NADI OK: 1795721535 (git push, tanpa REST API)
-{"masa": "2026-11-27T02:32:21+07:00", "getMe_http": 200, "getMe_saat": 0.348, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+2026-11-27 02:52:59,766 WARNING gateway.lifecycle_ledger: Previous gateway life (pid=3526, started_at=2026-11-26T18:26:41.647419+00:00) exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death, or a process kill issued by the agent or one of its descendants, e.g. a pkill/taskkill of the host interpreter image; see #113667). last_heartbeat_at=2026-11-27T00:23:54.731504+00:00 last_mem={'rss_kib': 332116, 'mem_total_kib': 16366632, 'mem_available_kib': 15024488, 'swap_used_kib': 0} suspected_oom=False
+2026-11-27 02:53:00,083 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-11-27 02:53:00,291 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+NADI OK: 1795747979 (git push, tanpa REST API)
+2026-11-27 02:53:01,511 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-27 02:53:01,512 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-27 02:53:01,513 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-27 02:53:01,517 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-27 02:53:01,518 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-27 02:53:11,644 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-11-27T02:53:13Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
