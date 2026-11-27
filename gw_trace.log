@@ -1,4 +1,4 @@
-=== TRACE 2026-11-27T02:53:43Z run 45930600359 ===
+=== TRACE 2026-11-27T02:55:14Z run 45930600359 ===
 2026-11-27T02:52:12Z === gateway_jalan mula: run=45930600359 masa_jalan=720m ===
 2026-11-27T02:52:12Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f13553957ba04fadb89f4930d4f1f597/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/f13553957ba04fadb89f4930d4f1f597/workspace/plugins/platforms/telegram/adapter.py
@@ -49,3 +49,6 @@ NADI OK: 1795747979 (git push, tanpa REST API)
 2026-11-27 02:53:01,518 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
 2026-11-27 02:53:11,644 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
 2026-11-27T02:53:13Z SAMBUNG OK selepas 20s (bukti: baris 'Connected to Telegram')
+NADI OK: 1795748026 (git push, tanpa REST API)
+{"masa": "2026-11-27T09:54:14+07:00", "getMe_http": 200, "getMe_saat": 0.444, "ok": true, "bot": "hermes_personal_sole_bot", "pending": 0}
+NADI OK: 1795748072 (git push, tanpa REST API)
