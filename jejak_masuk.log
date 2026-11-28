@@ -1,7 +1,7 @@
-=== 2026-11-27T18:12:03Z mula ===
-JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c5314014f5e14006a33305269be65ae2/venv/bin/python
-JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c5314014f5e14006a33305269be65ae2/venv/lib/python3.14/site-packages/telegram/__init__.py
+=== 2026-11-28T02:41:36Z mula ===
+JEJAK-MASUK: python=/home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7531ac49c3c34678a32cd146419fdd75/venv/bin/python
+JEJAK-MASUK: telegram 22.8 -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7531ac49c3c34678a32cd146419fdd75/venv/lib/python3.14/site-packages/telegram/__init__.py
 JEJAK-MASUK: 1 fail PTB dijumpai
-  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/c5314014f5e14006a33305269be65ae2/venv/lib/python3.14/site-packages/telegram/ext/_application.py
+  PATCH OK -> /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/7531ac49c3c34678a32cd146419fdd75/venv/lib/python3.14/site-packages/telegram/ext/_application.py
   sahkan: penanda=True (bait=85224)
 === selesai ===
