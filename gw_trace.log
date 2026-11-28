@@ -1,4 +1,4 @@
-=== TRACE 2026-11-28T17:44:12Z run 46167223056 ===
+=== TRACE 2026-11-28T17:45:43Z run 46167223056 ===
 2026-11-28T16:52:23Z === gateway_jalan mula: run=46167223056 masa_jalan=720m ===
 2026-11-28T16:52:23Z gateway python: /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/236265ae42ef4fcc8ce6e6f2f48217a2/venv/bin/python
 JEJAK ditampal (masuk=True balas=True daftar=False): /home/runner/work/boz-cloud-runner/boz-cloud-runner/home/installs/c39420b2a9392462/environments/236265ae42ef4fcc8ce6e6f2f48217a2/workspace/plugins/platforms/telegram/adapter.py
@@ -184,3 +184,6 @@ RESULT: teraju sihat
 NADI OK: 1795887792 (git push, tanpa REST API)
 2026-11-28T17:43:24Z denyut tick=50 pid=4084
 NADI OK: 1795887839 (git push, tanpa REST API)
+{"masa": "2026-11-29T00:44:44+07:00", "getMe_http": 0, "getMe_saat": 0.216, "ok": false, "ralat": "", "pending": 0}
+NADI OK: 1795887885 (git push, tanpa REST API)
+NADI OK: 1795887931 (git push, tanpa REST API)
